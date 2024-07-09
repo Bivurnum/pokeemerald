@@ -44,4 +44,31 @@ const struct Trainer gBattlePartners[] = {
         .trainerPic = TRAINER_BACK_PIC_RED,
         .trainerName = _("SPENCER"),
     },
+
+    [PARTNER_KYLE_MUSEUM] =
+    {
+        .party = TRAINER_PARTY(sParty_KyleMuseum),
+        .trainerClass = TRAINER_CLASS_RIVAL,
+        .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_MALE,
+        .trainerPic = TRAINER_BACK_PIC_BRENDAN,
+        .trainerName = _("KYLE"),
+    },
+
+    [PARTNER_BREN_MUSEUM] =
+    {
+        .party = TRAINER_PARTY(sParty_BrenMuseum),
+        .trainerClass = TRAINER_CLASS_RIVAL,
+        .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_MALE,
+        .trainerPic = TRAINER_BACK_PIC_BRENDAN,
+        .trainerName = _("BREN"),
+    },
+
+    [PARTNER_SPENCER_MUSEUM] =
+    {
+        .party = TRAINER_PARTY(sParty_SpencerMuseum),
+        .trainerClass = TRAINER_CLASS_RIVAL,
+        .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_MALE,
+        .trainerPic = TRAINER_BACK_PIC_RED,
+        .trainerName = _("SPENCER"),
+    },
 };

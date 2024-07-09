@@ -197,6 +197,10 @@ static const struct TrainerMon sParty_GruntMuseum1[] = {
     {
     .lvl = 15,
     .species = SPECIES_CARVANHA,
+    },
+    {
+    .lvl = 14,
+    .species = SPECIES_POOCHYENA,
     }
 };
 
@@ -206,7 +210,7 @@ static const struct TrainerMon sParty_GruntMuseum2[] = {
     .species = SPECIES_ZUBAT,
     },
     {
-    .lvl = 14,
+    .lvl = 15,
     .species = SPECIES_CARVANHA,
     }
 };

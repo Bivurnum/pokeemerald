@@ -7,5 +7,8 @@
 #define PARTNER_KYLE_WOODS          2
 #define PARTNER_BREN_WOODS          3
 #define PARTNER_SPENCER_WOODS       4
+#define PARTNER_SPENCER_MUSEUM      5
+#define PARTNER_BREN_MUSEUM         6
+#define PARTNER_KYLE_MUSEUM         7
 
 #endif  // GUARD_CONSTANTS_BATTLE_PARTNERS_H

@@ -82,13 +82,10 @@ DewfordTown_EventScript_Woman::
 
 DewfordTown_EventScript_TownSign::
 	msgbox DewfordTown_Text_TownSign, MSGBOX_SIGN
-	setflag FLAG_DELIVERED_STEVEN_LETTER
-	clearflag FLAG_HIDE_OUTDOOR_DEWFORD_RIVALS
 	end
 
 DewfordTown_EventScript_GymSign::
 	msgbox DewfordTown_Text_GymSign, MSGBOX_SIGN
-	setflag FLAG_BADGE02_GET
 	end
 
 DewfordTown_EventScript_HallSign::

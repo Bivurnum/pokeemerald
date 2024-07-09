@@ -57,3 +57,42 @@ static const struct TrainerMon sParty_SpencerPetalburgWoods[] = {
         .lvl = 8,
     }
 };
+
+static const struct TrainerMon sParty_KyleMuseum[] = {
+    {
+    .iv = TRAINER_PARTY_IVS(12, 12, 12, 12, 12, 12),
+    .lvl = 15,
+    .species = SPECIES_CHARMANDER,
+    },
+    {
+    .iv = TRAINER_PARTY_IVS(6, 6, 6, 6, 6, 6),
+    .lvl = 14,
+    .species = SPECIES_NIDORAN_M,
+    }
+};
+
+static const struct TrainerMon sParty_BrenMuseum[] = {
+    {
+    .iv = TRAINER_PARTY_IVS(12, 12, 12, 12, 12, 12),
+    .lvl = 15,
+    .species = SPECIES_PIPLUP,
+    },
+    {
+    .iv = TRAINER_PARTY_IVS(6, 6, 6, 6, 6, 6),
+    .lvl = 14,
+    .species = SPECIES_ZUBAT,
+    }
+};
+
+static const struct TrainerMon sParty_SpencerMuseum[] = {
+    {
+    .iv = TRAINER_PARTY_IVS(12, 12, 12, 12, 12, 12),
+    .lvl = 15,
+    .species = SPECIES_TREECKO,
+    },
+    {
+    .iv = TRAINER_PARTY_IVS(6, 6, 6, 6, 6, 6),
+    .lvl = 14,
+    .species = SPECIES_MACHOP,
+    }
+};
