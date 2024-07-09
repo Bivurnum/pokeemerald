@@ -1,3 +1,5 @@
+const LOCALID_RIVAL2 = 5
+
 raw `
 Route109_SeashoreHouse_MapScripts::
 	map_script MAP_SCRIPT_ON_TRANSITION, Route109_SeashoreHouse_OnTransition
@@ -10,6 +12,7 @@ Route109_SeashoreHouse_OnTransition:
 Route109_SeashoreHouse_EventScript_Owner::
 	lock
 	faceplayer
+	call Route109_SeashoreHouse_EventScript_CheckTrainersCompletion
 	goto_if_set FLAG_RECEIVED_6_SODA_POP, Route109_SeashoreHouse_EventScript_AlreadyReceivedSodaPop
 	goto_if_set FLAG_DEFEATED_SEASHORE_HOUSE, Route109_SeashoreHouse_EventScript_DefeatedTrainers
 	goto_if_set FLAG_TEMP_2, Route109_SeashoreHouse_EventScript_AlreadyGaveIntroduction
@@ -71,34 +74,56 @@ Route109_SeashoreHouse_EventScript_NotEnoughSpace::
 	end
 
 Route109_SeashoreHouse_EventScript_Dwayne::
-	trainerbattle_single TRAINER_DWAYNE, Route109_SeashoreHouse_Text_DwayneIntro, Route109_SeashoreHouse_Text_DwayneDefeated, Route109_SeashoreHouse_EventScript_CheckTrainersCompletion
+	trainerbattle_single TRAINER_DWAYNE, Route109_SeashoreHouse_Text_DwayneIntro, Route109_SeashoreHouse_Text_DwayneDefeated, Route109_SeashoreHouse_EventScript_CheckTrainersCompletionAfterBattle
 	msgbox Route109_SeashoreHouse_Text_DwaynePostBattle, MSGBOX_AUTOCLOSE
 	end
 
 Route109_SeashoreHouse_EventScript_Johanna::
-	trainerbattle_single TRAINER_JOHANNA, Route109_SeashoreHouse_Text_JohannaIntro, Route109_SeashoreHouse_Text_JohannaDefeated, Route109_SeashoreHouse_EventScript_CheckTrainersCompletion
+	trainerbattle_single TRAINER_JOHANNA, Route109_SeashoreHouse_Text_JohannaIntro, Route109_SeashoreHouse_Text_JohannaDefeated, Route109_SeashoreHouse_EventScript_CheckTrainersCompletionAfterBattle
 	msgbox Route109_SeashoreHouse_Text_JohannaPostBattle, MSGBOX_AUTOCLOSE
 	end
 
 Route109_SeashoreHouse_EventScript_Simon::
-	trainerbattle_single TRAINER_SIMON, Route109_SeashoreHouse_Text_SimonIntro, Route109_SeashoreHouse_Text_SimonDefeated, Route109_SeashoreHouse_EventScript_CheckTrainersCompletion
+	trainerbattle_single TRAINER_SIMON, Route109_SeashoreHouse_Text_SimonIntro, Route109_SeashoreHouse_Text_SimonDefeated, Route109_SeashoreHouse_EventScript_CheckTrainersCompletionAfterBattle
 	msgbox Route109_SeashoreHouse_Text_SimonPostBattle, MSGBOX_AUTOCLOSE
 	end
 `
 
-script Route109_SeashoreHouse_EventScript_Rival2 {
+script Route109_SeashoreHouse_EventScript_Rival2Trigger {
+	lock
+	playbgm (MUS_ENCOUNTER_BRENDAN, FALSE)
+	applymovement (LOCALID_RIVAL2, Common_Movement_ExclamationMark)
+	waitmovement (0)
+	delay (60)
+	applymovement (LOCALID_RIVAL2, Route109_SeashoreHouse_Movement_Rival2Approach)
+	waitmovement (0)
+	applymovement (OBJ_EVENT_ID_PLAYER, Common_Movement_FaceLeft)
+	waitmovement (0)
 	checkfriendchoice
-		switch (var(VAR_RESULT)) {
-			case SPENCER:
-				trainerbattle_single (TRAINER_KYLE_SEASHORE, Route109_SeashoreHouse_Text_KyleIntro, Route109_SeashoreHouse_Text_KyleDefeated, Route109_SeashoreHouse_EventScript_CheckTrainersCompletion)
-				msgbox (Route109_SeashoreHouse_Text_KylePostBattle, MSGBOX_AUTOCLOSE)
-			case BREN:
-				trainerbattle_single (TRAINER_SPENCER_SEASHORE, Route109_SeashoreHouse_Text_SpencerIntro, Route109_SeashoreHouse_Text_SpencerDefeated, Route109_SeashoreHouse_EventScript_CheckTrainersCompletion)
-				msgbox (Route109_SeashoreHouse_Text_SpencerPostBattle, MSGBOX_AUTOCLOSE)
-			case KYLE:
-				trainerbattle_single (TRAINER_BREN_SEASHORE, Route109_SeashoreHouse_Text_BrenIntro, Route109_SeashoreHouse_Text_BrenDefeated, Route109_SeashoreHouse_EventScript_CheckTrainersCompletion)
-				msgbox (Route109_SeashoreHouse_Text_BrenPostBattle, MSGBOX_AUTOCLOSE)
-		}
+	switch (var(VAR_RESULT)) {
+		case SPENCER:
+			msgbox (Route109_SeashoreHouse_Text_KyleIntro, MSGBOX_DEFAULT)
+			trainerbattle_no_intro (TRAINER_KYLE_SEASHORE, Route109_SeashoreHouse_Text_KyleDefeated)
+		case BREN:
+			msgbox (Route109_SeashoreHouse_Text_SpencerIntro, MSGBOX_DEFAULT)
+			trainerbattle_no_intro (TRAINER_SPENCER_SEASHORE, Route109_SeashoreHouse_Text_SpencerDefeated)
+		case KYLE:
+			msgbox (Route109_SeashoreHouse_Text_BrenIntro, MSGBOX_DEFAULT)
+			trainerbattle_no_intro (TRAINER_BREN_SEASHORE, Route109_SeashoreHouse_Text_BrenDefeated)
+	}
+	setvar (VAR_SEASHORE_HOUSE_RIVAL_STATE, 1)
+	call (Route109_SeashoreHouse_EventScript_CheckTrainersCompletion)
+	release
+	end
+}
+
+movement Route109_SeashoreHouse_Movement_Rival2Approach {
+	walk_right
+}
+
+script Route109_SeashoreHouse_EventScript_CheckTrainersCompletionAfterBattle {
+	call (Route109_SeashoreHouse_EventScript_CheckTrainersCompletion)
+	release
 	end
 }
 
@@ -119,11 +144,27 @@ script Route109_SeashoreHouse_EventScript_CheckTrainersCompletion {
 		}
 	}
 	setflag (FLAG_DEFEATED_SEASHORE_HOUSE)
-	release
-	end
+	return
 }
 
 script Route109_SeashoreHouse_EventScript_TrainersNotCompleted {
+	return
+}
+
+script Route109_SeashoreHouse_EventScript_Rival2 {
+	lock
+	applymovement (LOCALID_RIVAL2, Common_Movement_FacePlayer)
+	waitmovement (0)
+	checkfriendchoice
+	switch (var(VAR_RESULT)) {
+			case SPENCER:
+				msgbox (Route109_SeashoreHouse_Text_KylePostBattle, MSGBOX_DEFAULT)
+			case BREN:
+				msgbox (Route109_SeashoreHouse_Text_SpencerPostBattle, MSGBOX_DEFAULT)
+			case KYLE:
+				msgbox (Route109_SeashoreHouse_Text_BrenPostBattle, MSGBOX_DEFAULT)
+	}
+	closemessage
 	release
 	end
 }

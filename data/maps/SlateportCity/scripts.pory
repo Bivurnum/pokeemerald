@@ -1,3 +1,5 @@
+const LOCALID_RIVAL1 = 36
+
 raw `
 .set LOCALID_FAT_MAN, 1
 .set LOCALID_MAN_1, 2
@@ -19,6 +21,7 @@ raw `
 .set LOCALID_GRUNT_9, 31
 .set LOCALID_GRUNT_11, 33
 .set LOCALID_SCOTT, 35
+.set LOCALID_RIVAL1, 36
 
 @ Note: LOCALID_SLATEPORT_ENERGY_GURU is a local id for this map used elsewhere. It's defined in event_objects.h
 
@@ -367,7 +370,75 @@ SlateportCity_EventScript_PokefanF::
 SlateportCity_EventScript_Man2::
 	msgbox SlateportCity_Text_BattleTentBuiltRecently, MSGBOX_NPC
 	end
+`
 
+script SlateportCity_EventScript_Rival1 {
+	lock
+	applymovement (LOCALID_RIVAL1, Common_Movement_FacePlayer)
+	waitmovement (0)
+	checkfriendchoice
+	if (var(VAR_TEMP_5) != 5) {
+		switch (var(VAR_RESULT)) {
+			case SPENCER:
+				msgbox (SlateportCity_Text_Bren, MSGBOX_DEFAULT)
+			case BREN:
+				msgbox (SlateportCity_Text_Kyle, MSGBOX_DEFAULT)
+			case KYLE:
+				msgbox (SlateportCity_Text_Spencer, MSGBOX_DEFAULT)
+		}
+		setvar(VAR_TEMP_5, 5)
+	}
+	else {
+		switch (var(VAR_RESULT)) {
+			case SPENCER:
+				msgbox (SlateportCity_Text_BrenTalked, MSGBOX_DEFAULT)
+			case BREN:
+				msgbox (SlateportCity_Text_KyleTalked, MSGBOX_DEFAULT)
+			case KYLE:
+				msgbox (SlateportCity_Text_SpencerTalked, MSGBOX_DEFAULT)
+		}
+	}
+	release
+	end
+}
+
+text SlateportCity_Text_Spencer {
+	format ("Man, this museum must be really popular!\N"
+		"I can't wait to get in!\p"
+		"These guys look kind of familiar to me, though…")
+}
+
+text SlateportCity_Text_Bren {
+	format ("Man, this museum must be really popular!\N"
+		"I can't wait to get in!\p"
+		"These guys look kind of familiar to me, though…")
+}
+
+text SlateportCity_Text_Kyle {
+	format ("Man, this museum must be really popular!\N"
+		"I can't wait to get in!\p"
+		"These guys look kind of familiar to me, though…")
+}
+
+text SlateportCity_Text_SpencerTalked {
+	format ("I can't quite put my finger on it…\N"
+		"… … …\p"
+		"Oh, well.")
+}
+
+text SlateportCity_Text_BrenTalked {
+	format ("I can't quite put my finger on it…\N"
+		"… … …\p"
+		"Oh, well.")
+}
+
+text SlateportCity_Text_KyleTalked {
+	format ("I can't quite put my finger on it…\N"
+		"… … …\p"
+		"Oh, well.")
+}
+
+raw `
 SlateportCity_EventScript_AquaGrunt1::
 	lock
 	faceplayer
