@@ -2213,3 +2213,48 @@
 	.2byte \slot
 	.endm
 
+	@Chooses dialogue for RIVAL1 based off checkfriendchoice
+	@texta = Spencer talking, textb = Bren talking, textc = Kyle talking
+	.macro rival1talk texta:req, textb:req, textc:req, type=MSGBOX_DEFAULT
+		checkfriendchoice
+		goto_if_eq VAR_RESULT, 0, 1f
+		goto_if_eq VAR_RESULT, 1, 2f
+		goto_if_eq VAR_RESULT, 2, 3f
+		1:
+			loadword 0, \texta
+			callstd \type
+			goto 4f
+		2:
+			loadword 0, \textc
+			callstd \type
+			goto 4f
+		3:
+			loadword 0, \textb
+			callstd \type
+			goto 4f
+		4:
+		closemessage
+		.endm
+
+	@Chooses dialogue for RIVAL2 based off checkfriendchoice
+	@texta = Spencer talking, textb = Bren talking, textc = Kyle talking
+	.macro rival2talk texta:req, textb:req, textc:req, type=MSGBOX_DEFAULT
+		checkfriendchoice
+		goto_if_eq VAR_RESULT, 0, 1f
+		goto_if_eq VAR_RESULT, 1, 2f
+		goto_if_eq VAR_RESULT, 2, 3f
+		1:
+			loadword 0, \textb
+			callstd \type
+			goto 4f
+		2:
+			loadword 0, \texta
+			callstd \type
+			goto 4f
+		3:
+			loadword 0, \textc
+			callstd \type
+			goto 4f
+		4:
+		closemessage
+		.endm

@@ -2,42 +2,54 @@ const LOCALID_CHALLENGE_BIKER = 21
 const LOCALID_RIVAL2 = 28
 const LOCALID_BIRCH = 35
 const LOCALID_RIVAL1 = 36
+const LOCALID_RIVAL1FINDER = 37
 
 raw `
 .set LOCALID_CHALLENGE_BIKER, 21
 .set LOCALID_RIVAL2, 28
 .set LOCALID_BIRCH, 35
 .set LOCALID_RIVAL1, 36
+.set LOCALID_RIVAL1FINDER, 37
+`
 
-Route110_MapScripts::
-	map_script MAP_SCRIPT_ON_RESUME, Route110_OnResume
-	map_script MAP_SCRIPT_ON_TRANSITION, Route110_OnTransition
-	map_script MAP_SCRIPT_ON_FRAME_TABLE, Route110_OnFrame
-	.byte 0
+mapscripts Route110_MapScripts {
+	MAP_SCRIPT_ON_RESUME {
+		special (UpdateCyclingRoadState)
+	}
+	MAP_SCRIPT_ON_TRANSITION {
+		call (Common_EventScript_SetupRivalGfxId)
+		call_if_eq (VAR_CYCLING_CHALLENGE_STATE, 1, Route110_EventScript_SaveCyclingMusic)
+		call_if_eq (VAR_ROUTE110_STATE, 0, Route110_EventScript_SetUpItemfinderScene)
+		call_if_ge (VAR_ROUTE110_STATE, 1, Route110_EventScript_SetUpPostItemfinderRivals)
+	}
+	MAP_SCRIPT_ON_FRAME_TABLE [
+		VAR_CYCLING_CHALLENGE_STATE, 1: Route110_EventScript_BeginCylcingRoadChallenge
+	]
+}
 
-Route110_OnResume:
-	special UpdateCyclingRoadState
-	end
-
-Route110_OnTransition:
-	call Common_EventScript_SetupRivalGfxId
-	call Common_EventScript_SetupRivalOnBikeGfxId
-	call_if_eq VAR_CYCLING_CHALLENGE_STATE, 1, Route110_EventScript_SaveCyclingMusic
-	end
-
-Route110_EventScript_SaveCyclingMusic::
-	savebgm MUS_CYCLING
+script Route110_EventScript_SaveCyclingMusic {
+	savebgm (MUS_CYCLING)
 	return
+}
 
-Route110_OnFrame:
-	map_script_2 VAR_CYCLING_CHALLENGE_STATE, 1, Route110_EventScript_BeginCylcingRoadChallenge
-	.2byte 0
+script Route110_EventScript_SetUpItemfinderScene {
+	setobjectxyperm (LOCALID_RIVAL1, 33, 62)
+	setobjectxyperm (LOCALID_RIVAL2, 34, 54)
+	setobjectmovementtype (LOCALID_RIVAL2, MOVEMENT_TYPE_FACE_LEFT_AND_RIGHT)
+}
 
-Route110_EventScript_BeginCylcingRoadChallenge::
-	special Special_BeginCyclingRoadChallenge
-	setvar VAR_CYCLING_CHALLENGE_STATE, 2
+script Route110_EventScript_SetUpPostItemfinderRivals {
+	setobjectxyperm (LOCALID_RIVAL2, 3, 32)
+	setobjectmovementtype (LOCALID_RIVAL2, MOVEMENT_TYPE_LOOK_AROUND)
+}
+
+script Route110_EventScript_BeginCylcingRoadChallenge {
+	special (Special_BeginCyclingRoadChallenge)
+	setvar (VAR_CYCLING_CHALLENGE_STATE, 2)
 	return
+}
 
+raw `
 Route110_EventScript_AquaGrunt1::
 	lock
 	faceplayer
@@ -403,16 +415,9 @@ script Route110_EventScript_RivalScene {
 			applymovement (LOCALID_RIVAL2, Route110_Movement_RivalApproachPlayer3)
 	}
 	waitmovement (0)
-	checkfriendchoice
-	switch (var(VAR_RESULT)) {
-		case SPENCER:
-			msgbox (Route110_Text_KyleEvolved, MSGBOX_DEFAULT)
-		case BREN:
-			msgbox (Route110_Text_SpencerEvolved, MSGBOX_DEFAULT)
-		case KYLE:
-			msgbox (Route110_Text_BrenEvolved, MSGBOX_DEFAULT)
-	}
-	closemessage
+	rival2talk (Route110_Text_SpencerEvolved,
+				Route110_Text_BrenEvolved,
+				Route110_Text_KyleEvolved)
 	if (var(VAR_0x8008) == 1) {
 		setobjectxyperm (LOCALID_RIVAL1, 35, 62)
 	}
@@ -433,16 +438,9 @@ script Route110_EventScript_RivalScene {
 		applymovement (LOCALID_RIVAL1, Rival1ExtraStep)
 		waitmovement (0)
 	}
-	checkfriendchoice
-	switch (var(VAR_RESULT)) {
-		case SPENCER:
-			msgbox (Route110_Text_BrenAlmostMissedYou, MSGBOX_DEFAULT)
-		case BREN:
-			msgbox (Route110_Text_KyleAlmostMissedYou, MSGBOX_DEFAULT)
-		case KYLE:
-			msgbox (Route110_Text_SpencerAlmostMissedYou, MSGBOX_DEFAULT)
-	}
-	closemessage
+	rival1talk (Route110_Text_SpencerAlmostMissedYou,
+				Route110_Text_BrenAlmostMissedYou,
+				Route110_Text_KyleAlmostMissedYou)
 	if (var(VAR_0x8008) == 1) {
 		applymovement (LOCALID_RIVAL2, Common_Movement_BeginTalkRight)
 	}
@@ -450,16 +448,9 @@ script Route110_EventScript_RivalScene {
 		applymovement (LOCALID_RIVAL2, Common_Movement_BeginTalkLeft)
 	}
 	waitmovement (0)
-	checkfriendchoice
-	switch (var(VAR_RESULT)) {
-		case SPENCER:
-			msgbox (Route110_Text_KyleBoughtItemfinders, MSGBOX_DEFAULT)
-		case BREN:
-			msgbox (Route110_Text_SpencerBoughtItemfinders, MSGBOX_DEFAULT)
-		case KYLE:
-			msgbox (Route110_Text_BrenBoughtItemfinders, MSGBOX_DEFAULT)
-	}
-	closemessage
+	rival2talk (Route110_Text_SpencerBoughtItemfinders,
+				Route110_Text_BrenBoughtItemfinders,
+				Route110_Text_KyleBoughtItemfinders)
 	delay (16)
 	if (var(VAR_0x8008) == 1) {
 		applymovement (LOCALID_RIVAL2, Common_Movement_BeginTalkRight)
@@ -476,16 +467,9 @@ script Route110_EventScript_RivalScene {
 	closemessage
 	delay (30)
 	giveitem (ITEM_DOWSING_MACHINE)
-	checkfriendchoice
-	switch (var(VAR_RESULT)) {
-		case SPENCER:
-			msgbox (Route110_Text_KyleLetsLookAround, MSGBOX_DEFAULT)
-		case BREN:
-			msgbox (Route110_Text_SpencerLetsLookAround, MSGBOX_DEFAULT)
-		case KYLE:
-			msgbox (Route110_Text_BrenLetsLookAround, MSGBOX_DEFAULT)
-	}
-	closemessage
+	rival2talk (Route110_Text_SpencerLetsLookAround,
+				Route110_Text_BrenLetsLookAround,
+				Route110_Text_KyleLetsLookAround)
 	if (var(VAR_0x8008) == 1) {
 		applymovement (OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterRight)
 		applymovement (LOCALID_RIVAL2, Common_Movement_WalkInPlaceFasterRight)
@@ -497,28 +481,20 @@ script Route110_EventScript_RivalScene {
 		applymovement (LOCALID_RIVAL1, Common_Movement_BeginTalkRight)
 	}
 	waitmovement (0)
-	checkfriendchoice
-	switch (var(VAR_RESULT)) {
-		case SPENCER:
-			msgbox (Route110_Text_BrenLetsGo, MSGBOX_DEFAULT)
-		case BREN:
-			msgbox (Route110_Text_KyleLetsGo, MSGBOX_DEFAULT)
-		case KYLE:
-			msgbox (Route110_Text_SpencerLetsGo, MSGBOX_DEFAULT)
-	}
-	closemessage
+	rival1talk (Route110_Text_SpencerLetsGo,
+				Route110_Text_BrenLetsGo,
+				Route110_Text_KyleLetsGo)
 	applymovement (OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterUp)
 	applymovement (LOCALID_RIVAL1, Route110_Movement_Rival1Exit)
 	applymovement (LOCALID_RIVAL2, Route110_Movement_Rival2Exit)
 	waitmovement (0)
 	removeobject (LOCALID_RIVAL1)
-	removeobject (LOCALID_RIVAL2)
-	setobjectxyperm (LOCALID_RIVAL1, 32, 39)
+	setobjectxy (LOCALID_RIVAL2, 3, 30)
 	setobjectxyperm (LOCALID_RIVAL2, 3, 30)
 	setobjectmovementtype (LOCALID_RIVAL2, MOVEMENT_TYPE_LOOK_AROUND)
 	setvar (VAR_ROUTE110_STATE, 1)
-	clearflag (FLAG_HIDE_ROUTE_110_RIVAL1)
-	clearflag (FLAG_HIDE_ROUTE_110_RIVAL)
+	setflag (FLAG_HIDE_ROUTE_103_RIVAL1_LATER)
+	fadedefaultbgm
 	releaseall
 	end
 }
@@ -533,36 +509,22 @@ script Route110_EventScript_Rival1 {
 		waitse
 		playse (SE_ITEMFINDER)
 		waitse
-		applymovement (LOCALID_RIVAL1, Route110_Movement_Rival1Itemfinder)
+		applymovement (LOCALID_RIVAL1FINDER, Route110_Movement_Rival1Itemfinder)
 		waitmovement (0)
-		applymovement (LOCALID_RIVAL1, Common_Movement_FacePlayer)
+		applymovement (LOCALID_RIVAL1FINDER, Common_Movement_FacePlayer)
 		waitmovement (0)
-		checkfriendchoice
-		switch (var(VAR_RESULT)) {
-			case SPENCER:
-				msgbox (Route110_Text_BrenCantFindItem, MSGBOX_DEFAULT)
-			case BREN:
-				msgbox (Route110_Text_KyleCantFindItem, MSGBOX_DEFAULT)
-			case KYLE:
-				msgbox (Route110_Text_SpencerCantFindItem, MSGBOX_DEFAULT)
-		}
-		closemessage
-		applymovement (LOCALID_RIVAL1, Common_Movement_WalkInPlaceFasterRight)
+		rival1talk (Route110_Text_SpencerCantFindItem,
+					Route110_Text_BrenCantFindItem,
+					Route110_Text_KyleCantFindItem)
+		applymovement (LOCALID_RIVAL1FINDER, Common_Movement_WalkInPlaceFasterRight)
 		waitmovement (0)
 	}
 	else {
-		applymovement (LOCALID_RIVAL1, Common_Movement_FacePlayer)
+		applymovement (LOCALID_RIVAL1FINDER, Common_Movement_FacePlayer)
 		waitmovement (0)
-		checkfriendchoice
-		switch (var(VAR_RESULT)) {
-			case SPENCER:
-				msgbox (Route110_Text_BrenStupidMachine, MSGBOX_DEFAULT)
-			case BREN:
-				msgbox (Route110_Text_KyleStupidMachine, MSGBOX_DEFAULT)
-			case KYLE:
-				msgbox (Route110_Text_SpencerStupidMachine, MSGBOX_DEFAULT)
-		}
-		closemessage
+		rival1talk (Route110_Text_SpencerStupidMachine,
+					Route110_Text_BrenStupidMachine,
+					Route110_Text_KyleStupidMachine)
 	}
 	release
 	end
@@ -591,7 +553,7 @@ movement Route110_Movement_PlayerWatchRival1RunIn1 {
 	delay_8
 	walk_in_place_up
 	delay_4 * 3
-	delay_8 * 4
+	delay_16 * 4
 	walk_in_place_faster_right
 }
 
@@ -603,7 +565,7 @@ movement Route110_Movement_Rival2WatchRival1RunIn1 {
 	delay_8
 	walk_in_place_up
 	delay_4 * 2
-	delay_8 * 4
+	delay_16 * 4
 	walk_in_place_faster_right
 }
 
@@ -621,7 +583,7 @@ movement Route110_Movement_PlayerWatchRival1RunIn2and3 {
 	delay_8
 	walk_in_place_up
 	delay_4 * 3
-	delay_8 * 4
+	delay_16 * 4
 	walk_in_place_faster_left
 }
 
@@ -633,7 +595,7 @@ movement Route110_Movement_Rival2WatchRival1RunIn2and3 {
 	delay_8
 	walk_in_place_up
 	delay_4 * 2
-	delay_8 * 4
+	delay_16 * 4
 	walk_in_place_faster_left
 }
 
