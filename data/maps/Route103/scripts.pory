@@ -180,27 +180,16 @@ script Route103_EventScript_Rival1OtherSide {
 	lock
 	applymovement (LOCALID_RIVAL1LATER, Common_Movement_FacePlayer)
 	waitmovement (0)
-	checkfriendchoice
 	if (var(VAR_TEMP_5) != 5) {
-		switch (var(VAR_RESULT)) {
-			case SPENCER:
-				msgbox (Route103_Text_BrenLater, MSGBOX_DEFAULT)
-			case BREN:
-				msgbox (Route103_Text_KyleLater, MSGBOX_DEFAULT)
-			case KYLE:
-				msgbox (Route103_Text_SpencerLater, MSGBOX_DEFAULT)
-		}
+		rival1talk (Route103_Text_SpencerLater,
+					Route103_Text_BrenLater,
+					Route103_Text_KyleLater)
 		setvar (VAR_TEMP_5, 5)
 	}
 	else {
-		switch (var(VAR_RESULT)) {
-			case SPENCER:
-				msgbox (Route103_Text_BrenLaterTalked, MSGBOX_DEFAULT)
-			case BREN:
-				msgbox (Route103_Text_KyleLaterTalked, MSGBOX_DEFAULT)
-			case KYLE:
-				msgbox (Route103_Text_SpencerLaterTalked, MSGBOX_DEFAULT)
-		}
+		rival1talk (Route103_Text_SpencerLaterTalked,
+					Route103_Text_BrenLaterTalked,
+					Route103_Text_KyleLaterTalked)
 	}
 	closemessage
 	applymovement (LOCALID_RIVAL1LATER, Common_Movement_FaceLeft)

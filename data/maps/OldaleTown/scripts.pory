@@ -346,16 +346,9 @@ script OldaleTown_EventScript_RivalBattleBren {
 }
 
 script OldaleTown_EventScript_RivalFinish {
-	checkfriendchoice
-	switch (var(VAR_RESULT)) {
-		case SPENCER:
-			msgbox (OldaleTown_Text_GoToLabKyle, MSGBOX_DEFAULT)
-		case BREN:
-			msgbox (OldaleTown_Text_GoToLabSpencer, MSGBOX_DEFAULT)
-		case KYLE:
-			msgbox (OldaleTown_Text_GoToLabBren, MSGBOX_DEFAULT)
-	}
-	closemessage
+	rival2talk (OldaleTown_Text_GoToLabSpencer,
+				OldaleTown_Text_GoToLabBren,
+				OldaleTown_Text_GoToLabKyle)
 	call_if_eq (VAR_0x8009, 0, OldaleTown_EventScript_DoExitMovement1)
 	call_if_eq (VAR_0x8009, 1, OldaleTown_EventScript_DoExitMovement2)
 	fadedefaultbgm

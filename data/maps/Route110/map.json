@@ -391,7 +391,7 @@
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "0x0",
+      "script": "Route110_EventScript_Rival2",
       "flag": "FLAG_HIDE_ROUTE_110_RIVAL"
     },
     {
@@ -637,6 +637,33 @@
       "var": "VAR_REGISTER_BIRCH_STATE",
       "var_value": "1",
       "script": "Route110_EventScript_BirchScene4"
+    },
+    {
+      "type": "trigger",
+      "x": 3,
+      "y": 19,
+      "elevation": 0,
+      "var": "VAR_ROUTE110_STATE",
+      "var_value": "1",
+      "script": "Route110_EventScript_EndRouteTrigger1"
+    },
+    {
+      "type": "trigger",
+      "x": 4,
+      "y": 19,
+      "elevation": 0,
+      "var": "VAR_ROUTE110_STATE",
+      "var_value": "1",
+      "script": "Route110_EventScript_EndRouteTrigger2"
+    },
+    {
+      "type": "trigger",
+      "x": 5,
+      "y": 19,
+      "elevation": 0,
+      "var": "VAR_ROUTE110_STATE",
+      "var_value": "1",
+      "script": "Route110_EventScript_EndRouteTrigger3"
     }
   ],
   "bg_events": [

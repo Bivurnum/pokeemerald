@@ -155,16 +155,9 @@ script Route109_SeashoreHouse_EventScript_Rival2 {
 	lock
 	applymovement (LOCALID_RIVAL2, Common_Movement_FacePlayer)
 	waitmovement (0)
-	checkfriendchoice
-	switch (var(VAR_RESULT)) {
-			case SPENCER:
-				msgbox (Route109_SeashoreHouse_Text_KylePostBattle, MSGBOX_DEFAULT)
-			case BREN:
-				msgbox (Route109_SeashoreHouse_Text_SpencerPostBattle, MSGBOX_DEFAULT)
-			case KYLE:
-				msgbox (Route109_SeashoreHouse_Text_BrenPostBattle, MSGBOX_DEFAULT)
-	}
-	closemessage
+	rival2talk (Route109_SeashoreHouse_Text_SpencerPostBattle,
+				Route109_SeashoreHouse_Text_BrenPostBattle,
+				Route109_SeashoreHouse_Text_KylePostBattle)
 	release
 	end
 }

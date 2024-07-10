@@ -20,16 +20,9 @@ script SlateportCity_OceanicMuseum_2F_EventScript_Rival1 {
 	lock
 	applymovement (LOCALID_RIVAL1, Common_Movement_FacePlayer)
 	waitmovement (0)
-	checkfriendchoice
-	switch (var(VAR_RESULT)) {
-		case SPENCER:
-			msgbox (SlateportCity_OceanicMuseum_2F_BrenFoundStern, MSGBOX_DEFAULT)
-		case BREN:
-			msgbox (SlateportCity_OceanicMuseum_2F_KyleFoundStern, MSGBOX_DEFAULT)
-		case KYLE:
-			msgbox (SlateportCity_OceanicMuseum_2F_SpencerFoundStern, MSGBOX_DEFAULT)
-	}
-	closemessage
+	rival1talk (SlateportCity_OceanicMuseum_2F_SpencerFoundStern,
+				SlateportCity_OceanicMuseum_2F_BrenFoundStern,
+				SlateportCity_OceanicMuseum_2F_KyleFoundStern)
 	applymovement (LOCALID_RIVAL1, Common_Movement_FaceLeft)
 	waitmovement (0)
 	release
@@ -83,15 +76,9 @@ script SlateportCity_OceanicMuseum_2F_EventScript_CaptStern {
 	waitmovement (0)
 	applymovement (OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterUp)
 	waitmovement (0)
-	checkfriendchoice
-	switch (var(VAR_RESULT)) {
-		case SPENCER:
-			msgbox (SlateportCity_OceanicMuseum_2F_BrenBattleTogether, MSGBOX_DEFAULT)
-		case BREN:
-			msgbox (SlateportCity_OceanicMuseum_2F_KyleBattleTogether, MSGBOX_DEFAULT)
-		case KYLE:
-			msgbox (SlateportCity_OceanicMuseum_2F_SpencerBattleTogether, MSGBOX_DEFAULT)
-	}
+	rival1talk (SlateportCity_OceanicMuseum_2F_SpencerBattleTogether,
+				SlateportCity_OceanicMuseum_2F_BrenBattleTogether,
+				SlateportCity_OceanicMuseum_2F_KyleBattleTogether)
 	call (SlateportCity_OceanicMuseum_2F_EventScript_PrepareForGruntBattle)
 	applymovement (LOCALID_GRUNT_1, SlateportCity_OceanicMuseum_2F_Movement_GruntDefeated)
 	applymovement (LOCALID_GRUNT_2, SlateportCity_OceanicMuseum_2F_Movement_GruntDefeated)
@@ -154,16 +141,9 @@ script SlateportCity_OceanicMuseum_2F_EventScript_CaptStern {
 	applymovement (OBJ_EVENT_ID_PLAYER, Common_Movement_FaceUp)
 	applymovement (LOCALID_RIVAL1, Common_Movement_BeginTalkDown)
 	waitmovement (0)
-	checkfriendchoice
-	switch (var(VAR_RESULT)) {
-		case SPENCER:
-			msgbox (SlateportCity_OceanicMuseum_2F_BrenAfterStern, MSGBOX_DEFAULT)
-		case BREN:
-			msgbox (SlateportCity_OceanicMuseum_2F_KyleAfterStern, MSGBOX_DEFAULT)
-		case KYLE:
-			msgbox (SlateportCity_OceanicMuseum_2F_SpencerAfterStern, MSGBOX_DEFAULT)
-	}
-	closemessage
+	rival1talk (SlateportCity_OceanicMuseum_2F_SpencerAfterStern,
+				SlateportCity_OceanicMuseum_2F_BrenAfterStern,
+				SlateportCity_OceanicMuseum_2F_KyleAfterStern)
 	applymovement (OBJ_EVENT_ID_PLAYER, Common_Movement_FaceLeft)
 	applymovement (LOCALID_RIVAL1, SlateportCity_OceanicMuseum_2F_Movement_Rival1Leaves)
 	waitmovement (0)

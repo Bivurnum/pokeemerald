@@ -376,27 +376,16 @@ script SlateportCity_EventScript_Rival1 {
 	lock
 	applymovement (LOCALID_RIVAL1, Common_Movement_FacePlayer)
 	waitmovement (0)
-	checkfriendchoice
 	if (var(VAR_TEMP_5) != 5) {
-		switch (var(VAR_RESULT)) {
-			case SPENCER:
-				msgbox (SlateportCity_Text_Bren, MSGBOX_DEFAULT)
-			case BREN:
-				msgbox (SlateportCity_Text_Kyle, MSGBOX_DEFAULT)
-			case KYLE:
-				msgbox (SlateportCity_Text_Spencer, MSGBOX_DEFAULT)
-		}
+		rival1talk (SlateportCity_Text_Spencer,
+					SlateportCity_Text_Bren,
+					SlateportCity_Text_Kyle)
 		setvar(VAR_TEMP_5, 5)
 	}
 	else {
-		switch (var(VAR_RESULT)) {
-			case SPENCER:
-				msgbox (SlateportCity_Text_BrenTalked, MSGBOX_DEFAULT)
-			case BREN:
-				msgbox (SlateportCity_Text_KyleTalked, MSGBOX_DEFAULT)
-			case KYLE:
-				msgbox (SlateportCity_Text_SpencerTalked, MSGBOX_DEFAULT)
-		}
+		rival1talk (SlateportCity_Text_SpencerTalked,
+					SlateportCity_Text_BrenTalked,
+					SlateportCity_Text_KyleTalked)
 	}
 	release
 	end
