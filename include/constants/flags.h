@@ -672,7 +672,7 @@
 #define FLAG_CHEAT_START                        0x275
 #define FLAG_HIDE_OUTDOOR_DEWFORD_RIVALS        0x276
 #define FLAG_HIDE_SEASHORE_HOUSE_RIVAL2         0x277
-#define FLAG_UNUSED_0x278  0x278 // Unused Flag
+#define FLAG_HIDE_ROUTE_110_RIVAL1              0x278
 #define FLAG_UNUSED_0x279  0x279 // Unused Flag
 #define FLAG_UNUSED_0x27A  0x27A // Unused Flag
 #define FLAG_UNUSED_0x27B  0x27B // Unused Flag
@@ -966,7 +966,7 @@
 #define FLAG_HIDE_ROUTE_110_RIVAL                                   0x397
 #define FLAG_HIDE_CHAMPIONS_ROOM_RIVAL                              0x398
 #define FLAG_HIDE_CHAMPIONS_ROOM_BIRCH                              0x399
-#define FLAG_HIDE_ROUTE_110_RIVAL_ON_BIKE                           0x39A
+#define FLAG_HIDE_ROUTE_103_RIVAL1_LATER                            0x39A
 #define FLAG_HIDE_ROUTE_119_RIVAL_ON_BIKE                           0x39B
 #define FLAG_HIDE_AQUA_HIDEOUT_GRUNTS                               0x39C
 #define FLAG_HIDE_LILYCOVE_MOTEL_GAME_DESIGNERS                     0x39D

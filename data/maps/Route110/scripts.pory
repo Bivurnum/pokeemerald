@@ -1,8 +1,13 @@
+const LOCALID_CHALLENGE_BIKER = 21
+const LOCALID_RIVAL2 = 28
+const LOCALID_BIRCH = 35
+const LOCALID_RIVAL1 = 36
+
 raw `
 .set LOCALID_CHALLENGE_BIKER, 21
-.set LOCALID_RIVAL, 28
-.set LOCALID_RIVAL_ON_BIKE, 29
-.set LOCALID_BIRCH, 36
+.set LOCALID_RIVAL2, 28
+.set LOCALID_BIRCH, 35
+.set LOCALID_RIVAL1, 36
 
 Route110_MapScripts::
 	map_script MAP_SCRIPT_ON_RESUME, Route110_OnResume
@@ -358,224 +363,470 @@ Route110_EventScript_EndChallenge::
 	savebgm MUS_DUMMY
 	fadedefaultbgm
 	return
+`
 
-Route110_EventScript_RivalTrigger1::
-	setvar VAR_0x8008, 1
-	goto Route110_EventScript_RivalScene
+script Route110_EventScript_RivalTrigger1 {
+	setvar (VAR_0x8008, 1)
+	goto (Route110_EventScript_RivalScene)
 	end
+}
 
-Route110_EventScript_RivalTrigger2::
-	setvar VAR_0x8008, 2
-	goto Route110_EventScript_RivalScene
+script Route110_EventScript_RivalTrigger2 {
+	setvar (VAR_0x8008, 2)
+	goto (Route110_EventScript_RivalScene)
 	end
+}
 
-Route110_EventScript_RivalTrigger3::
-	setvar VAR_0x8008, 3
-	goto Route110_EventScript_RivalScene
+script Route110_EventScript_RivalTrigger3 {
+	setvar (VAR_0x8008, 3)
+	goto (Route110_EventScript_RivalScene)
 	end
+}
 
-Route110_EventScript_RivalScene::
+script Route110_EventScript_RivalScene {
 	lockall
 	checkplayergender
-	call_if_eq VAR_RESULT, MALE, Route110_EventScript_PlayMayMusic
-	call_if_eq VAR_RESULT, FEMALE, Route110_EventScript_PlayBrendanMusic
-	applymovement LOCALID_RIVAL, Common_Movement_WalkInPlaceFasterDown
-	waitmovement 0
-	applymovement LOCALID_RIVAL, Common_Movement_ExclamationMark
-	waitmovement 0
-	applymovement LOCALID_RIVAL, Common_Movement_Delay48
-	waitmovement 0
-	delay 30
-	call_if_eq VAR_0x8008, 1, Route110_EventScript_RivalApproachPlayer1
-	call_if_eq VAR_0x8008, 2, Route110_EventScript_RivalApproachPlayer2
-	call_if_eq VAR_0x8008, 3, Route110_EventScript_RivalApproachPlayer3
-	checkplayergender
-	goto_if_eq VAR_RESULT, MALE, Route110_EventScript_MayBattle
-	goto_if_eq VAR_RESULT, FEMALE, Route110_EventScript_BrendanBattle
-	releaseall
-	end
-
-Route110_EventScript_PlayMayMusic::
-	playbgm MUS_ENCOUNTER_MAY, TRUE
-	return
-
-Route110_EventScript_PlayBrendanMusic::
-	playbgm MUS_ENCOUNTER_BRENDAN, TRUE
-	return
-
-Route110_EventScript_MayBattle::
-	msgbox Route110_Text_MayLetsBattle, MSGBOX_DEFAULT
-	switch VAR_STARTER_MON
-	case 0, Route110_EventScript_MayBattleTreecko
-	case 1, Route110_EventScript_MayBattleTorchic
-	case 2, Route110_EventScript_MayBattleMudkip
-	end
-
-Route110_EventScript_MayBattleTreecko::
-	trainerbattle_no_intro TRAINER_MAY_ROUTE_110_TREECKO, Route110_Text_MayDefeated
-	goto Route110_EventScript_MayDefeated
-	end
-
-Route110_EventScript_MayBattleTorchic::
-	trainerbattle_no_intro TRAINER_MAY_ROUTE_110_TORCHIC, Route110_Text_MayDefeated
-	goto Route110_EventScript_MayDefeated
-	end
-
-Route110_EventScript_MayBattleMudkip::
-	trainerbattle_no_intro TRAINER_MAY_ROUTE_110_MUDKIP, Route110_Text_MayDefeated
-	goto Route110_EventScript_MayDefeated
-	end
-
-Route110_EventScript_MayDefeated::
-	msgbox Route110_Text_MayTakeThis, MSGBOX_DEFAULT
-	call Route110_EventScript_GiveItemfinder
-	msgbox Route110_Text_MayExplainItemfinder, MSGBOX_DEFAULT
-	goto Route110_EventScript_RivalExit
-	end
-
-Route110_EventScript_BrendanBattle::
-	msgbox Route110_Text_BrendanLetsBattle, MSGBOX_DEFAULT
-	switch VAR_STARTER_MON
-	case 0, Route110_EventScript_BrendanBattleTreecko
-	case 1, Route110_EventScript_BrendanBattleTorchic
-	case 2, Route110_EventScript_BrendanBattleMudkip
-	end
-
-Route110_EventScript_BrendanBattleTreecko::
-	@trainerbattle_no_intro TRAINER_BRENDAN_ROUTE_110_TREECKO, Route110_Text_BrendanDefeated
-	goto Route110_EventScript_BrendanDefeated
-	end
-
-Route110_EventScript_BrendanBattleTorchic::
-	@trainerbattle_no_intro TRAINER_BRENDAN_ROUTE_110_TORCHIC, Route110_Text_BrendanDefeated
-	goto Route110_EventScript_BrendanDefeated
-	end
-
-Route110_EventScript_BrendanBattleMudkip::
-	@trainerbattle_no_intro TRAINER_BRENDAN_ROUTE_110_MUDKIP, Route110_Text_BrendanDefeated
-	goto Route110_EventScript_BrendanDefeated
-	end
-
-Route110_EventScript_BrendanDefeated::
-	msgbox Route110_Text_BrendanTakeThis, MSGBOX_DEFAULT
-	call Route110_EventScript_GiveItemfinder
-	msgbox Route110_Text_BrendanExplainItemfinder, MSGBOX_DEFAULT
-	goto Route110_EventScript_RivalExit
-	end
-
-Route110_EventScript_GiveItemfinder::
-	giveitem ITEM_DOWSING_MACHINE
-	return
-
-Route110_EventScript_RivalExit::
+	playbgm (MUS_ENCOUNTER_BRENDAN, FALSE)
+	applymovement (LOCALID_RIVAL2, Common_Movement_WalkInPlaceFasterDown)
+	waitmovement (0)
+	applymovement (LOCALID_RIVAL2, Common_Movement_ExclamationMark)
+	waitmovement (0)
+	applymovement (LOCALID_RIVAL2, Common_Movement_Delay48)
+	waitmovement (0)
+	delay (30)
+	switch (var(VAR_0x8008)) {
+		case 1:
+			applymovement (LOCALID_RIVAL2, Route110_Movement_RivalApproachPlayer1)
+		case 2:
+			applymovement (LOCALID_RIVAL2, Route110_Movement_RivalApproachPlayer2)
+		case 3:
+			applymovement (LOCALID_RIVAL2, Route110_Movement_RivalApproachPlayer3)
+	}
+	waitmovement (0)
+	checkfriendchoice
+	switch (var(VAR_RESULT)) {
+		case SPENCER:
+			msgbox (Route110_Text_KyleEvolved, MSGBOX_DEFAULT)
+		case BREN:
+			msgbox (Route110_Text_SpencerEvolved, MSGBOX_DEFAULT)
+		case KYLE:
+			msgbox (Route110_Text_BrenEvolved, MSGBOX_DEFAULT)
+	}
 	closemessage
-	call_if_eq VAR_0x8008, 1, Route110_EventScript_MoveRival1
-	call_if_eq VAR_0x8008, 2, Route110_EventScript_MoveRival2
-	call_if_eq VAR_0x8008, 3, Route110_EventScript_MoveRival3
-	setobjectmovementtype LOCALID_RIVAL, MOVEMENT_TYPE_FACE_RIGHT
-	setobjectmovementtype LOCALID_RIVAL_ON_BIKE, MOVEMENT_TYPE_FACE_RIGHT
-	removeobject LOCALID_RIVAL
-	addobject LOCALID_RIVAL_ON_BIKE
-	delay 45
-	call_if_eq VAR_0x8008, 1, Route110_EventScript_RivalExit1
-	call_if_eq VAR_0x8008, 2, Route110_EventScript_RivalExit2
-	call_if_eq VAR_0x8008, 3, Route110_EventScript_RivalExit3
-	removeobject LOCALID_RIVAL_ON_BIKE
-	setvar VAR_ROUTE110_STATE, 1
-	savebgm MUS_DUMMY
-	fadedefaultbgm
+	if (var(VAR_0x8008) == 1) {
+		setobjectxyperm (LOCALID_RIVAL1, 35, 62)
+	}
+	addobject (LOCALID_RIVAL1)
+	playse (SE_PIN)
+	switch (var(VAR_0x8008)) {
+		case 1:
+			applymovement (OBJ_EVENT_ID_PLAYER, Route110_Movement_PlayerWatchRival1RunIn1)
+			applymovement (LOCALID_RIVAL2, Route110_Movement_Rival2WatchRival1RunIn1)
+			applymovement (LOCALID_RIVAL1, Route110_Movement_Rival1RunsIn1)
+		default:
+			applymovement (OBJ_EVENT_ID_PLAYER, Route110_Movement_PlayerWatchRival1RunIn2and3)
+			applymovement (LOCALID_RIVAL2, Route110_Movement_Rival2WatchRival1RunIn2and3)
+			applymovement (LOCALID_RIVAL1, Route110_Movement_Rival1RunsIn2and3)
+	}
+	waitmovement (0)
+	if (var(VAR_0x8008) == 3) {
+		applymovement (LOCALID_RIVAL1, Rival1ExtraStep)
+		waitmovement (0)
+	}
+	checkfriendchoice
+	switch (var(VAR_RESULT)) {
+		case SPENCER:
+			msgbox (Route110_Text_BrenAlmostMissedYou, MSGBOX_DEFAULT)
+		case BREN:
+			msgbox (Route110_Text_KyleAlmostMissedYou, MSGBOX_DEFAULT)
+		case KYLE:
+			msgbox (Route110_Text_SpencerAlmostMissedYou, MSGBOX_DEFAULT)
+	}
+	closemessage
+	if (var(VAR_0x8008) == 1) {
+		applymovement (LOCALID_RIVAL2, Common_Movement_BeginTalkRight)
+	}
+	else {
+		applymovement (LOCALID_RIVAL2, Common_Movement_BeginTalkLeft)
+	}
+	waitmovement (0)
+	checkfriendchoice
+	switch (var(VAR_RESULT)) {
+		case SPENCER:
+			msgbox (Route110_Text_KyleBoughtItemfinders, MSGBOX_DEFAULT)
+		case BREN:
+			msgbox (Route110_Text_SpencerBoughtItemfinders, MSGBOX_DEFAULT)
+		case KYLE:
+			msgbox (Route110_Text_BrenBoughtItemfinders, MSGBOX_DEFAULT)
+	}
+	closemessage
+	delay (16)
+	if (var(VAR_0x8008) == 1) {
+		applymovement (LOCALID_RIVAL2, Common_Movement_BeginTalkRight)
+	}
+	else {
+		applymovement (LOCALID_RIVAL2, Common_Movement_BeginTalkLeft)
+	}
+	waitmovement (0)
+	delay (30)
+	applymovement (OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterUp)
+	applymovement (LOCALID_RIVAL2, Common_Movement_BeginTalkDown)
+	waitmovement (0)
+	msgbox (Route110_Text_AndOneForYou, MSGBOX_DEFAULT)
+	closemessage
+	delay (30)
+	giveitem (ITEM_DOWSING_MACHINE)
+	checkfriendchoice
+	switch (var(VAR_RESULT)) {
+		case SPENCER:
+			msgbox (Route110_Text_KyleLetsLookAround, MSGBOX_DEFAULT)
+		case BREN:
+			msgbox (Route110_Text_SpencerLetsLookAround, MSGBOX_DEFAULT)
+		case KYLE:
+			msgbox (Route110_Text_BrenLetsLookAround, MSGBOX_DEFAULT)
+	}
+	closemessage
+	if (var(VAR_0x8008) == 1) {
+		applymovement (OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterRight)
+		applymovement (LOCALID_RIVAL2, Common_Movement_WalkInPlaceFasterRight)
+		applymovement (LOCALID_RIVAL1, Common_Movement_BeginTalkLeft)
+	}
+	else {
+		applymovement (OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterLeft)
+		applymovement (LOCALID_RIVAL2, Common_Movement_WalkInPlaceFasterLeft)
+		applymovement (LOCALID_RIVAL1, Common_Movement_BeginTalkRight)
+	}
+	waitmovement (0)
+	checkfriendchoice
+	switch (var(VAR_RESULT)) {
+		case SPENCER:
+			msgbox (Route110_Text_BrenLetsGo, MSGBOX_DEFAULT)
+		case BREN:
+			msgbox (Route110_Text_KyleLetsGo, MSGBOX_DEFAULT)
+		case KYLE:
+			msgbox (Route110_Text_SpencerLetsGo, MSGBOX_DEFAULT)
+	}
+	closemessage
+	applymovement (OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterUp)
+	applymovement (LOCALID_RIVAL1, Route110_Movement_Rival1Exit)
+	applymovement (LOCALID_RIVAL2, Route110_Movement_Rival2Exit)
+	waitmovement (0)
+	removeobject (LOCALID_RIVAL1)
+	removeobject (LOCALID_RIVAL2)
+	setobjectxyperm (LOCALID_RIVAL1, 32, 39)
+	setobjectxyperm (LOCALID_RIVAL2, 3, 30)
+	setobjectmovementtype (LOCALID_RIVAL2, MOVEMENT_TYPE_LOOK_AROUND)
+	setvar (VAR_ROUTE110_STATE, 1)
+	clearflag (FLAG_HIDE_ROUTE_110_RIVAL1)
+	clearflag (FLAG_HIDE_ROUTE_110_RIVAL)
 	releaseall
 	end
+}
 
-Route110_EventScript_RivalApproachPlayer1::
-	applymovement LOCALID_RIVAL, Route110_Movement_RivalApproachPlayer1
-	waitmovement 0
-	return
+script Route110_EventScript_Rival1 {
+	lock
+	checkflag (FLAG_HIDDEN_ITEM_ROUTE_110_REVIVE)
+	if (var(VAR_RESULT) == FALSE) {
+		playse (SE_ITEMFINDER)
+		waitse
+		playse (SE_ITEMFINDER)
+		waitse
+		playse (SE_ITEMFINDER)
+		waitse
+		applymovement (LOCALID_RIVAL1, Route110_Movement_Rival1Itemfinder)
+		waitmovement (0)
+		applymovement (LOCALID_RIVAL1, Common_Movement_FacePlayer)
+		waitmovement (0)
+		checkfriendchoice
+		switch (var(VAR_RESULT)) {
+			case SPENCER:
+				msgbox (Route110_Text_BrenCantFindItem, MSGBOX_DEFAULT)
+			case BREN:
+				msgbox (Route110_Text_KyleCantFindItem, MSGBOX_DEFAULT)
+			case KYLE:
+				msgbox (Route110_Text_SpencerCantFindItem, MSGBOX_DEFAULT)
+		}
+		closemessage
+		applymovement (LOCALID_RIVAL1, Common_Movement_WalkInPlaceFasterRight)
+		waitmovement (0)
+	}
+	else {
+		applymovement (LOCALID_RIVAL1, Common_Movement_FacePlayer)
+		waitmovement (0)
+		checkfriendchoice
+		switch (var(VAR_RESULT)) {
+			case SPENCER:
+				msgbox (Route110_Text_BrenStupidMachine, MSGBOX_DEFAULT)
+			case BREN:
+				msgbox (Route110_Text_KyleStupidMachine, MSGBOX_DEFAULT)
+			case KYLE:
+				msgbox (Route110_Text_SpencerStupidMachine, MSGBOX_DEFAULT)
+		}
+		closemessage
+	}
+	release
+	end
+}
 
-Route110_EventScript_RivalApproachPlayer2::
-	applymovement LOCALID_RIVAL, Route110_Movement_RivalApproachPlayer2
-	waitmovement 0
-	return
-
-Route110_EventScript_RivalApproachPlayer3::
-	applymovement LOCALID_RIVAL, Route110_Movement_RivalApproachPlayer3
-	waitmovement 0
-	return
-
-Route110_EventScript_RivalExit1::
-	applymovement LOCALID_RIVAL_ON_BIKE, Route110_Movement_RivalExit1
-	waitmovement 0
-	return
-
-Route110_EventScript_RivalExit2::
-	applymovement LOCALID_RIVAL_ON_BIKE, Route110_Movement_RivalExit2
-	waitmovement 0
-	return
-
-Route110_EventScript_RivalExit3::
-	applymovement LOCALID_RIVAL_ON_BIKE, Route110_Movement_RivalExit3
-	waitmovement 0
-	return
-
-Route110_EventScript_MoveRival1::
-	setobjectxyperm LOCALID_RIVAL_ON_BIKE, 33, 55
-	return
-
-Route110_EventScript_MoveRival2::
-	setobjectxyperm LOCALID_RIVAL_ON_BIKE, 34, 55
-	return
-
-Route110_EventScript_MoveRival3::
-	setobjectxyperm LOCALID_RIVAL_ON_BIKE, 35, 55
-	return
-
-Route110_Movement_RivalApproachPlayer1:
+movement Route110_Movement_RivalApproachPlayer1 {
 	walk_down
 	walk_left
 	walk_in_place_faster_down
-	step_end
+}
 
-Route110_Movement_RivalApproachPlayer2:
+movement Route110_Movement_RivalApproachPlayer2 {
 	walk_down
-	step_end
+}
 
-Route110_Movement_RivalApproachPlayer3:
+movement Route110_Movement_RivalApproachPlayer3 {
 	walk_down
 	walk_right
 	walk_in_place_faster_down
-	step_end
+}
 
-Route110_Movement_RivalExit1:
-	walk_fast_up
-	walk_fast_up
-	walk_fast_up
-	walk_fast_up
-	walk_fast_up
-	walk_fast_up
-	walk_fast_up
-	step_end
+movement Route110_Movement_PlayerWatchRival1RunIn1 {
+	face_down
+	delay_4 * 5
+	walk_in_place_right
+	delay_8
+	walk_in_place_up
+	delay_4 * 3
+	delay_8 * 4
+	walk_in_place_faster_right
+}
 
-Route110_Movement_RivalExit2:
-	walk_fast_up
-	walk_fast_up
-	walk_fast_up
-	walk_fast_up
-	walk_fast_up
-	walk_fast_up
-	walk_fast_up
-	walk_fast_down
-	step_end
+movement Route110_Movement_Rival2WatchRival1RunIn1 {
+	emote_exclamation_mark
+	face_down
+	delay_4 * 6
+	walk_in_place_right
+	delay_8
+	walk_in_place_up
+	delay_4 * 2
+	delay_8 * 4
+	walk_in_place_faster_right
+}
 
-Route110_Movement_RivalExit3:
-	walk_fast_up
-	walk_fast_up
-	walk_fast_up
-	walk_fast_up
-	walk_fast_up
-	walk_fast_up
-	walk_fast_up
-	step_end
+movement Route110_Movement_Rival1RunsIn1 {
+	walk_fast_up * 10
+	walk_in_place_fast_up * 6
+	walk_fast_down * 3
+	walk_fast_left
+}
 
+movement Route110_Movement_PlayerWatchRival1RunIn2and3 {
+	face_down
+	delay_4 * 5
+	walk_in_place_left
+	delay_8
+	walk_in_place_up
+	delay_4 * 3
+	delay_8 * 4
+	walk_in_place_faster_left
+}
+
+movement Route110_Movement_Rival2WatchRival1RunIn2and3 {
+	emote_exclamation_mark
+	face_down
+	delay_4 * 6
+	walk_in_place_left
+	delay_8
+	walk_in_place_up
+	delay_4 * 2
+	delay_8 * 4
+	walk_in_place_faster_left
+}
+
+movement Route110_Movement_Rival1RunsIn2and3 {
+	walk_fast_up * 10
+	walk_in_place_fast_up * 6
+	walk_fast_down * 3
+	walk_in_place_faster_right
+}
+
+movement Rival1ExtraStep {
+	walk_fast_right
+}
+
+movement Route110_Movement_Rival1Exit {
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+}
+
+movement Route110_Movement_Rival2Exit {
+	walk_in_place_faster_up
+	delay_8 * 3
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+}
+
+movement Route110_Movement_Rival1Itemfinder {
+	walk_in_place_right
+	delay_16 * 2
+}
+
+text Route110_Text_SpencerEvolved {
+	format ("I have some exciting news to share!\N"
+		"While I was training in the grass here,\N"
+		"my TREECKO evolved!\N"
+		"Isn't that amazing?\p"
+		"Also, I have-")
+}
+
+text Route110_Text_BrenEvolved {
+	format ("I have some exciting news to share!\N"
+		"While I was training in the grass here,\N"
+		"my PIPLUP evolved!\N"
+		"Isn't that amazing?\p"
+		"Also, I have-")
+}
+
+text Route110_Text_KyleEvolved {
+	format ("I have some exciting news to share!\N"
+		"While I was training in the grass here,\N"
+		"my CHARMANDER evolved!\N"
+		"Isn't that amazing?\p"
+		"Also, I have-")
+}
+
+text Route110_Text_SpencerAlmostMissedYou {
+	format ("SPENCER: Oh, hey!\N"
+		"I almost missed you there!\N"
+		"What's going on, you two?")
+}
+
+text Route110_Text_BrenAlmostMissedYou {
+	format ("BREN: Oh, hey!\N"
+		"I almost missed you there!\N"
+		"What's going on, you two?")
+}
+
+text Route110_Text_KyleAlmostMissedYou {
+	format ("KYLE: Oh, hey!\N"
+		"I almost missed you there!\N"
+		"What's going on, you two?")
+}
+
+text Route110_Text_SpencerBoughtItemfinders {
+	format ("SPENCER: Yo, {RIVAL}!\N"
+		"I was just telling {PLAYER} here that\N"
+		"I spent my battle earnings on some\N"
+		"Dowsing Machines for the three of us.\N"
+		"Here. Take one!")
+}
+
+text Route110_Text_BrenBoughtItemfinders {
+	format ("BREN: Yo, {RIVAL}!\N"
+		"I was just telling {PLAYER} here that\N"
+		"I spent my battle earnings on some\N"
+		"Dowsing Machines for the three of us.\N"
+		"Here. Take one!")
+}
+
+text Route110_Text_KyleBoughtItemfinders {
+	format ("KYLE: Yo, {RIVAL}!\N"
+		"I was just telling {PLAYER} here that\N"
+		"I spent my battle earnings on some\N"
+		"Dowsing Machines for the three of us.\N"
+		"Here. Take one!")
+}
+
+text Route110_Text_AndOneForYou {
+	format ("And one for you.")
+}
+
+text Route110_Text_SpencerLetsLookAround {
+	format ("SPENCER: I thought we could use these\N"
+		"to look for treasure together!"
+		"I bet the people up on the bike path\N"
+		"accidentally drop items over the side\N"
+		"all the time!\p"
+		"Let's look around and see\N"
+		"what we can find!")
+}
+
+text Route110_Text_BrenLetsLookAround {
+	format ("BREN: I thought we could use these\N"
+		"to look for treasure together!"
+		"I bet the people up on the bike path\N"
+		"accidentally drop items over the side\N"
+		"all the time!\p"
+		"Let's look around and see\N"
+		"what we can find!")
+}
+
+text Route110_Text_KyleLetsLookAround {
+	format ("KYLE: I thought we could use these\N"
+		"to look for treasure together!"
+		"I bet the people up on the bike path\N"
+		"accidentally drop items over the side\N"
+		"all the time!\p"
+		"Let's look around and see\N"
+		"what we can find!")
+}
+
+text Route110_Text_SpencerLetsGo {
+	format ("SPENCER: I'll bet I can find a\N"
+		"huge NUGGET with this thing!\p"
+		"Let's go!")
+}
+
+text Route110_Text_BrenLetsGo {
+	format ("BREN: I'll bet I can find a\N"
+		"huge NUGGET with this thing!\p"
+		"Let's go!")
+}
+
+text Route110_Text_KyleLetsGo {
+	format ("KYLE: I'll bet I can find a\N"
+		"huge NUGGET with this thing!\p"
+		"Let's go!")
+}
+
+text Route110_Text_SpencerCantFindItem {
+	format ("The Dowsing Machine says I'm close,\N"
+		"but I can't seem to find the item.\N"
+		"Hmmm…")
+}
+
+text Route110_Text_BrenCantFindItem {
+	format ("The Dowsing Machine says I'm close,\N"
+		"but I can't seem to find the item.\N"
+		"Hmmm…")
+}
+
+text Route110_Text_KyleCantFindItem {
+	format ("The Dowsing Machine says I'm close,\N"
+		"but I can't seem to find the item.\N"
+		"Hmmm…")
+}
+
+text Route110_Text_SpencerStupidMachine {
+	format ("Aw. Now it isn't locating the item at all.\N"
+		"Stupid machine!\N")
+}
+
+text Route110_Text_BrenStupidMachine {
+	format ("Aw. Now it isn't locating the item at all.\N"
+		"Stupid machine!\N")
+}
+
+text Route110_Text_KyleStupidMachine {
+	format ("Aw. Now it isn't locating the item at all.\N"
+		"Stupid machine!\N")
+}
+
+raw `
 Route110_EventScript_BirchScene1::
 	lockall
 	setvar VAR_0x8008, 1
@@ -634,6 +885,7 @@ Route110_EventScript_BirchScene::
 	call_if_eq VAR_0x8008, 4, Route110_EventScript_BirchExit4
 	removeobject LOCALID_BIRCH
 	setvar VAR_REGISTER_BIRCH_STATE, 2
+	setflag FLAG_HIDE_ROUTE_110_RIVAL1
 	setflag FLAG_HIDE_SEASHORE_HOUSE_RIVAL2
 	setvar VAR_SEASHORE_HOUSE_RIVAL_STATE, 1
 	releaseall

@@ -1,6 +1,6 @@
 const LOCALID_RIVAL = 2
 const LOCALID_RIVAL2 = 21
-
+const LOCALID_RIVAL1LATER = 22
 
 mapscripts Route103_MapScripts {
 	MAP_SCRIPT_ON_TRANSITION: Route103_OnTransition
@@ -174,6 +174,72 @@ script Route103_EventScript_RivalEnd {
 	fadedefaultbgm
 	releaseall
 	end
+}
+
+script Route103_EventScript_Rival1OtherSide {
+	lock
+	applymovement (LOCALID_RIVAL1LATER, Common_Movement_FacePlayer)
+	waitmovement (0)
+	checkfriendchoice
+	if (var(VAR_TEMP_5) != 5) {
+		switch (var(VAR_RESULT)) {
+			case SPENCER:
+				msgbox (Route103_Text_BrenLater, MSGBOX_DEFAULT)
+			case BREN:
+				msgbox (Route103_Text_KyleLater, MSGBOX_DEFAULT)
+			case KYLE:
+				msgbox (Route103_Text_SpencerLater, MSGBOX_DEFAULT)
+		}
+		setvar (VAR_TEMP_5, 5)
+	}
+	else {
+		switch (var(VAR_RESULT)) {
+			case SPENCER:
+				msgbox (Route103_Text_BrenLaterTalked, MSGBOX_DEFAULT)
+			case BREN:
+				msgbox (Route103_Text_KyleLaterTalked, MSGBOX_DEFAULT)
+			case KYLE:
+				msgbox (Route103_Text_SpencerLaterTalked, MSGBOX_DEFAULT)
+		}
+	}
+	closemessage
+	applymovement (LOCALID_RIVAL1LATER, Common_Movement_FaceLeft)
+	waitmovement (0)
+	release
+	end
+}
+
+text Route103_Text_SpencerLater {
+	format ("Can you believe this is the same ROUTE where we first battled each other?\N"
+		"Just on the other side of the water.\N"
+		"Seems like so long ago, though I know most of our journey is still ahead of us.")
+}
+
+text Route103_Text_BrenLater {
+	format ("Can you believe this is the same ROUTE where we first battled each other?\N"
+		"Just on the other side of the water.\N"
+		"Seems like so long ago, though I know most of our journey is still ahead of us.")
+}
+
+text Route103_Text_KyleLater {
+	format ("Can you believe this is the same ROUTE where we first battled each other?\N"
+		"Just on the other side of the water.\N"
+		"Seems like so long ago, though I know most of our journey is still ahead of us.")
+}
+
+text Route103_Text_SpencerLaterTalked {
+	format ("It's kinda nice to look back on how far we've come.\p"
+		"And speculate on what lies ahead.")
+}
+
+text Route103_Text_BrenLaterTalked {
+	format ("It's kinda nice to look back on how far we've come.\p"
+		"And speculate on what lies ahead.")
+}
+
+text Route103_Text_KyleLaterTalked {
+	format ("It's kinda nice to look back on how far we've come.\p"
+		"And speculate on what lies ahead.")
 }
 
 raw `
