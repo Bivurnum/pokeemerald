@@ -271,7 +271,58 @@ script MauvilleCity_EventScript_ScottExitEast {
 
 script MauvilleCity_EventScript_BattleWally {
 	msgbox (MauvilleCity_Text_WallyHereICome, MSGBOX_DEFAULT)
-	trainerbattle_no_intro (TRAINER_WALLY_MAUVILLE, MauvilleCity_Text_WallyDefeat)
+	switch (var(VAR_FACING)) {
+		case DIR_NORTH:
+			applymovement (LOCALID_RIVAL2, MauvilleCity_Movement_Rival2WalkToWallySouth)
+			waitmovement (0)
+			applymovement (LOCALID_WALLY, Common_Movement_WalkInPlaceFasterLeft)
+			applymovement (OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterLeft)
+			waitmovement (0)
+		case DIR_EAST:
+			applymovement (LOCALID_RIVAL2, MauvilleCity_Movement_Rival2WalkToWallyWest)
+			waitmovement (0)
+			applymovement (LOCALID_WALLY, Common_Movement_WalkInPlaceFasterDown)
+			applymovement (OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterDown)
+			waitmovement (0)
+	}
+	rival2talk (MauvilleCity_Text_SpencerTeamUpWithWally,
+				MauvilleCity_Text_BrenTeamUpWithWally,
+				MauvilleCity_Text_KyleTeamUpWithWally)
+	switch (var(VAR_FACING)) {
+		case DIR_NORTH:
+			applymovement (LOCALID_WALLY, Common_Movement_BeginTalkLeft)
+		case DIR_EAST:
+			applymovement (LOCALID_WALLY, Common_Movement_BeginTalkDown)
+	}
+	waitmovement (0)
+	msgbox (MauvilleCity_Text_WallyAgreesToTeamUp)
+	closemessage
+	switch (var(VAR_FACING)) {
+		case DIR_NORTH:
+			applymovement (LOCALID_WALLY, Common_Movement_WalkInPlaceFasterDown)
+			applymovement (LOCALID_RIVAL2, Common_Movement_WalkInPlaceFasterDown)
+		case DIR_EAST:
+			applymovement (LOCALID_WALLY, Common_Movement_WalkInPlaceFasterLeft)
+			applymovement (LOCALID_RIVAL2, Common_Movement_WalkInPlaceFasterLeft)
+	}
+	waitmovement (0)
+	msgbox (MauvilleCity_Text_LetsDoThis)
+	closemessage
+	trainerbattle (TRAINER_BATTLE_SET_TRAINER_A, TRAINER_WALLY_MAUVILLE, 0, NULL, MauvilleCity_Text_WallyPostBattle)
+	checkfriendchoice
+	switch (var(VAR_RESULT)) {
+		case SPENCER:
+			trainerbattle (TRAINER_BATTLE_SET_TRAINER_B, TRAINER_KYLE_MAUVILLE, 0, MauvilleCity_Text_RivalBeforeBattle, MauvilleCity_Text_RivalPostBattle)
+		case BREN:
+			trainerbattle (TRAINER_BATTLE_SET_TRAINER_B, TRAINER_SPENCER_MAUVILLE, 0, MauvilleCity_Text_RivalBeforeBattle, MauvilleCity_Text_RivalPostBattle)
+		case KYLE:
+			trainerbattle (TRAINER_BATTLE_SET_TRAINER_B, TRAINER_BREN_MAUVILLE, 0, MauvilleCity_Text_RivalBeforeBattle, MauvilleCity_Text_RivalPostBattle)
+	}
+	setvar (VAR_0x8005, 200)
+	dotrainerbattle
+	setvar (VAR_0x8005, 0)
+
+	//trainerbattle_no_intro (TRAINER_WALLY_MAUVILLE, MauvilleCity_Text_WallyDefeat)
 	applymovement (LOCALID_WALLY, Common_Movement_WalkInPlaceFasterRight)
 	waitmovement (0)
 	msgbox (MauvilleCity_Text_WallyIllGoBackToVerdanturf, MSGBOX_DEFAULT)
@@ -282,6 +333,75 @@ script MauvilleCity_EventScript_BattleWally {
 	waitmovement (0)
 	msgbox (MauvilleCity_Text_UncleNoNeedToBeDown, MSGBOX_DEFAULT)
 	return
+}
+
+text MauvilleCity_Text_WallyBeforeBattle {
+	"Wally before"
+}
+
+text MauvilleCity_Text_RivalBeforeBattle {
+	"Rival before"
+}
+
+text MauvilleCity_Text_WallyPostBattle {
+	"Wally post battle"
+}
+
+text MauvilleCity_Text_RivalPostBattle {
+	"Rival post battle"
+}
+
+text MauvilleCity_Text_SpencerTeamUpWithWally {
+	format ("SPENCER: You're name's WALLY, right?\N"
+		"I'm SPENCER.\N"
+		"I know you're chomping at the bit to\N"
+		"battle {PLAYER}, but you might be\N"
+		"biting off more than you can chew.\p"
+		"{PLAYER} and I started our POKéMON\N"
+		"journey at the same time, but I've never\N"
+		"been able to beat him!\N"
+		"He's quite the force!\p"
+		"However, we may be able to beat him if you and I team up.\N"
+		"What do you say?")
+}
+
+text MauvilleCity_Text_BrenTeamUpWithWally {
+	format ("BREN: You're name's WALLY, right?\N"
+		"I'm BREN.\N"
+		"I know you're chomping at the bit to\N"
+		"battle {PLAYER}, but you might be\N"
+		"biting off more than you can chew.\p"
+		"{PLAYER} and I started our POKéMON\N"
+		"journey at the same time, but I've never\N"
+		"been able to beat him!\N"
+		"He's quite the force!\p"
+		"However, we may be able to beat him if you and I team up.\N"
+		"What do you say?")
+}
+
+text MauvilleCity_Text_KyleTeamUpWithWally {
+	format ("KYLE: You're name's WALLY, right?\N"
+		"I'm KYLE.\N"
+		"I know you're chomping at the bit to\N"
+		"battle {PLAYER}, but you might be\N"
+		"biting off more than you can chew.\p"
+		"{PLAYER} and I started our POKéMON\N"
+		"journey at the same time, but I've never\N"
+		"been able to beat him!\N"
+		"He's quite the force!\p"
+		"However, we may be able to beat him if you and I team up.\N"
+		"What do you say?")
+}
+
+text MauvilleCity_Text_WallyAgreesToTeamUp {
+	format ("WALLY: Well…\N"
+		"Um, I guess it couldn't hurt.\p"
+		"Okay… Yeah!\N"
+		"That actually sounds fun.")
+}
+
+text MauvilleCity_Text_LetsDoThis {
+	format ("Let's do this!")
 }
 
 script MauvilleCity_EventScript_DeclineWallyBattle {
@@ -297,6 +417,17 @@ script MauvilleCity_EventScript_WallyRequestBattleAgain {
 	msgbox (MauvilleCity_Text_WallyPleaseBattleMe, MSGBOX_YESNO)
 	goto (MauvilleCity_EventScript_BattleWallyPrompt)
 	end
+}
+
+movement MauvilleCity_Movement_Rival2WalkToWallyWest {
+	walk_down * 2
+	walk_right * 3
+	walk_in_place_fast_up
+}
+
+movement MauvilleCity_Movement_Rival2WalkToWallySouth {
+	walk_down
+	walk_right * 2
 }
 
 movement MauvilleCity_Movement_WallyExitNorth1 {
