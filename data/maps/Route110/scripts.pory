@@ -611,11 +611,12 @@ script Route110_EventScript_EndRoute {
 	rival1talk (Route110_Text_SpencerTasteMyOwnMedicine,
 				Route110_Text_BrenTasteMyOwnMedicine,
 				Route110_Text_KyleTasteMyOwnMedicine)
-	applymovement (OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterUp)
 	if (var(VAR_0x8008) == 3) {
+		applymovement (OBJ_EVENT_ID_PLAYER, Route110_Movement_WatchRival1LeaveForMauvilleLeft)
 		applymovement (LOCALID_RIVAL1FINDER, Route110_Movement_Rival1LeaveForMauville3)
 	}
 	else {
+		applymovement (OBJ_EVENT_ID_PLAYER, Route110_Movement_WatchRival1LeaveForMauvilleRight)
 		applymovement (LOCALID_RIVAL1FINDER, Route110_Movement_Rival1LeaveForMauville1and2)
 	}
 	waitmovement (0)
@@ -766,9 +767,9 @@ movement Route110_Movement_Rival1WatchRival2RunIn1and2 {
 }
 
 movement Route110_Movement_Rival2RunsIn1and2 {
-	walk_fast_up * 10
+	walk_fast_up * 9
 	walk_in_place_fast_up * 6
-	walk_fast_down * 4
+	walk_fast_down * 3
 	walk_in_place_faster_left
 }
 
@@ -798,9 +799,9 @@ movement Route110_Movement_Rival1WatchRival2RunIn3 {
 }
 
 movement Route110_Movement_Rival2RunsIn3 {
-	walk_fast_up * 10
+	walk_fast_up * 9
 	walk_in_place_fast_up * 6
-	walk_fast_down * 4
+	walk_fast_down * 3
 	walk_in_place_faster_right
 }
 
@@ -822,6 +823,20 @@ movement Route110_Movement_Rival1LeaveForMauville3 {
 	walk_up * 4
 	walk_right * 4
 	walk_up * 4
+}
+
+movement Route110_Movement_WatchRival1LeaveForMauvilleLeft {
+	delay_16
+	face_left
+	delay_16 * 3
+	face_up
+}
+
+movement Route110_Movement_WatchRival1LeaveForMauvilleRight {
+	delay_16
+	face_right
+	delay_16 * 3
+	face_up
 }
 
 text Route110_Text_SpencerEvolved {

@@ -1937,9 +1937,10 @@ bool8 ScrCmd_trainerbattle(struct ScriptContext *ctx)
 
 bool8 ScrCmd_dotrainerbattle(struct ScriptContext *ctx)
 {
-    if (VarGet(VAR_0x8005) == 200) 
+    if (FlagGet(FLAG_SYS_DOUBLE_VS_2)) 
         gNoOfApproachingTrainers = 2;
 
+    FlagClear (FLAG_SYS_DOUBLE_VS_2);
     BattleSetup_StartTrainerBattle();
     return TRUE;
 }

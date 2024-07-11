@@ -776,6 +776,14 @@
 	trainerbattle TRAINER_BATTLE_SINGLE_NO_INTRO_TEXT, \trainer, 0, \lose_text
 	.endm
 
+	@Starts a double battle with two opponents.
+	.macro doublebattle_vs_2 trainer1:req, lose_text1:req, trainer2:req, lose_text2:req
+	setflag FLAG_SYS_DOUBLE_VS_2
+	trainerbattle TRAINER_BATTLE_SET_TRAINER_A, \trainer1, 0, NULL, \lose_text1
+	trainerbattle TRAINER_BATTLE_SET_TRAINER_B, \trainer2, 0, NULL, \lose_text2
+	dotrainerbattle
+	.endm
+
 
 	@ Starts a trainer battle using the battle information stored in RAM (usually by the scripts in trainer_battle.inc, which
 	@ are run by trainerbattle), and blocks script execution until the battle finishes.

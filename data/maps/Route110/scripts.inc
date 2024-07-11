@@ -1605,8 +1605,6 @@ Route110_Movement_Rival2RunsIn1and2:
 	walk_fast_up
 # 769 "data/maps/Route110/scripts.pory"
 	walk_fast_up
-# 769 "data/maps/Route110/scripts.pory"
-	walk_fast_up
 # 770 "data/maps/Route110/scripts.pory"
 	walk_in_place_fast_up
 # 770 "data/maps/Route110/scripts.pory"
@@ -1619,8 +1617,6 @@ Route110_Movement_Rival2RunsIn1and2:
 	walk_in_place_fast_up
 # 770 "data/maps/Route110/scripts.pory"
 	walk_in_place_fast_up
-# 771 "data/maps/Route110/scripts.pory"
-	walk_fast_down
 # 771 "data/maps/Route110/scripts.pory"
 	walk_fast_down
 # 771 "data/maps/Route110/scripts.pory"
@@ -1733,8 +1729,6 @@ Route110_Movement_Rival2RunsIn3:
 	walk_fast_up
 # 801 "data/maps/Route110/scripts.pory"
 	walk_fast_up
-# 801 "data/maps/Route110/scripts.pory"
-	walk_fast_up
 # 802 "data/maps/Route110/scripts.pory"
 	walk_in_place_fast_up
 # 802 "data/maps/Route110/scripts.pory"
@@ -1747,8 +1741,6 @@ Route110_Movement_Rival2RunsIn3:
 	walk_in_place_fast_up
 # 802 "data/maps/Route110/scripts.pory"
 	walk_in_place_fast_up
-# 803 "data/maps/Route110/scripts.pory"
-	walk_fast_down
 # 803 "data/maps/Route110/scripts.pory"
 	walk_fast_down
 # 803 "data/maps/Route110/scripts.pory"

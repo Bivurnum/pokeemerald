@@ -97,28 +97,31 @@ script MauvilleCity_EventScript_Rival2 {
 }
 
 text MauvilleCity_Text_SpencerDontRushHim {
-	format ("That kid is blocking the way into the GYM.\N"
-		"Seems like he's still working up his courage\N"
-		"to take on the GYM challenge.\N"
-		"I get it. I hear WATTSON is no joke!"
+	format ("That kid is blocking the way\N"
+		"into the GYM.\N"
+		"Seems like he's still working up his\N"
+		"courage to take on the GYM challenge.\N"
+		"I get it. I hear WATTSON is no joke!\N"
 		"I don't want to rush him, so I'll\N"
 		"just wait my turn.")
 }
 
 text MauvilleCity_Text_BrenDontRushHim {
-	format ("That kid is blocking the way into the GYM.\N"
-		"Seems like he's still working up his courage\N"
-		"to take on the GYM challenge.\N"
-		"I get it. I hear WATTSON is no joke!"
+	format ("That kid is blocking the way\N"
+		"into the GYM.\N"
+		"Seems like he's still working up his\N"
+		"courage to take on the GYM challenge.\N"
+		"I get it. I hear WATTSON is no joke!\N"
 		"I don't want to rush him, so I'll\N"
 		"just wait my turn.")
 }
 
 text MauvilleCity_Text_KyleDontRushHim {
-	format ("That kid is blocking the way into the GYM.\N"
-		"Seems like he's still working up his courage\N"
-		"to take on the GYM challenge.\N"
-		"I get it. I hear WATTSON is no joke!"
+	format ("That kid is blocking the way\N"
+		"into the GYM.\N"
+		"Seems like he's still working up his\N"
+		"courage to take on the GYM challenge.\N"
+		"I get it. I hear WATTSON is no joke!\N"
 		"I don't want to rush him, so I'll\N"
 		"just wait my turn.")
 }
@@ -206,6 +209,7 @@ script MauvilleCity_EventScript_WallyAndUncleExitEast {
 	applymovement (LOCALID_WALLY, Common_Movement_WalkInPlaceFasterRight)
 	waitmovement (0)
 	delay (30)
+	applymovement (OBJ_EVENT_ID_PLAYER, MauvilleCity_Movement_PlayerFaceUncleEast)
 	applymovement (LOCALID_WALLYS_UNCLE, MauvilleCity_Movement_WallysUncleApproachPlayerEast)
 	waitmovement (0)
 	msgbox (MauvilleCity_Text_UncleVisitUsSometime, MSGBOX_DEFAULT)
@@ -299,30 +303,28 @@ script MauvilleCity_EventScript_BattleWally {
 	closemessage
 	switch (var(VAR_FACING)) {
 		case DIR_NORTH:
+			applymovement (OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterUp)
 			applymovement (LOCALID_WALLY, Common_Movement_WalkInPlaceFasterDown)
 			applymovement (LOCALID_RIVAL2, Common_Movement_WalkInPlaceFasterDown)
+			waitmovement (0)
 		case DIR_EAST:
+			applymovement (OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterRight)
 			applymovement (LOCALID_WALLY, Common_Movement_WalkInPlaceFasterLeft)
 			applymovement (LOCALID_RIVAL2, Common_Movement_WalkInPlaceFasterLeft)
+			waitmovement (0)
 	}
 	waitmovement (0)
 	msgbox (MauvilleCity_Text_LetsDoThis)
 	closemessage
-	trainerbattle (TRAINER_BATTLE_SET_TRAINER_A, TRAINER_WALLY_MAUVILLE, 0, NULL, MauvilleCity_Text_WallyPostBattle)
 	checkfriendchoice
 	switch (var(VAR_RESULT)) {
 		case SPENCER:
-			trainerbattle (TRAINER_BATTLE_SET_TRAINER_B, TRAINER_KYLE_MAUVILLE, 0, MauvilleCity_Text_RivalBeforeBattle, MauvilleCity_Text_RivalPostBattle)
+			doublebattle_vs_2 (TRAINER_WALLY_MAUVILLE, MauvilleCity_Text_WallyDefeat, TRAINER_KYLE_MAUVILLE, MauvilleCity_Text_RivalPostBattle)
 		case BREN:
-			trainerbattle (TRAINER_BATTLE_SET_TRAINER_B, TRAINER_SPENCER_MAUVILLE, 0, MauvilleCity_Text_RivalBeforeBattle, MauvilleCity_Text_RivalPostBattle)
+			doublebattle_vs_2 (TRAINER_WALLY_MAUVILLE, MauvilleCity_Text_WallyDefeat, TRAINER_SPENCER_MAUVILLE, MauvilleCity_Text_RivalPostBattle)
 		case KYLE:
-			trainerbattle (TRAINER_BATTLE_SET_TRAINER_B, TRAINER_BREN_MAUVILLE, 0, MauvilleCity_Text_RivalBeforeBattle, MauvilleCity_Text_RivalPostBattle)
+			doublebattle_vs_2 (TRAINER_WALLY_MAUVILLE, MauvilleCity_Text_WallyDefeat, TRAINER_BREN_MAUVILLE, MauvilleCity_Text_RivalPostBattle)
 	}
-	setvar (VAR_0x8005, 200)
-	dotrainerbattle
-	setvar (VAR_0x8005, 0)
-
-	//trainerbattle_no_intro (TRAINER_WALLY_MAUVILLE, MauvilleCity_Text_WallyDefeat)
 	applymovement (LOCALID_WALLY, Common_Movement_WalkInPlaceFasterRight)
 	waitmovement (0)
 	msgbox (MauvilleCity_Text_WallyIllGoBackToVerdanturf, MSGBOX_DEFAULT)
@@ -431,24 +433,25 @@ movement MauvilleCity_Movement_Rival2WalkToWallySouth {
 }
 
 movement MauvilleCity_Movement_WallyExitNorth1 {
-	walk_left * 2
+	walk_right
 	walk_down * 2
-	walk_left
+	walk_left * 3
 }
 
 movement MauvilleCity_Movement_WallyExitEast1 {
+	walk_right
 	walk_down * 2
 	walk_left * 3
 }
 
 movement MauvilleCity_Movement_WallyExitNorth2 {
-	delay_16 * 2
+	delay_16 * 3
 	walk_left * 8
 	delay_8
 }
 
 movement MauvilleCity_Movement_WallyExitEast2 {
-	delay_16 * 2
+	delay_16 * 3
 	walk_left * 8
 	delay_8
 }
@@ -476,26 +479,46 @@ movement MauvilleCity_Movement_PlayerWatchScottExitEast {
 
 movement MauvilleCity_Movement_PlayerWatchWallyExitEast1 {
 	delay_16
+	delay_8
+	walk_in_place_faster_right
+	delay_16
+	delay_8
 	walk_in_place_faster_down
+	delay_16
+	delay_8
+	walk_in_place_faster_left
 }
 
 movement MauvilleCity_Movement_PlayerWatchWallyExitNorth1 {
 	delay_16
+	delay_8
+	walk_in_place_faster_right
+	delay_16
+	delay_8
+	walk_in_place_faster_down
+	delay_16
+	delay_8
 	walk_in_place_faster_left
 }
 
 movement MauvilleCity_Movement_WallysUncleExitNorth1 {
-	walk_left * 3
 	walk_down * 2
+	walk_left * 4
 }
 
 movement MauvilleCity_Movement_WallysUncleExitEast1 {
-	walk_left
 	walk_down * 2
-	walk_left * 2
+	walk_left * 4
 }
 
 movement MauvilleCity_Movement_PlayerFaceUncleNorth {
+	delay_16
+	delay_8
+	delay_4
+	walk_in_place_faster_left
+}
+
+movement MauvilleCity_Movement_PlayerFaceUncleEast {
 	delay_16
 	delay_8
 	delay_4
@@ -503,20 +526,25 @@ movement MauvilleCity_Movement_PlayerFaceUncleNorth {
 }
 
 movement MauvilleCity_Movement_WallysUncleApproachPlayerNorth {
+	walk_up
+	walk_right * 2
+	walk_in_place_faster_right
+}
+
+movement MauvilleCity_Movement_WallysUncleApproachPlayerEast {
+	walk_up
 	walk_right * 2
 	walk_in_place_faster_up
 }
 
-movement MauvilleCity_Movement_WallysUncleApproachPlayerEast {
-	walk_right
-	walk_up
-}
-
 movement MauvilleCity_Movement_WallysUncleExitNorth2 {
+	walk_left * 2
+	walk_down
 	walk_left * 8
 }
 
 movement MauvilleCity_Movement_WallysUncleExitEast2 {
+	walk_left * 2
 	walk_down
 	walk_left * 8
 }
