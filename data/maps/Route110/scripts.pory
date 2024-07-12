@@ -828,14 +828,14 @@ movement Route110_Movement_Rival1LeaveForMauville3 {
 movement Route110_Movement_WatchRival1LeaveForMauvilleLeft {
 	delay_16
 	face_left
-	delay_16 * 3
+	delay_16 * 2
 	face_up
 }
 
 movement Route110_Movement_WatchRival1LeaveForMauvilleRight {
 	delay_16
 	face_right
-	delay_16 * 3
+	delay_16 * 2
 	face_up
 }
 

@@ -182,6 +182,7 @@ script MauvilleCity_EventScript_BattleWallyPrompt {
 
 script MauvilleCity_EventScript_WallyAndUncleExitNorth {
 	applymovement (OBJ_EVENT_ID_PLAYER, MauvilleCity_Movement_PlayerWatchWallyExitNorth1)
+	applymovement (LOCALID_RIVAL2, MauvilleCity_Movement_PlayerWatchWallyExitEast1)
 	applymovement (LOCALID_WALLY, MauvilleCity_Movement_WallyExitNorth1)
 	applymovement (LOCALID_WALLYS_UNCLE, MauvilleCity_Movement_WallysUncleExitNorth1)
 	waitmovement (0)
@@ -189,11 +190,13 @@ script MauvilleCity_EventScript_WallyAndUncleExitNorth {
 	waitmovement (0)
 	delay (30)
 	applymovement (OBJ_EVENT_ID_PLAYER, MauvilleCity_Movement_PlayerFaceUncleNorth)
+	applymovement (LOCALID_RIVAL2, MauvilleCity_Movement_PlayerFaceUncleEast)
 	applymovement (LOCALID_WALLYS_UNCLE, MauvilleCity_Movement_WallysUncleApproachPlayerNorth)
 	waitmovement (0)
 	msgbox (MauvilleCity_Text_UncleVisitUsSometime, MSGBOX_DEFAULT)
 	closemessage
 	applymovement (OBJ_EVENT_ID_PLAYER, MauvilleCity_Movement_PlayerWatchWallyExitNorth2)
+	applymovement (LOCALID_RIVAL2, MauvilleCity_Movement_PlayerWatchWallyExitEast2)
 	applymovement (LOCALID_WALLYS_UNCLE, MauvilleCity_Movement_WallysUncleExitNorth2)
 	applymovement (LOCALID_WALLY, MauvilleCity_Movement_WallyExitNorth2)
 	waitmovement (0)
@@ -203,6 +206,7 @@ script MauvilleCity_EventScript_WallyAndUncleExitNorth {
 
 script MauvilleCity_EventScript_WallyAndUncleExitEast {
 	applymovement (OBJ_EVENT_ID_PLAYER, MauvilleCity_Movement_PlayerWatchWallyExitEast1)
+	applymovement (LOCALID_RIVAL2, MauvilleCity_Movement_PlayerWatchWallyExitNorth1)
 	applymovement (LOCALID_WALLY, MauvilleCity_Movement_WallyExitEast1)
 	applymovement (LOCALID_WALLYS_UNCLE, MauvilleCity_Movement_WallysUncleExitEast1)
 	waitmovement (0)
@@ -210,11 +214,13 @@ script MauvilleCity_EventScript_WallyAndUncleExitEast {
 	waitmovement (0)
 	delay (30)
 	applymovement (OBJ_EVENT_ID_PLAYER, MauvilleCity_Movement_PlayerFaceUncleEast)
+	applymovement (LOCALID_RIVAL2, MauvilleCity_Movement_PlayerFaceUncleNorth)
 	applymovement (LOCALID_WALLYS_UNCLE, MauvilleCity_Movement_WallysUncleApproachPlayerEast)
 	waitmovement (0)
 	msgbox (MauvilleCity_Text_UncleVisitUsSometime, MSGBOX_DEFAULT)
 	closemessage
 	applymovement (OBJ_EVENT_ID_PLAYER, MauvilleCity_Movement_PlayerWatchWallyExitEast2)
+	applymovement (LOCALID_RIVAL2, MauvilleCity_Movement_PlayerWatchWallyExitNorth2)
 	applymovement (LOCALID_WALLYS_UNCLE, MauvilleCity_Movement_WallysUncleExitEast2)
 	applymovement (LOCALID_WALLY, MauvilleCity_Movement_WallyExitEast2)
 	waitmovement (0)
@@ -230,6 +236,7 @@ script MauvilleCity_EventScript_DefeatedWally {
 	setflag (FLAG_DEFEATED_WALLY_MAUVILLE)
 	setvar (VAR_WALLY_CALL_STEP_COUNTER, 0)
 	setflag (FLAG_ENABLE_FIRST_WALLY_POKENAV_CALL)
+	call (MauvilleCity_EventScript_RivalPostWally)
 	call_if_eq (VAR_FACING, DIR_NORTH, MauvilleCity_EventScript_ScottApproachPlayerNorth)
 	call_if_eq (VAR_FACING, DIR_EAST, MauvilleCity_EventScript_ScottApproachPlayerEast)
 	applymovement (OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterDown)
@@ -242,6 +249,101 @@ script MauvilleCity_EventScript_DefeatedWally {
 	removeobject (LOCALID_SCOTT)
 	releaseall
 	end
+}
+
+script MauvilleCity_EventScript_RivalPostWally {
+	getplayerxy (VAR_0x8001, VAR_0x8002)
+	switch (var(VAR_0x8001)) {
+		case 7:
+			applymovement (OBJ_EVENT_ID_PLAYER, MauvilleCity_Movement_PlayerFaceRival2East)
+			applymovement (LOCALID_RIVAL2, MauvilleCity_Movement_Rival2ToPlayerEast)
+		case 8:
+			applymovement (OBJ_EVENT_ID_PLAYER, MauvilleCity_Movement_PlayerFaceRival2North)
+			applymovement (LOCALID_RIVAL2, MauvilleCity_Movement_Rival2ToPlayerNorth)
+	}
+	waitmovement (0)
+	rival2talk (MauvilleCity_Text_SpencerPostWally,
+				MauvilleCity_Text_BrenPostWally,
+				MauvilleCity_Text_KylePostWally)
+	switch (var(VAR_0x8001)) {
+		case 7:
+			applymovement (OBJ_EVENT_ID_PLAYER, MauvilleCity_Movement_PlayerWatchRival2LeaveEast)
+			applymovement (LOCALID_RIVAL2, MauvilleCity_Movement_Rival2LeaveAfterWallyEast)
+		case 8:
+			applymovement (LOCALID_RIVAL2, MauvilleCity_Movement_Rival2LeaveAfterWallyNorth)
+	}
+	waitmovement (0)
+	removeobject (LOCALID_RIVAL2)
+	return
+}
+
+movement MauvilleCity_Movement_PlayerFaceRival2North {
+	delay_16
+	walk_in_place_faster_left
+}
+
+movement MauvilleCity_Movement_PlayerFaceRival2East {
+	delay_16
+	walk_in_place_faster_right
+}
+
+movement MauvilleCity_Movement_Rival2ToPlayerNorth {
+	walk_down
+	walk_in_place_faster_right
+}
+
+movement MauvilleCity_Movement_Rival2ToPlayerEast {
+	walk_up
+	walk_in_place_faster_left
+}
+
+movement MauvilleCity_Movement_PlayerWatchRival2LeaveEast {
+	delay_16
+	face_down
+	delay_16 * 2
+	face_left
+}
+
+movement MauvilleCity_Movement_Rival2LeaveAfterWallyNorth {
+	walk_down
+	walk_left * 8
+	delay_8
+}
+
+movement MauvilleCity_Movement_Rival2LeaveAfterWallyEast {
+	walk_down * 2
+	walk_left * 10
+	delay_8
+}
+
+text MauvilleCity_Text_SpencerPostWally {
+	format ("That WALLY is alright by me.\N"
+		"He and I both gave it our all and still lost to you!\N"
+		"What's your secret, huh?\N"
+		"I obviously have to step up my training if I want to keep up.\p"
+		"I think I should go bolster my team a bit before I take on the GYM.\N"
+		"Based on what I've seen, you should have no trouble beating WATTSON.\p"
+		"Keep shining bright, {PLAYER}!")
+}
+
+text MauvilleCity_Text_BrenPostWally {
+	format ("That WALLY is alright by me.\N"
+		"He and I both gave it our all and still lost to you!\N"
+		"What's your secret, huh?\N"
+		"I obviously have to step up my training if I want to keep up.\p"
+		"I think I should go bolster my team a bit before I take on the GYM.\N"
+		"Based on what I've seen, you should have no trouble beating WATTSON.\p"
+		"Keep shining bright, {PLAYER}!")
+}
+
+text MauvilleCity_Text_KylePostWally {
+	format ("That WALLY is alright by me.\N"
+		"He and I both gave it our all and still lost to you!\N"
+		"What's your secret, huh?\N"
+		"I obviously have to step up my training if I want to keep up.\p"
+		"I think I should go bolster my team a bit before I take on the GYM.\N"
+		"Based on what I've seen, you should have no trouble beating WATTSON.\p"
+		"Keep shining bright, {PLAYER}!")
 }
 
 script MauvilleCity_EventScript_ScottApproachPlayerNorth {
@@ -319,11 +421,18 @@ script MauvilleCity_EventScript_BattleWally {
 	checkfriendchoice
 	switch (var(VAR_RESULT)) {
 		case SPENCER:
-			doublebattle_vs_2 (TRAINER_WALLY_MAUVILLE, MauvilleCity_Text_WallyDefeat, TRAINER_KYLE_MAUVILLE, MauvilleCity_Text_RivalPostBattle)
+			doublebattle_vs_2 (TRAINER_WALLY_MAUVILLE, MauvilleCity_Text_WallyDefeat, TRAINER_KYLE_MAUVILLE, MauvilleCity_Text_KylePostBattle)
 		case BREN:
-			doublebattle_vs_2 (TRAINER_WALLY_MAUVILLE, MauvilleCity_Text_WallyDefeat, TRAINER_SPENCER_MAUVILLE, MauvilleCity_Text_RivalPostBattle)
+			doublebattle_vs_2 (TRAINER_WALLY_MAUVILLE, MauvilleCity_Text_WallyDefeat, TRAINER_SPENCER_MAUVILLE, MauvilleCity_Text_SpencerPostBattle)
 		case KYLE:
-			doublebattle_vs_2 (TRAINER_WALLY_MAUVILLE, MauvilleCity_Text_WallyDefeat, TRAINER_BREN_MAUVILLE, MauvilleCity_Text_RivalPostBattle)
+			doublebattle_vs_2 (TRAINER_WALLY_MAUVILLE, MauvilleCity_Text_WallyDefeat, TRAINER_BREN_MAUVILLE, MauvilleCity_Text_BrenPostBattle)
+	}
+	getplayerxy (VAR_0x8001, VAR_0x8002)
+	switch (var(VAR_0x8001)) {
+		case 7:
+			applymovement (LOCALID_RIVAL2, Common_Movement_FaceUp)
+		case 8:
+			applymovement (LOCALID_RIVAL2, Common_Movement_FaceRight)
 	}
 	applymovement (LOCALID_WALLY, Common_Movement_WalkInPlaceFasterRight)
 	waitmovement (0)
@@ -337,20 +446,16 @@ script MauvilleCity_EventScript_BattleWally {
 	return
 }
 
-text MauvilleCity_Text_WallyBeforeBattle {
-	"Wally before"
+text MauvilleCity_Text_SpencerPostBattle {
+	format ("Always one step ahead of me, eh?")
 }
 
-text MauvilleCity_Text_RivalBeforeBattle {
-	"Rival before"
+text MauvilleCity_Text_BrenPostBattle {
+	format ("Always one step ahead of me, eh?")
 }
 
-text MauvilleCity_Text_WallyPostBattle {
-	"Wally post battle"
-}
-
-text MauvilleCity_Text_RivalPostBattle {
-	"Rival post battle"
+text MauvilleCity_Text_KylePostBattle {
+	format ("Always one step ahead of me, eh?")
 }
 
 text MauvilleCity_Text_SpencerTeamUpWithWally {
@@ -459,46 +564,44 @@ movement MauvilleCity_Movement_WallyExitEast2 {
 movement MauvilleCity_Movement_PlayerWatchWallyExitNorth2 {
 	delay_16
 	delay_8
-	walk_in_place_faster_left
 }
 
 movement MauvilleCity_Movement_PlayerWatchWallyExitEast2 {
 	delay_16 * 3
-	walk_in_place_faster_left
+	face_left
 }
 
 movement MauvilleCity_Movement_PlayerWatchScottExitNorth {
 	delay_16
-	walk_in_place_faster_left
+	face_left
 }
 
 movement MauvilleCity_Movement_PlayerWatchScottExitEast {
 	delay_16 * 2
-	walk_in_place_faster_left
+	face_left
 }
 
 movement MauvilleCity_Movement_PlayerWatchWallyExitEast1 {
 	delay_16
 	delay_8
-	walk_in_place_faster_right
 	delay_16
 	delay_8
-	walk_in_place_faster_down
+	face_down
 	delay_16
 	delay_8
-	walk_in_place_faster_left
+	face_left
 }
 
 movement MauvilleCity_Movement_PlayerWatchWallyExitNorth1 {
 	delay_16
 	delay_8
-	walk_in_place_faster_right
+	face_right
 	delay_16
 	delay_8
-	walk_in_place_faster_down
+	face_down
 	delay_16
 	delay_8
-	walk_in_place_faster_left
+	face_left
 }
 
 movement MauvilleCity_Movement_WallysUncleExitNorth1 {
@@ -515,13 +618,12 @@ movement MauvilleCity_Movement_PlayerFaceUncleNorth {
 	delay_16
 	delay_8
 	delay_4
-	walk_in_place_faster_left
 }
 
 movement MauvilleCity_Movement_PlayerFaceUncleEast {
 	delay_16
 	delay_8
-	delay_4
+	delay_16
 	walk_in_place_faster_down
 }
 
@@ -687,7 +789,7 @@ text MauvilleCity_Text_WallyHereICome {
 text MauvilleCity_Text_WallyDefeat {
     "WALLY: … … … … … … …\p"
     "… … … … … … … …\p"
-    "I lost…"
+    "We lost…"
 }
 
 text MauvilleCity_Text_WallyIllGoBackToVerdanturf {
@@ -696,7 +798,7 @@ text MauvilleCity_Text_WallyIllGoBackToVerdanturf {
 }
 
 text MauvilleCity_Text_ThankYouNotEnoughToBattle {
-    "{PLAYER}, thank you.\n"
+    "{PLAYER}, {RIVAL2}, thank you.\n"
     "Being a TRAINER is tough, isn't it?\p"
     "It's not enough just to have POKéMON\n"
     "and make them battle. That isn't what\l"
@@ -742,10 +844,10 @@ text MauvilleCity_Text_RegisteredWally {
 text MauvilleCity_Text_ScottYouDidntHoldBack {
     "SCOTT: Hehe…\n"
     "I was watching that match!\p"
-    "You're friends with that boy WALLY,\n"
+    "You're friends with those boys,\n"
     "aren't you?\p"
     "But you didn't hold anything back\n"
-    "and beat him impressively.\p"
+    "and beat them both impressively.\p"
     "Yeah! That's what a real POKéMON\n"
     "battle is all about!\p"
     "I idolize TRAINERS like that!\p"
