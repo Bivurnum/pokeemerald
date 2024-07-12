@@ -1,18 +1,565 @@
-raw `
-MauvilleCity_BikeShop_MapScripts::
-	.byte 0
+const LOCALID_RYDEL = 1
+const LOCALID_RIVAL1 = 2
+const LOCALID_RIVAL2 = 3
 
-MauvilleCity_BikeShop_EventScript_Rydel::
+mapscripts MauvilleCity_BikeShop_MapScripts {
+	MAP_SCRIPT_ON_TRANSITION {
+		call (Common_EventScript_SetupRivalGfxId)
+		call_if_eq (VAR_MAUVILLE_BIKE_SHOP_STATE, 0, MauvilleCity_BikeShop_EventScript_SetUpBikeIntro)
+	}
+}
+
+script MauvilleCity_BikeShop_EventScript_SetUpBikeIntro {
+	setobjectxyperm (LOCALID_RYDEL, 9, 7)
+	setobjectmovementtype (LOCALID_RYDEL, MOVEMENT_TYPE_FACE_RIGHT)
+	setobjectxyperm (LOCALID_RIVAL1, 2, 5)
+	setobjectmovementtype (LOCALID_RIVAL1, MOVEMENT_TYPE_FACE_LEFT)
+}
+
+script MauvilleCity_BikeShop_EventScript_Rival1 {
+	lockall
+	applymovement (LOCALID_RIVAL1, Common_Movement_FacePlayer)
+	waitmovement (0)
+	goto_if_eq (VAR_MAUVILLE_BIKE_SHOP_STATE, 0, MauvilleCity_BikeShop_EventScript_BikeIntro)
+	if (var(VAR_TEMP_3) != 5) {
+		msgbox (MauvilleCity_BikeShop_Text_YouWantToRead, MSGBOX_YESNO)
+		switch (var(VAR_RESULT)) {
+			case NO:
+				msgbox ("Suit yourself.")
+				closemessage
+				applymovement (LOCALID_RIVAL1, Common_Movement_FaceUp)
+				waitmovement (0)
+			case YES:
+				msgbox ("Go right ahead.")
+				closemessage
+				getplayerxy (VAR_0x8001, VAR_0x8002)
+				if (var(VAR_0x8001) == 7) {
+					applymovement (LOCALID_RIVAL1, MauvilleCity_BikeShop_Movement_LetPlayerReadRight)
+				}
+				else {
+					applymovement (LOCALID_RIVAL1, MauvilleCity_BikeShop_Movement_LetPlayerReadLeft)
+				}
+				waitmovement (0)
+				setvar (VAR_TEMP_3, 5)
+		}
+	}
+	else {
+		rival1talk (MauvilleCity_BikeShop_Text_SpencerUsefulInfo,
+					MauvilleCity_BikeShop_Text_BrenUsefulInfo,
+					MauvilleCity_BikeShop_Text_KyleUsefulInfo)
+	}
+	releaseall
+	end
+}
+
+movement MauvilleCity_BikeShop_Movement_LetPlayerReadLeft {
+	walk_left
+	walk_in_place_fast_right
+}
+
+movement MauvilleCity_BikeShop_Movement_LetPlayerReadRight {
+	walk_right
+	walk_in_place_fast_left
+}
+
+text MauvilleCity_BikeShop_Text_YouWantToRead {
+	format ("Oh! Did you want to read\N"
+		"this manual?")
+}
+
+text MauvilleCity_BikeShop_Text_SpencerUsefulInfo {
+	format ("It's useful information, right?")
+}
+
+text MauvilleCity_BikeShop_Text_BrenUsefulInfo {
+	format ("It's useful information, right?")
+}
+
+text MauvilleCity_BikeShop_Text_KyleUsefulInfo {
+	format ("It's useful information, right?")
+}
+
+script MauvilleCity_BikeShop_EventScript_BikeIntro {
+	rival1talk (MauvilleCity_BikeShop_Text_SpencerBikesLookCool,
+				MauvilleCity_BikeShop_Text_BrenBikesLookCool,
+				MauvilleCity_BikeShop_Text_KyleBikesLookCool)
+	delay (30)
+	playse (SE_EXIT)
+	addobject (LOCALID_RIVAL2)
+	waitse
+	playse (SE_PIN)
+	applymovement (OBJ_EVENT_ID_PLAYER, MauvilleCity_BikeShop_Movement_Surprise)
+	applymovement (LOCALID_RIVAL1, MauvilleCity_BikeShop_Movement_Surprise)
+	waitmovement (0)
+	delay (40)
+	waitse
+	getplayerxy (VAR_0x8001, VAR_0x8002)
+	switch (var(VAR_0x8002)) {
+		case 4:
+			applymovement (OBJ_EVENT_ID_PLAYER, MauvilleCity_BikeShop_Movement_PlayerMoveIntoPlaceTop)
+		case 6:
+			applymovement (OBJ_EVENT_ID_PLAYER, MauvilleCity_BikeShop_Movement_PlayerMoveIntoPlaceBottom)
+	}
+	waitmovement (0)
+	applymovement (OBJ_EVENT_ID_PLAYER, MauvilleCity_BikeShop_Movement_GreetRival2)
+	applymovement (LOCALID_RIVAL1, MauvilleCity_BikeShop_Movement_GreetRival2)
+	applymovement (LOCALID_RIVAL2, MauvilleCity_BikeShop_Movement_Rival2Enter)
+	waitmovement (0)
+	applymovement (LOCALID_RIVAL2, Common_Movement_BeginTalkUp)
+	waitmovement (0)
+	rival2talk (MauvilleCity_BikeShop_Text_SpencerWhyDidntYouTellMe,
+				MauvilleCity_BikeShop_Text_BrenWhyDidntYouTellMe,
+				MauvilleCity_BikeShop_Text_KyleWhyDidntYouTellMe)
+	applymovement (LOCALID_RIVAL1, Common_Movement_BeginTalkDown)
+	waitmovement (0)
+	rival1talk (MauvilleCity_BikeShop_Text_SpencerTriedTo,
+				MauvilleCity_BikeShop_Text_BrenTriedTo,
+				MauvilleCity_BikeShop_Text_KyleTriedTo)
+	applymovement (LOCALID_RIVAL2, Common_Movement_BeginTalkUp)
+	waitmovement (0)
+	rival2talk (MauvilleCity_BikeShop_Text_SpencerMyBad,
+				MauvilleCity_BikeShop_Text_BrenMyBad,
+				MauvilleCity_BikeShop_Text_KyleMyBad)
+	applymovement (LOCALID_RIVAL1, Common_Movement_BeginTalkDown)
+	waitmovement (0)
+	rival1talk (MauvilleCity_BikeShop_Text_SpencerWouldBeNiceToHaveBikes,
+				MauvilleCity_BikeShop_Text_BrenWouldBeNiceToHaveBikes,
+				MauvilleCity_BikeShop_Text_KyleWouldBeNiceToHaveBikes)
+	playse (SE_PIN)
+	applymovement (LOCALID_RYDEL, Common_Movement_ExclamationMark)
+	applymovement (OBJ_EVENT_ID_PLAYER, Common_Movement_FaceRight)
+	applymovement (LOCALID_RIVAL1, Common_Movement_FaceRight)
+	applymovement (LOCALID_RIVAL2, Common_Movement_FaceRight)
+	waitmovement (0)
+	delay (60)
+	waitse
+	applymovement (LOCALID_RIVAL1, MauvilleCity_BikeShop_Movement_Rival1GetInPlace)
+	applymovement (LOCALID_RYDEL, MauvilleCity_BikeShop_Movement_RydellApproaches)
+	waitmovement (0)
+	applymovement (LOCALID_RYDEL, Common_Movement_BeginTalkLeft)
+	waitmovement (0)
+	msgbox (MauvilleCity_BikeShop_Text_RydellFilthyShoes, MSGBOX_YESNO)
+	call_if_eq (VAR_RESULT, NO, MauvilleCity_BikeShop_EventScript_ChoseNo)
+	closemessage
+	applymovement (OBJ_EVENT_ID_PLAYER, Common_Movement_BeginTalkRight)
+	waitmovement (0)
+	delay (20)
+	applymovement (LOCALID_RYDEL, Common_Movement_BeginTalkLeft)
+	waitmovement (0)
+	msgbox (MauvilleCity_BikeShop_Text_RydellCameAllThisWay)
+	closemessage
+	applymovement (LOCALID_RIVAL2, Common_Movement_BeginTalkRight)
+	waitmovement (0)
+	rival2talk (MauvilleCity_BikeShop_Text_SpencerTakingGymChallenge,
+				MauvilleCity_BikeShop_Text_BrenTakingGymChallenge,
+				MauvilleCity_BikeShop_Text_KyleTakingGymChallenge)
+	delay (10)
+	applymovement (LOCALID_RIVAL1, Common_Movement_BeginTalkRight)
+	waitmovement (0)
+	rival1talk (MauvilleCity_BikeShop_Text_SpencerPokedexJourney,
+				MauvilleCity_BikeShop_Text_BrenPokedexJourney,
+				MauvilleCity_BikeShop_Text_KylePokedexJourney)
+	applymovement (LOCALID_RYDEL, Common_Movement_BeginTalkLeft)
+	waitmovement (0)
+	msgbox (MauvilleCity_BikeShop_Text_ThatSettlesIt)
+	waitmessage
+	multichoice (21, 8, MULTI_BIKE, TRUE)
+	switch (var(VAR_RESULT)) {
+		case 0:
+			goto (MauvilleCity_BikeShop_EventScript_GetMachBike)
+		case 1:
+			goto (MauvilleCity_BikeShop_EventScript_GetAcroBike)
+	}
+	end
+}
+
+script MauvilleCity_BikeShop_EventScript_ChoseNo {
+	msgbox (MauvilleCity_BikeShop_Text_RydellDontBeModest)
+	return
+}
+
+script MauvilleCity_BikeShop_EventScript_IntroPostBikeChoice {
+	msgbox (MauvilleCity_BikeShop_Text_ExcellentChoice)
+	closemessage
+	applymovement (LOCALID_RYDEL, MauvilleCity_BikeShop_Movement_RydellToRival2)
+	waitmovement (0)
+	delay (20)
+	applymovement (LOCALID_RIVAL2, Common_Movement_BeginTalkRight)
+	waitmovement (0)
+	rival2talk (MauvilleCity_BikeShop_Text_SpencerChooseAcro,
+				MauvilleCity_BikeShop_Text_BrenChooseAcro,
+				MauvilleCity_BikeShop_Text_KyleChooseAcro)
+	delay (60)
+	applymovement (LOCALID_RYDEL, MauvilleCity_BikeShop_Movement_RydellToRival1)
+	waitmovement (0)
+	applymovement (LOCALID_RIVAL1, Common_Movement_BeginTalkRight)
+	waitmovement (0)
+	rival1talk (MauvilleCity_BikeShop_Text_SpencerChooseMach,
+				MauvilleCity_BikeShop_Text_BrenChooseMach,
+				MauvilleCity_BikeShop_Text_KyleChooseMach)
+	delay (60)
+	applymovement (LOCALID_RYDEL, Common_Movement_Walk_Down)
+	waitmovement (0)
+	applymovement (LOCALID_RYDEL, Common_Movement_BeginTalkLeft)
+	waitmovement (0)
+	msgbox (MauvilleCity_BikeShop_Text_ComeBackToSwitchBikes)
+	closemessage
+	applymovement (LOCALID_RYDEL, MauvilleCity_BikeShop_Movement_RydellReturnToWork)
+	waitmovement (0)
+	applymovement (LOCALID_RIVAL2, Common_Movement_FaceUp)
+	applymovement (OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterDown)
+	applymovement (LOCALID_RIVAL1, MauvilleCity_BikeShop_Movement_Rival1AfterRydell)
+	waitmovement (0)
+	applymovement (LOCALID_RIVAL2, Common_Movement_BeginTalkUp)
+	waitmovement (0)
+	rival2talk (MauvilleCity_BikeShop_Text_SpencerGoTryBike,
+				MauvilleCity_BikeShop_Text_BrenGoTryBike,
+				MauvilleCity_BikeShop_Text_KyleGoTryBike)
+	applymovement (LOCALID_RIVAL2, MauvilleCity_BikeShop_Movement_Rival2Leaves)
+	waitmovement (0)
+	delay (20)
+	playse (SE_EXIT)
+	removeobject (LOCALID_RIVAL2)
+	waitse
+	applymovement (OBJ_EVENT_ID_PLAYER, Common_Movement_FaceRight)
+	applymovement (LOCALID_RIVAL1, Common_Movement_BeginTalkLeft)
+	waitmovement (0)
+	rival1talk (MauvilleCity_BikeShop_Text_SpencerLookUpManual,
+				MauvilleCity_BikeShop_Text_BrenLookUpManual,
+				MauvilleCity_BikeShop_Text_KyleLookUpManual)
+	applymovement (LOCALID_RIVAL1, MauvilleCity_BikeShop_Movement_Rival1GoToManual)
+	waitmovement (0)
+	setobjectxyperm (LOCALID_RIVAL1, 8, 2)
+	setvar (VAR_MAUVILLE_BIKE_SHOP_STATE, 1)
+	clearflag (FLAG_HIDE_ROUTE_110_RIVAL)
+	setflag (FLAG_RECEIVED_BIKE)
+	setflag (FLAG_HIDE_MAP_NAME_POPUP)
+	releaseall
+	end
+}
+
+movement MauvilleCity_BikeShop_Movement_Surprise {
+	emote_exclamation_mark
+	walk_in_place_faster_down
+}
+
+movement MauvilleCity_BikeShop_Movement_PlayerMoveIntoPlaceTop {
+	walk_right
+	walk_down
+}
+
+movement MauvilleCity_BikeShop_Movement_PlayerMoveIntoPlaceBottom {
+	walk_right
+	walk_up
+}
+
+movement MauvilleCity_BikeShop_Movement_GreetRival2 {
+	walk_right
+	walk_in_place_faster_down
+}
+
+movement MauvilleCity_BikeShop_Movement_Rival2Enter {
+	walk_up * 2
+}
+
+movement MauvilleCity_BikeShop_Movement_RydellApproaches {
+	walk_left * 2
+	walk_up * 2
+	walk_left * 2
+}
+
+movement MauvilleCity_BikeShop_Movement_Rival1GetInPlace {
+	walk_up
+	walk_right
+}
+
+movement MauvilleCity_BikeShop_Movement_RydellToRival2 {
+	walk_down
+	walk_in_place_faster_left
+}
+
+movement MauvilleCity_BikeShop_Movement_RydellToRival1 {
+	walk_up * 2
+	walk_in_place_faster_left
+}
+
+movement MauvilleCity_BikeShop_Movement_RydellReturnToWork {
+	walk_right * 2
+	walk_down * 2
+	walk_right * 2
+}
+
+movement MauvilleCity_BikeShop_Movement_Rival1AfterRydell {
+	walk_right
+	walk_down
+}
+
+movement MauvilleCity_BikeShop_Movement_Rival2Leaves {
+	walk_down * 2
+}
+
+movement MauvilleCity_BikeShop_Movement_Rival1GoToManual {
+	walk_right * 3
+	walk_up * 3
+}
+
+text MauvilleCity_BikeShop_Text_SpencerBikesLookCool {
+	format ("I'm glad you could make it, {PLAYER}.\N"
+		"Don't these bikes look cool?")
+}
+
+text MauvilleCity_BikeShop_Text_BrenBikesLookCool {
+	format ("I'm glad you could make it, {PLAYER}.\N"
+		"Don't these bikes look cool?")
+}
+
+text MauvilleCity_BikeShop_Text_KyleBikesLookCool {
+	format ("I'm glad you could make it, {PLAYER}.\N"
+		"Don't these bikes look cool?")
+}
+
+text MauvilleCity_BikeShop_Text_SpencerWhyDidntYouTellMe {
+	format ("SPENCER: Hey, guys!\N"
+		"Cool bike shop.\N"
+		"Why didn't you tell me this was here?")
+}
+
+text MauvilleCity_BikeShop_Text_BrenWhyDidntYouTellMe {
+	format ("BREN: Hey, guys!\N"
+		"Cool bike shop.\N"
+		"Why didn't you tell me this was here?")
+}
+
+text MauvilleCity_BikeShop_Text_KyleWhyDidntYouTellMe {
+	format ("KYLE: Hey, guys!\N"
+		"Cool bike shop.\N"
+		"Why didn't you tell me this was here?")
+}
+
+text MauvilleCity_BikeShop_Text_SpencerTriedTo {
+	format ("SPENCER: I tried to, but you were in too much of a hurry to get to the GYM.")
+}
+
+text MauvilleCity_BikeShop_Text_BrenTriedTo {
+	format ("BREN: I tried to, but you were in too much of a hurry to get to the GYM.")
+}
+
+text MauvilleCity_BikeShop_Text_KyleTriedTo {
+	format ("KYLE: I tried to, but you were in too much of a hurry to get to the GYM.")
+}
+
+text MauvilleCity_BikeShop_Text_SpencerMyBad {
+	format ("SPENCER: Whoops!\N"
+		"Heh heh…\p"
+		"My bad.")
+}
+
+text MauvilleCity_BikeShop_Text_BrenMyBad {
+	format ("BREN: Whoops!\N"
+		"Heh heh…\p"
+		"My bad.")
+}
+
+text MauvilleCity_BikeShop_Text_KyleMyBad {
+	format ("KYLE: Whoops!\N"
+		"Heh heh…\p"
+		"My bad.")
+}
+
+text MauvilleCity_BikeShop_Text_SpencerWouldBeNiceToHaveBikes {
+	format ("SPENCER: Anyway…"
+		"I was thinking. It would be nice if the three of us had bikes. "
+		"We've traveled so far already, but we still have a long way to go. "
+		"Having some bikes would help us cover distances that much quicker.\N"
+		"Plus, we'd look super rad riding these around everywhere!\N"
+		"I'm not sure we can afford them, though…")
+}
+
+text MauvilleCity_BikeShop_Text_BrenWouldBeNiceToHaveBikes {
+	format ("BREN: Anyway…"
+		"I was thinking. It would be nice if the three of us had bikes. "
+		"We've traveled so far already, but we still have a long way to go. "
+		"Having some bikes would help us cover distances that much quicker.\N"
+		"Plus, we'd look super rad riding these around everywhere!\N"
+		"I'm not sure we can afford them, though…")
+}
+
+text MauvilleCity_BikeShop_Text_KyleWouldBeNiceToHaveBikes {
+	format ("KYLE: Anyway…"
+		"I was thinking. It would be nice if the three of us had bikes. "
+		"We've traveled so far already, but we still have a long way to go. "
+		"Having some bikes would help us cover distances that much quicker.\N"
+		"Plus, we'd look super rad riding these around everywhere!\N"
+		"I'm not sure we can afford them, though…")
+}
+
+text MauvilleCity_BikeShop_Text_RydellFilthyShoes {
+	format ("Did you boys say you're on a long journey?\p"
+		"Where are my manners?\N"
+		"My name is RYDELL.\N"
+		"I'm the owner of this shop.\p"
+		"Your RUNNING SHOES…\N"
+		"They're awfully filthy.\N"
+		"Did you come from far away?")
+}
+
+text MauvilleCity_BikeShop_Text_RydellDontBeModest {
+	format ("RYDELL: Now, now…\N"
+		"Don't be modest.\p"
+		"I overheard you talking before.\N"
+		"You must've come a long way!")
+}
+
+text MauvilleCity_BikeShop_Text_RydellCameAllThisWay {
+	format ("RYDEL: Hm, hm… … … … …\p"
+		"You're saying that you came all this\n"
+		"way from LITTLEROOT?\p"
+		"My goodness!\n"
+		"That's ridiculously far!\p"
+		"And you say you have even further\N"
+		"to go still?")
+}
+
+text MauvilleCity_BikeShop_Text_SpencerTakingGymChallenge {
+	format ("SPENCER: Yeah.\N"
+		"We're taking the GYM challenge, so we'll be travelling to all the GYMS around the region!")
+}
+
+text MauvilleCity_BikeShop_Text_BrenTakingGymChallenge {
+	format ("BREN: Yeah.\N"
+		"We're taking the GYM challenge, so we'll be travelling to all the GYMS around the region!")
+}
+
+text MauvilleCity_BikeShop_Text_KyleTakingGymChallenge {
+	format ("KYLE: Yeah.\N"
+		"We're taking the GYM challenge, so we'll be travelling to all the GYMS around the region!")
+}
+
+text MauvilleCity_BikeShop_Text_SpencerPokedexJourney {
+	format ("SPENCER: Not to mention that the PROF. tasked us with filling out the POKéDEX.\N"
+		"We will be searching far and wide to find as many species of POKéMON as we can!")
+}
+
+text MauvilleCity_BikeShop_Text_BrenPokedexJourney {
+	format ("BREN: Not to mention that the PROF. tasked us with filling out the POKéDEX.\N"
+		"We will be searching far and wide to find as many species of POKéMON as we can!")
+}
+
+text MauvilleCity_BikeShop_Text_KylePokedexJourney {
+	format ("KYLE: Not to mention that the PROF. tasked us with filling out the POKéDEX.\N"
+		"We will be searching far and wide to find as many species of POKéMON as we can!")
+}
+
+text MauvilleCity_BikeShop_Text_ThatSettlesIt {
+	format ("RYDELL: Well, that settles it.\N"
+		"I have a proposal for you young adventurers. "
+		"I only just opened up this bike shop and not a whole lot of people know about it yet.\N"
+		"It would do wonders for marketing if people all over HOENN see you riding my bikes.\p"
+		"I'll give you some bikes for free!\N"
+		"Just be sure to ride them a whole lot so you spread the name RYDELL!\p"
+		"Oh, wait a second!\p"
+	    "I forgot to tell you that there are\n"
+	    "two kinds of BIKES!\p"
+	    "They are the MACH BIKE and\n"
+	    "the ACRO BIKE!\p"
+	    "The MACH BIKE is for cyclists who want\n"
+	    "to feel the wind with their bodies!\p"
+	    "And an ACRO BIKE is for those who\n"
+	    "prefer technical rides!\p"
+	    "I'm a real sweetheart, so you can\n"
+	    "have whichever one you like!\p"
+	    "Which one will you choose?")
+}
+
+text MauvilleCity_BikeShop_Text_ExcellentChoice {
+	format ("RYDELL: Excellent choice!")
+}
+
+text MauvilleCity_BikeShop_Text_SpencerChooseAcro {
+	format ("SPENCER: Doing bike tricks sounds awesome!\N"
+		"I'll take the ACRO BIKE.")
+}
+
+text MauvilleCity_BikeShop_Text_BrenChooseAcro {
+	format ("BREN: Doing bike tricks sounds awesome!\N"
+		"I'll take the ACRO BIKE.")
+}
+
+text MauvilleCity_BikeShop_Text_KyleChooseAcro {
+	format ("KYLE: Doing bike tricks sounds awesome!\N"
+		"I'll take the ACRO BIKE.")
+}
+
+text MauvilleCity_BikeShop_Text_SpencerChooseMach {
+	format ("SPENCER: I want to go super fast!\N"
+		"I choose the MACH BIKE!")
+}
+
+text MauvilleCity_BikeShop_Text_BrenChooseMach {
+	format ("BREN: I want to go super fast!\N"
+		"I choose the MACH BIKE!")
+}
+
+text MauvilleCity_BikeShop_Text_KyleChooseMach {
+	format ("KYLE: I want to go super fast!\N"
+		"I choose the MACH BIKE!")
+}
+
+text MauvilleCity_BikeShop_Text_SpencerGoTryBike {
+	format ("SPENCER: I'm going to go try out my new bike right now!")
+}
+
+text MauvilleCity_BikeShop_Text_BrenGoTryBike {
+	format ("BREN: I'm going to go try out my new bike right now!")
+}
+
+text MauvilleCity_BikeShop_Text_KyleGoTryBike {
+	format ("KYLE: I'm going to go try out my new bike right now!")
+}
+
+text MauvilleCity_BikeShop_Text_SpencerLookUpManual {
+	format ("I saw some bike manuals in the back earlier. "
+		"I'm going to look up how to make my new bike go as fast as possible!")
+}
+
+text MauvilleCity_BikeShop_Text_BrenLookUpManual {
+	format ("I saw some bike manuals in the back earlier. "
+		"I'm going to look up how to make my new bike go as fast as possible!")
+}
+
+text MauvilleCity_BikeShop_Text_KyleLookUpManual {
+	format ("I saw some bike manuals in the back earlier. "
+		"I'm going to look up how to make my new bike go as fast as possible!")
+}
+
+script MauvilleCity_BikeShop_EventScript_Rydel {
 	lock
 	faceplayer
-	goto_if_set FLAG_RECEIVED_BIKE, MauvilleCity_BikeShop_EventScript_AskSwitchBikes
-	goto_if_set FLAG_DECLINED_BIKE, MauvilleCity_BikeShop_EventScript_SkipGreeting
-	msgbox MauvilleCity_BikeShop_Text_RydelGreeting, MSGBOX_DEFAULT
-	msgbox MauvilleCity_BikeShop_Text_DidYouComeFromFarAway, MSGBOX_YESNO
-	goto_if_eq VAR_RESULT, YES, MauvilleCity_BikeShop_EventScript_YesFar
-	goto_if_eq VAR_RESULT, NO, MauvilleCity_BikeShop_EventScript_NotFar
+	goto_if_eq (VAR_MAUVILLE_BIKE_SHOP_STATE, 0, MauvilleCity_BikeShop_EventScript_PleaseLookAround)
+	goto_if_set (FLAG_RECEIVED_BIKE, MauvilleCity_BikeShop_EventScript_AskSwitchBikes)
+	goto_if_set (FLAG_DECLINED_BIKE, MauvilleCity_BikeShop_EventScript_SkipGreeting)
+	msgbox (MauvilleCity_BikeShop_Text_RydelGreeting, MSGBOX_DEFAULT)
+	msgbox (MauvilleCity_BikeShop_Text_DidYouComeFromFarAway, MSGBOX_YESNO)
+	goto_if_eq (VAR_RESULT, YES, MauvilleCity_BikeShop_EventScript_YesFar)
+	goto_if_eq (VAR_RESULT, NO, MauvilleCity_BikeShop_EventScript_NotFar)
 	end
+}
 
+script MauvilleCity_BikeShop_EventScript_PleaseLookAround {
+	msgbox (MauvilleCity_BikeShop_Text_PleaseLookAround)
+	closemessage
+	applymovement (LOCALID_RYDEL, Common_Movement_FaceOriginalDirection)
+	waitmovement (0)
+	release
+	end
+}
+
+text MauvilleCity_BikeShop_Text_PleaseLookAround {
+	format ("I'm still setting up.\N"
+		"Please feel free to look around.")
+}
+
+raw `
 MauvilleCity_BikeShop_EventScript_SkipGreeting::
 	msgbox MauvilleCity_BikeShop_Text_DidYouComeFromFarAway, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, YES, MauvilleCity_BikeShop_EventScript_YesFar
@@ -43,6 +590,7 @@ MauvilleCity_BikeShop_EventScript_GetMachBike::
 	msgbox MauvilleCity_BikeShop_Text_ChoseMachBike, MSGBOX_DEFAULT
 	giveitem ITEM_MACH_BIKE
 	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_ShowBagIsFull
+	goto_if_eq VAR_MAUVILLE_BIKE_SHOP_STATE, 0, MauvilleCity_BikeShop_EventScript_IntroPostBikeChoice
 	goto MauvilleCity_BikeShop_EventScript_ComeBackToSwitchBikes
 	end
 
@@ -50,6 +598,7 @@ MauvilleCity_BikeShop_EventScript_GetAcroBike::
 	msgbox MauvilleCity_BikeShop_Text_ChoseAcroBike, MSGBOX_DEFAULT
 	giveitem ITEM_ACRO_BIKE
 	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_ShowBagIsFull
+	goto_if_eq VAR_MAUVILLE_BIKE_SHOP_STATE, 0, MauvilleCity_BikeShop_EventScript_IntroPostBikeChoice
 	goto MauvilleCity_BikeShop_EventScript_ComeBackToSwitchBikes
 	end
 

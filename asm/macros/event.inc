@@ -2007,6 +2007,7 @@
 	MSGBOX_AUTOCLOSE = 6
 	MSGBOX_GETPOINTS = 9
 	MSGBOX_POKENAV = 10
+	MSGBOX_TIMED = 11
 
 	YES = 1
 	NO  = 0
@@ -2015,6 +2016,14 @@
 	.macro msgbox text:req, type=MSGBOX_DEFAULT
 	loadword 0, \text
 	callstd \type
+	.endm
+
+	@ Displays a msgbox, then closes it automatically after the specified number of frames.
+	.macro msgboxtimed text:req, frames:req
+	loadword 0, \text
+	callstd MSGBOX_TIMED
+	delay \frames
+	closemessage
 	.endm
 
 	@ Gives 'amount' of the specified 'item' to the player and prints a message with fanfare.

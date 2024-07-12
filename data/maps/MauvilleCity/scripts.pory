@@ -2,16 +2,22 @@ const LOCALID_WALLY = 6
 const LOCALID_WALLYS_UNCLE = 7
 const LOCALID_SCOTT = 11
 const LOCALID_RIVAL2 = 12
+const LOCALID_RIVAL2OFFBIKE = 13
+const LOCALID_RIVAL2ONBIKE = 14
 
 raw `
 .set LOCALID_WALLY, 6
 .set LOCALID_WALLYS_UNCLE, 7
 .set LOCALID_SCOTT, 11
 .set LOCALID_RIVAL2, 12
+.set LOCALID_RIVAL2OFFBIKE, 13
+.set LOCALID_RIVAL2ONBIKE, 14
 `
 
 mapscripts MauvilleCity_MapScripts {
 	MAP_SCRIPT_ON_TRANSITION {
+		call (Common_EventScript_SetupRivalGfxId)
+		call (Common_EventScript_SetupRivalOnBikeGfxId)
 		setflag (FLAG_VISITED_MAUVILLE_CITY)
 		clearflag (FLAG_FORCE_MIRAGE_TOWER_VISIBLE)
 		clearflag (FLAG_HIDE_SLATEPORT_MUSEUM_POPULATION)
@@ -20,6 +26,9 @@ mapscripts MauvilleCity_MapScripts {
 		setvar (VAR_MAUVILLE_GYM_STATE, 0)
 		call_if_set (FLAG_GOT_TM_THUNDERBOLT_FROM_WATTSON, MauvilleCity_EventScript_MoveWattsonBackToGym)
 	}
+	MAP_SCRIPT_ON_FRAME_TABLE [
+		VAR_MAUVILLE_BIKE_SHOP_STATE, 1: MauvilleCity_EventScript_Rival2BikeRide
+	]
 }
 
 script MauvilleCity_EventScript_MoveWattsonBackToGym {
@@ -27,6 +36,28 @@ script MauvilleCity_EventScript_MoveWattsonBackToGym {
 	setflag (FLAG_HIDE_MAUVILLE_CITY_WATTSON)
 	setflag (FLAG_WATTSON_REMATCH_AVAILABLE)
 	return
+}
+
+script MauvilleCity_EventScript_Rival2BikeRide {
+	lockall
+	delay (40)
+	playse (SE_BIKE_BELL)
+	removeobject (LOCALID_RIVAL2OFFBIKE)
+	setflag (FLAG_HIDE_ROUTE_110_RIVAL)
+	addobject (LOCALID_RIVAL2ONBIKE)
+	waitse
+	applymovement (LOCALID_RIVAL2ONBIKE, MauvilleCity_Movement_Rival2BikeLeft)
+	msgboxtimed ("WHEEEEEEEEEEEEEEE!", 100)
+	waitmovement (0)
+	removeobject (LOCALID_RIVAL2ONBIKE)
+	setvar (VAR_MAUVILLE_BIKE_SHOP_STATE, 2)
+	clearflag (FLAG_HIDE_MAP_NAME_POPUP)
+	releaseall
+	end
+}
+
+movement MauvilleCity_Movement_Rival2BikeLeft {
+	walk_fast_left * 9
 }
 
 script MauvilleCity_EventScript_Boy {
