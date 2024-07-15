@@ -102,7 +102,7 @@ MauvilleCity_BikeShop_Movement_LetPlayerReadRight:
 # 61 "data/maps/MauvilleCity_BikeShop/scripts.pory"
 	walk_right
 # 62 "data/maps/MauvilleCity_BikeShop/scripts.pory"
-	walk_in_place_fast_right
+	walk_in_place_fast_left
 	step_end
 
 MauvilleCity_BikeShop_EventScript_BikeIntro::
