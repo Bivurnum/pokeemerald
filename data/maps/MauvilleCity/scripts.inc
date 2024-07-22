@@ -75,7 +75,7 @@ MauvilleCity_EventScript_Rival2BikeRide::
 # 49 "data/maps/MauvilleCity/scripts.pory"
 	applymovement 14, MauvilleCity_Movement_Rival2BikeLeft
 # 50 "data/maps/MauvilleCity/scripts.pory"
-	msgboxtimed MauvilleCity_EventScript_Rival2BikeRide_Text_0, 90
+	msgboxtimed MauvilleCity_EventScript_Rival2BikeRide_Text_0, 80
 # 51 "data/maps/MauvilleCity/scripts.pory"
 	waitmovement 0
 # 52 "data/maps/MauvilleCity/scripts.pory"

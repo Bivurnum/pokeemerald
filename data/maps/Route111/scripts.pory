@@ -1,9 +1,19 @@
+const LOCALID_VICTOR = 1
+const LOCALID_VICTORIA = 2
+const LOCALID_VIVI = 3
+const LOCALID_VICKY = 4
+const LOCALID_ROCK_SMASH_MAN = 46
+const LOCALID_RIVAL1 = 47
+const LOCALID_RIVAL1ONBIKE = 48
+
 raw `
 .set LOCALID_VICTOR, 1
 .set LOCALID_VICTORIA, 2
 .set LOCALID_VIVI, 3
 .set LOCALID_VICKY, 4
 .set LOCALID_ROCK_SMASH_MAN, 46
+.set LOCALID_RIVAL1, 47
+.set LOCALID_RIVAL1ONBIKE, 48
 
 @ Note: LOCALID_ROUTE111_PLAYER_FALLING is a local id for this map used elsewhere. It's defined in event_objects.h
 
@@ -266,6 +276,62 @@ Route111_EventScript_SandstormTrigger::
 	end
 `
 
+script Route111_EventScript_TriggerLeft {
+	lock
+	setflag (FLAG_HIDE_BIKE_SHOP_RIVALS)
+	setobjectxyperm (LOCALID_RIVAL1ONBIKE, 22, 133)
+	addobject (LOCALID_RIVAL1ONBIKE)
+	applymovement (OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterDown)
+	waitmovement (0)
+	applymovement (OBJ_EVENT_ID_PLAYER, Route111_Movement_PlayerWatchRidePastLeft)
+	applymovement (LOCALID_RIVAL1ONBIKE, Route111_Movement_Rival1RidePast)
+	msgboxtimed ("YAAAHOOOOOOOO!", 90)
+	waitmovement (0)
+	removeobject (LOCALID_RIVAL1ONBIKE)
+	setflag (FLAG_HIDE_BIKE_SHOP_RIVALS)
+	setvar (VAR_MAUVILLE_BIKE_SHOP_STATE, 3)
+	release
+	end
+}
+
+script Route111_EventScript_TriggerMiddleAndRight {
+	lock
+	setflag (FLAG_HIDE_BIKE_SHOP_RIVALS)
+	addobject (LOCALID_RIVAL1ONBIKE)
+	applymovement (OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterDown)
+	waitmovement (0)
+	applymovement (OBJ_EVENT_ID_PLAYER, Route111_Movement_PlayerWatchRidePast)
+	applymovement (LOCALID_RIVAL1ONBIKE, Route111_Movement_Rival1RidePast)
+	msgboxtimed ("YAAAHOOOOOOOO!", 90)
+	waitmovement (0)
+	removeobject (LOCALID_RIVAL1ONBIKE)
+	setflag (FLAG_HIDE_BIKE_SHOP_RIVALS)
+	setvar (VAR_MAUVILLE_BIKE_SHOP_STATE, 3)
+	release
+	end
+}
+
+movement Route111_Movement_PlayerWatchRidePast {
+	delay_16
+	delay_4 * 3
+	face_left
+	delay_4
+	face_up
+}
+
+movement Route111_Movement_PlayerWatchRidePastLeft {
+	delay_16
+	delay_4 * 3
+	face_right
+	delay_4
+	face_up
+}
+
+movement Route111_Movement_Rival1RidePast {
+	delay_16
+	walk_faster_up * 13
+}
+
 script Route111_EventScript_Victor {
 	lock
 	faceplayer
@@ -328,21 +394,27 @@ script Route111_EventScript_BattleWinstrates {
 	applymovement (OBJ_EVENT_ID_PLAYER, Route111_Movement_WaitForNextWinstrate)
 	waitmovement (0)
 	call (Route111_EventScript_OpenWinstrateDoor)
-	addobject (LOCALID_VICKY)
-	applymovement (LOCALID_VICKY, Route111_Movement_WinstrateExitHouse)
-	waitmovement (0)
-	call (Route111_EventScript_CloseWinstrateDoor)
-	msgbox (Route111_Text_VickyIntro, MSGBOX_DEFAULT)
-	trainerbattle_no_intro (TRAINER_VICKY, Route111_Text_VickyDefeat)
-	msgbox (Route111_Text_VickyPostBattle, MSGBOX_DEFAULT)
-	closemessage
-	applymovement (LOCALID_VICKY, Common_Movement_WalkInPlaceFasterUp)
-	waitmovement (0)
-	call (Route111_EventScript_OpenWinstrateDoor)
-	applymovement (LOCALID_VICKY, Route111_Movement_WinstrateEnterHouse)
-	waitmovement (0)
-	removeobject (LOCALID_VICKY)
-	call (Route111_EventScript_CloseWinstrateDoor)
+	if (var(VAR_MAUVILLE_BIKE_SHOP_STATE) == 3) {
+		setvar (VAR_MAUVILLE_BIKE_SHOP_STATE, 4)
+
+	}
+	else {
+		addobject (LOCALID_VICKY)
+		applymovement (LOCALID_VICKY, Route111_Movement_WinstrateExitHouse)
+		waitmovement (0)
+		call (Route111_EventScript_CloseWinstrateDoor)
+		msgbox (Route111_Text_VickyIntro, MSGBOX_DEFAULT)
+		trainerbattle_no_intro (TRAINER_VICKY, Route111_Text_VickyDefeat)
+		msgbox (Route111_Text_VickyPostBattle, MSGBOX_DEFAULT)
+		closemessage
+		applymovement (LOCALID_VICKY, Common_Movement_WalkInPlaceFasterUp)
+		waitmovement (0)
+		call (Route111_EventScript_OpenWinstrateDoor)
+		applymovement (LOCALID_VICKY, Route111_Movement_WinstrateEnterHouse)
+		waitmovement (0)
+		removeobject (LOCALID_VICKY)
+		call (Route111_EventScript_CloseWinstrateDoor)
+	}
 	release
 	end
 }
