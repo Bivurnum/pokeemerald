@@ -45,9 +45,9 @@ script MauvilleCity_EventScript_Rival2BikeRide {
 	removeobject (LOCALID_RIVAL2OFFBIKE)
 	setflag (FLAG_HIDE_ROUTE_110_RIVAL)
 	addobject (LOCALID_RIVAL2ONBIKE)
-	waitse
+	delay (30)
 	applymovement (LOCALID_RIVAL2ONBIKE, MauvilleCity_Movement_Rival2BikeLeft)
-	msgboxtimed ("WHEEEEEEEEEEEEEEE!", 100)
+	msgboxtimed ("WHEEEEEEEEEEEEEEE!", 90)
 	waitmovement (0)
 	removeobject (LOCALID_RIVAL2ONBIKE)
 	setvar (VAR_MAUVILLE_BIKE_SHOP_STATE, 2)

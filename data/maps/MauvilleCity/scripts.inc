@@ -71,11 +71,11 @@ MauvilleCity_EventScript_Rival2BikeRide::
 # 47 "data/maps/MauvilleCity/scripts.pory"
 	addobject 14
 # 48 "data/maps/MauvilleCity/scripts.pory"
-	waitse
+	delay 20
 # 49 "data/maps/MauvilleCity/scripts.pory"
 	applymovement 14, MauvilleCity_Movement_Rival2BikeLeft
 # 50 "data/maps/MauvilleCity/scripts.pory"
-	msgboxtimed MauvilleCity_EventScript_Rival2BikeRide_Text_0, 100
+	msgboxtimed MauvilleCity_EventScript_Rival2BikeRide_Text_0, 90
 # 51 "data/maps/MauvilleCity/scripts.pory"
 	waitmovement 0
 # 52 "data/maps/MauvilleCity/scripts.pory"
