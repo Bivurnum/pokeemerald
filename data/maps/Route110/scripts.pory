@@ -494,6 +494,7 @@ script Route110_EventScript_RivalScene {
 	setobjectmovementtype (LOCALID_RIVAL2, MOVEMENT_TYPE_LOOK_AROUND)
 	setvar (VAR_ROUTE110_STATE, 1)
 	setflag (FLAG_HIDE_ROUTE_103_RIVAL1_LATER)
+	setflag (FLAG_HIDE_ROUTE_117_RIVAL2)
 	fadedefaultbgm
 	releaseall
 	end

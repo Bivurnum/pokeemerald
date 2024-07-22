@@ -264,111 +264,117 @@ Route111_EventScript_SandstormTrigger::
 	fadenewbgm MUS_DESERT
 	doweather
 	end
+`
 
-Route111_EventScript_Victor::
+script Route111_EventScript_Victor {
 	lock
 	faceplayer
-	setflag FLAG_LANDMARK_WINSTRATE_FAMILY
-	msgbox Route111_Text_BattleOurFamily, MSGBOX_YESNO
-	goto_if_eq VAR_RESULT, YES, Route111_EventScript_BattleWinstrates
-	msgbox Route111_Text_IsThatSo, MSGBOX_DEFAULT
+	setflag (FLAG_LANDMARK_WINSTRATE_FAMILY)
+	msgbox (Route111_Text_BattleOurFamily, MSGBOX_YESNO)
+	goto_if_eq (VAR_RESULT, YES, Route111_EventScript_BattleWinstrates)
+	msgbox (Route111_Text_IsThatSo, MSGBOX_DEFAULT)
 	release
 	end
+}
 
-Route111_EventScript_BattleWinstrates::
-	msgbox Route111_Text_VictorIntro, MSGBOX_DEFAULT
-	trainerbattle_no_intro TRAINER_VICTOR, Route111_Text_VictorDefeat
-	applymovement LOCALID_VICTOR, Common_Movement_WalkInPlaceFasterUp
-	waitmovement 0
-	call Route111_EventScript_OpenWinstrateDoor
-	msgbox Route111_Text_VictorPostBattle, MSGBOX_DEFAULT
+script Route111_EventScript_BattleWinstrates {
+	msgbox (Route111_Text_VictorIntro, MSGBOX_DEFAULT)
+	trainerbattle_no_intro (TRAINER_VICTOR, Route111_Text_VictorDefeat)
+	applymovement (LOCALID_VICTOR, Common_Movement_WalkInPlaceFasterUp)
+	waitmovement (0)
+	call (Route111_EventScript_OpenWinstrateDoor)
+	msgbox (Route111_Text_VictorPostBattle, MSGBOX_DEFAULT)
 	closemessage
-	applymovement LOCALID_VICTOR, Route111_Movement_WinstrateEnterHouse
-	waitmovement 0
-	removeobject LOCALID_VICTOR
-	call Route111_EventScript_CloseWinstrateDoor
-	applymovement OBJ_EVENT_ID_PLAYER, Route111_Movement_WaitForNextWinstrate
-	waitmovement 0
-	call Route111_EventScript_OpenWinstrateDoor
-	addobject LOCALID_VICTORIA
-	applymovement LOCALID_VICTORIA, Route111_Movement_WinstrateExitHouse
-	waitmovement 0
-	call Route111_EventScript_CloseWinstrateDoor
-	msgbox Route111_Text_VictoriaIntro, MSGBOX_DEFAULT
-	trainerbattle_no_intro TRAINER_VICTORIA, Route111_Text_VictoriaDefeat
-	applymovement LOCALID_VICTORIA, Common_Movement_WalkInPlaceFasterUp
-	waitmovement 0
-	call Route111_EventScript_OpenWinstrateDoor
-	msgbox Route111_Text_VictoriaPostBattle, MSGBOX_DEFAULT
+	applymovement (LOCALID_VICTOR, Route111_Movement_WinstrateEnterHouse)
+	waitmovement (0)
+	removeobject (LOCALID_VICTOR)
+	call (Route111_EventScript_CloseWinstrateDoor)
+	applymovement (OBJ_EVENT_ID_PLAYER, Route111_Movement_WaitForNextWinstrate)
+	waitmovement (0)
+	call (Route111_EventScript_OpenWinstrateDoor)
+	addobject (LOCALID_VICTORIA)
+	applymovement (LOCALID_VICTORIA, Route111_Movement_WinstrateExitHouse)
+	waitmovement (0)
+	call (Route111_EventScript_CloseWinstrateDoor)
+	msgbox (Route111_Text_VictoriaIntro, MSGBOX_DEFAULT)
+	trainerbattle_no_intro (TRAINER_VICTORIA, Route111_Text_VictoriaDefeat)
+	applymovement (LOCALID_VICTORIA, Common_Movement_WalkInPlaceFasterUp)
+	waitmovement (0)
+	call (Route111_EventScript_OpenWinstrateDoor)
+	msgbox (Route111_Text_VictoriaPostBattle, MSGBOX_DEFAULT)
 	closemessage
-	applymovement LOCALID_VICTORIA, Route111_Movement_WinstrateEnterHouse
-	waitmovement 0
-	removeobject LOCALID_VICTORIA
-	call Route111_EventScript_CloseWinstrateDoor
-	applymovement OBJ_EVENT_ID_PLAYER, Route111_Movement_WaitForNextWinstrate
-	waitmovement 0
-	call Route111_EventScript_OpenWinstrateDoor
-	addobject LOCALID_VIVI
-	applymovement LOCALID_VIVI, Route111_Movement_WinstrateExitHouse
-	waitmovement 0
-	call Route111_EventScript_CloseWinstrateDoor
-	msgbox Route111_Text_ViviIntro, MSGBOX_DEFAULT
-	trainerbattle_no_intro TRAINER_VIVI, Route111_Text_ViviDefeat
-	applymovement LOCALID_VIVI, Common_Movement_WalkInPlaceFasterUp
-	waitmovement 0
-	call Route111_EventScript_OpenWinstrateDoor
-	msgbox Route111_Text_ViviPostBattle, MSGBOX_DEFAULT
+	applymovement (LOCALID_VICTORIA, Route111_Movement_WinstrateEnterHouse)
+	waitmovement (0)
+	removeobject (LOCALID_VICTORIA)
+	call (Route111_EventScript_CloseWinstrateDoor)
+	applymovement (OBJ_EVENT_ID_PLAYER, Route111_Movement_WaitForNextWinstrate)
+	waitmovement (0)
+	call (Route111_EventScript_OpenWinstrateDoor)
+	addobject (LOCALID_VIVI)
+	applymovement (LOCALID_VIVI, Route111_Movement_WinstrateExitHouse)
+	waitmovement (0)
+	call (Route111_EventScript_CloseWinstrateDoor)
+	msgbox (Route111_Text_ViviIntro, MSGBOX_DEFAULT)
+	trainerbattle_no_intro (TRAINER_VIVI, Route111_Text_ViviDefeat)
+	applymovement (LOCALID_VIVI, Common_Movement_WalkInPlaceFasterUp)
+	waitmovement (0)
+	call (Route111_EventScript_OpenWinstrateDoor)
+	msgbox (Route111_Text_ViviPostBattle, MSGBOX_DEFAULT)
 	closemessage
-	applymovement LOCALID_VIVI, Route111_Movement_WinstrateEnterHouse
-	waitmovement 0
-	removeobject LOCALID_VIVI
-	call Route111_EventScript_CloseWinstrateDoor
-	applymovement OBJ_EVENT_ID_PLAYER, Route111_Movement_WaitForNextWinstrate
-	waitmovement 0
-	call Route111_EventScript_OpenWinstrateDoor
-	addobject LOCALID_VICKY
-	applymovement LOCALID_VICKY, Route111_Movement_WinstrateExitHouse
-	waitmovement 0
-	call Route111_EventScript_CloseWinstrateDoor
-	msgbox Route111_Text_VickyIntro, MSGBOX_DEFAULT
-	trainerbattle_no_intro TRAINER_VICKY, Route111_Text_VickyDefeat
-	msgbox Route111_Text_VickyPostBattle, MSGBOX_DEFAULT
+	applymovement (LOCALID_VIVI, Route111_Movement_WinstrateEnterHouse)
+	waitmovement (0)
+	removeobject (LOCALID_VIVI)
+	call (Route111_EventScript_CloseWinstrateDoor)
+	applymovement (OBJ_EVENT_ID_PLAYER, Route111_Movement_WaitForNextWinstrate)
+	waitmovement (0)
+	call (Route111_EventScript_OpenWinstrateDoor)
+	addobject (LOCALID_VICKY)
+	applymovement (LOCALID_VICKY, Route111_Movement_WinstrateExitHouse)
+	waitmovement (0)
+	call (Route111_EventScript_CloseWinstrateDoor)
+	msgbox (Route111_Text_VickyIntro, MSGBOX_DEFAULT)
+	trainerbattle_no_intro (TRAINER_VICKY, Route111_Text_VickyDefeat)
+	msgbox (Route111_Text_VickyPostBattle, MSGBOX_DEFAULT)
 	closemessage
-	applymovement LOCALID_VICKY, Common_Movement_WalkInPlaceFasterUp
-	waitmovement 0
-	call Route111_EventScript_OpenWinstrateDoor
-	applymovement LOCALID_VICKY, Route111_Movement_WinstrateEnterHouse
-	waitmovement 0
-	removeobject LOCALID_VICKY
-	call Route111_EventScript_CloseWinstrateDoor
+	applymovement (LOCALID_VICKY, Common_Movement_WalkInPlaceFasterUp)
+	waitmovement (0)
+	call (Route111_EventScript_OpenWinstrateDoor)
+	applymovement (LOCALID_VICKY, Route111_Movement_WinstrateEnterHouse)
+	waitmovement (0)
+	removeobject (LOCALID_VICKY)
+	call (Route111_EventScript_CloseWinstrateDoor)
 	release
 	end
+}
 
-Route111_EventScript_OpenWinstrateDoor::
-	opendoor 13, 113
+script Route111_EventScript_OpenWinstrateDoor {
+	opendoor (13, 113)
 	waitdooranim
 	return
+}
 
-Route111_EventScript_CloseWinstrateDoor::
-	closedoor 13, 113
+script Route111_EventScript_CloseWinstrateDoor {
+	closedoor (13, 113)
 	waitdooranim
 	return
+}
 
-Route111_Movement_WinstrateEnterHouse:
+movement Route111_Movement_WinstrateEnterHouse {
 	walk_in_place_faster_up
 	walk_up
-	step_end
+}
 
-Route111_Movement_WinstrateExitHouse:
+movement Route111_Movement_WinstrateExitHouse {
 	walk_down
-	step_end
+}
 
-Route111_Movement_WaitForNextWinstrate:
+movement Route111_Movement_WaitForNextWinstrate {
 	delay_16
 	delay_16
 	delay_16
-	step_end
+}
 
+raw `
 Route111_EventScript_RouteSignMauville::
 	msgbox Route111_Text_RouteSignMauville, MSGBOX_SIGN
 	end

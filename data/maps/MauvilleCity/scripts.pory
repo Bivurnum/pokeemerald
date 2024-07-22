@@ -305,6 +305,7 @@ script MauvilleCity_EventScript_RivalPostWally {
 	}
 	waitmovement (0)
 	removeobject (LOCALID_RIVAL2)
+	clearflag (FLAG_HIDE_ROUTE_117_RIVAL2)
 	return
 }
 
