@@ -639,7 +639,7 @@
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
       "script": "NULL",
-      "flag": "FLAG_HIDE_ROUTE_111_RIVAL1"
+      "flag": "FLAG_HIDE_SLATEPORT_CITY_TEAM_AQUA"
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_VAR_3",
@@ -653,6 +653,19 @@
       "trainer_sight_or_berry_tree_id": "0",
       "script": "NULL",
       "flag": "FLAG_HIDE_SLATEPORT_CITY_TEAM_AQUA"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_ANABEL",
+      "x": 17,
+      "y": 26,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_NONE",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "NULL",
+      "flag": "0"
     }
   ],
   "warp_events": [
@@ -1025,6 +1038,33 @@
       "var": "VAR_MAUVILLE_BIKE_SHOP_STATE",
       "var_value": "2",
       "script": "Route111_EventScript_TriggerMiddleAndRight"
+    },
+    {
+      "type": "trigger",
+      "x": 11,
+      "y": 22,
+      "elevation": 0,
+      "var": "VAR_MAUVILLE_BIKE_SHOP_STATE",
+      "var_value": "3",
+      "script": "Route111_EventScript_SecretBaseTriggerLeft"
+    },
+    {
+      "type": "trigger",
+      "x": 12,
+      "y": 22,
+      "elevation": 0,
+      "var": "VAR_TEMP_0",
+      "var_value": "0",
+      "script": "Route111_EventScript_SecretBaseTriggerMiddle"
+    },
+    {
+      "type": "trigger",
+      "x": 13,
+      "y": 22,
+      "elevation": 0,
+      "var": "VAR_TEMP_0",
+      "var_value": "0",
+      "script": "Route111_EventScript_SecretBaseTriggerRight"
     }
   ],
   "bg_events": [

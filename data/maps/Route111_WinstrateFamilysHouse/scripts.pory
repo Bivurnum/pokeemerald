@@ -1,8 +1,15 @@
+const LOCALID_VIVI = 1
+const LOCALID_VICTOR = 2
+const LOCALID_VICTORIA = 3
+const LOCALID_VICKY = 4
+const LOCALID_RIVAL1 = 5
+
 raw `
 .set LOCALID_VIVI, 1
 .set LOCALID_VICTOR, 2
 .set LOCALID_VICTORIA, 3
 .set LOCALID_VICKY, 4
+.set LOCALID_RIVAL1, 5
 
 Route111_WinstrateFamilysHouse_MapScripts::
 	.byte 0
@@ -54,7 +61,33 @@ Route111_WinstrateFamilysHouse_EventScript_AlreadySpokenTo::
 	msgbox Route111_WinstrateFamilysHouse_Text_GrandsonStrongShort, MSGBOX_DEFAULT
 	goto Route111_WinstrateFamilysHouse_EventScript_FaceOriginalDirection
 	end
+`
 
+script Route111_WinstrateFamilysHouse_EventScript_Rival1 {
+	lock
+	applymovement (LOCALID_RIVAL1, Common_Movement_FacePlayer)
+	waitmovement (0)
+	setvar (VAR_0x8008, LOCALID_RIVAL1)
+	rival1talk (Route111_WinstrateFamilysHouse_Text_SpencerRareToFindFamily,
+				Route111_WinstrateFamilysHouse_Text_BrenRareToFindFamily,
+				Route111_WinstrateFamilysHouse_Text_KyleRareToFindFamily)
+	goto (Route111_WinstrateFamilysHouse_EventScript_FaceOriginalDirection)
+	end
+}
+
+text Route111_WinstrateFamilysHouse_Text_SpencerRareToFindFamily {
+	format ("It's kind of rare to find a whole family of POKéMON trainers, huh?")
+}
+
+text Route111_WinstrateFamilysHouse_Text_BrenRareToFindFamily {
+	format ("It's kind of rare to find a whole family of POKéMON trainers, huh?")
+}
+
+text Route111_WinstrateFamilysHouse_Text_KyleRareToFindFamily {
+	format ("It's kind of rare to find a whole family of POKéMON trainers, huh?")
+}
+
+raw `
 Route111_WinstrateFamilysHouse_EventScript_FaceOriginalDirection::
 	closemessage
 	applymovement VAR_0x8008, Common_Movement_FaceOriginalDirection

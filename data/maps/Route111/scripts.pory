@@ -302,7 +302,7 @@ script Route111_EventScript_TriggerMiddleAndRight {
 	waitmovement (0)
 	applymovement (OBJ_EVENT_ID_PLAYER, Route111_Movement_PlayerWatchRidePast)
 	applymovement (LOCALID_RIVAL1ONBIKE, Route111_Movement_Rival1RidePast)
-	msgboxtimed ("YAAAHOOOOOOOO!", 90)
+	msgboxtimed ("YAAAHOOOOOOOO!", 80)
 	waitmovement (0)
 	removeobject (LOCALID_RIVAL1ONBIKE)
 	setflag (FLAG_HIDE_BIKE_SHOP_RIVALS)
@@ -395,8 +395,47 @@ script Route111_EventScript_BattleWinstrates {
 	waitmovement (0)
 	call (Route111_EventScript_OpenWinstrateDoor)
 	if (var(VAR_MAUVILLE_BIKE_SHOP_STATE) == 3) {
-		setvar (VAR_MAUVILLE_BIKE_SHOP_STATE, 4)
-
+		addobject (LOCALID_RIVAL1)
+		applymovement (LOCALID_RIVAL1, Route111_Movement_WinstrateExitHouse)
+		waitmovement (0)
+		call (Route111_EventScript_CloseWinstrateDoor)
+		rival1talk (Route111_Text_SpencerAllTheCommotion,
+					Route111_Text_BrenAllTheCommotion,
+					Route111_Text_KyleAllTheCommotion)
+		applymovement (LOCALID_RIVAL1, Common_Movement_WalkInPlaceFasterUp)
+		waitmovement (0)
+		call (Route111_EventScript_OpenWinstrateDoor)
+		addobject (LOCALID_VICKY)
+		applymovement (LOCALID_VICKY, Route111_Movement_WinstrateExitHouse)
+		applymovement (OBJ_EVENT_ID_PLAYER, Route111_Movement_WinstrateWithRivalPlayerPushedDown)
+		applymovement (LOCALID_RIVAL1, Route111_Movement_WinstrateExitHouse)
+		waitmovement (0)
+		applymovement (LOCALID_RIVAL1, Common_Movement_FaceUp)
+		waitmovement (0)
+		call (Route111_EventScript_CloseWinstrateDoor)
+		applymovement (LOCALID_RIVAL1, Common_Movement_Walk_Left)
+		applymovement (LOCALID_VICKY, Route111_Movement_WinstrateExitHouse)
+		waitmovement (0)
+		applymovement (LOCALID_RIVAL1, Common_Movement_FaceRight)
+		waitmovement (0)
+		msgbox (Route111_Text_VickyIntro, MSGBOX_DEFAULT)
+		delay (10)
+		applymovement (LOCALID_RIVAL1, Common_Movement_BeginTalkDown)
+		waitmovement (0)
+		rival1talk (Route111_Text_SpencerDontWorryGranny,
+					Route111_Text_BrenDontWorryGranny,
+					Route111_Text_KyleDontWorryGranny)
+		checkfriendchoice
+		switch (var(VAR_RESULT)) {
+			case SPENCER:
+				doublebattle_vs_2 (TRAINER_VICKY, Route111_Text_VickyDefeat, TRAINER_BREN_MAUVILLE, Route111_Text_BrenPostBattle)
+			case BREN:
+				doublebattle_vs_2 (TRAINER_VICKY, Route111_Text_VickyDefeat, TRAINER_KYLE_MAUVILLE, Route111_Text_KylePostBattle)
+			case KYLE:
+				doublebattle_vs_2 (TRAINER_VICKY, Route111_Text_VickyDefeat, TRAINER_SPENCER_MAUVILLE, Route111_Text_SpencerPostBattle)
+		}
+		applymovement (LOCALID_RIVAL1, Common_Movement_FaceRight)
+		waitmovement (0)
 	}
 	else {
 		addobject (LOCALID_VICKY)
@@ -405,14 +444,33 @@ script Route111_EventScript_BattleWinstrates {
 		call (Route111_EventScript_CloseWinstrateDoor)
 		msgbox (Route111_Text_VickyIntro, MSGBOX_DEFAULT)
 		trainerbattle_no_intro (TRAINER_VICKY, Route111_Text_VickyDefeat)
-		msgbox (Route111_Text_VickyPostBattle, MSGBOX_DEFAULT)
-		closemessage
+	}
+	msgbox (Route111_Text_VickyPostBattle, MSGBOX_DEFAULT)
+	closemessage
+	if (var(VAR_MAUVILLE_BIKE_SHOP_STATE) == 3) {
+		applymovement (LOCALID_VICKY, Route111_Movement_WinstrateEnterHouse)
+	}
+	else {
 		applymovement (LOCALID_VICKY, Common_Movement_WalkInPlaceFasterUp)
+	}
+	waitmovement (0)
+	call (Route111_EventScript_OpenWinstrateDoor)
+	applymovement (LOCALID_VICKY, Route111_Movement_WinstrateEnterHouse)
+	waitmovement (0)
+	removeobject (LOCALID_VICKY)
+	call (Route111_EventScript_CloseWinstrateDoor)
+	if (var(VAR_MAUVILLE_BIKE_SHOP_STATE) == 3) {
+		applymovement (LOCALID_RIVAL1, Route111_Movement_WinstrateWithRivalRival1MoveBackToPlayer)
+		waitmovement (0)
+		rival1talk (Route111_Text_SpencerLoveToChatYouUp,
+					Route111_Text_BrenLoveToChatYouUp,
+					Route111_Text_KyleLoveToChatYouUp)
+		applymovement (LOCALID_RIVAL1, Route111_Movement_WinstrateEnterHouse)
 		waitmovement (0)
 		call (Route111_EventScript_OpenWinstrateDoor)
-		applymovement (LOCALID_VICKY, Route111_Movement_WinstrateEnterHouse)
+		applymovement (LOCALID_RIVAL1, Route111_Movement_WinstrateEnterHouse)
 		waitmovement (0)
-		removeobject (LOCALID_VICKY)
+		removeobject (LOCALID_RIVAL1)
 		call (Route111_EventScript_CloseWinstrateDoor)
 	}
 	release
@@ -444,6 +502,134 @@ movement Route111_Movement_WaitForNextWinstrate {
 	delay_16
 	delay_16
 	delay_16
+}
+
+movement Route111_Movement_WinstrateWithRivalPlayerPushedDown {
+	delay_8
+	walk_down
+	face_up
+}
+
+movement Route111_Movement_WinstrateWithRivalRival1MoveBackToPlayer {
+	walk_right
+	face_down
+}
+
+movement Route111_Movement_WinstrateWithRivalRival1EnterHouse {
+	walk_up * 2
+}
+
+text Route111_Text_SpencerAllTheCommotion {
+	format ("SPENCER: So that's what all the commotion is about!\p"
+		"You sure don't hold back, do you?\p"
+		"You'd better prepare yourself.\n"
+		"She may be old, but that grandma sure has a lot of energy!")
+}
+
+text Route111_Text_BrenAllTheCommotion {
+	format ("BREN: So that's what all the commotion is about!\p"
+		"You sure don't hold back, do you?\p"
+		"You'd better prepare yourself.\n"
+		"She may be old, but that grandma sure has a lot of energy!")
+}
+
+text Route111_Text_KyleAllTheCommotion {
+	format ("KYLE: So that's what all the commotion is about!\p"
+		"You sure don't hold back, do you?\p"
+		"You'd better prepare yourself.\n"
+		"She may be old, but that grandma sure has a lot of energy!")
+}
+
+text Route111_Text_SpencerDontWorryGranny {
+	format ("SPENCER: Don't worry, granny.\n"
+		"I'm on your side!")
+}
+
+text Route111_Text_BrenDontWorryGranny {
+	format ("BREN: Don't worry, granny.\n"
+		"I'm on your side!")
+}
+
+text Route111_Text_KyleDontWorryGranny {
+	format ("KYLE: Don't worry, granny.\n"
+		"I'm on your side!")
+}
+
+text Route111_Text_SpencerPostBattle {
+	format ("No way!\n"
+		"I can't believe it!")
+}
+
+text Route111_Text_BrenPostBattle {
+	format ("No way!\n"
+		"I can't believe it!")
+}
+
+text Route111_Text_KylePostBattle {
+	format ("No way!\n"
+		"I can't believe it!")
+}
+
+text Route111_Text_SpencerLoveToChatYouUp {
+	format ("SPENCER: You beat me and that whole family without even needing a single break!\p"
+		"You must have one heck of a training regimen.\p"
+		"I'm sure the WINSTRATES would love to chat you up if you have the time.\p"
+		"They're a pretty cool bunch!")
+}
+
+text Route111_Text_BrenLoveToChatYouUp {
+	format ("BREN: You beat me and that whole family without even needing a single break!\p"
+		"You must have one heck of a training regimen.\p"
+		"I'm sure the WINSTRATES would love to chat you up if you have the time.\p"
+		"They're a pretty cool bunch!")
+}
+
+text Route111_Text_KyleLoveToChatYouUp {
+	format ("KYLE: You beat me and that whole family without even needing a single break!\p"
+		"You must have one heck of a training regimen.\p"
+		"I'm sure the WINSTRATES would love to chat you up if you have the time.\p"
+		"They're a pretty cool bunch!")
+}
+
+script Route111_EventScript_SecretBaseTriggerLeft {
+	lock
+	msgbox ("Wait up, {PLAYER}!", MSGBOX_AUTOCLOSE)
+	applymovement (OBJ_EVENT_ID_PLAYER, Route111_Movement_GetIntoPLaceForSecretBaseLeft)
+	waitmovement (0)
+	goto (Route111_EventScript_SecretBaseEvent)
+	
+}
+
+script Route111_EventScript_SecretBaseTriggerMiddle {
+	lock
+	msgbox ("Wait up, {PLAYER}!", MSGBOX_AUTOCLOSE)
+	applymovement (OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterDown)
+	waitmovement (0)
+	goto (Route111_EventScript_SecretBaseEvent)
+}
+
+script Route111_EventScript_SecretBaseTriggerRight {
+	lock
+	msgbox ("Wait up, {PLAYER}!", MSGBOX_AUTOCLOSE)
+	applymovement (OBJ_EVENT_ID_PLAYER, Route111_Movement_GetIntoPLaceForSecretBaseRight)
+	waitmovement (0)
+	goto (Route111_EventScript_SecretBaseEvent)
+}
+
+movement Route111_Movement_GetIntoPLaceForSecretBaseLeft {
+	walk_right
+	walk_in_place_faster_down
+}
+
+movement Route111_Movement_GetIntoPLaceForSecretBaseRight {
+	walk_left
+	walk_in_place_faster_down
+}
+
+script Route111_EventScript_SecretBaseEvent {
+	setvar (VAR_MAUVILLE_BIKE_SHOP_STATE, 4)
+	setflag (FLAG_HIDE_WINSTRATE_RIVAL1)
+	setflag (FLAG_HIDE_ROUTE_117_RIVAL2)
 }
 
 raw `
