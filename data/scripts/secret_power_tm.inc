@@ -29,9 +29,8 @@ Route111_Text_DontWantThis:
 	.string "If you change your mind, tell me, okay?$"
 
 Route111_Text_DontHaveAnyRoom:
-	.string "Oh, you don't have any room for this.\p"
-	.string "I'll hold on to it, so come back for it\n"
-	.string "another time, okay?$"
+	.string "Oh, you already have one.\n"
+	.string "Splendid!$"
 
 Route111_EventScript_SecretPowerMan::
 	lock
@@ -68,8 +67,7 @@ Route111_EventScript_SecretPowerManExitNorth::
 
 Route111_EventScript_NoRoomForSecretPower::
 	msgbox Route111_Text_DontHaveAnyRoom, MSGBOX_DEFAULT
-	release
-	end
+	return
 
 Route111_Movement_SecretPowerManExit:
 	walk_down

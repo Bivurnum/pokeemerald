@@ -675,17 +675,34 @@ script Route111_EventScript_SecretBaseEvent {
 	applymovement (LOCALID_RIVAL2SECRET, Common_Movement_WalkInPlaceFasterUp)
 	applymovement (LOCALID_SECRETBASEGUY, Route111_Movement_NoticeFriends)
 	waitmovement (0)
+	msgbox (Route111_Text_MoreThanTheySeem)
+	closemessage
+	delay (10)
+	applymovement (LOCALID_SECRETBASEGUY, Common_Movement_WalkInPlaceFasterUp)
+	waitmovement (0)
+	msgbox (Route111_Text_TakeALookForYourself)
+	closemessage
+	giveitem (ITEM_TM_SECRET_POWER)
+	call_if_eq (VAR_RESULT, FALSE, Route111_EventScript_NoRoomForSecretPower)
+	applymovement (LOCALID_SECRETBASEGUY, Route111_Movement_GuyWalkToRival2)
+	waitmovement (0)
+	msgbox (Route111_Text_AndOneForYou)
+	closemessage
+	delay (10)
+	applymovement (LOCALID_SECRETBASEGUY, Route111_Movement_GuyWalkToRival1)
+	waitmovement (0)
+	msgbox (Route111_Text_AndYouAsWell)
+	closemessage
+	delay (10)
+	applymovement (LOCALID_SECRETBASEGUY, Route111_Movement_GuyWalkToRival2)
+	waitmovement (0)
 	msgbox ()
 
-	if (var(VAR_MAUVILLE_BIKE_SHOP_STATE) != 3) {
-		setvar (VAR_MAUVILLE_BIKE_SHOP_STATE, 4)
-	}
-	else {
-		setvar (VAR_MAUVILLE_BIKE_SHOP_STATE, 5)
-	}
+	setvar (VAR_MAUVILLE_BIKE_SHOP_STATE, 4)
 	setvar (VAR_SECRET_BASE_EVENT_STATE, 1)
 	setflag (FLAG_HIDE_WINSTRATE_RIVAL1)
 	setflag (FLAG_HIDE_ROUTE_117_RIVAL2)
+	setflag (FLAG_HIDE_BIKE_SHOP_RIVALS)
 	release
 	end
 }
@@ -711,6 +728,16 @@ movement Route111_Movement_NoticeFriends {
 	delay_16 * 3
 	walk_left
 	walk_down
+}
+
+movement Route111_Movement_GuyWalkToRival2 {
+	walk_right
+	walk_in_place_faster_down
+}
+
+movement Route111_Movement_GuyWalkToRival1 {
+	walk_left * 2
+	walk_in_place_faster_down
 }
 
 text Route111_Text_SpencerTryingToCatchUp {
@@ -752,6 +779,37 @@ text Route111_Text_KyleSpiritOfAdventure {
 		"We know you have the spirit of adventure in you, {PLAYER}."
 		"Half the fun is in exploring new areas, am I right?\p"
 		"We still have a lot of ground left to cover on our journey, so why not enjoy it?")
+}
+
+text Route111_Text_MoreThanTheySeem {
+	format ("Did I hear that right?\n"
+		"Sounds to me like I've encountered a group of young vagabonds!\p"
+		"You might be interested to know that there are certain places all over the region that are more than they seem.\p"
+		"")
+}
+
+text Route111_Text_TakeALookForYourself {
+	format ("Take, for instance, that tree I was looking at earlier.\p"
+		"At first glance, it may seem ordinary.\n"
+		"But with the right technique, you can reveal your own SECRET BASE inside!\p"
+		"What's the technique, you ask?\p"
+		"Here! Take a look for yourself!")
+}
+
+text Route111_Text_AndOneForYou {
+	format ("And one for you!")
+}
+
+text Route111_Text_AndYouAsWell {
+	format ("And you as well!")
+}
+
+text Route111_Text_YoureSpeechless {
+	format ("Oh, my.\n"
+		"You're speechless!\p"
+		"Don't worry.\n"
+		"I was the same way when I first discovered SECRET BASES.\p"
+		"")
 }
 
 raw `
