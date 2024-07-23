@@ -5,6 +5,10 @@ const LOCALID_VICKY = 4
 const LOCALID_ROCK_SMASH_MAN = 46
 const LOCALID_RIVAL1 = 47
 const LOCALID_RIVAL1ONBIKE = 48
+const LOCALID_RIVAL1BIKESECRET = 49
+const LOCALID_RIVAL2BIKESECRET = 50
+const LOCALID_RIVAL1SECRET = 51
+const LOCALID_RIVAL2SECRET = 52
 
 raw `
 .set LOCALID_VICTOR, 1
@@ -14,6 +18,10 @@ raw `
 .set LOCALID_ROCK_SMASH_MAN, 46
 .set LOCALID_RIVAL1, 47
 .set LOCALID_RIVAL1ONBIKE, 48
+.set LOCALID_RIVAL1BIKESECRET, 49
+.set LOCALID_RIVAL2BIKESECRET, 50
+.set LOCALID_RIVAL1SECRET, 51
+.set LOCALID_RIVAL2SECRET, 52
 
 @ Note: LOCALID_ROUTE111_PLAYER_FALLING is a local id for this map used elsewhere. It's defined in event_objects.h
 
@@ -402,6 +410,7 @@ script Route111_EventScript_BattleWinstrates {
 		rival1talk (Route111_Text_SpencerAllTheCommotion,
 					Route111_Text_BrenAllTheCommotion,
 					Route111_Text_KyleAllTheCommotion)
+	closemessage
 		applymovement (LOCALID_RIVAL1, Common_Movement_WalkInPlaceFasterUp)
 		waitmovement (0)
 		call (Route111_EventScript_OpenWinstrateDoor)
@@ -425,6 +434,7 @@ script Route111_EventScript_BattleWinstrates {
 		rival1talk (Route111_Text_SpencerDontWorryGranny,
 					Route111_Text_BrenDontWorryGranny,
 					Route111_Text_KyleDontWorryGranny)
+		closemessage
 		checkfriendchoice
 		switch (var(VAR_RESULT)) {
 			case SPENCER:
@@ -465,6 +475,7 @@ script Route111_EventScript_BattleWinstrates {
 		rival1talk (Route111_Text_SpencerLoveToChatYouUp,
 					Route111_Text_BrenLoveToChatYouUp,
 					Route111_Text_KyleLoveToChatYouUp)
+		closemessage
 		applymovement (LOCALID_RIVAL1, Route111_Movement_WinstrateEnterHouse)
 		waitmovement (0)
 		call (Route111_EventScript_OpenWinstrateDoor)
@@ -627,9 +638,57 @@ movement Route111_Movement_GetIntoPLaceForSecretBaseRight {
 }
 
 script Route111_EventScript_SecretBaseEvent {
+	applymovement (LOCALID_RIVAL1BIKESECRET, Route111_Movement_Rival1EntersForSecretBase)
+	applymovement (LOCALID_RIVAL2BIKESECRET, Route111_Movement_Rival2EntersForSecretBase)
+	waitmovement (0)
+	applymovement (OBJ_EVENT_ID_PLAYER, Common_Movement_FaceLeft)
+	waitmovement (0)
+	delay (10)
+	removeobject (LOCALID_RIVAL1BIKESECRET)
+	addobject (LOCALID_RIVAL1SECRET)
+	delay (20)
+	removeobject (LOCALID_RIVAL2BIKESECRET)
+	addobject (LOCALID_RIVAL2SECRET)
+	applymovement (LOCALID_RIVAL1SECRET, Common_Movement_BeginTalkRight)
+	waitmovement (0)
+	rival1talk (,
+				,
+				)
+	checkflag (FLAG_RECEIVED_BIKE)
+	if (var(VAR_RESULT) == FALSE) {
+		msgbox
+	}
+
 	setvar (VAR_MAUVILLE_BIKE_SHOP_STATE, 4)
+	setvar (VAR_SECRET_BASE_EVENT_STATE, 1)
 	setflag (FLAG_HIDE_WINSTRATE_RIVAL1)
 	setflag (FLAG_HIDE_ROUTE_117_RIVAL2)
+	release
+	end
+}
+
+movement Route111_Movement_Rival1EntersForSecretBase {
+	walk_fast_up * 3
+	walk_fast_right * 3
+	walk_fast_up * 3
+	face_right
+}
+
+movement Route111_Movement_Rival2EntersForSecretBase {
+	delay_16 * 2
+	walk_fast_up * 3
+	walk_fast_right * 5
+	walk_fast_up * 3
+	face_left
+}
+
+text Route111_Text_Spencer {
+	format ("SPENCER: You sure know how to travel fast.\n"
+		"We've been trying to catch up with you for a while.\p")
+}
+
+text MyString {
+	format ("")
 }
 
 raw `

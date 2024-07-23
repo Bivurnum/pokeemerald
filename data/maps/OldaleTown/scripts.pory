@@ -349,6 +349,7 @@ script OldaleTown_EventScript_RivalFinish {
 	rival2talk (OldaleTown_Text_GoToLabSpencer,
 				OldaleTown_Text_GoToLabBren,
 				OldaleTown_Text_GoToLabKyle)
+	closemessage
 	call_if_eq (VAR_0x8009, 0, OldaleTown_EventScript_DoExitMovement1)
 	call_if_eq (VAR_0x8009, 1, OldaleTown_EventScript_DoExitMovement2)
 	fadedefaultbgm

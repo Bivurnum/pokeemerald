@@ -2250,7 +2250,7 @@
 			callstd \type
 			goto 4f
 		4:
-		closemessage
+		@closemessage
 		.endm
 
 	@Chooses dialogue for RIVAL2 based off checkfriendchoice
@@ -2273,5 +2273,5 @@
 			callstd \type
 			goto 4f
 		4:
-		closemessage
+		@closemessage
 		.endm

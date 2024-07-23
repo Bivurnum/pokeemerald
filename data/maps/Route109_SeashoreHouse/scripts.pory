@@ -158,6 +158,7 @@ script Route109_SeashoreHouse_EventScript_Rival2 {
 	rival2talk (Route109_SeashoreHouse_Text_SpencerPostBattle,
 				Route109_SeashoreHouse_Text_BrenPostBattle,
 				Route109_SeashoreHouse_Text_KylePostBattle)
+	closemessage
 	release
 	end
 }

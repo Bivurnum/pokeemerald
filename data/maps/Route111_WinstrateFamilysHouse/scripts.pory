@@ -71,6 +71,7 @@ script Route111_WinstrateFamilysHouse_EventScript_Rival1 {
 	rival1talk (Route111_WinstrateFamilysHouse_Text_SpencerRareToFindFamily,
 				Route111_WinstrateFamilysHouse_Text_BrenRareToFindFamily,
 				Route111_WinstrateFamilysHouse_Text_KyleRareToFindFamily)
+	closemessage
 	goto (Route111_WinstrateFamilysHouse_EventScript_FaceOriginalDirection)
 	end
 }

@@ -184,6 +184,7 @@ script Route103_EventScript_Rival1OtherSide {
 		rival1talk (Route103_Text_SpencerLater,
 					Route103_Text_BrenLater,
 					Route103_Text_KyleLater)
+	closemessage
 		setvar (VAR_TEMP_5, 5)
 	}
 	else {

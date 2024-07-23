@@ -47,6 +47,7 @@ script MauvilleCity_BikeShop_EventScript_Rival1 {
 		rival1talk (MauvilleCity_BikeShop_Text_SpencerUsefulInfo,
 					MauvilleCity_BikeShop_Text_BrenUsefulInfo,
 					MauvilleCity_BikeShop_Text_KyleUsefulInfo)
+		closemessage
 	}
 	releaseall
 	end
@@ -83,6 +84,7 @@ script MauvilleCity_BikeShop_EventScript_BikeIntro {
 	rival1talk (MauvilleCity_BikeShop_Text_SpencerBikesLookCool,
 				MauvilleCity_BikeShop_Text_BrenBikesLookCool,
 				MauvilleCity_BikeShop_Text_KyleBikesLookCool)
+	closemessage
 	delay (30)
 	playse (SE_EXIT)
 	addobject (LOCALID_RIVAL2)
@@ -110,21 +112,25 @@ script MauvilleCity_BikeShop_EventScript_BikeIntro {
 	rival2talk (MauvilleCity_BikeShop_Text_SpencerWhyDidntYouTellMe,
 				MauvilleCity_BikeShop_Text_BrenWhyDidntYouTellMe,
 				MauvilleCity_BikeShop_Text_KyleWhyDidntYouTellMe)
+	closemessage
 	applymovement (LOCALID_RIVAL1, Common_Movement_BeginTalkDown)
 	waitmovement (0)
 	rival1talk (MauvilleCity_BikeShop_Text_SpencerTriedTo,
 				MauvilleCity_BikeShop_Text_BrenTriedTo,
 				MauvilleCity_BikeShop_Text_KyleTriedTo)
+	closemessage
 	applymovement (LOCALID_RIVAL2, Common_Movement_BeginTalkUp)
 	waitmovement (0)
 	rival2talk (MauvilleCity_BikeShop_Text_SpencerMyBad,
 				MauvilleCity_BikeShop_Text_BrenMyBad,
 				MauvilleCity_BikeShop_Text_KyleMyBad)
+	closemessage
 	applymovement (LOCALID_RIVAL1, Common_Movement_BeginTalkDown)
 	waitmovement (0)
 	rival1talk (MauvilleCity_BikeShop_Text_SpencerWouldBeNiceToHaveBikes,
 				MauvilleCity_BikeShop_Text_BrenWouldBeNiceToHaveBikes,
 				MauvilleCity_BikeShop_Text_KyleWouldBeNiceToHaveBikes)
+	closemessage
 	playse (SE_PIN)
 	applymovement (LOCALID_RYDEL, Common_Movement_ExclamationMark)
 	applymovement (OBJ_EVENT_ID_PLAYER, Common_Movement_FaceRight)
@@ -153,12 +159,14 @@ script MauvilleCity_BikeShop_EventScript_BikeIntro {
 	rival2talk (MauvilleCity_BikeShop_Text_SpencerTakingGymChallenge,
 				MauvilleCity_BikeShop_Text_BrenTakingGymChallenge,
 				MauvilleCity_BikeShop_Text_KyleTakingGymChallenge)
+	closemessage
 	delay (10)
 	applymovement (LOCALID_RIVAL1, Common_Movement_BeginTalkRight)
 	waitmovement (0)
 	rival1talk (MauvilleCity_BikeShop_Text_SpencerPokedexJourney,
 				MauvilleCity_BikeShop_Text_BrenPokedexJourney,
 				MauvilleCity_BikeShop_Text_KylePokedexJourney)
+	closemessage
 	applymovement (LOCALID_RYDEL, Common_Movement_BeginTalkLeft)
 	waitmovement (0)
 	msgbox (MauvilleCity_BikeShop_Text_ThatSettlesIt)
@@ -189,6 +197,7 @@ script MauvilleCity_BikeShop_EventScript_IntroPostBikeChoice {
 	rival2talk (MauvilleCity_BikeShop_Text_SpencerChooseAcro,
 				MauvilleCity_BikeShop_Text_BrenChooseAcro,
 				MauvilleCity_BikeShop_Text_KyleChooseAcro)
+	closemessage
 	delay (60)
 	applymovement (LOCALID_RYDEL, MauvilleCity_BikeShop_Movement_RydellToRival1)
 	waitmovement (0)
@@ -197,6 +206,7 @@ script MauvilleCity_BikeShop_EventScript_IntroPostBikeChoice {
 	rival1talk (MauvilleCity_BikeShop_Text_SpencerChooseMach,
 				MauvilleCity_BikeShop_Text_BrenChooseMach,
 				MauvilleCity_BikeShop_Text_KyleChooseMach)
+	closemessage
 	delay (60)
 	applymovement (LOCALID_RYDEL, Common_Movement_Walk_Down)
 	waitmovement (0)
@@ -215,6 +225,7 @@ script MauvilleCity_BikeShop_EventScript_IntroPostBikeChoice {
 	rival2talk (MauvilleCity_BikeShop_Text_SpencerGoTryBike,
 				MauvilleCity_BikeShop_Text_BrenGoTryBike,
 				MauvilleCity_BikeShop_Text_KyleGoTryBike)
+	closemessage
 	applymovement (LOCALID_RIVAL2, MauvilleCity_BikeShop_Movement_Rival2Leaves)
 	waitmovement (0)
 	delay (20)
@@ -227,6 +238,7 @@ script MauvilleCity_BikeShop_EventScript_IntroPostBikeChoice {
 	rival1talk (MauvilleCity_BikeShop_Text_SpencerLookUpManual,
 				MauvilleCity_BikeShop_Text_BrenLookUpManual,
 				MauvilleCity_BikeShop_Text_KyleLookUpManual)
+	closemessage
 	applymovement (LOCALID_RIVAL1, MauvilleCity_BikeShop_Movement_Rival1GoToManual)
 	waitmovement (0)
 	setobjectxyperm (LOCALID_RIVAL1, 8, 2)

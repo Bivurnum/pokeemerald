@@ -28,6 +28,7 @@ script Route117_EventScript_Rival2 {
 		rival2talk (Route117_Text_SpencerCantLetYouShowMeUp,
 					Route117_Text_BrenCantLetYouShowMeUp,
 					Route117_Text_KyleCantLetYouShowMeUp)
+		closemessage
 		setvar (VAR_TEMP_5, 5)
 	}
 	else {

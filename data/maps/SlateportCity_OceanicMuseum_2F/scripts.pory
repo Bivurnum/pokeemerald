@@ -23,6 +23,7 @@ script SlateportCity_OceanicMuseum_2F_EventScript_Rival1 {
 	rival1talk (SlateportCity_OceanicMuseum_2F_SpencerFoundStern,
 				SlateportCity_OceanicMuseum_2F_BrenFoundStern,
 				SlateportCity_OceanicMuseum_2F_KyleFoundStern)
+	closemessage
 	applymovement (LOCALID_RIVAL1, Common_Movement_FaceLeft)
 	waitmovement (0)
 	release
@@ -79,6 +80,7 @@ script SlateportCity_OceanicMuseum_2F_EventScript_CaptStern {
 	rival1talk (SlateportCity_OceanicMuseum_2F_SpencerBattleTogether,
 				SlateportCity_OceanicMuseum_2F_BrenBattleTogether,
 				SlateportCity_OceanicMuseum_2F_KyleBattleTogether)
+	closemessage
 	call (SlateportCity_OceanicMuseum_2F_EventScript_PrepareForGruntBattle)
 	applymovement (LOCALID_GRUNT_1, SlateportCity_OceanicMuseum_2F_Movement_GruntDefeated)
 	applymovement (LOCALID_GRUNT_2, SlateportCity_OceanicMuseum_2F_Movement_GruntDefeated)
@@ -144,6 +146,7 @@ script SlateportCity_OceanicMuseum_2F_EventScript_CaptStern {
 	rival1talk (SlateportCity_OceanicMuseum_2F_SpencerAfterStern,
 				SlateportCity_OceanicMuseum_2F_BrenAfterStern,
 				SlateportCity_OceanicMuseum_2F_KyleAfterStern)
+	closemessage
 	applymovement (OBJ_EVENT_ID_PLAYER, Common_Movement_FaceLeft)
 	applymovement (LOCALID_RIVAL1, SlateportCity_OceanicMuseum_2F_Movement_Rival1Leaves)
 	waitmovement (0)
