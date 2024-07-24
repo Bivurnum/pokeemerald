@@ -123,16 +123,16 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_NINJA_BOY",
-      "x": 29,
+      "x": 20,
       "y": 6,
       "elevation": 3,
-      "movement_type": "MOVEMENT_TYPE_BURIED",
+      "movement_type": "MOVEMENT_TYPE_FACE_DOWN_AND_RIGHT",
       "movement_range_x": 0,
       "movement_range_y": 0,
-      "trainer_type": "TRAINER_TYPE_BURIED",
-      "trainer_sight_or_berry_tree_id": "1",
+      "trainer_type": "TRAINER_TYPE_NORMAL",
+      "trainer_sight_or_berry_tree_id": "4",
       "script": "Route113_EventScript_Lao",
-      "flag": "0"
+      "flag": "FLAG_HIDE_ROUTE_113_RIVAL2"
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_NINJA_BOY",
@@ -237,6 +237,45 @@
       "trainer_sight_or_berry_tree_id": "6",
       "script": "Route113_EventScript_Coby",
       "flag": "0"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_ANABEL",
+      "x": 44,
+      "y": 10,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_NONE",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "NULL",
+      "flag": "0"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_VAR_F",
+      "x": 29,
+      "y": 6,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_BURIED",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_BURIED",
+      "trainer_sight_or_berry_tree_id": "1",
+      "script": "NULL",
+      "flag": "FLAG_HIDE_ROUTE_113_RIVAL2"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_NINJA_BOY",
+      "x": 29,
+      "y": 6,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_BURIED",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_BURIED",
+      "trainer_sight_or_berry_tree_id": "1",
+      "script": "Route113_EventScript_Lao",
+      "flag": "FLAG_HIDE_ROUTE_113_LEO"
     }
   ],
   "warp_events": [

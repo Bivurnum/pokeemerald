@@ -485,6 +485,7 @@ script Route111_EventScript_BattleWinstrates {
 		waitmovement (0)
 		removeobject (LOCALID_RIVAL1)
 		call (Route111_EventScript_CloseWinstrateDoor)
+		clearflag (FLAG_HIDE_WINSTRATE_RIVAL1)
 	}
 	release
 	end
@@ -640,6 +641,8 @@ movement Route111_Movement_GetIntoPLaceForSecretBaseRight {
 }
 
 script Route111_EventScript_SecretBaseEvent {
+	addobject (LOCALID_RIVAL1BIKESECRET)
+	addobject (LOCALID_RIVAL2BIKESECRET)
 	applymovement (LOCALID_RIVAL1BIKESECRET, Route111_Movement_Rival1EntersForSecretBase)
 	applymovement (LOCALID_RIVAL2BIKESECRET, Route111_Movement_Rival2EntersForSecretBase)
 	waitmovement (0)
@@ -651,6 +654,8 @@ script Route111_EventScript_SecretBaseEvent {
 	delay (20)
 	removeobject (LOCALID_RIVAL2BIKESECRET)
 	addobject (LOCALID_RIVAL2SECRET)
+	setobjectxyperm (LOCALID_RIVAL1BIKESECRET, 11, 22)
+	setobjectxyperm (LOCALID_RIVAL2BIKESECRET, 13, 22)
 	applymovement (LOCALID_RIVAL1SECRET, Common_Movement_BeginTalkRight)
 	waitmovement (0)
 	rival1talk (Route111_Text_SpencerTryingToCatchUp,
@@ -680,6 +685,9 @@ script Route111_EventScript_SecretBaseEvent {
 	delay (10)
 	applymovement (LOCALID_SECRETBASEGUY, Common_Movement_WalkInPlaceFasterUp)
 	waitmovement (0)
+	msgbox (Route111_Text_AtFirstGlance)
+	applymovement (LOCALID_SECRETBASEGUY, Common_Movement_WalkInPlaceFasterDown)
+	waitmovement (0)
 	msgbox (Route111_Text_TakeALookForYourself)
 	closemessage
 	giveitem (ITEM_TM_SECRET_POWER)
@@ -696,13 +704,59 @@ script Route111_EventScript_SecretBaseEvent {
 	delay (10)
 	applymovement (LOCALID_SECRETBASEGUY, Route111_Movement_GuyWalkToRival2)
 	waitmovement (0)
-	msgbox ()
-
+	msgbox (Route111_Text_YoureSpeechless)
+	closemessage
+	applymovement (LOCALID_RIVAL2SECRET, Common_Movement_FaceLeft)
+	applymovement (OBJ_EVENT_ID_PLAYER, Route111_Movement_PlayerWatchToLedge)
+	applymovement (LOCALID_RIVAL1SECRET, Route111_Movement_Rival1WatchToLedge)
+	applymovement (LOCALID_SECRETBASEGUY, Route111_Movement_GuyRunsToLedge)
+	waitmovement (0)
+	playse (SE_LEDGE)
+	applymovement (LOCALID_SECRETBASEGUY, Route111_Movement_GuyJumpsLedge)
+	waitmovement (0)
+	waitse
+	applymovement (OBJ_EVENT_ID_PLAYER, Common_Movement_FaceDown)
+	applymovement (LOCALID_RIVAL1SECRET, Common_Movement_FaceDown)
+	applymovement (LOCALID_RIVAL2SECRET, Common_Movement_FaceDown)
+	applymovement (LOCALID_SECRETBASEGUY, Route111_Movement_GuyLeaves)
+	waitmovement (0)
+	removeobject (LOCALID_SECRETBASEGUY)
+	delay (20)
+	applymovement (OBJ_EVENT_ID_PLAYER, Common_Movement_FaceLeft)
+	applymovement (LOCALID_RIVAL2SECRET, Common_Movement_FaceLeft)
+	applymovement (LOCALID_RIVAL1SECRET, Common_Movement_BeginTalkRight)
+	waitmovement (0)
+	rival1talk (Route111_Text_SpencerWhatAWeirdGuy,
+				Route111_Text_BrenWhatAWeirdGuy,
+				Route111_Text_KyleWhatAWeirdGuy)
+	closemessage
+	delay (10)
+	applymovement (OBJ_EVENT_ID_PLAYER, Route111_Movement_WatchRival1Leave)
+	applymovement (LOCALID_RIVAL2SECRET, Route111_Movement_WatchRival1Leave)
+	applymovement (LOCALID_RIVAL1SECRET, Route111_Movement_Rival1Leave)
+	waitmovement (0)
+	removeobject (LOCALID_RIVAL1SECRET)
+	delay (10)
+	applymovement (LOCALID_RIVAL2SECRET, Common_Movement_BeginTalkLeft)
+	waitmovement (0)
+	rival2talk (Route111_Text_SpencerSeeYouLater,
+				Route111_Text_BrenSeeYouLater,
+				Route111_Text_KyleSeeYouLater)
+	closemessage
+	delay (20)
+	playse (SE_BIKE_BELL)
+	removeobject (LOCALID_RIVAL2SECRET)
+	addobject (LOCALID_RIVAL2BIKESECRET)
+	delay (30)
+	applymovement (LOCALID_RIVAL2BIKESECRET, Route111_Movement_Rival2Leave)
+	waitmovement (0)
+	removeobject (LOCALID_RIVAL2BIKESECRET)
 	setvar (VAR_MAUVILLE_BIKE_SHOP_STATE, 4)
 	setvar (VAR_SECRET_BASE_EVENT_STATE, 1)
 	setflag (FLAG_HIDE_WINSTRATE_RIVAL1)
 	setflag (FLAG_HIDE_ROUTE_117_RIVAL2)
 	setflag (FLAG_HIDE_BIKE_SHOP_RIVALS)
+	setflag (FLAG_HIDE_ROUTE_113_LEO)
 	release
 	end
 }
@@ -740,19 +794,64 @@ movement Route111_Movement_GuyWalkToRival1 {
 	walk_in_place_faster_down
 }
 
+movement Route111_Movement_GuyRunsToLedge {
+	walk_fast_left * 2
+	walk_fast_down
+}
+
+movement Route111_Movement_GuyJumpsLedge {
+	jump_2_down
+}
+
+movement Route111_Movement_GuyLeaves {
+	walk_fast_down
+	walk_fast_left * 2
+	walk_fast_down * 3
+}
+
+movement Route111_Movement_PlayerWatchToLedge {
+	delay_8
+	face_left
+}
+
+movement Route111_Movement_Rival1WatchToLedge {
+	delay_16
+	face_left
+}
+
+movement Route111_Movement_WatchRival1Leave {
+	delay_8
+	face_up
+	delay_16
+	face_right
+}
+
+movement Route111_Movement_Rival1Leave {
+	walk_fast_up
+	walk_fast_right * 6
+	walk_fast_up * 3
+	walk_fast_right * 3
+}
+
+movement Route111_Movement_Rival2Leave {
+	walk_fast_right * 4
+	walk_fast_up * 4
+	walk_fast_right * 4
+}
+
 text Route111_Text_SpencerTryingToCatchUp {
-	format ("SPENCER: You sure know how to travel fast.\n"
-		"We've been trying to catch up with you for a while.\p")
+	format ("SPENCER: You sure know how to travel fast.\p"
+		"We've been trying to catch up with you for a while.")
 }
 
 text Route111_Text_BrenTryingToCatchUp {
-	format ("BREN: You sure know how to travel fast.\n"
-		"We've been trying to catch up with you for a while.\p")
+	format ("BREN: You sure know how to travel fast.\p"
+		"We've been trying to catch up with you for a while.")
 }
 
 text Route111_Text_KyleTryingToCatchUp {
-	format ("KYLE: You sure know how to travel fast.\n"
-		"We've been trying to catch up with you for a while.\p")
+	format ("KYLE: You sure know how to travel fast.\p"
+		"We've been trying to catch up with you for a while.")
 }
 
 text Route111_Text_NoBike {
@@ -762,21 +861,21 @@ text Route111_Text_NoBike {
 
 text Route111_Text_SpencerSpiritOfAdventure {
 	format ("SPENCER: Don't worry about it!\n"
-		"We know you have the spirit of adventure in you, {PLAYER}."
+		"We know you have the spirit of adventure in you, {PLAYER}.\N"
 		"Half the fun is in exploring new areas, am I right?\p"
 		"We still have a lot of ground left to cover on our journey, so why not enjoy it?")
 }
 
 text Route111_Text_BrenSpiritOfAdventure {
 	format ("BREN: Don't worry about it!\n"
-		"We know you have the spirit of adventure in you, {PLAYER}."
+		"We know you have the spirit of adventure in you, {PLAYER}.\N"
 		"Half the fun is in exploring new areas, am I right?\p"
 		"We still have a lot of ground left to cover on our journey, so why not enjoy it?")
 }
 
 text Route111_Text_KyleSpiritOfAdventure {
 	format ("KYLE: Don't worry about it!\n"
-		"We know you have the spirit of adventure in you, {PLAYER}."
+		"We know you have the spirit of adventure in you, {PLAYER}.\N"
 		"Half the fun is in exploring new areas, am I right?\p"
 		"We still have a lot of ground left to cover on our journey, so why not enjoy it?")
 }
@@ -784,14 +883,16 @@ text Route111_Text_KyleSpiritOfAdventure {
 text Route111_Text_MoreThanTheySeem {
 	format ("Did I hear that right?\n"
 		"Sounds to me like I've encountered a group of young vagabonds!\p"
-		"You might be interested to know that there are certain places all over the region that are more than they seem.\p"
-		"")
+		"You might be interested to know that there are certain places all over the region that are more than they seem.")
+}
+
+text Route111_Text_AtFirstGlance {
+	format ("Take, for instance, that tree I was looking at earlier.\p"
+		"At first glance, it may seem ordinary.")
 }
 
 text Route111_Text_TakeALookForYourself {
-	format ("Take, for instance, that tree I was looking at earlier.\p"
-		"At first glance, it may seem ordinary.\n"
-		"But with the right technique, you can reveal your own SECRET BASE inside!\p"
+	format ("But with the right technique, you can reveal your own SECRET BASE inside!\p"
 		"What's the technique, you ask?\p"
 		"Here! Take a look for yourself!")
 }
@@ -809,7 +910,59 @@ text Route111_Text_YoureSpeechless {
 		"You're speechless!\p"
 		"Don't worry.\n"
 		"I was the same way when I first discovered SECRET BASES.\p"
-		"")
+		"If you have a POKéMON use SECRET POWER on a tree like that, some vines will drop down and reveal the SECRET BASE within.\p"
+		"It's not just trees, either.\n"
+		"You can find hidden spaces behind cracks in rock walls.\p"
+		"Who knows where else you can find them!\p"
+		"Claim one for yourself and decorate it with your favorite items.\N"
+		"Make the space your own!\p"
+		"And with that…\n"
+		"BAM! I'm off!")
+}
+
+text Route111_Text_SpencerWhatAWeirdGuy {
+	format ("SPENCER: What a weird guy.\n"
+		"The SECRET BASES sound interesting, though!\p"
+		"I'm going to look for a good place to make my own.\p"
+		"Of course, I'll keep it a secret.\n"
+		"Perhaps you'll find it if you're skilled enough.\p"
+		"As a strange man once said,\n"
+		"“BAM! I'm off!”")
+}
+
+text Route111_Text_BrenWhatAWeirdGuy {
+	format ("BREN: What a weird guy.\n"
+		"The SECRET BASES sound interesting, though!\p"
+		"I'm going to look for a good place to make my own.\p"
+		"Of course, I'll keep it a secret.\n"
+		"Perhaps you'll find it if you're skilled enough.\p"
+		"As a strange man once said,\n"
+		"“BAM! I'm off!”")
+}
+
+text Route111_Text_KyleWhatAWeirdGuy {
+	format ("KYLE: What a weird guy.\n"
+		"The SECRET BASES sound interesting, though!\p"
+		"I'm going to look for a good place to make my own.\p"
+		"Of course, I'll keep it a secret.\n"
+		"Perhaps you'll find it if you're skilled enough.\p"
+		"As a strange man once said,\n"
+		"“BAM! I'm off!”")
+}
+
+text Route111_Text_SpencerSeeYouLater {
+	format ("SPENCER: Now it's your turn to catch up to us.\N"
+		"See you later!")
+}
+
+text Route111_Text_BrenSeeYouLater {
+	format ("BREN: Now it's your turn to catch up to us.\N"
+		"See you later!")
+}
+
+text Route111_Text_KyleSeeYouLater {
+	format ("KYLE: Now it's your turn to catch up to us.\N"
+		"See you later!")
 }
 
 raw `

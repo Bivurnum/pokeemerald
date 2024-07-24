@@ -125,124 +125,126 @@ Route111_WinstrateFamilysHouse_EventScript_Rival1::
 # 71 "data/maps/Route111_WinstrateFamilysHouse/scripts.pory"
 	rival1talk Route111_WinstrateFamilysHouse_Text_SpencerRareToFindFamily, Route111_WinstrateFamilysHouse_Text_BrenRareToFindFamily, Route111_WinstrateFamilysHouse_Text_KyleRareToFindFamily
 # 74 "data/maps/Route111_WinstrateFamilysHouse/scripts.pory"
+	closemessage
+# 75 "data/maps/Route111_WinstrateFamilysHouse/scripts.pory"
 	goto Route111_WinstrateFamilysHouse_EventScript_FaceOriginalDirection
 	end
 
 
-# 90 "data/maps/Route111_WinstrateFamilysHouse/scripts.pory"
-
 # 91 "data/maps/Route111_WinstrateFamilysHouse/scripts.pory"
-Route111_WinstrateFamilysHouse_EventScript_FaceOriginalDirection::
+
 # 92 "data/maps/Route111_WinstrateFamilysHouse/scripts.pory"
-	closemessage
+Route111_WinstrateFamilysHouse_EventScript_FaceOriginalDirection::
 # 93 "data/maps/Route111_WinstrateFamilysHouse/scripts.pory"
-	applymovement VAR_0x8008, Common_Movement_FaceOriginalDirection
+	closemessage
 # 94 "data/maps/Route111_WinstrateFamilysHouse/scripts.pory"
-	waitmovement 0
+	applymovement VAR_0x8008, Common_Movement_FaceOriginalDirection
 # 95 "data/maps/Route111_WinstrateFamilysHouse/scripts.pory"
-	release
+	waitmovement 0
 # 96 "data/maps/Route111_WinstrateFamilysHouse/scripts.pory"
-	end
+	release
 # 97 "data/maps/Route111_WinstrateFamilysHouse/scripts.pory"
-
+	end
 # 98 "data/maps/Route111_WinstrateFamilysHouse/scripts.pory"
-Route111_WinstrateFamilysHouse_Text_MySonIsStrongerThanYou:
+
 # 99 "data/maps/Route111_WinstrateFamilysHouse/scripts.pory"
-	.string "You're the first TRAINER I've seen who\n"
+Route111_WinstrateFamilysHouse_Text_MySonIsStrongerThanYou:
 # 100 "data/maps/Route111_WinstrateFamilysHouse/scripts.pory"
-	.string "deploys POKéMON so masterfully.\p"
+	.string "You're the first TRAINER I've seen who\n"
 # 101 "data/maps/Route111_WinstrateFamilysHouse/scripts.pory"
-	.string "But, I should tell you--my son is\n"
+	.string "deploys POKéMON so masterfully.\p"
 # 102 "data/maps/Route111_WinstrateFamilysHouse/scripts.pory"
-	.string "stronger than you.\p"
+	.string "But, I should tell you--my son is\n"
 # 103 "data/maps/Route111_WinstrateFamilysHouse/scripts.pory"
-	.string "He even took the POKéMON LEAGUE\n"
+	.string "stronger than you.\p"
 # 104 "data/maps/Route111_WinstrateFamilysHouse/scripts.pory"
-	.string "challenge, I'll have you know.$"
+	.string "He even took the POKéMON LEAGUE\n"
 # 105 "data/maps/Route111_WinstrateFamilysHouse/scripts.pory"
-
+	.string "challenge, I'll have you know.$"
 # 106 "data/maps/Route111_WinstrateFamilysHouse/scripts.pory"
-Route111_WinstrateFamilysHouse_Text_LikeYouToHaveMachoBrace:
+
 # 107 "data/maps/Route111_WinstrateFamilysHouse/scripts.pory"
-	.string "We use this MACHO BRACE to more\n"
+Route111_WinstrateFamilysHouse_Text_LikeYouToHaveMachoBrace:
 # 108 "data/maps/Route111_WinstrateFamilysHouse/scripts.pory"
-	.string "effectively strengthen our POKéMON\l"
+	.string "We use this MACHO BRACE to more\n"
 # 109 "data/maps/Route111_WinstrateFamilysHouse/scripts.pory"
-	.string "in training.\p"
+	.string "effectively strengthen our POKéMON\l"
 # 110 "data/maps/Route111_WinstrateFamilysHouse/scripts.pory"
-	.string "Since you've beaten all of us here,\n"
+	.string "in training.\p"
 # 111 "data/maps/Route111_WinstrateFamilysHouse/scripts.pory"
-	.string "I don't know if you need it, but we\l"
+	.string "Since you've beaten all of us here,\n"
 # 112 "data/maps/Route111_WinstrateFamilysHouse/scripts.pory"
-	.string "would like you to have our MACHO BRACE.$"
+	.string "I don't know if you need it, but we\l"
 # 113 "data/maps/Route111_WinstrateFamilysHouse/scripts.pory"
-
+	.string "would like you to have our MACHO BRACE.$"
 # 114 "data/maps/Route111_WinstrateFamilysHouse/scripts.pory"
-Route111_WinstrateFamilysHouse_Text_PassionateAboutBattles:
+
 # 115 "data/maps/Route111_WinstrateFamilysHouse/scripts.pory"
-	.string "When it comes to POKéMON battles,\n"
+Route111_WinstrateFamilysHouse_Text_PassionateAboutBattles:
 # 116 "data/maps/Route111_WinstrateFamilysHouse/scripts.pory"
-	.string "we tend to be pretty passionate.$"
+	.string "When it comes to POKéMON battles,\n"
 # 117 "data/maps/Route111_WinstrateFamilysHouse/scripts.pory"
-
+	.string "we tend to be pretty passionate.$"
 # 118 "data/maps/Route111_WinstrateFamilysHouse/scripts.pory"
-Route111_WinstrateFamilysHouse_Text_StrongerFamilyMembers:
+
 # 119 "data/maps/Route111_WinstrateFamilysHouse/scripts.pory"
-	.string "Mommy is stronger than Daddy.\p"
+Route111_WinstrateFamilysHouse_Text_StrongerFamilyMembers:
 # 120 "data/maps/Route111_WinstrateFamilysHouse/scripts.pory"
-	.string "I'm stronger than Mommy.\p"
+	.string "Mommy is stronger than Daddy.\p"
 # 121 "data/maps/Route111_WinstrateFamilysHouse/scripts.pory"
-	.string "And Grandma's stronger than me!\p"
+	.string "I'm stronger than Mommy.\p"
 # 122 "data/maps/Route111_WinstrateFamilysHouse/scripts.pory"
-	.string "But my big brother is even stronger\n"
+	.string "And Grandma's stronger than me!\p"
 # 123 "data/maps/Route111_WinstrateFamilysHouse/scripts.pory"
-	.string "than Grandma.$"
+	.string "But my big brother is even stronger\n"
 # 124 "data/maps/Route111_WinstrateFamilysHouse/scripts.pory"
-
+	.string "than Grandma.$"
 # 125 "data/maps/Route111_WinstrateFamilysHouse/scripts.pory"
-Route111_WinstrateFamilysHouse_Text_GrandsonStrong:
-# 126 "data/maps/Route111_WinstrateFamilysHouse/scripts.pory"
-	.string "There's no question that you're strong.\p"
-# 127 "data/maps/Route111_WinstrateFamilysHouse/scripts.pory"
-	.string "But if you were to battle my grandson,\n"
-# 128 "data/maps/Route111_WinstrateFamilysHouse/scripts.pory"
-	.string "you'd end up crying in frustration.\p"
-# 129 "data/maps/Route111_WinstrateFamilysHouse/scripts.pory"
-	.string "He's much stronger than any TRAINER\n"
-# 130 "data/maps/Route111_WinstrateFamilysHouse/scripts.pory"
-	.string "our family knows.\p"
-# 131 "data/maps/Route111_WinstrateFamilysHouse/scripts.pory"
-	.string "He must be challenging the POKéMON\n"
-# 132 "data/maps/Route111_WinstrateFamilysHouse/scripts.pory"
-	.string "LEAGUE CHAMPION by now.\p"
-# 133 "data/maps/Route111_WinstrateFamilysHouse/scripts.pory"
-	.string "Knowing my grandson, he could be the\n"
-# 134 "data/maps/Route111_WinstrateFamilysHouse/scripts.pory"
-	.string "CHAMPION already!$"
-# 135 "data/maps/Route111_WinstrateFamilysHouse/scripts.pory"
 
-# 136 "data/maps/Route111_WinstrateFamilysHouse/scripts.pory"
-Route111_WinstrateFamilysHouse_Text_GrandsonStrongShort:
-# 137 "data/maps/Route111_WinstrateFamilysHouse/scripts.pory"
-	.string "My grandson must be challenging the\n"
-# 138 "data/maps/Route111_WinstrateFamilysHouse/scripts.pory"
-	.string "POKéMON LEAGUE CHAMPION by now.\p"
-# 139 "data/maps/Route111_WinstrateFamilysHouse/scripts.pory"
+# 126 "data/maps/Route111_WinstrateFamilysHouse/scripts.pory"
+Route111_WinstrateFamilysHouse_Text_GrandsonStrong:
+# 127 "data/maps/Route111_WinstrateFamilysHouse/scripts.pory"
+	.string "There's no question that you're strong.\p"
+# 128 "data/maps/Route111_WinstrateFamilysHouse/scripts.pory"
+	.string "But if you were to battle my grandson,\n"
+# 129 "data/maps/Route111_WinstrateFamilysHouse/scripts.pory"
+	.string "you'd end up crying in frustration.\p"
+# 130 "data/maps/Route111_WinstrateFamilysHouse/scripts.pory"
+	.string "He's much stronger than any TRAINER\n"
+# 131 "data/maps/Route111_WinstrateFamilysHouse/scripts.pory"
+	.string "our family knows.\p"
+# 132 "data/maps/Route111_WinstrateFamilysHouse/scripts.pory"
+	.string "He must be challenging the POKéMON\n"
+# 133 "data/maps/Route111_WinstrateFamilysHouse/scripts.pory"
+	.string "LEAGUE CHAMPION by now.\p"
+# 134 "data/maps/Route111_WinstrateFamilysHouse/scripts.pory"
 	.string "Knowing my grandson, he could be the\n"
+# 135 "data/maps/Route111_WinstrateFamilysHouse/scripts.pory"
+	.string "CHAMPION already!$"
+# 136 "data/maps/Route111_WinstrateFamilysHouse/scripts.pory"
+
+# 137 "data/maps/Route111_WinstrateFamilysHouse/scripts.pory"
+Route111_WinstrateFamilysHouse_Text_GrandsonStrongShort:
+# 138 "data/maps/Route111_WinstrateFamilysHouse/scripts.pory"
+	.string "My grandson must be challenging the\n"
+# 139 "data/maps/Route111_WinstrateFamilysHouse/scripts.pory"
+	.string "POKéMON LEAGUE CHAMPION by now.\p"
 # 140 "data/maps/Route111_WinstrateFamilysHouse/scripts.pory"
+	.string "Knowing my grandson, he could be the\n"
+# 141 "data/maps/Route111_WinstrateFamilysHouse/scripts.pory"
 	.string "CHAMPION already!$"
 
 Route111_WinstrateFamilysHouse_Text_SpencerRareToFindFamily::
-# 78 "data/maps/Route111_WinstrateFamilysHouse/scripts.pory"
+# 79 "data/maps/Route111_WinstrateFamilysHouse/scripts.pory"
 	.string "It's kind of rare to find a whole family\n"
 	.string "of POKéMON trainers, huh?$"
 
 Route111_WinstrateFamilysHouse_Text_BrenRareToFindFamily::
-# 82 "data/maps/Route111_WinstrateFamilysHouse/scripts.pory"
+# 83 "data/maps/Route111_WinstrateFamilysHouse/scripts.pory"
 	.string "It's kind of rare to find a whole family\n"
 	.string "of POKéMON trainers, huh?$"
 
 Route111_WinstrateFamilysHouse_Text_KyleRareToFindFamily::
-# 86 "data/maps/Route111_WinstrateFamilysHouse/scripts.pory"
+# 87 "data/maps/Route111_WinstrateFamilysHouse/scripts.pory"
 	.string "It's kind of rare to find a whole family\n"
 	.string "of POKéMON trainers, huh?$"

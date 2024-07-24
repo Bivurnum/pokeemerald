@@ -307,171 +307,173 @@ Route109_SeashoreHouse_EventScript_Rival2::
 # 158 "data/maps/Route109_SeashoreHouse/scripts.pory"
 	rival2talk Route109_SeashoreHouse_Text_SpencerPostBattle, Route109_SeashoreHouse_Text_BrenPostBattle, Route109_SeashoreHouse_Text_KylePostBattle
 # 161 "data/maps/Route109_SeashoreHouse/scripts.pory"
+	closemessage
+# 162 "data/maps/Route109_SeashoreHouse/scripts.pory"
 	release
 	end
 
 
-# 216 "data/maps/Route109_SeashoreHouse/scripts.pory"
-
 # 217 "data/maps/Route109_SeashoreHouse/scripts.pory"
-Route109_SeashoreHouse_Text_SeashoreHouseIntro:
+
 # 218 "data/maps/Route109_SeashoreHouse/scripts.pory"
-	.string "I'm the owner of the SEASHORE HOUSE.\n"
+Route109_SeashoreHouse_Text_SeashoreHouseIntro:
 # 219 "data/maps/Route109_SeashoreHouse/scripts.pory"
-	.string "But you can call me MR. SEA!\p"
+	.string "I'm the owner of the SEASHORE HOUSE.\n"
 # 220 "data/maps/Route109_SeashoreHouse/scripts.pory"
-	.string "What I love above all is to see hot\n"
+	.string "But you can call me MR. SEA!\p"
 # 221 "data/maps/Route109_SeashoreHouse/scripts.pory"
-	.string "POKéMON battles.\p"
+	.string "What I love above all is to see hot\n"
 # 222 "data/maps/Route109_SeashoreHouse/scripts.pory"
-	.string "Let me see that your heart burns hot!\p"
+	.string "POKéMON battles.\p"
 # 223 "data/maps/Route109_SeashoreHouse/scripts.pory"
-	.string "If you can defeat all the TRAINERS\n"
+	.string "Let me see that your heart burns hot!\p"
 # 224 "data/maps/Route109_SeashoreHouse/scripts.pory"
-	.string "here, I'll reward your efforts.$"
+	.string "If you can defeat all the TRAINERS\n"
 # 225 "data/maps/Route109_SeashoreHouse/scripts.pory"
-
+	.string "here, I'll reward your efforts.$"
 # 226 "data/maps/Route109_SeashoreHouse/scripts.pory"
-Route109_SeashoreHouse_Text_ShowMeSomeHotMatches:
+
 # 227 "data/maps/Route109_SeashoreHouse/scripts.pory"
-	.string "Show me some hot matches!\p"
+Route109_SeashoreHouse_Text_ShowMeSomeHotMatches:
 # 228 "data/maps/Route109_SeashoreHouse/scripts.pory"
-	.string "I run this SEASHORE HOUSE just for\n"
+	.string "Show me some hot matches!\p"
 # 229 "data/maps/Route109_SeashoreHouse/scripts.pory"
-	.string "that reason alone!$"
+	.string "I run this SEASHORE HOUSE just for\n"
 # 230 "data/maps/Route109_SeashoreHouse/scripts.pory"
-
+	.string "that reason alone!$"
 # 231 "data/maps/Route109_SeashoreHouse/scripts.pory"
-Route109_SeashoreHouse_Text_TakeTheseSodaPopBottles:
+
 # 232 "data/maps/Route109_SeashoreHouse/scripts.pory"
-	.string "You're scorching hot!\n"
+Route109_SeashoreHouse_Text_TakeTheseSodaPopBottles:
 # 233 "data/maps/Route109_SeashoreHouse/scripts.pory"
-	.string "Those battles blazed!\l"
+	.string "You're scorching hot!\n"
 # 234 "data/maps/Route109_SeashoreHouse/scripts.pory"
-	.string "I'm more than just satisfied!\p"
+	.string "Those battles blazed!\l"
 # 235 "data/maps/Route109_SeashoreHouse/scripts.pory"
-	.string "As thanks for showing me your hot\n"
+	.string "I'm more than just satisfied!\p"
 # 236 "data/maps/Route109_SeashoreHouse/scripts.pory"
-	.string "streak, I want you to take these.\p"
+	.string "As thanks for showing me your hot\n"
 # 237 "data/maps/Route109_SeashoreHouse/scripts.pory"
-	.string "It's half a dozen bottles of SODA POP!$"
+	.string "streak, I want you to take these.\p"
 # 238 "data/maps/Route109_SeashoreHouse/scripts.pory"
-
+	.string "It's half a dozen bottles of SODA POP!$"
 # 239 "data/maps/Route109_SeashoreHouse/scripts.pory"
-Route109_SeashoreHouse_Text_BagFull:
+
 # 240 "data/maps/Route109_SeashoreHouse/scripts.pory"
-	.string "Oh, but hey, your BAG's jammed full.\n"
+Route109_SeashoreHouse_Text_BagFull:
 # 241 "data/maps/Route109_SeashoreHouse/scripts.pory"
-	.string "I'll hang on to these for you.$"
+	.string "Oh, but hey, your BAG's jammed full.\n"
 # 242 "data/maps/Route109_SeashoreHouse/scripts.pory"
-
+	.string "I'll hang on to these for you.$"
 # 243 "data/maps/Route109_SeashoreHouse/scripts.pory"
-Route109_SeashoreHouse_Text_WantToBuySodaPop:
+
 # 244 "data/maps/Route109_SeashoreHouse/scripts.pory"
-	.string "Want to buy some SODA POP?\n"
+Route109_SeashoreHouse_Text_WantToBuySodaPop:
 # 245 "data/maps/Route109_SeashoreHouse/scripts.pory"
-	.string "POKéMON love it!\p"
+	.string "Want to buy some SODA POP?\n"
 # 246 "data/maps/Route109_SeashoreHouse/scripts.pory"
-	.string "Just ¥300 a bottle!\n"
+	.string "POKéMON love it!\p"
 # 247 "data/maps/Route109_SeashoreHouse/scripts.pory"
-	.string "Buy some!$"
+	.string "Just ¥300 a bottle!\n"
 # 248 "data/maps/Route109_SeashoreHouse/scripts.pory"
-
+	.string "Buy some!$"
 # 249 "data/maps/Route109_SeashoreHouse/scripts.pory"
-Route109_SeashoreHouse_Text_HereYouGo:
+
 # 250 "data/maps/Route109_SeashoreHouse/scripts.pory"
-	.string "Here you go!$"
+Route109_SeashoreHouse_Text_HereYouGo:
 # 251 "data/maps/Route109_SeashoreHouse/scripts.pory"
-
+	.string "Here you go!$"
 # 252 "data/maps/Route109_SeashoreHouse/scripts.pory"
-Route109_SeashoreHouse_Text_NotEnoughMoney:
+
 # 253 "data/maps/Route109_SeashoreHouse/scripts.pory"
-	.string "You don't have the money.$"
+Route109_SeashoreHouse_Text_NotEnoughMoney:
 # 254 "data/maps/Route109_SeashoreHouse/scripts.pory"
-
+	.string "You don't have the money.$"
 # 255 "data/maps/Route109_SeashoreHouse/scripts.pory"
-Route109_SeashoreHouse_Text_ThatsTooBad:
+
 # 256 "data/maps/Route109_SeashoreHouse/scripts.pory"
-	.string "No?\n"
+Route109_SeashoreHouse_Text_ThatsTooBad:
 # 257 "data/maps/Route109_SeashoreHouse/scripts.pory"
-	.string "That's too bad.$"
+	.string "No?\n"
 # 258 "data/maps/Route109_SeashoreHouse/scripts.pory"
-
+	.string "That's too bad.$"
 # 259 "data/maps/Route109_SeashoreHouse/scripts.pory"
-Route109_SeashoreHouse_Text_DwayneIntro:
+
 # 260 "data/maps/Route109_SeashoreHouse/scripts.pory"
-	.string "If you're looking for a battle in the\n"
+Route109_SeashoreHouse_Text_DwayneIntro:
 # 261 "data/maps/Route109_SeashoreHouse/scripts.pory"
-	.string "SEASHORE HOUSE, you'll find no\l"
+	.string "If you're looking for a battle in the\n"
 # 262 "data/maps/Route109_SeashoreHouse/scripts.pory"
-	.string "hotter TRAINER than me, matey!$"
+	.string "SEASHORE HOUSE, you'll find no\l"
 # 263 "data/maps/Route109_SeashoreHouse/scripts.pory"
-
+	.string "hotter TRAINER than me, matey!$"
 # 264 "data/maps/Route109_SeashoreHouse/scripts.pory"
-Route109_SeashoreHouse_Text_DwayneDefeated:
+
 # 265 "data/maps/Route109_SeashoreHouse/scripts.pory"
-	.string "That was a hot battle!\n"
+Route109_SeashoreHouse_Text_DwayneDefeated:
 # 266 "data/maps/Route109_SeashoreHouse/scripts.pory"
-	.string "I can accept that loss, matey!$"
+	.string "That was a hot battle!\n"
 # 267 "data/maps/Route109_SeashoreHouse/scripts.pory"
-
+	.string "I can accept that loss, matey!$"
 # 268 "data/maps/Route109_SeashoreHouse/scripts.pory"
-Route109_SeashoreHouse_Text_DwaynePostBattle:
+
 # 269 "data/maps/Route109_SeashoreHouse/scripts.pory"
-	.string "Whenever I'm in SLATEPORT, I enjoy\n"
+Route109_SeashoreHouse_Text_DwaynePostBattle:
 # 270 "data/maps/Route109_SeashoreHouse/scripts.pory"
-	.string "hot battles and ice-cold SODA POP!$"
+	.string "Whenever I'm in SLATEPORT, I enjoy\n"
 # 271 "data/maps/Route109_SeashoreHouse/scripts.pory"
-
+	.string "hot battles and ice-cold SODA POP!$"
 # 272 "data/maps/Route109_SeashoreHouse/scripts.pory"
-Route109_SeashoreHouse_Text_JohannaIntro:
+
 # 273 "data/maps/Route109_SeashoreHouse/scripts.pory"
-	.string "Boring battles aren't worth the effort.\p"
+Route109_SeashoreHouse_Text_JohannaIntro:
 # 274 "data/maps/Route109_SeashoreHouse/scripts.pory"
-	.string "Fiery hot battles are what toughen up\n"
+	.string "Boring battles aren't worth the effort.\p"
 # 275 "data/maps/Route109_SeashoreHouse/scripts.pory"
-	.string "TRAINERS and POKéMON!$"
+	.string "Fiery hot battles are what toughen up\n"
 # 276 "data/maps/Route109_SeashoreHouse/scripts.pory"
-
+	.string "TRAINERS and POKéMON!$"
 # 277 "data/maps/Route109_SeashoreHouse/scripts.pory"
-Route109_SeashoreHouse_Text_JohannaDefeated:
+
 # 278 "data/maps/Route109_SeashoreHouse/scripts.pory"
-	.string "That's hot!$"
+Route109_SeashoreHouse_Text_JohannaDefeated:
 # 279 "data/maps/Route109_SeashoreHouse/scripts.pory"
-
+	.string "That's hot!$"
 # 280 "data/maps/Route109_SeashoreHouse/scripts.pory"
-Route109_SeashoreHouse_Text_JohannaPostBattle:
+
 # 281 "data/maps/Route109_SeashoreHouse/scripts.pory"
-	.string "Whew, I'm all thirsty.\n"
+Route109_SeashoreHouse_Text_JohannaPostBattle:
 # 282 "data/maps/Route109_SeashoreHouse/scripts.pory"
-	.string "Maybe I'll have a SODA POP.$"
+	.string "Whew, I'm all thirsty.\n"
 # 283 "data/maps/Route109_SeashoreHouse/scripts.pory"
-
+	.string "Maybe I'll have a SODA POP.$"
 # 284 "data/maps/Route109_SeashoreHouse/scripts.pory"
-Route109_SeashoreHouse_Text_SimonIntro:
+
 # 285 "data/maps/Route109_SeashoreHouse/scripts.pory"
-	.string "I'm going to show you how great\n"
+Route109_SeashoreHouse_Text_SimonIntro:
 # 286 "data/maps/Route109_SeashoreHouse/scripts.pory"
-	.string "my POKéMON are, but don't cry!$"
+	.string "I'm going to show you how great\n"
 # 287 "data/maps/Route109_SeashoreHouse/scripts.pory"
-
+	.string "my POKéMON are, but don't cry!$"
 # 288 "data/maps/Route109_SeashoreHouse/scripts.pory"
-Route109_SeashoreHouse_Text_SimonDefeated:
-# 289 "data/maps/Route109_SeashoreHouse/scripts.pory"
-	.string "…I lost, but I won't cry…$"
-# 290 "data/maps/Route109_SeashoreHouse/scripts.pory"
 
+# 289 "data/maps/Route109_SeashoreHouse/scripts.pory"
+Route109_SeashoreHouse_Text_SimonDefeated:
+# 290 "data/maps/Route109_SeashoreHouse/scripts.pory"
+	.string "…I lost, but I won't cry…$"
 # 291 "data/maps/Route109_SeashoreHouse/scripts.pory"
-Route109_SeashoreHouse_Text_SimonPostBattle:
+
 # 292 "data/maps/Route109_SeashoreHouse/scripts.pory"
-	.string "If one of my POKéMON knew the move\n"
+Route109_SeashoreHouse_Text_SimonPostBattle:
 # 293 "data/maps/Route109_SeashoreHouse/scripts.pory"
-	.string "for carrying me across water on its\l"
+	.string "If one of my POKéMON knew the move\n"
 # 294 "data/maps/Route109_SeashoreHouse/scripts.pory"
+	.string "for carrying me across water on its\l"
+# 295 "data/maps/Route109_SeashoreHouse/scripts.pory"
 	.string "back, I could get rid of this inner tube.$"
 
 Route109_SeashoreHouse_Text_SpencerIntro::
-# 165 "data/maps/Route109_SeashoreHouse/scripts.pory"
+# 166 "data/maps/Route109_SeashoreHouse/scripts.pory"
 	.string "That guy over there gave me some\n"
 	.string "SODA POP in exchange for battling\l"
 	.string "trainers who come in here. What a steal!\p"
@@ -480,7 +482,7 @@ Route109_SeashoreHouse_Text_SpencerIntro::
 	.string "Time to earn my keep!$"
 
 Route109_SeashoreHouse_Text_BrenIntro::
-# 173 "data/maps/Route109_SeashoreHouse/scripts.pory"
+# 174 "data/maps/Route109_SeashoreHouse/scripts.pory"
 	.string "That guy over there gave me some\n"
 	.string "SODA POP in exchange for battling\l"
 	.string "trainers who come in here. What a steal!\p"
@@ -489,7 +491,7 @@ Route109_SeashoreHouse_Text_BrenIntro::
 	.string "Time to earn my keep!$"
 
 Route109_SeashoreHouse_Text_KyleIntro::
-# 181 "data/maps/Route109_SeashoreHouse/scripts.pory"
+# 182 "data/maps/Route109_SeashoreHouse/scripts.pory"
 	.string "That guy over there gave me some\n"
 	.string "SODA POP in exchange for battling\l"
 	.string "trainers who come in here. What a steal!\p"
@@ -498,28 +500,28 @@ Route109_SeashoreHouse_Text_KyleIntro::
 	.string "Time to earn my keep!$"
 
 Route109_SeashoreHouse_Text_SpencerDefeated::
-# 189 "data/maps/Route109_SeashoreHouse/scripts.pory"
+# 190 "data/maps/Route109_SeashoreHouse/scripts.pory"
 	.string "At least I have my SODA POP!$"
 
 Route109_SeashoreHouse_Text_BrenDefeated::
-# 193 "data/maps/Route109_SeashoreHouse/scripts.pory"
+# 194 "data/maps/Route109_SeashoreHouse/scripts.pory"
 	.string "At least I have my SODA POP!$"
 
 Route109_SeashoreHouse_Text_KyleDefeated::
-# 197 "data/maps/Route109_SeashoreHouse/scripts.pory"
+# 198 "data/maps/Route109_SeashoreHouse/scripts.pory"
 	.string "At least I have my SODA POP!$"
 
 Route109_SeashoreHouse_Text_SpencerPostBattle::
-# 201 "data/maps/Route109_SeashoreHouse/scripts.pory"
+# 202 "data/maps/Route109_SeashoreHouse/scripts.pory"
 	.string "I know it's for POKéMON, but\n"
 	.string "I like the taste of SODA POP, too!$"
 
 Route109_SeashoreHouse_Text_BrenPostBattle::
-# 206 "data/maps/Route109_SeashoreHouse/scripts.pory"
+# 207 "data/maps/Route109_SeashoreHouse/scripts.pory"
 	.string "I know it's for POKéMON, but\n"
 	.string "I like the taste of SODA POP, too!$"
 
 Route109_SeashoreHouse_Text_KylePostBattle::
-# 211 "data/maps/Route109_SeashoreHouse/scripts.pory"
+# 212 "data/maps/Route109_SeashoreHouse/scripts.pory"
 	.string "I know it's for POKéMON, but\n"
 	.string "I like the taste of SODA POP, too!$"

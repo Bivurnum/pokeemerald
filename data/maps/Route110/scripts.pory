@@ -636,6 +636,7 @@ script Route110_EventScript_EndRoute {
 	removeobject (LOCALID_RIVAL1FINDER)
 	setvar (VAR_0x8009, 0)
 	setflag (FLAG_HIDE_ROUTE_110_RIVAL)
+	setflag (FLAG_HIDE_WINSTRATE_RIVAL1)
 	setvar (VAR_ROUTE110_STATE, 2)
 	releaseall
 	end
