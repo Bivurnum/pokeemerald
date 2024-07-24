@@ -144,8 +144,6 @@ MauvilleCity_EventScript_CitySign::
 MauvilleCity_EventScript_GymSign::
 # 89 "data/maps/MauvilleCity/scripts.pory"
 	msgbox MauvilleCity_Text_GymSign, MSGBOX_SIGN
-# 90 "data/maps/MauvilleCity/scripts.pory"
-	setflag FLAG_BADGE03_GET
 	end
 
 

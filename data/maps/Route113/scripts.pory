@@ -1,28 +1,32 @@
+const LOCALID_RIVAL2 = 17
+
 raw `
-Route113_MapScripts::
-	map_script MAP_SCRIPT_ON_RESUME, Route113_OnResume
-	map_script MAP_SCRIPT_ON_TRANSITION, Route113_OnTransition
-	.byte 0
+.set LOCALID_RIVAL2, 17
+`
+mapscripts Route113_MapScripts {
+	MAP_SCRIPT_ON_RESUME {
+		setstepcallback (STEP_CB_ASH)
+	}
+	MAP_SCRIPT_ON_TRANSITION {
+		//hideobjectat (LOCALID_RIVAL2, MAP_ROUTE113)
+		clearflag (FLAG_FORCE_MIRAGE_TOWER_VISIBLE)
+		call (Route113_EventScript_CheckSetAshWeather)
+	}
+}
 
-Route113_OnResume:
-	setstepcallback STEP_CB_ASH
-	end
-
-Route113_OnTransition:
-	clearflag FLAG_FORCE_MIRAGE_TOWER_VISIBLE
-	call Route113_EventScript_CheckSetAshWeather
-	end
-
-Route113_EventScript_CheckSetAshWeather::
-	getplayerxy VAR_TEMP_0, VAR_TEMP_1
-	goto_if_lt VAR_TEMP_0, 19, Route113_EventScript_DontSetAshWeather
-	goto_if_gt VAR_TEMP_0, 84, Route113_EventScript_DontSetAshWeather
-	setweather WEATHER_VOLCANIC_ASH
+script Route113_EventScript_CheckSetAshWeather {
+	getplayerxy (VAR_TEMP_0, VAR_TEMP_1)
+	goto_if_lt (VAR_TEMP_0, 19, Route113_EventScript_DontSetAshWeather)
+	goto_if_gt (VAR_TEMP_0, 84, Route113_EventScript_DontSetAshWeather)
+	setweather (WEATHER_VOLCANIC_ASH)
 	return
+}
 
-Route113_EventScript_DontSetAshWeather::
+script Route113_EventScript_DontSetAshWeather {
 	return
+}
 
+raw `
 Route113_EventScript_Gentleman::
 	msgbox Route113_Text_AshCanBeFashionedIntoGlass, MSGBOX_NPC
 	end
@@ -136,11 +140,164 @@ Route113_EventScript_Wyatt::
 `
 
 script Route113_EventScript_RevealRival2Trigger {
-	
+	lock
+	removeobject (LOCALID_RIVAL2)
+	setobjectmovementtype (LOCALID_RIVAL2, MOVEMENT_TYPE_BURIED)
+	addobject (LOCALID_RIVAL2)
+	clearflag (FLAG_HIDE_ROUTE_113_RIVAL2)
+	applymovement (LOCALID_RIVAL2, Common_Movement_FacePlayer)
+	waitmovement (0)
+	applymovement (LOCALID_RIVAL2, Route113_Movement_Rival2Reveal)
+	waitmovement (0)
+	rival2talk (Route113_Text_SpencerDidIStartleYou,
+				Route113_Text_BrenDidIStartleYou,
+				Route113_Text_KyleDidIStartleYou)
+	closemessage
+	setvar (VAR_BURIED_RIVAL2, 1)
+	checkfriendchoice
+	switch (var(VAR_RESULT)) {
+		case SPENCER:
+			trainerbattle_no_intro (TRAINER_KYLE_MAUVILLE, Route113_Text_KyleDefeated)
+		case BREN:
+			trainerbattle_no_intro (TRAINER_SPENCER_MAUVILLE, Route113_Text_SpencerDefeated)
+		case KYLE:
+			trainerbattle_no_intro (TRAINER_BREN_MAUVILLE, Route113_Text_BrenDefeated)
+	}
+	rival2talk (Route113_Text_SpencerPracticeMore,
+				Route113_Text_BrenPracticeMore,
+				Route113_Text_KylePracticeMore)
+	closemessage
+	call (Route113_EventScript_Rival2JumpBackIn)
+	setvar (VAR_BURIED_RIVAL2, 1)
+	release
+	end
 }
 
 script Route113_EventScript_Rival2 {
-	trainerbattle_single ()
+	lock
+	removeobject (LOCALID_RIVAL2)
+	setobjectmovementtype (LOCALID_RIVAL2, MOVEMENT_TYPE_BURIED)
+	addobject (LOCALID_RIVAL2)
+	clearflag (FLAG_HIDE_ROUTE_113_RIVAL2)
+	applymovement (LOCALID_RIVAL2, Common_Movement_FacePlayer)
+	waitmovement (0)
+	applymovement (LOCALID_RIVAL2, Route113_Movement_Rival2Reveal)
+	waitmovement (0)
+	rival2talk (Route113_Text_SpencerArtNotScience,
+				Route113_Text_BrenArtNotScience,
+				Route113_Text_KyleArtNotScience)
+	closemessage
+	call (Route113_EventScript_Rival2JumpBackIn)
+	release
+	end
+}
+
+script Route113_EventScript_Rival2JumpBackIn {
+	getplayerxy (VAR_0x8001, VAR_0x8002)
+	if (var(VAR_0x8001) == 28) {
+		applymovement (LOCALID_RIVAL2, Route113_Movement_Rival2JumpBackInLeft)
+	}
+	elif (var(VAR_0x8001) == 29) {
+		if (var(VAR_0x8002) == 5) {
+			applymovement (LOCALID_RIVAL2, Route113_Movement_Rival2JumpBackInUp)
+		}
+		else {
+			applymovement (LOCALID_RIVAL2, Route113_Movement_Rival2JumpBackInDown)
+		}
+	}
+	else {
+		applymovement (LOCALID_RIVAL2, Route113_Movement_Rival2JumpBackInRight)
+	}
+	waitmovement (0)
+	setobjectmovementtype (LOCALID_RIVAL2, MOVEMENT_TYPE_INVISIBLE)
+	return
+}
+
+movement Route113_Movement_Rival2Reveal {
+	reveal_trainer
+}
+
+movement Route113_Movement_Rival2JumpBackInUp {
+	jump_in_place_up
+	set_invisible
+}
+
+movement Route113_Movement_Rival2JumpBackInDown {
+	jump_in_place_down
+	set_invisible
+}
+
+movement Route113_Movement_Rival2JumpBackInRight {
+	jump_in_place_right
+	set_invisible
+}
+
+movement Route113_Movement_Rival2JumpBackInLeft {
+	jump_in_place_left
+	set_invisible
+}
+
+text Route113_Text_SpencerDidIStartleYou {
+	format ("HaHA!\n"
+		"Did I startle you?\p"
+		"A young ninja taught me the art of ambush!")
+}
+
+text Route113_Text_BrenDidIStartleYou {
+	format ("HaHA!\n"
+		"Did I startle you?\p"
+		"A young ninja taught me the art of ambush!")
+}
+
+text Route113_Text_KyleDidIStartleYou {
+	format ("HaHA!\n"
+		"Did I startle you?\p"
+		"A young ninja taught me the art of ambush!")
+}
+
+text Route113_Text_SpencerPracticeMore {
+	format ("Maybe I'm not as good a ninja as I thought I was."
+		"I just have to practice more!")
+}
+
+text Route113_Text_BrenPracticeMore {
+	format ("Maybe I'm not as good a ninja as I thought I was."
+		"I just have to practice more!")
+}
+
+text Route113_Text_KylePracticeMore {
+	format ("Maybe I'm not as good a ninja as I thought I was."
+		"I just have to practice more!")
+}
+
+text Route113_Text_SpencerArtNotScience {
+	format ("It's an art, not a science.\n"
+		"A ninja must be stealthy, yet alert!")
+}
+
+text Route113_Text_BrenArtNotScience {
+	format ("It's an art, not a science.\n"
+		"A ninja must be stealthy, yet alert!")
+}
+
+text Route113_Text_KyleArtNotScience {
+	format ("It's an art, not a science.\n"
+		"A ninja must be stealthy, yet alert!")
+}
+
+text Route113_Text_SpencerDefeated {
+	format ("…\n"
+		"But I had the element of surprise…")
+}
+
+text Route113_Text_BrenDefeated {
+	format ("…\n"
+		"But I had the element of surprise…")
+}
+
+text Route113_Text_KyleDefeated {
+	format ("…\n"
+		"But I had the element of surprise…")
 }
 
 raw `

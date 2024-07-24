@@ -756,7 +756,7 @@ script Route111_EventScript_SecretBaseEvent {
 	setflag (FLAG_HIDE_WINSTRATE_RIVAL1)
 	setflag (FLAG_HIDE_ROUTE_117_RIVAL2)
 	setflag (FLAG_HIDE_BIKE_SHOP_RIVALS)
-	setflag (FLAG_HIDE_ROUTE_113_LEO)
+	setflag (FLAG_HIDE_ROUTE_113_LAO)
 	release
 	end
 }
@@ -951,17 +951,17 @@ text Route111_Text_KyleWhatAWeirdGuy {
 }
 
 text Route111_Text_SpencerSeeYouLater {
-	format ("SPENCER: Now it's your turn to catch up to us.\N"
+	format ("SPENCER: Now it's your turn to catch\Nup to us.\p"
 		"See you later!")
 }
 
 text Route111_Text_BrenSeeYouLater {
-	format ("BREN: Now it's your turn to catch up to us.\N"
+	format ("BREN: Now it's your turn to catch\Nup to us.\p"
 		"See you later!")
 }
 
 text Route111_Text_KyleSeeYouLater {
-	format ("KYLE: Now it's your turn to catch up to us.\N"
+	format ("KYLE: Now it's your turn to catch\Nup to us.\p"
 		"See you later!")
 }
 

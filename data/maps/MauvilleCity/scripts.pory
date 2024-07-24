@@ -87,7 +87,7 @@ script MauvilleCity_EventScript_CitySign {
 
 script MauvilleCity_EventScript_GymSign {
 	msgbox (MauvilleCity_Text_GymSign, MSGBOX_SIGN)
-	setflag (FLAG_BADGE03_GET) //remove after testing
+	//setflag (FLAG_BADGE03_GET) //remove after testing
 	end
 }
 
