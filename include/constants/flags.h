@@ -679,8 +679,8 @@
 #define FLAG_HIDE_ROUTE_113_LAO_ON_SIDE         0x27C
 #define FLAG_HIDE_ROUTE_113_RIVAL1              0x27D
 #define FLAG_HIDE_ROUTE_113_RIVAL2              0x27E
-#define FLAG_UNUSED_0x27F  0x27F // Unused Flag
-#define FLAG_UNUSED_0x280  0x280 // Unused Flag
+#define FLAG_HIDE_ROUTE_114_WALLY               0x27F
+#define FLAG_HIDE_DIG_HOUSE_RIVAL2              0x280
 #define FLAG_UNUSED_0x281  0x281 // Unused Flag
 #define FLAG_UNUSED_0x282  0x282 // Unused Flag
 #define FLAG_UNUSED_0x283  0x283 // Unused Flag

@@ -43,7 +43,7 @@ VerdanturfTown_WandasHouse_EventScript_WallysUncle::
 # 22 "data/maps/VerdanturfTown_WandasHouse/scripts.pory"
 	goto_if_set FLAG_DEFEATED_WALLY_VICTORY_ROAD, VerdanturfTown_WandasHouse_EventScript_WallysUncleEverGrande
 # 23 "data/maps/VerdanturfTown_WandasHouse/scripts.pory"
-	goto_if_set FLAG_BADGE04_GET, VerdanturfTown_WandasHouse_EventScript_WallysUncleSlippedOff
+	goto_if_set FLAG_RECEIVED_SECRET_POWER, VerdanturfTown_WandasHouse_EventScript_WallysUncleSlippedOff
 # 24 "data/maps/VerdanturfTown_WandasHouse/scripts.pory"
 	msgbox VerdanturfTown_WandasHouse_Text_WallysNextDoor, MSGBOX_DEFAULT
 # 25 "data/maps/VerdanturfTown_WandasHouse/scripts.pory"
@@ -87,7 +87,7 @@ VerdanturfTown_WandasHouse_EventScript_Wanda::
 # 44 "data/maps/VerdanturfTown_WandasHouse/scripts.pory"
 	faceplayer
 # 45 "data/maps/VerdanturfTown_WandasHouse/scripts.pory"
-	goto_if_set FLAG_BADGE04_GET, VerdanturfTown_WandasHouse_EventScript_WandaDontWorry
+	goto_if_set FLAG_RECEIVED_SECRET_POWER, VerdanturfTown_WandasHouse_EventScript_WandaDontWorry
 # 46 "data/maps/VerdanturfTown_WandasHouse/scripts.pory"
 	goto_if_set FLAG_DEFEATED_WALLY_MAUVILLE, VerdanturfTown_WandasHouse_EventScript_MeetWanda
 # 47 "data/maps/VerdanturfTown_WandasHouse/scripts.pory"

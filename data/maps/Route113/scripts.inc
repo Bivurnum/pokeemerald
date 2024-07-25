@@ -20,6 +20,8 @@ Route113_MapScripts_MAP_SCRIPT_ON_RESUME:
 	return
 
 Route113_MapScripts_MAP_SCRIPT_ON_TRANSITION:
+# 13 "data/maps/Route113/scripts.pory"
+	call Common_EventScript_SetupRivalGfxId
 # 14 "data/maps/Route113/scripts.pory"
 	clearflag FLAG_FORCE_MIRAGE_TOWER_VISIBLE
 # 15 "data/maps/Route113/scripts.pory"

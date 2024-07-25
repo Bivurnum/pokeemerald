@@ -20,7 +20,7 @@ VerdanturfTown_WandasHouse_EventScript_WallysUncle::
 	lock
 	faceplayer
 	goto_if_set FLAG_DEFEATED_WALLY_VICTORY_ROAD, VerdanturfTown_WandasHouse_EventScript_WallysUncleEverGrande
-	goto_if_set FLAG_BADGE04_GET, VerdanturfTown_WandasHouse_EventScript_WallysUncleSlippedOff
+	goto_if_set FLAG_RECEIVED_SECRET_POWER, VerdanturfTown_WandasHouse_EventScript_WallysUncleSlippedOff
 	msgbox VerdanturfTown_WandasHouse_Text_WallysNextDoor, MSGBOX_DEFAULT
 	release
 	end
@@ -42,7 +42,7 @@ VerdanturfTown_WandasHouse_EventScript_WandasBoyfriend::
 VerdanturfTown_WandasHouse_EventScript_Wanda::
 	lock
 	faceplayer
-	goto_if_set FLAG_BADGE04_GET, VerdanturfTown_WandasHouse_EventScript_WandaDontWorry
+	goto_if_set FLAG_RECEIVED_SECRET_POWER, VerdanturfTown_WandasHouse_EventScript_WandaDontWorry
 	goto_if_set FLAG_DEFEATED_WALLY_MAUVILLE, VerdanturfTown_WandasHouse_EventScript_MeetWanda
 	msgbox VerdanturfTown_WandasHouse_Text_DontWorryAboutWally, MSGBOX_DEFAULT
 	release
