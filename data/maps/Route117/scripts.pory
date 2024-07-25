@@ -10,6 +10,7 @@ Route117_MapScripts::
 	.byte 0
 
 Route117_OnTransition:
+	call Common_EventScript_SetupRivalGfxId
 	call Route117_EventScript_TryMoveDayCareMan
 	end
 

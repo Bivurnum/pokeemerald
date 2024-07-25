@@ -10,7 +10,7 @@ mapscripts Route113_MapScripts {
 		setstepcallback (STEP_CB_ASH)
 	}
 	MAP_SCRIPT_ON_TRANSITION {
-		//hideobjectat (LOCALID_RIVAL2, MAP_ROUTE113)
+		call (Common_EventScript_SetupRivalGfxId)
 		clearflag (FLAG_FORCE_MIRAGE_TOWER_VISIBLE)
 		call (Route113_EventScript_CheckSetAshWeather)
 	}
