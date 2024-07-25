@@ -12,7 +12,12 @@ raw `
 .set LOCALID_RIVAL1, 5
 
 Route111_WinstrateFamilysHouse_MapScripts::
+	map_script MAP_SCRIPT_ON_TRANSITION, Route111_WinstrateFamilysHouse_OnTransition
 	.byte 0
+
+Route111_WinstrateFamilysHouse_OnTransition:
+	call Common_EventScript_SetupRivalGfxId
+	end
 
 Route111_WinstrateFamilysHouse_EventScript_Victor::
 	lock
