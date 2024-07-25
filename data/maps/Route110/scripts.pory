@@ -637,6 +637,7 @@ script Route110_EventScript_EndRoute {
 	setvar (VAR_0x8009, 0)
 	setflag (FLAG_HIDE_ROUTE_110_RIVAL)
 	setflag (FLAG_HIDE_WINSTRATE_RIVAL1)
+	setflag (FLAG_HIDE_DIG_HOUSE_RIVAL2)
 	setvar (VAR_ROUTE110_STATE, 2)
 	releaseall
 	end

@@ -160,6 +160,7 @@ script Route114_EventScript_WallyEvent {
 	applymovement (LOCALID_WALLY, Route114_Movement_WatchRivalBike)
 	applymovement (LOCALID_RIVAL1BIKE, Route114_Movement_Rival1BikesAround)
 	waitmovement (0)
+	delay (20)
 	removeobject (LOCALID_RIVAL1BIKE)
 	addobject (LOCALID_RIVAL1)
 	rival1talk (Route114_Text_SpencerLetsBattle,
@@ -178,25 +179,75 @@ script Route114_EventScript_WallyEvent {
 	rival1talk (Route114_Text_SpencerPickYourPokemon,
 				Route114_Text_BrenPickYourPokemon,
 				Route114_Text_KylePickYourPokemon)
-				closemessage
-	
+	closemessage
+	goto (Route114_EventScript_PrepareForRival1Battle)
+	end
+}
 
-	multi_2_vs_1 ()
+script Route114_EventScript_PrepareForRival1Battle {
+	special (SavePlayerParty)
+	fadescreen (FADE_TO_BLACK)
+	special (ChooseHalfPartyForBattle)
+	waitstate
+	goto_if_ne (VAR_RESULT, 0, Route114_EventScript_BeginRival1Battle)
+	goto (Route114_EventScript_QuitPartySelect)
+	end
+}
 
+script Route114_EventScript_QuitPartySelect {
+	msgbox (Route114_Text_CantBackOut)
+	closemessage
+	special (SavePlayerParty)
+	fadescreen (FADE_TO_BLACK)
+	special (ChooseHalfPartyForBattle)
+	waitstate
+	goto_if_ne (VAR_RESULT, 0, Route114_EventScript_BeginRival1Battle)
+	goto (Route114_EventScript_QuitPartySelect)
+	end
+}
 
+script Route114_EventScript_BeginRival1Battle {
+	msgbox ("Let's get to it!", MSGBOX_DEFAULT)
+	closemessage
+	checkfriendchoice
+	switch (var(VAR_RESULT)) {
+		case SPENCER:
+			multi_2_vs_1 (TRAINER_BREN_NEAR_FALLARBOR, Route114_Text_BrenDefeated, PARTNER_WALLY_ROUTE_114)
+		case BREN:
+			multi_2_vs_1 (TRAINER_KYLE_NEAR_FALLARBOR, Route114_Text_KyleDefeated, PARTNER_WALLY_ROUTE_114)
+		case KYLE:
+			multi_2_vs_1 (TRAINER_SPENCER_NEAR_FALLARBOR, Route114_Text_SpencerDefeated, PARTNER_WALLY_ROUTE_114)
+	}
+	goto (Route114_EventScript_WallyPostBattle)
+}
 
+script Route114_EventScript_WallyPostBattle {
+	applymovement (LOCALID_RIVAL1, Common_Movement_BeginTalkUp)
+	waitmovement (0)
+	rival1talk (Route114_Text_SpencerPostBattle,
+				Route114_Text_BrenPostBattle,
+				Route114_Text_KylePostBattle)
+	closemessage
+	setobjectxyperm (LOCALID_RIVAL1BIKE, 31, 12)
 	playse (SE_BIKE_BELL)
+	removeobject (LOCALID_RIVAL1)
+	addobject (LOCALID_RIVAL1BIKE)
+	delay (30)
+	applymovement (OBJ_EVENT_ID_PLAYER, Route114_Movement_WatchRival1Leave)
+	applymovement (LOCALID_WALLY, Route114_Movement_WatchRival1Leave)
 	applymovement (LOCALID_RIVAL1BIKE, Route114_Movement_Rival1BikesAway)
 	waitmovement (0)
+	removeobject (LOCALID_RIVAL1BIKE)
 	delay (16)
 	applymovement (LOCALID_WALLY, Common_Movement_WalkInPlaceFasterRight)
 	waitmovement (0)
-	msgbox (Route114_Text_HeWavedAndSmiled, MSGBOX_AUTOCLOSE)
+	msgbox (Route114_Text_UntilWeMeetAgain, MSGBOX_AUTOCLOSE)
 	applymovement (OBJ_EVENT_ID_PLAYER, Route114_Movement_WatchWallyLeave)
 	applymovement (LOCALID_WALLY, Route114_Movement_WallyLeave)
 	waitmovement (0)
 	removeobject (LOCALID_WALLY)
 	setvar (VAR_METEOR_FALLS_STATE, 1)
+	setvar (VAR_BURIED_RIVAL2, 1)
 	setvar (VAR_0x8008, 0)
 	setflag (FLAG_HIDE_ROUTE_113_RIVAL1)
 	release
@@ -284,13 +335,26 @@ movement Route114_Movement_WatchRivalBike {
 }
 
 movement Route114_Movement_Rival1BikesAway {
+	walk_fast_right * 2
+	walk_fast_up * 3
+	walk_fast_left * 5
+	walk_fast_down * 2
 	walk_fast_left * 7
+}
+
+movement Route114_Movement_WatchRival1Leave {
+	delay_8
+	face_right
+	delay_8 * 4
+	face_up
+	delay_8 * 5
+	face_left
 }
 
 movement Route114_Movement_WatchWallyLeave {
 	delay_16
 	face_up
-	delay_16 * 3
+	delay_16 * 2
 	face_right
 }
 
@@ -312,11 +376,11 @@ text Route114_Text_SomeoneRidingThisWay {
 		"I think I see someone riding their bike this way!")
 }
 
-text Route114_Text_HeWavedAndSmiled {
-	format ("WALLY: That guy just waved and smiled at us!\n"
-		"He seems like a strong, confident trainer.\p"
-		"Oh, he's your friend?\n"
-		"Wow! Between this cool guy on the bike and the boy who helped me battle in MAUVILLE, you have some pretty awesome companions.\p"
+text Route114_Text_UntilWeMeetAgain {
+	format ("WALLY: Even though we beat him, I can tell he wasn't taking it easy on us.\p"
+		"Thank you for letting me battle with you.\n"
+		"I had a lot of fun!\p"
+		"Between this cool guy on the bike and the boy who helped me battle in MAUVILLE, you have some pretty awesome companions.\p"
 		"The three of you are so strong…\p"
 		"But someday I'm going to show you just how strong I can get!\p"
 		"You just wait!\n"
@@ -366,6 +430,48 @@ text Route114_Text_KylePickYourPokemon {
 	format ("KYLE: That's fine by me!\n"
 		"I'm feeling so good right now, I can probably beat you both easily!\p"
 		"Pick your POKéMON and prepare for defeat!")
+}
+
+text Route114_Text_CantBackOut {
+	format ("Come on!\n"
+		"You can't back out of this one.\n"
+		"I think I can win this time!")
+}
+
+text Route114_Text_SpencerDefeated {
+	format ("I thought I had that one for sure!")
+}
+
+text Route114_Text_BrenDefeated {
+	format ("I thought I had that one for sure!")
+}
+
+text Route114_Text_KyleDefeated {
+	format ("I thought I had that one for sure!")
+}
+
+text Route114_Text_SpencerPostBattle {
+	format ("SPENCER: That was some awesome teamwork, you two!\p"
+		"With a little bit more training, I feel like I could've won.\p"
+		"Maybe I need to add more POKéMON to my team…\p"
+		"In any case, this was fun!\n"
+		"Let's battle again soon!")
+}
+
+text Route114_Text_BrenPostBattle {
+	format ("BREN: That was some awesome teamwork, you two!\p"
+		"With a little bit more training, I feel like I could've won.\p"
+		"Maybe I need to add more POKéMON to my team…\p"
+		"In any case, this was fun!\n"
+		"Let's battle again soon!")
+}
+
+text Route114_Text_KylePostBattle {
+	format ("KYLE: That was some awesome teamwork, you two!\p"
+		"With a little bit more training, I feel like I could've won.\p"
+		"Maybe I need to add more POKéMON to my team…\p"
+		"In any case, this was fun!\n"
+		"Let's battle again soon!")
 }
 
 raw `

@@ -96,3 +96,11 @@ static const struct TrainerMon sParty_SpencerMuseum[] = {
     .species = SPECIES_MACHOP,
     }
 };
+
+static const struct TrainerMon sParty_WallyRoute114[] = {
+    {
+    .iv = TRAINER_PARTY_IVS(12, 12, 12, 12, 12, 12),
+    .lvl = 19,
+    .species = SPECIES_RALTS,
+    }
+};

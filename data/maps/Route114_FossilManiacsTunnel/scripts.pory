@@ -1,5 +1,9 @@
+const LOCALID_FOSSIL_MANIAC = 1
+const LOCALID_RIVAL2 = 2
+
 raw `
 .set LOCALID_FOSSIL_MANIAC, 1
+.set LOCALID_RIVAL2, 2
 
 Route114_FossilManiacsTunnel_MapScripts::
 	map_script MAP_SCRIPT_ON_TRANSITION, Route114_FossilManiacsTunnel_OnTransition
@@ -7,6 +11,7 @@ Route114_FossilManiacsTunnel_MapScripts::
 	.byte 0
 
 Route114_FossilManiacsTunnel_OnTransition:
+	call Common_EventScript_SetupRivalGfxId
 	call_if_set FLAG_SYS_GAME_CLEAR, Route114_FossilManiacsTunnel_EventScript_MoveFossilManiac
 	end
 
@@ -55,7 +60,86 @@ Route114_FossilManiacsTunnel_EventScript_PlayerRevivedFossil::
 	msgbox Route114_FossilManiacsTunnel_Text_FossilsAreWonderful, MSGBOX_DEFAULT
 	release
 	end
+`
 
+script Route114_FossilManiacsTunnel_EventScript_Rival2 {
+	lock
+	applymovement (LOCALID_RIVAL2, Common_Movement_FacePlayer)
+	waitmovement (0)
+	if (var(VAR_TEMP_5) != 5) {
+		rival2talk (Route114_FossilManiacsTunnel_Text_SpencerThisGuyIsCrazy,
+					Route114_FossilManiacsTunnel_Text_BrenThisGuyIsCrazy,
+					Route114_FossilManiacsTunnel_Text_KyleThisGuyIsCrazy)
+		setvar (VAR_TEMP_5, 5)
+	}
+	else {
+		if (flag(FLAG_HIDDEN_ITEM_MANIAC_BIG_NUGGET) == FALSE) {
+			rival2talk (Route114_FossilManiacsTunnel_Text_SpencerMustBeSomething,
+						Route114_FossilManiacsTunnel_Text_BrenMustBeSomething,
+						Route114_FossilManiacsTunnel_Text_KYleMustBeSomething)
+		}
+		else {
+			rival2talk (Route114_FossilManiacsTunnel_Text_SpencerMoreMotivated,
+						Route114_FossilManiacsTunnel_Text_BrenMoreMotivated,
+						Route114_FossilManiacsTunnel_Text_KyleMoreMotivated)
+		}
+	}
+	closemessage
+	applymovement (LOCALID_RIVAL2, Common_Movement_FaceOriginalDirection)
+	waitmovement (0)
+	release
+	end
+}
+
+text Route114_FossilManiacsTunnel_Text_SpencerThisGuyIsCrazy {
+	format ("Have you seen the size of this tunnel?\n"
+		"This guy is CRAZY!\p"
+		"He's only interested in FOSSILS, so I'm looking to see if he unearthed anything else when he excavated this place.")
+}
+
+text Route114_FossilManiacsTunnel_Text_BrenThisGuyIsCrazy {
+	format ("Have you seen the size of this tunnel?\n"
+		"This guy is CRAZY!\p"
+		"He's only interested in FOSSILS, so I'm looking to see if he unearthed anything else when he excavated this place.")
+}
+
+text Route114_FossilManiacsTunnel_Text_KyleThisGuyIsCrazy {
+	format ("Have you seen the size of this tunnel?\n"
+		"This guy is CRAZY!\p"
+		"He's only interested in FOSSILS, so I'm looking to see if he unearthed anything else when he excavated this place.")
+}
+
+text Route114_FossilManiacsTunnel_Text_SpencerMustBeSomething {
+	format ("There must be something ACTUALLY valuable around here that he missed.")
+}
+
+text Route114_FossilManiacsTunnel_Text_BrenMustBeSomething {
+	format ("There must be something ACTUALLY valuable around here that he missed.")
+}
+
+text Route114_FossilManiacsTunnel_Text_KYleMustBeSomething {
+	format ("There must be something ACTUALLY valuable around here that he missed.")
+}
+
+text Route114_FossilManiacsTunnel_Text_SpencerMoreMotivated {
+	format ("Whoa!\n"
+		"You found a BIG NUGGET just lying around in the rubble?\p"
+		"Now I'm even more motivated to find something!")
+}
+
+text Route114_FossilManiacsTunnel_Text_BrenMoreMotivated {
+	format ("Whoa!\n"
+		"You found a BIG NUGGET just lying around in the rubble?\p"
+		"Now I'm even more motivated to find something!")
+}
+
+text Route114_FossilManiacsTunnel_Text_KyleMoreMotivated {
+	format ("Whoa!\n"
+		"You found a BIG NUGGET just lying around in the rubble?\p"
+		"Now I'm even more motivated to find something!")
+}
+
+raw `
 Route114_FossilManiacsTunnel_Text_LookInDesertForFossils:
 	.string "I'm the FOSSIL MANIAC…\n"
 	.string "I'm a nice guy who loves FOSSILS…\p"
