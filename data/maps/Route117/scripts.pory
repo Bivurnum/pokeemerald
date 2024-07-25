@@ -42,7 +42,7 @@ script Route117_EventScript_Rival2 {
 			case SPENCER:
 				playmoncry (SPECIES_CHARMELEON, CRY_MODE_NORMAL)
 			case BREN:
-				playmoncry (SPECIES_GROVYLE, CRY_MODE_NORMAL)
+				playmoncry (SPECIES_MACHOP, CRY_MODE_NORMAL)
 			case KYLE:
 				playmoncry (SPECIES_PRINPLUP, CRY_MODE_NORMAL)
 		}
@@ -69,7 +69,7 @@ text Route117_Text_KyleCantLetYouShowMeUp {
 }
 
 text Route117_Text_SpencerShowMeWhatYouGot {
-	format ("C'mon, GROVYLE!\p"
+	format ("C'mon, MACHOP!\p"
 		"Show me what you got!")
 }
 

@@ -162,7 +162,7 @@
 #define TRAINER_JEROME                      156
 #define TRAINER_MATTHEW                     157
 #define TRAINER_DAVID                       158
-#define TRAINER_SPENCER                     159
+#define TRAINER_LONNIE                     159
 #define TRAINER_ROLAND                      160
 #define TRAINER_NOLEN                       161
 #define TRAINER_STAN                        162
@@ -528,13 +528,13 @@
 #define TRAINER_BREN_SEASHORE               522
 #define TRAINER_BREN_ROUTE_103              523
 #define TRAINER_KYLE_SEASHORE               524
-#define TRAINER_BRENDAN_ROUTE_119_TREECKO   525
+#define TRAINER_SPENCER_NEAR_FALLARBOR      525
 #define TRAINER_SPENCER_ROUTE_103           526
 #define TRAINER_SPENCER_MAUVILLE            527
-#define TRAINER_BRENDAN_ROUTE_119_TORCHIC   528
+#define TRAINER_BREN_NEAR_FALLARBOR         528
 #define TRAINER_KYLE_OLDALE                 529
 #define TRAINER_BREN_MAUVILLE               530
-#define TRAINER_MAY_ROUTE_119_MUDKIP        531
+#define TRAINER_KYLE_NEAR_FALLARBOR         531
 #define TRAINER_SPENCER_OLDALE              532
 #define TRAINER_KYLE_MAUVILLE               533
 #define TRAINER_MAY_ROUTE_119_TREECKO       534
@@ -602,8 +602,8 @@
 #define TRAINER_GRUNT_WEATHER_INST_5        596
 #define TRAINER_TABITHA_MT_CHIMNEY          597
 #define TRAINER_JONATHAN                    598
-#define TRAINER_BREN_DEWFORD                599
-#define TRAINER_KYLE_DEWFORD                600
+#define TRAINER_UNUSED                      599
+#define TRAINER_UNUSED_2                    600
 #define TRAINER_MAXIE_MAGMA_HIDEOUT         601
 #define TRAINER_MAXIE_MT_CHIMNEY            602
 #define TRAINER_TIANA                       603
@@ -771,7 +771,7 @@
 #define TRAINER_MYLES                       765
 #define TRAINER_PAT                         766
 #define TRAINER_CRISTIN_1                   767
-#define TRAINER_SPENCER_DEWFORD             768
+#define TRAINER_UNUSED_3                    768
 #define TRAINER_KYLE_RUSTBORO               769
 #define TRAINER_ROXANNE_2                   770
 #define TRAINER_ROXANNE_3                   771

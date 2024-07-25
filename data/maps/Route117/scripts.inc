@@ -85,7 +85,7 @@ Route117_EventScript_Rival2_7:
 
 Route117_EventScript_Rival2_8:
 # 45 "data/maps/Route117/scripts.pory"
-	playmoncry SPECIES_GROVYLE, CRY_MODE_NORMAL
+	playmoncry SPECIES_MACHOP, CRY_MODE_NORMAL
 	goto Route117_EventScript_Rival2_5
 
 Route117_EventScript_Rival2_9:
@@ -499,7 +499,7 @@ Route117_Text_KyleCantLetYouShowMeUp::
 
 Route117_Text_SpencerShowMeWhatYouGot::
 # 71 "data/maps/Route117/scripts.pory"
-	.string "C'mon, GROVYLE!\p"
+	.string "C'mon, MACHOP!\p"
 	.string "Show me what you got!$"
 
 Route117_Text_BrenShowMeWhatYouGot::

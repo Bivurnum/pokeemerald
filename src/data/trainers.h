@@ -1908,16 +1908,16 @@ const struct Trainer gTrainers[] = {
         .party = TRAINER_PARTY(sParty_David),
     },
 
-    [TRAINER_SPENCER] =
+    [TRAINER_LONNIE] =
     {
         .trainerClass = TRAINER_CLASS_SWIMMER_M,
         .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_SWIMMER,
         .trainerPic = TRAINER_PIC_SWIMMER_M,
-        .trainerName = _("SPENCER"),
+        .trainerName = _("LONNIE"),
         .items = {},
         .doubleBattle = FALSE,
         .aiFlags = AI_FLAG_CHECK_BAD_MOVE,
-        .party = TRAINER_PARTY(sParty_Spencer),
+        .party = TRAINER_PARTY(sParty_Lonnie),
     },
 
     [TRAINER_ROLAND] =
@@ -6310,16 +6310,16 @@ const struct Trainer gTrainers[] = {
         .party = TRAINER_PARTY(sParty_KyleSeashore),
     },
 
-    [TRAINER_BRENDAN_ROUTE_119_TREECKO] =
+    [TRAINER_SPENCER_NEAR_FALLARBOR] =
     {
         .trainerClass = TRAINER_CLASS_RIVAL,
         .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_MALE,
-        .trainerPic = TRAINER_PIC_BRENDAN,
-        .trainerName = _("BRENDAN"),
+        .trainerPic = TRAINER_PIC_FRIEND_SPENCER,
+        .trainerName = _("SPENCER"),
         .items = {},
         .doubleBattle = FALSE,
         .aiFlags = AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_TRY_TO_FAINT | AI_FLAG_CHECK_VIABILITY,
-        .party = TRAINER_PARTY(sParty_BrendanRoute119Treecko),
+        .party = TRAINER_PARTY(sParty_SpencerNearFallarbor),
     },
 
     [TRAINER_SPENCER_ROUTE_103] =
@@ -6346,16 +6346,16 @@ const struct Trainer gTrainers[] = {
         .party = TRAINER_PARTY(sParty_SpencerMauville),
     },
 
-    [TRAINER_BRENDAN_ROUTE_119_TORCHIC] =
+    [TRAINER_BREN_NEAR_FALLARBOR] =
     {
         .trainerClass = TRAINER_CLASS_RIVAL,
         .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_MALE,
-        .trainerPic = TRAINER_PIC_BRENDAN,
-        .trainerName = _("BRENDAN"),
+        .trainerPic = TRAINER_PIC_FRIEND_BREN,
+        .trainerName = _("BREN"),
         .items = {},
         .doubleBattle = FALSE,
         .aiFlags = AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_TRY_TO_FAINT | AI_FLAG_CHECK_VIABILITY,
-        .party = TRAINER_PARTY(sParty_BrendanRoute119Torchic),
+        .party = TRAINER_PARTY(sParty_BrenNearFallarbor),
     },
 
     [TRAINER_KYLE_OLDALE] =
@@ -6382,16 +6382,16 @@ const struct Trainer gTrainers[] = {
         .party = TRAINER_PARTY(sParty_BrenMauville),
     },
 
-    [TRAINER_MAY_ROUTE_119_MUDKIP] =
+    [TRAINER_KYLE_NEAR_FALLARBOR] =
     {
         .trainerClass = TRAINER_CLASS_RIVAL,
-        .encounterMusic_gender = F_TRAINER_FEMALE | TRAINER_ENCOUNTER_MUSIC_FEMALE,
-        .trainerPic = TRAINER_PIC_MAY,
-        .trainerName = _("MAY"),
+        .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_MALE,
+        .trainerPic = TRAINER_PIC_FRIEND_KYLE,
+        .trainerName = _("KYLE"),
         .items = {},
         .doubleBattle = FALSE,
         .aiFlags = AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_TRY_TO_FAINT | AI_FLAG_CHECK_VIABILITY,
-        .party = TRAINER_PARTY(sParty_MayRoute119Mudkip),
+        .party = TRAINER_PARTY(sParty_KyleNearFallarbor),
     },
 
     [TRAINER_SPENCER_OLDALE] =
@@ -7198,7 +7198,7 @@ const struct Trainer gTrainers[] = {
         .party = TRAINER_PARTY(sParty_Jonathan),
     },
 
-    [TRAINER_SPENCER_DEWFORD] =
+    [TRAINER_UNUSED_3] =
     {
         .trainerClass = TRAINER_CLASS_RIVAL,
         .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_MALE,
@@ -7210,7 +7210,7 @@ const struct Trainer gTrainers[] = {
         .party = TRAINER_PARTY(sParty_SpencerDewford),
     },
 
-    [TRAINER_BREN_DEWFORD] =
+    [TRAINER_UNUSED] =
     {
         .trainerClass = TRAINER_CLASS_RIVAL,
         .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_MALE,
@@ -9226,7 +9226,7 @@ const struct Trainer gTrainers[] = {
         .party = TRAINER_PARTY(sParty_Cristin1),
     },
 
-    [TRAINER_KYLE_DEWFORD] =
+    [TRAINER_UNUSED_2] =
     {
         .trainerClass = TRAINER_CLASS_RIVAL,
         .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_MALE,

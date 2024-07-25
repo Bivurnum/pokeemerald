@@ -165,7 +165,7 @@ Route119_EventScript_BattleMay::
 # 83 "data/maps/Route119/scripts.pory"
 Route119_EventScript_BattleMayTreecko::
 # 84 "data/maps/Route119/scripts.pory"
-	trainerbattle_no_intro TRAINER_MAY_ROUTE_119_TREECKO, Route119_Text_MayDefeat
+	@trainerbattle_no_intro TRAINER_MAY_ROUTE_119_TREECKO, Route119_Text_MayDefeat
 # 85 "data/maps/Route119/scripts.pory"
 	goto Route119_EventScript_DefeatedMay
 # 86 "data/maps/Route119/scripts.pory"
@@ -175,7 +175,7 @@ Route119_EventScript_BattleMayTreecko::
 # 88 "data/maps/Route119/scripts.pory"
 Route119_EventScript_BattleMayTorchic::
 # 89 "data/maps/Route119/scripts.pory"
-	trainerbattle_no_intro TRAINER_MAY_ROUTE_119_TORCHIC, Route119_Text_MayDefeat
+	@trainerbattle_no_intro TRAINER_MAY_ROUTE_119_TORCHIC, Route119_Text_MayDefeat
 # 90 "data/maps/Route119/scripts.pory"
 	goto Route119_EventScript_DefeatedMay
 # 91 "data/maps/Route119/scripts.pory"
@@ -185,7 +185,7 @@ Route119_EventScript_BattleMayTorchic::
 # 93 "data/maps/Route119/scripts.pory"
 Route119_EventScript_BattleMayMudkip::
 # 94 "data/maps/Route119/scripts.pory"
-	trainerbattle_no_intro TRAINER_MAY_ROUTE_119_MUDKIP, Route119_Text_MayDefeat
+	@trainerbattle_no_intro TRAINER_MAY_ROUTE_119_MUDKIP, Route119_Text_MayDefeat
 # 95 "data/maps/Route119/scripts.pory"
 	goto Route119_EventScript_DefeatedMay
 # 96 "data/maps/Route119/scripts.pory"

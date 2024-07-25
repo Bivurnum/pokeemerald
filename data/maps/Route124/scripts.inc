@@ -27,7 +27,7 @@ Route124_EventScript_HuntersHouseSign::
 # 14 "data/maps/Route124/scripts.pory"
 Route124_EventScript_Spencer::
 # 15 "data/maps/Route124/scripts.pory"
-	trainerbattle_single TRAINER_SPENCER, Route124_Text_SpencerIntro, Route124_Text_SpencerDefeat
+	trainerbattle_single TRAINER_LONNIE, Route124_Text_SpencerIntro, Route124_Text_SpencerDefeat
 # 16 "data/maps/Route124/scripts.pory"
 	msgbox Route124_Text_SpencerPostBattle, MSGBOX_AUTOCLOSE
 # 17 "data/maps/Route124/scripts.pory"

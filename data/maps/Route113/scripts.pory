@@ -1,7 +1,9 @@
 const LOCALID_RIVAL2 = 17
+const LOCALID_RIVAL1 = 19
 
 raw `
 .set LOCALID_RIVAL2, 17
+.set LOCALID_RIVAL1, 19
 `
 mapscripts Route113_MapScripts {
 	MAP_SCRIPT_ON_RESUME {
@@ -11,6 +13,11 @@ mapscripts Route113_MapScripts {
 		//hideobjectat (LOCALID_RIVAL2, MAP_ROUTE113)
 		clearflag (FLAG_FORCE_MIRAGE_TOWER_VISIBLE)
 		call (Route113_EventScript_CheckSetAshWeather)
+	}
+	MAP_SCRIPT_ON_LOAD {
+		if (flag(FLAG_HIDE_ROUTE_113_RIVAL1) == FALSE) {
+			call (Route113_EventScript_SetRival1Path)
+		}
 	}
 }
 
@@ -24,6 +31,16 @@ script Route113_EventScript_CheckSetAshWeather {
 
 script Route113_EventScript_DontSetAshWeather {
 	return
+}
+
+script Route113_EventScript_SetRival1Path {
+	setmetatile (83, 9, 0x212, FALSE)
+	setmetatile (82, 9, 0x212, FALSE)
+	setmetatile (82, 8, 0x212, FALSE)
+	setmetatile (81, 8, 0x212, FALSE)
+	setmetatile (81, 7, 0x212, FALSE)
+	setmetatile (81, 6, 0x212, FALSE)
+	setmetatile (81, 5, 0x212, FALSE)
 }
 
 raw `
@@ -139,14 +156,34 @@ Route113_EventScript_Wyatt::
 	end
 `
 
+script Route113_EventScript_Rival1 {
+	lock
+	applymovement (LOCALID_RIVAL1, Common_Movement_FacePlayer)
+	waitmovement (0)
+	if (var(VAR_TEMP_2) != 5) {
+		rival1talk (Route113_Text_SpencerLikeItsSnowing,
+					Route113_Text_BrenLikeItsSnowing,
+					Route113_Text_KyleLikeItsSnowing)
+		setvar (VAR_TEMP_2, 5)
+	}
+	else {
+		rival1talk (Route113_Text_SpencerNatureNeverCeases,
+					Route113_Text_BrenNatureNeverCeases,
+					Route113_Text_KyleNatureNeverCeases)
+	}
+	closemessage
+	applymovement (LOCALID_RIVAL1, Common_Movement_FaceOriginalDirection)
+	waitmovement (0)
+	release
+	end
+}
+
 script Route113_EventScript_RevealRival2Trigger {
 	lock
 	removeobject (LOCALID_RIVAL2)
 	setobjectmovementtype (LOCALID_RIVAL2, MOVEMENT_TYPE_BURIED)
 	addobject (LOCALID_RIVAL2)
 	clearflag (FLAG_HIDE_ROUTE_113_RIVAL2)
-	applymovement (LOCALID_RIVAL2, Common_Movement_FacePlayer)
-	waitmovement (0)
 	applymovement (LOCALID_RIVAL2, Route113_Movement_Rival2Reveal)
 	waitmovement (0)
 	rival2talk (Route113_Text_SpencerDidIStartleYou,
@@ -157,11 +194,11 @@ script Route113_EventScript_RevealRival2Trigger {
 	checkfriendchoice
 	switch (var(VAR_RESULT)) {
 		case SPENCER:
-			trainerbattle_no_intro (TRAINER_KYLE_MAUVILLE, Route113_Text_KyleDefeated)
+			trainerbattle_no_intro (TRAINER_KYLE_NEAR_FALLARBOR, Route113_Text_KyleDefeated)
 		case BREN:
-			trainerbattle_no_intro (TRAINER_SPENCER_MAUVILLE, Route113_Text_SpencerDefeated)
+			trainerbattle_no_intro (TRAINER_SPENCER_NEAR_FALLARBOR, Route113_Text_SpencerDefeated)
 		case KYLE:
-			trainerbattle_no_intro (TRAINER_BREN_MAUVILLE, Route113_Text_BrenDefeated)
+			trainerbattle_no_intro (TRAINER_BREN_NEAR_FALLARBOR, Route113_Text_BrenDefeated)
 	}
 	rival2talk (Route113_Text_SpencerPracticeMore,
 				Route113_Text_BrenPracticeMore,
@@ -179,8 +216,6 @@ script Route113_EventScript_Rival2 {
 	setobjectmovementtype (LOCALID_RIVAL2, MOVEMENT_TYPE_BURIED)
 	addobject (LOCALID_RIVAL2)
 	clearflag (FLAG_HIDE_ROUTE_113_RIVAL2)
-	applymovement (LOCALID_RIVAL2, Common_Movement_FacePlayer)
-	waitmovement (0)
 	applymovement (LOCALID_RIVAL2, Route113_Movement_Rival2Reveal)
 	waitmovement (0)
 	rival2talk (Route113_Text_SpencerArtNotScience,
@@ -214,6 +249,7 @@ script Route113_EventScript_Rival2JumpBackIn {
 }
 
 movement Route113_Movement_Rival2Reveal {
+	face_player
 	reveal_trainer
 }
 
@@ -235,6 +271,36 @@ movement Route113_Movement_Rival2JumpBackInRight {
 movement Route113_Movement_Rival2JumpBackInLeft {
 	jump_in_place_left
 	set_invisible
+}
+
+text Route113_Text_SpencerLikeItsSnowing {
+	format ("Can you believe this?\n"
+		"It's like it's snowing!")
+}
+
+text Route113_Text_BrenLikeItsSnowing {
+	format ("Can you believe this?\n"
+		"It's like it's snowing!")
+}
+
+text Route113_Text_KyleLikeItsSnowing {
+	format ("Can you believe this?\n"
+		"It's like it's snowing!")
+}
+
+text Route113_Text_SpencerNatureNeverCeases {
+	format ("Nature never ceases to amaze, does it?\n"
+		"To think that a volcano could do this!")
+}
+
+text Route113_Text_BrenNatureNeverCeases {
+	format ("Nature never ceases to amaze, does it?\n"
+		"To think that a volcano could do this!")
+}
+
+text Route113_Text_KyleNatureNeverCeases {
+	format ("Nature never ceases to amaze, does it?\n"
+		"To think that a volcano could do this!")
 }
 
 text Route113_Text_SpencerDidIStartleYou {

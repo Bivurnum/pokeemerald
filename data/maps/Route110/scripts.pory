@@ -855,9 +855,8 @@ movement Route110_Movement_WatchRival1LeaveForMauvilleRight {
 
 text Route110_Text_SpencerEvolved {
 	format ("Hey, {PLAYER}!\N"
-		"I have some exciting news to share!\N"
-		"While I was training in the grass here,\N"
-		"my TREECKO evolved!\N"
+		"My POKéMON are really getting up there in level!\p"
+		"MACHOP'S muscles are so huge!\N"
 		"Isn't that amazing?\p"
 		"Also, I have--")
 }
