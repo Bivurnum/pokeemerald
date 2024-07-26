@@ -1,102 +1,280 @@
+const LOCALID_MAGMA_GRUNT_1 = 5
+const LOCALID_MAGMA_GRUNT_2 = 6
+const LOCALID_ARCHIE = 7
+const LOCALID_AQUA_GRUNT_1 = 8
+const LOCALID_AQUA_GRUNT_2 = 9
+const LOCALID_COSMO = 10
+const LOCALID_RIVAL1 = 11
+
+const RIGHT = 1
+const UP = 2
+const LEFT = 3
+
 raw `
 .set LOCALID_MAGMA_GRUNT_1, 5
 .set LOCALID_MAGMA_GRUNT_2, 6
 .set LOCALID_ARCHIE, 7
 .set LOCALID_AQUA_GRUNT_1, 8
 .set LOCALID_AQUA_GRUNT_2, 9
+.set LOCALID_COSMO, 10
+.set LOCALID_RIVAL1, 11
 
-MeteorFalls_1F_1R_MapScripts::
-	map_script MAP_SCRIPT_ON_LOAD, MeteorFalls_1F_1R_OnLoad
-	.byte 0
+.set RIGHT, 1
+.set UP, 2
+.set LEFT, 3
+`
 
-MeteorFalls_1F_1R_OnLoad:
-	call_if_set FLAG_SYS_GAME_CLEAR, MeteorFalls_1F_1R_EventScript_OpenStevensCave
-	end
+mapscripts MeteorFalls_1F_1R_MapScripts {
+	MAP_SCRIPT_ON_TRANSITION {
+		call (Common_EventScript_SetupRivalGfxId)
+		if (var(VAR_METEOR_FALLS_STATE) == 2) {
+			clearflag (FLAG_HIDE_METEOR_FALLS_RIVAL1)
+		}
+	}
+	MAP_SCRIPT_ON_LOAD {
+		call_if_set (FLAG_SYS_GAME_CLEAR, MeteorFalls_1F_1R_EventScript_OpenStevensCave)
+	}
+	MAP_SCRIPT_ON_FRAME_TABLE [
+		VAR_METEOR_FALLS_STATE, 1: MeteorFalls_1F_1R_EventScript_InitRival1Follower
+		VAR_METEOR_FALLS_STATE, 2: MeteorFalls_1F_1R_EventScript_ReturnToRival1Follower
+	]
+}
 
-MeteorFalls_1F_1R_EventScript_OpenStevensCave::
-	setmetatile 4, 1, METATILE_MeteorFalls_CaveEntrance_Top, TRUE
-	setmetatile 3, 2, METATILE_MeteorFalls_CaveEntrance_Left, TRUE
-	setmetatile 4, 2, METATILE_MeteorFalls_CaveEntrance_Bottom, FALSE
-	setmetatile 5, 2, METATILE_MeteorFalls_CaveEntrance_Right, TRUE
+script MeteorFalls_1F_1R_EventScript_OpenStevensCave {
+	setmetatile (4, 1, METATILE_MeteorFalls_CaveEntrance_Top, TRUE)
+	setmetatile (3, 2, METATILE_MeteorFalls_CaveEntrance_Left, TRUE)
+	setmetatile (4, 2, METATILE_MeteorFalls_CaveEntrance_Bottom, FALSE)
+	setmetatile (5, 2, METATILE_MeteorFalls_CaveEntrance_Right, TRUE)
 	return
+}
 
-MeteorFalls_1F_1R_EventScript_MagmaStealsMeteoriteScene::
+script MeteorFalls_1F_1R_EventScript_InitRival1Follower {
+	lock
+	applymovement (OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterLeft)
+	applymovement (LOCALID_RIVAL1, Common_Movement_BeginTalkRight)
+	waitmovement (0)
+	rival1talk (MeteorFalls_1F_1R_Text_SpencerOverHere,
+				MeteorFalls_1F_1R_Text_BrenOverHere,
+				MeteorFalls_1F_1R_Text_KyleOverHere)
+	closemessage
+	applymovement (OBJ_EVENT_ID_PLAYER, Common_Movement_Walk_Left)
+	waitmovement (0)
+	rival1talk (MeteorFalls_1F_1R_Text_SpencerIllFollow,
+				MeteorFalls_1F_1R_Text_BrenIllFollow,
+				MeteorFalls_1F_1R_Text_KyleIllFollow)
+	closemessage
+	loadword (0, MeteorFalls_1F_1R_EventScript_Rival1Following)
+	setfollower (LOCALID_RIVAL1, FOLLOWER_ALL_AND_CUSTOM)
+	setvar (VAR_METEOR_FALLS_STATE, 3)
+	release
+	end
+}
+
+text MeteorFalls_1F_1R_Text_SpencerOverHere {
+	format ("Psssst…\n"
+		"Over here…")
+}
+
+text MeteorFalls_1F_1R_Text_BrenOverHere {
+	format ("Psssst…\n"
+		"Over here…")
+}
+
+text MeteorFalls_1F_1R_Text_KyleOverHere {
+	format ("Psssst…\n"
+		"Over here…")
+}
+
+text MeteorFalls_1F_1R_Text_SpencerIllFollow {
+	format ("I keep hearing strange echoes in here.\N"
+		"Almost like the walls are whispering.\p"
+		"Do you think there are ghosts in here?\N"
+		"I'll follow behind you, just in case…")
+}
+
+text MeteorFalls_1F_1R_Text_BrenIllFollow {
+	format ("I keep hearing strange echoes in here.\N"
+		"Almost like the walls are whispering.\p"
+		"Do you think there are ghosts in here?\N"
+		"I'll follow behind you, just in case…")
+}
+
+text MeteorFalls_1F_1R_Text_KyleIllFollow {
+	format ("I keep hearing strange echoes in here.\N"
+		"Almost like the walls are whispering.\p"
+		"Do you think there are ghosts in here?\N"
+		"I'll follow behind you, just in case…")
+}
+
+script MeteorFalls_1F_1R_EventScript_ReturnToRival1Follower {
+	lock
+	applymovement (OBJ_EVENT_ID_PLAYER, Common_Movement_FaceLeft)
+	applymovement (LOCALID_RIVAL1, Common_Movement_Walk_Right)
+	waitmovement (0)
+	rival1talk (MeteorFalls_1F_1R_Text_SpencerWhereDidYouGo,
+				MeteorFalls_1F_1R_Text_BrenWhereDidYouGo,
+				MeteorFalls_1F_1R_Text_KyleWhereDidYouGo)
+	closemessage
+	loadword (0, MeteorFalls_1F_1R_EventScript_Rival1Following)
+	setfollower (LOCALID_RIVAL1, FOLLOWER_ALL_AND_CUSTOM)
+	setvar (VAR_METEOR_FALLS_STATE, 3)
+	release
+	end
+}
+
+text MeteorFalls_1F_1R_Text_SpencerWhereDidYouGo {
+	format ("Where did you go?\n"
+		"I don't want to explore this creepy place by myself!")
+}
+
+text MeteorFalls_1F_1R_Text_BrenWhereDidYouGo {
+	format ("Where did you go?\n"
+		"I don't want to explore this creepy place by myself!")
+}
+
+text MeteorFalls_1F_1R_Text_KyleWhereDidYouGo {
+	format ("Where did you go?\n"
+		"I don't want to explore this creepy place by myself!")
+}
+
+script MeteorFalls_1F_1R_EventScript_Rival1Following {
+	lock
+	facefollower
+	msgbox (MeteorFalls_1F_1R_Text_Rival1Following, MSGBOX_DEFAULT)
+	closemessage
+	release
+	end
+}
+
+text MeteorFalls_1F_1R_Text_Rival1Following {
+	format ("This place sure is breathtaking despite the eeriness.")
+}
+
+script MeteorFalls_1F_1R_EventScript_SetFollowerLeft {
+	lock
+	setvar (VAR_0x8002, LEFT)
+	release
+	end
+}
+
+script MeteorFalls_1F_1R_EventScript_SetFollowerUp {
+	lock
+	setvar (VAR_0x8002, UP)
+	release
+	end
+}
+
+script MeteorFalls_1F_1R_EventScript_SetFollowerRight {
+	lock
+	setvar (VAR_0x8002, RIGHT)
+	release
+	end
+}
+
+script MeteorFalls_1F_1R_EventScript_MagmaStealsMeteoriteScene {
 	lockall
-	playbgm MUS_ENCOUNTER_MAGMA, FALSE
-	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_FaceDown
-	waitmovement 0
-	delay 30
-	applymovement LOCALID_MAGMA_GRUNT_1, Common_Movement_WalkInPlaceDown
-	waitmovement 0
-	msgbox MeteorFalls_1F_1R_Text_WithThisMeteorite, MSGBOX_DEFAULT
+	playbgm (MUS_ENCOUNTER_MAGMA, FALSE)
+	if (var(VAR_0x8002) == UP) {
+		setvar (VAR_0x8002, LEFT)
+		applymovement (OBJ_EVENT_ID_FOLLOWER, MeteorFalls_1F_1R_Movement_Rival1MoveFromUp)
+	}
+	else {
+		applymovement (OBJ_EVENT_ID_FOLLOWER, Common_Movement_FaceDown)
+	}
+	applymovement (OBJ_EVENT_ID_PLAYER, Common_Movement_FaceDown)
+	waitmovement (OBJ_EVENT_ID_FOLLOWER)
+	delay (30)
+	applymovement (LOCALID_MAGMA_GRUNT_1, Common_Movement_WalkInPlaceDown)
+	waitmovement (0)
+	msgbox (MeteorFalls_1F_1R_Text_WithThisMeteorite, MSGBOX_DEFAULT)
 	closemessage
-	applymovement LOCALID_MAGMA_GRUNT_1, Common_Movement_WalkInPlaceFasterUp
-	applymovement LOCALID_MAGMA_GRUNT_2, Common_Movement_WalkInPlaceFasterUp
-	waitmovement 0
-	playse SE_PIN
-	applymovement LOCALID_MAGMA_GRUNT_1, Common_Movement_ExclamationMark
-	waitmovement 0
-	applymovement LOCALID_MAGMA_GRUNT_1, Common_Movement_Delay48
-	waitmovement 0
-	msgbox MeteorFalls_1F_1R_Text_DontExpectMercyFromMagma, MSGBOX_DEFAULT
+	applymovement (LOCALID_MAGMA_GRUNT_1, Common_Movement_WalkInPlaceFasterUp)
+	applymovement (LOCALID_MAGMA_GRUNT_2, Common_Movement_WalkInPlaceFasterUp)
+	waitmovement (0)
+	playse (SE_PIN)
+	applymovement (LOCALID_MAGMA_GRUNT_1, Common_Movement_ExclamationMark)
+	waitmovement (0)
+	applymovement (LOCALID_MAGMA_GRUNT_1, Common_Movement_Delay48)
+	waitmovement (0)
+	msgbox (MeteorFalls_1F_1R_Text_DontExpectMercyFromMagma, MSGBOX_DEFAULT)
 	closemessage
-	applymovement LOCALID_MAGMA_GRUNT_1, MeteorFalls_1F_1R_Movement_MagmaGruntApproachPlayer
-	waitmovement 0
-	msgbox MeteorFalls_1F_1R_Text_HoldItRightThereMagma, MSGBOX_DEFAULT
+	applymovement (LOCALID_MAGMA_GRUNT_1, MeteorFalls_1F_1R_Movement_MagmaGruntApproachPlayer)
+	waitmovement (0)
+	msgbox (MeteorFalls_1F_1R_Text_HoldItRightThereMagma, MSGBOX_DEFAULT)
 	closemessage
-	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterLeft
-	applymovement LOCALID_MAGMA_GRUNT_1, Common_Movement_WalkInPlaceFasterLeft
-	applymovement LOCALID_MAGMA_GRUNT_2, Common_Movement_WalkInPlaceFasterLeft
-	waitmovement 0
-	addobject LOCALID_ARCHIE
-	addobject LOCALID_AQUA_GRUNT_1
-	addobject LOCALID_AQUA_GRUNT_2
-	playbgm MUS_ENCOUNTER_AQUA, FALSE
-	applymovement LOCALID_ARCHIE, MeteorFalls_1F_1R_Movement_ArchieArrive
-	applymovement LOCALID_AQUA_GRUNT_1, MeteorFalls_1F_1R_Movement_AquaGrunt1Arrive
-	applymovement LOCALID_AQUA_GRUNT_2, MeteorFalls_1F_1R_Movement_AquaGrunt2Arrive
-	waitmovement 0
-	applymovement LOCALID_MAGMA_GRUNT_1, Common_Movement_WalkInPlaceFasterLeft
-	applymovement LOCALID_MAGMA_GRUNT_2, Common_Movement_WalkInPlaceFasterLeft
-	waitmovement 0
-	msgbox MeteorFalls_1F_1R_Text_BeSeeingYouTeamAqua, MSGBOX_DEFAULT
+	applymovement (OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterLeft)
+	applymovement (OBJ_EVENT_ID_FOLLOWER, Common_Movement_WalkInPlaceFasterLeft)
+	applymovement (LOCALID_MAGMA_GRUNT_1, Common_Movement_WalkInPlaceFasterLeft)
+	applymovement (LOCALID_MAGMA_GRUNT_2, Common_Movement_WalkInPlaceFasterLeft)
+	waitmovement (0)
+	addobject (LOCALID_ARCHIE)
+	addobject (LOCALID_AQUA_GRUNT_1)
+	addobject (LOCALID_AQUA_GRUNT_2)
+	playbgm (MUS_ENCOUNTER_AQUA, FALSE)
+	applymovement (LOCALID_ARCHIE, MeteorFalls_1F_1R_Movement_ArchieArrive)
+	applymovement (LOCALID_AQUA_GRUNT_1, MeteorFalls_1F_1R_Movement_AquaGrunt1Arrive)
+	applymovement (LOCALID_AQUA_GRUNT_2, MeteorFalls_1F_1R_Movement_AquaGrunt2Arrive)
+	waitmovement (0)
+	applymovement (LOCALID_MAGMA_GRUNT_1, Common_Movement_WalkInPlaceFasterLeft)
+	applymovement (LOCALID_MAGMA_GRUNT_2, Common_Movement_WalkInPlaceFasterLeft)
+	waitmovement (0)
+	msgbox (MeteorFalls_1F_1R_Text_BeSeeingYouTeamAqua, MSGBOX_DEFAULT)
 	closemessage
-	applymovement OBJ_EVENT_ID_PLAYER, MeteorFalls_1F_1R_Movement_PushPlayerOutOfWay
-	applymovement LOCALID_MAGMA_GRUNT_1, MeteorFalls_1F_1R_Movement_MagmaGrunt1Exit
-	applymovement LOCALID_MAGMA_GRUNT_2, MeteorFalls_1F_1R_Movement_MagmaGrunt2Exit
-	waitmovement 0
-	removeobject LOCALID_MAGMA_GRUNT_1
-	removeobject LOCALID_MAGMA_GRUNT_2
-	applymovement LOCALID_ARCHIE, MeteorFalls_1F_1R_Movement_ArchieApproachPlayer
-	waitmovement 0
-	msgbox MeteorFalls_1F_1R_Text_ArchieSeenYouBefore, MSGBOX_DEFAULT
+	if (var(VAR_0x8002) == LEFT) {
+	applymovement (OBJ_EVENT_ID_FOLLOWER, MeteorFalls_1F_1R_Movement_PushPlayerOutOfWay)
+	}
+	else {
+	applymovement (OBJ_EVENT_ID_FOLLOWER, MeteorFalls_1F_1R_Movement_PushRival1OutOfWayRight)
+	}
+	applymovement (OBJ_EVENT_ID_PLAYER, MeteorFalls_1F_1R_Movement_PushPlayerOutOfWay)
+	applymovement (LOCALID_MAGMA_GRUNT_1, MeteorFalls_1F_1R_Movement_MagmaGrunt1Exit)
+	applymovement (LOCALID_MAGMA_GRUNT_2, MeteorFalls_1F_1R_Movement_MagmaGrunt2Exit)
+	waitmovement (0)
+	removeobject (LOCALID_MAGMA_GRUNT_1)
+	removeobject (LOCALID_MAGMA_GRUNT_2)
+	if (var(VAR_0x8002) == LEFT) {
+	applymovement (OBJ_EVENT_ID_FOLLOWER, MeteorFalls_1F_1R_Movement_Rival1GetInPlaceForArchieLeft)
+	}
+	else {
+	applymovement (OBJ_EVENT_ID_FOLLOWER, MeteorFalls_1F_1R_Movement_Rival1GetInPlaceForArchieRight)
+	}
+	applymovement (LOCALID_ARCHIE, MeteorFalls_1F_1R_Movement_ArchieApproachPlayer)
+	waitmovement (0)
+	msgbox (MeteorFalls_1F_1R_Text_ArchieSeenYouBefore, MSGBOX_DEFAULT)
 	closemessage
-	applymovement LOCALID_AQUA_GRUNT_1, MeteorFalls_1F_1R_Movement_AquaGrunt1ApproachArchie
-	applymovement LOCALID_AQUA_GRUNT_2, MeteorFalls_1F_1R_Movement_AquaGrunt2ApproachArchie
-	waitmovement 0
-	msgbox MeteorFalls_1F_1R_Text_BossWeShouldChaseMagma, MSGBOX_DEFAULT
-	applymovement LOCALID_ARCHIE, Common_Movement_WalkInPlaceFasterDown
-	waitmovement 0
-	msgbox MeteorFalls_1F_1R_Text_ArchieYesNoTellingWhatMagmaWillDo, MSGBOX_DEFAULT
-	applymovement LOCALID_ARCHIE, Common_Movement_WalkInPlaceFasterLeft
-	waitmovement 0
-	msgbox MeteorFalls_1F_1R_Text_ArchieFarewell, MSGBOX_DEFAULT
+	applymovement (LOCALID_AQUA_GRUNT_1, MeteorFalls_1F_1R_Movement_AquaGrunt1ApproachArchie)
+	applymovement (LOCALID_AQUA_GRUNT_2, MeteorFalls_1F_1R_Movement_AquaGrunt2ApproachArchie)
+	waitmovement (0)
+	msgbox (MeteorFalls_1F_1R_Text_BossWeShouldChaseMagma, MSGBOX_DEFAULT)
+	applymovement (LOCALID_ARCHIE, Common_Movement_WalkInPlaceFasterDown)
+	waitmovement (0)
+	msgbox (MeteorFalls_1F_1R_Text_ArchieYesNoTellingWhatMagmaWillDo, MSGBOX_DEFAULT)
+	applymovement (LOCALID_ARCHIE, Common_Movement_WalkInPlaceFasterLeft)
+	waitmovement (0)
+	msgbox (MeteorFalls_1F_1R_Text_ArchieFarewell, MSGBOX_DEFAULT)
 	closemessage
-	applymovement LOCALID_ARCHIE, MeteorFalls_1F_1R_Movement_ArchieExit
-	applymovement LOCALID_AQUA_GRUNT_1, MeteorFalls_1F_1R_Movement_AquaGrunt1Exit
-	applymovement LOCALID_AQUA_GRUNT_2, MeteorFalls_1F_1R_Movement_AquaGrunt2Exit
-	waitmovement 0
+	applymovement (OBJ_EVENT_ID_FOLLOWER, Common_Movement_FaceRight)
+	applymovement (LOCALID_ARCHIE, MeteorFalls_1F_1R_Movement_ArchieExit)
+	applymovement (LOCALID_AQUA_GRUNT_1, MeteorFalls_1F_1R_Movement_AquaGrunt1Exit)
+	applymovement (LOCALID_AQUA_GRUNT_2, MeteorFalls_1F_1R_Movement_AquaGrunt2Exit)
+	waitmovement (0)
 	fadedefaultbgm
-	removeobject LOCALID_ARCHIE
-	removeobject LOCALID_AQUA_GRUNT_1
-	removeobject LOCALID_AQUA_GRUNT_2
-	setflag FLAG_HIDE_ROUTE_112_TEAM_MAGMA
-	setflag FLAG_MET_ARCHIE_METEOR_FALLS
-	setflag FLAG_HIDE_FALLARBOR_TOWN_BATTLE_TENT_SCOTT
-	setvar VAR_METEOR_FALLS_STATE, 2
+	removeobject (LOCALID_ARCHIE)
+	removeobject (LOCALID_AQUA_GRUNT_1)
+	removeobject (LOCALID_AQUA_GRUNT_2)
+	call (MeteorFalls_1F_1R_EventScript_Rival1AfterGrunts)
+	setflag (FLAG_HIDE_METEOR_FALLS_RIVAL1)
+	setflag (FLAG_HIDE_ROUTE_112_TEAM_MAGMA)
+	setflag (FLAG_MET_ARCHIE_METEOR_FALLS)
+	setflag (FLAG_HIDE_DIG_HOUSE_RIVAL2)
+	setflag (FLAG_HIDE_FALLARBOR_TOWN_BATTLE_TENT_SCOTT)
+	setflag (FLAG_MET_PROF_COZMO)
+	setvar (VAR_METEOR_FALLS_STATE, 4)
 	releaseall
 	end
+}
 
+raw `
 MeteorFalls_1F_1R_Movement_MagmaGruntApproachPlayer:
 	walk_right
 	walk_right
@@ -223,17 +401,163 @@ MeteorFalls_1F_1R_Movement_PushPlayerOutOfWay:
 	unlock_facing_direction
 	face_right
 	step_end
+`
 
+movement MeteorFalls_1F_1R_Movement_Rival1MoveFromUp {
+	walk_left
+	walk_down
+}
+
+movement MeteorFalls_1F_1R_Movement_PushRival1OutOfWayRight {
+	walk_in_place_faster_down
+	delay_8 * 2
+	lock_facing_direction
+	walk_up
+	unlock_facing_direction
+	face_right
+}
+
+movement MeteorFalls_1F_1R_Movement_Rival1GetInPlaceForArchieLeft {
+	walk_up
+	walk_right * 2
+	walk_in_place_faster_down
+}
+
+movement MeteorFalls_1F_1R_Movement_Rival1GetInPlaceForArchieRight {
+	delay_16
+	walk_left
+	walk_in_place_faster_down
+}
+
+script MeteorFalls_1F_1R_EventScript_Rival1AfterGrunts {
+	destroyfollower
+	setobjectxyperm (LOCALID_RIVAL1, 14, 17)
+	addobject (LOCALID_RIVAL1)
+	delay (20)
+	applymovement (LOCALID_RIVAL1, MeteorFalls_1F_1R_Movement_Rival1ApproachPlayer)
+	waitmovement (0)
+	rival1talk (MeteorFalls_1F_1R_Text_SpencerShouldCheckOnCosmo,
+				MeteorFalls_1F_1R_Text_BrenShouldCheckOnCosmo,
+				MeteorFalls_1F_1R_Text_KyleShouldCheckOnCosmo)
+	closemessage
+	applymovement (LOCALID_RIVAL1, MeteorFalls_1F_1R_Movement_Rival1ApproachCosmo)
+	applymovement (OBJ_EVENT_ID_PLAYER, MeteorFalls_1F_1R_Movement_PlayerApproachCosmo)
+	waitmovement (0)
+	applymovement (LOCALID_RIVAL1, Common_Movement_BeginTalkDown)
+	waitmovement (0)
+	rival1talk (MeteorFalls_1F_1R_Text_SpencerWhatHappened,
+				MeteorFalls_1F_1R_Text_BrenWhatHappened,
+				MeteorFalls_1F_1R_Text_KyleWhatHappened)
+	closemessage
+	delay (16)
+	applymovement (LOCALID_COSMO, Common_Movement_BeginTalkUp)
+	waitmovement (0)
+	msgbox (MeteorFalls_1F_1R_Text_MeetProfCozmo, MSGBOX_AUTOCLOSE)
+	delay (16)
+	applymovement (OBJ_EVENT_ID_PLAYER, Common_Movement_FaceRight)
+	applymovement (LOCALID_RIVAL1, Common_Movement_BeginTalkLeft)
+	waitmovement (0)
+	rival1talk (MeteorFalls_1F_1R_Text_SpencerGoingToMtChimney,
+				MeteorFalls_1F_1R_Text_BrenGoingToMtChimney,
+				MeteorFalls_1F_1R_Text_KyleGoingToMtChimney)
+	closemessage
+	applymovement (OBJ_EVENT_ID_PLAYER, Common_Movement_FaceUp)
+	applymovement (LOCALID_RIVAL1, MeteorFalls_1F_1R_Movement_Rival1Leave)
+	waitmovement (0)
+	removeobject (LOCALID_RIVAL1)
+	return
+}
+
+movement MeteorFalls_1F_1R_Movement_Rival1ApproachPlayer {
+	walk_down
+	walk_in_place_faster_left
+}
+
+movement MeteorFalls_1F_1R_Movement_Rival1ApproachCosmo {
+	walk_down * 3
+	walk_left
+	walk_down
+}
+
+movement MeteorFalls_1F_1R_Movement_PlayerApproachCosmo {
+	delay_8
+	walk_right
+	walk_down * 3
+	walk_left * 2
+	walk_down
+}
+
+movement MeteorFalls_1F_1R_Movement_Rival1Leave {
+	walk_fast_up * 2
+	walk_fast_right
+	walk_fast_up * 2
+	walk_fast_right * 7
+}
+
+text MeteorFalls_1F_1R_Text_SpencerShouldCheckOnCosmo {
+	format ("We should go check on that guy down there.\p"
+		"Who knows what TEAM MAGMA did to him.")
+}
+
+text MeteorFalls_1F_1R_Text_BrenShouldCheckOnCosmo {
+	format ("We should go check on that guy down there.\p"
+		"Who knows what TEAM MAGMA did to him.")
+}
+
+text MeteorFalls_1F_1R_Text_KyleShouldCheckOnCosmo {
+	format ("We should go check on that guy down there.\p"
+		"Who knows what TEAM MAGMA did to him.")
+}
+
+text MeteorFalls_1F_1R_Text_SpencerWhatHappened {
+	format ("SPENCER: Hey, man.\n"
+		"Are you alright?\n"
+		"What happened?")
+}
+
+text MeteorFalls_1F_1R_Text_BrenWhatHappened {
+	format ("BREN: Hey, man.\n"
+		"Are you alright?\n"
+		"What happened?")
+}
+
+text MeteorFalls_1F_1R_Text_KyleWhatHappened {
+	format ("KYLE: Hey, man.\n"
+		"Are you alright?\n"
+		"What happened?")
+}
+
+text MeteorFalls_1F_1R_Text_SpencerGoingToMtChimney {
+	format ("SPENCER: Great…\n"
+		"Now there are two weird TEAMS up to no good.\p"
+		"They all seem to be headed to MT. CHIMNEY.\N"
+		"I've got a bad feeling about this.\p"
+		"I'm going to go to MT. CHIMNEY and make sure nothing bad happens.\p"
+		"You should come join me whenever you can!")
+}
+
+text MeteorFalls_1F_1R_Text_BrenGoingToMtChimney {
+	format ("BREN: Great…\n"
+		"Now there are two weird TEAMS up to no good.\p"
+		"They all seem to be headed to MT. CHIMNEY.\N"
+		"I've got a bad feeling about this.\p"
+		"I'm going to go to MT. CHIMNEY and make sure nothing bad happens.\p"
+		"You should come join me whenever you can!")
+}
+
+text MeteorFalls_1F_1R_Text_KyleGoingToMtChimney {
+	format ("KYLE: Great…\n"
+		"Now there are two weird TEAMS up to no good.\p"
+		"They all seem to be headed to MT. CHIMNEY.\N"
+		"I've got a bad feeling about this.\p"
+		"I'm going to go to MT. CHIMNEY and make sure nothing bad happens.\p"
+		"You should come join me whenever you can!")
+}
+
+raw `
 MeteorFalls_1F_1R_EventScript_ProfCozmo::
 	lock
 	faceplayer
-	goto_if_set FLAG_MET_PROF_COZMO, MeteorFalls_1F_1R_EventScript_MetCozmo
-	setflag FLAG_MET_PROF_COZMO
-	msgbox MeteorFalls_1F_1R_Text_MeetProfCozmo, MSGBOX_DEFAULT
-	release
-	end
-
-MeteorFalls_1F_1R_EventScript_MetCozmo::
 	msgbox MeteorFalls_1F_1R_Text_WhatsTeamMagmaDoingAtMtChimney, MSGBOX_DEFAULT
 	release
 	end
@@ -266,13 +590,13 @@ MeteorFalls_1F_1R_Text_BeSeeingYouTeamAqua:
 	.string "AQUA dingbats!$"
 
 MeteorFalls_1F_1R_Text_ArchieSeenYouBefore:
-	.string "ARCHIE: Didn't I see you before?\n"
+	.string "ARCHIE: Didn't I see you two before?\n"
 	.string "At SLATEPORT's MUSEUM?\p"
-	.string "Ah, so your name is {PLAYER}.\p"
-	.string "At the time, I thought you were one\n"
+	.string "Ah, so your names are {PLAYER}\nand {RIVAL}.\p"
+	.string "At the time, I thought you were some\n"
 	.string "of TEAM MAGMA's goons.\p"
 	.string "Humph…\n"
-	.string "You're one odd kid.\p"
+	.string "You're some odd kids.\p"
 	.string "TEAM MAGMA is a dangerous group of\n"
 	.string "total fanatics.\p"
 	.string "They engage in destruction, claiming\n"
@@ -291,8 +615,8 @@ MeteorFalls_1F_1R_Text_ArchieYesNoTellingWhatMagmaWillDo:
 	.string "will do at MT. CHIMNEY!$"
 
 MeteorFalls_1F_1R_Text_ArchieFarewell:
-	.string "ARCHIE: {PLAYER}, you should keep\n"
-	.string "an eye out for TEAM MAGMA, too.\p"
+	.string "ARCHIE: {PLAYER}, {RIVAL},\nyou should keep an eye out for\l"
+	.string "TEAM MAGMA, too.\p"
 	.string "Farewell!$"
 
 MeteorFalls_1F_1R_Text_MeetProfCozmo:

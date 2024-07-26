@@ -29,6 +29,7 @@
 #define ALL_WATER                           FOLLOWER_FLAG_ALL_WATER
 #define ALL_LAND                            FOLLOWER_FLAG_ALL_LAND
 #define FOLLOWER_ALL                        FOLLOWER_FLAG_ALL
+#define FOLLOWER_ALL_AND_CUSTOM             FOLLOWER_FLAG_ALL | FOLLOWER_FLAG_CUSTOM_FOLLOW_SCRIPT
 
 
 #endif // GUARD_CONSTANTS_FOLLOW_ME_H

@@ -547,6 +547,15 @@
       "var": "VAR_METEOR_FALLS_STATE",
       "var_value": "0",
       "script": "Route114_EventScript_WallyTrigger10"
+    },
+    {
+      "type": "trigger",
+      "x": 8,
+      "y": 64,
+      "elevation": 0,
+      "var": "VAR_METEOR_FALLS_STATE",
+      "var_value": "3",
+      "script": "Route114_EventScript_ResetMeteorFallsFollower"
     }
   ],
   "bg_events": [

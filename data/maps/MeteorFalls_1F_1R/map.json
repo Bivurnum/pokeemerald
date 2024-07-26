@@ -143,6 +143,19 @@
       "trainer_sight_or_berry_tree_id": "0",
       "script": "MeteorFalls_1F_1R_EventScript_ProfCozmo",
       "flag": "FLAG_HIDE_METEOR_FALLS_1F_1R_COZMO"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_VAR_0",
+      "x": 25,
+      "y": 18,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "NULL",
+      "flag": "FLAG_HIDE_METEOR_FALLS_RIVAL1"
     }
   ],
   "warp_events": [
@@ -196,8 +209,35 @@
       "y": 18,
       "elevation": 4,
       "var": "VAR_METEOR_FALLS_STATE",
-      "var_value": "1",
+      "var_value": "3",
       "script": "MeteorFalls_1F_1R_EventScript_MagmaStealsMeteoriteScene"
+    },
+    {
+      "type": "trigger",
+      "x": 13,
+      "y": 18,
+      "elevation": 0,
+      "var": "VAR_METEOR_FALLS_STATE",
+      "var_value": "3",
+      "script": "MeteorFalls_1F_1R_EventScript_SetFollowerLeft"
+    },
+    {
+      "type": "trigger",
+      "x": 14,
+      "y": 17,
+      "elevation": 0,
+      "var": "VAR_METEOR_FALLS_STATE",
+      "var_value": "3",
+      "script": "MeteorFalls_1F_1R_EventScript_SetFollowerUp"
+    },
+    {
+      "type": "trigger",
+      "x": 15,
+      "y": 18,
+      "elevation": 0,
+      "var": "VAR_METEOR_FALLS_STATE",
+      "var_value": "3",
+      "script": "MeteorFalls_1F_1R_EventScript_SetFollowerRight"
     }
   ],
   "bg_events": [

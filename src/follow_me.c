@@ -87,6 +87,30 @@ static const struct FollowerSpriteGraphics gFollowerAlternateSprites[] =
         .surfId = OBJ_EVENT_GFX_RIVAL_MAY_SURFING,
         .underwaterId = OBJ_EVENT_GFX_MAY_UNDERWATER,
     },
+    [1] = 
+    {
+        .normalId = OBJ_EVENT_GFX_SPENCER_NORMAL,
+        .machBikeId = OBJ_EVENT_GFX_SPENCER_MACH_BIKE,
+        .acroBikeId = OBJ_EVENT_GFX_SPENCER_ACRO_BIKE,
+        .surfId = OBJ_EVENT_GFX_SPENCER_SURFING,
+        .underwaterId = OBJ_EVENT_GFX_SPENCER_UNDERWATER,
+    },
+    [2] = 
+    {
+        .normalId = OBJ_EVENT_GFX_BREN_NORMAL,
+        .machBikeId = OBJ_EVENT_GFX_BREN_MACH_BIKE,
+        .acroBikeId = OBJ_EVENT_GFX_BREN_ACRO_BIKE,
+        .surfId = OBJ_EVENT_GFX_BREN_SURFING,
+        .underwaterId = OBJ_EVENT_GFX_BREN_UNDERWATER,
+    },
+    [3] = 
+    {
+        .normalId = OBJ_EVENT_GFX_KYLE_NORMAL,
+        .machBikeId = OBJ_EVENT_GFX_KYLE_MACH_BIKE,
+        .acroBikeId = OBJ_EVENT_GFX_KYLE_ACRO_BIKE,
+        .surfId = OBJ_EVENT_GFX_KYLE_SURFING,
+        .underwaterId = OBJ_EVENT_GFX_KYLE_UNDERWATER,
+    },
 
 };
 

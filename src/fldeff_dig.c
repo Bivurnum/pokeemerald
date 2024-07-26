@@ -3,6 +3,7 @@
 #include "field_effect.h"
 #include "field_player_avatar.h"
 #include "fldeff.h"
+#include "follow_me.h"
 #include "item_use.h"
 #include "overworld.h"
 #include "party_menu.h"
@@ -30,6 +31,7 @@ bool8 SetUpFieldMove_Dig(void)
 
 static void FieldCallback_Dig(void)
 {
+    DestroyFollower();
     Overworld_ResetStateAfterDigEscRope();
     FieldEffectStart(FLDEFF_USE_DIG);
     gFieldEffectArguments[0] = GetCursorSelectionMonId();
@@ -43,6 +45,7 @@ bool8 FldEff_UseDig(void)
     gTasks[taskId].data[9] = (u32)StartDigFieldEffect;
     if (!ShouldDoBrailleDigEffect())
         SetPlayerAvatarTransitionFlags(PLAYER_AVATAR_FLAG_ON_FOOT);
+        
     return FALSE;
 }
 
