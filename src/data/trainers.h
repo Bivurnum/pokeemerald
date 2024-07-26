@@ -7207,7 +7207,7 @@ const struct Trainer gTrainers[] = {
         .items = {},
         .doubleBattle = FALSE,
         .aiFlags = AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_TRY_TO_FAINT | AI_FLAG_CHECK_VIABILITY,
-        .party = TRAINER_PARTY(sParty_SpencerDewford),
+        .party = TRAINER_PARTY(sParty_Unused3),
     },
 
     [TRAINER_UNUSED] =
@@ -7219,7 +7219,7 @@ const struct Trainer gTrainers[] = {
         .items = {},
         .doubleBattle = FALSE,
         .aiFlags = AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_TRY_TO_FAINT | AI_FLAG_SETUP_FIRST_TURN,
-        .party = TRAINER_PARTY(sParty_BrenDewford),
+        .party = TRAINER_PARTY(sParty_Unused),
     },
 
     [TRAINER_MAXIE_MAGMA_HIDEOUT] =
@@ -9235,7 +9235,7 @@ const struct Trainer gTrainers[] = {
         .items = {},
         .doubleBattle = FALSE,
         .aiFlags = AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_TRY_TO_FAINT | AI_FLAG_CHECK_VIABILITY,
-        .party = TRAINER_PARTY(sParty_KyleDewford),
+        .party = TRAINER_PARTY(sParty_Unused2),
     },
 
     [TRAINER_KYLE_RUSTBORO] =

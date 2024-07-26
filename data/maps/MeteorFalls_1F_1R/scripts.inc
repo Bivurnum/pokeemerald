@@ -189,7 +189,7 @@ MeteorFalls_1F_1R_EventScript_MagmaStealsMeteoriteScene::
 # 95 "data/maps/MeteorFalls_1F_1R/scripts.pory"
 	setflag FLAG_HIDE_FALLARBOR_TOWN_BATTLE_TENT_SCOTT
 # 96 "data/maps/MeteorFalls_1F_1R/scripts.pory"
-	setvar VAR_METEOR_FALLS_STATE, 3
+	setvar VAR_METEOR_FALLS_STATE, 2
 # 97 "data/maps/MeteorFalls_1F_1R/scripts.pory"
 	releaseall
 # 98 "data/maps/MeteorFalls_1F_1R/scripts.pory"

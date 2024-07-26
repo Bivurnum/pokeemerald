@@ -6428,6 +6428,7 @@ static const struct TrainerMon sParty_KyleRoute103[] = {
     {
     .lvl = 5,
     .species = SPECIES_CHARMANDER,
+    .ability = ABILITY_SOLAR_POWER,
     }
 };
 
@@ -6436,11 +6437,13 @@ static const struct TrainerMon sParty_SpencerSeashore[] = {
     .iv = TRAINER_PARTY_IVS(6, 6, 6, 6, 6, 6),
     .lvl = 14,
     .species = SPECIES_TINKATINK,
+    .ability = ABILITY_OWN_TEMPO,
     },
     {
     .iv = TRAINER_PARTY_IVS(12, 12, 12, 12, 12, 12),
     .lvl = 15,
     .species = SPECIES_MACHOP,
+    .ability = ABILITY_NO_GUARD,
     }
 };
 
@@ -6449,11 +6452,13 @@ static const struct TrainerMon sParty_BrenSeashore[] = {
     .iv = TRAINER_PARTY_IVS(6, 6, 6, 6, 6, 6),
     .lvl = 14,
     .species = SPECIES_ZUBAT,
+    .ability = ABILITY_INFILTRATOR,
     },
     {
     .iv = TRAINER_PARTY_IVS(12, 12, 12, 12, 12, 12),
     .lvl = 15,
     .species = SPECIES_PIPLUP,
+    .ability = ABILITY_COMPETITIVE,
     }
 };
 
@@ -6461,6 +6466,7 @@ static const struct TrainerMon sParty_BrenRoute103[] = {
     {
     .lvl = 5,
     .species = SPECIES_PIPLUP,
+    .ability = ABILITY_COMPETITIVE,
     }
 };
 
@@ -6469,11 +6475,13 @@ static const struct TrainerMon sParty_KyleSeashore[] = {
     .iv = TRAINER_PARTY_IVS(6, 6, 6, 6, 6, 6),
     .lvl = 14,
     .species = SPECIES_NIDORAN_M,
+    .ability = ABILITY_RIVALRY,
     },
     {
     .iv = TRAINER_PARTY_IVS(12, 12, 12, 12, 12, 12),
     .lvl = 15,
     .species = SPECIES_CHARMANDER,
+    .ability = ABILITY_SOLAR_POWER,
     }
 };
 
@@ -6482,16 +6490,19 @@ static const struct TrainerMon sParty_SpencerNearFallarbor[] = {
     .iv = TRAINER_PARTY_IVS(12, 12, 12, 12, 12, 12),
     .lvl = 20,
     .species = SPECIES_TINKATINK,
+    .ability = ABILITY_OWN_TEMPO,
     },
     {
     .iv = TRAINER_PARTY_IVS(12, 12, 12, 12, 12, 12),
     .lvl = 19,
     .species = SPECIES_GROWLITHE,
+    .ability = ABILITY_FLASH_FIRE,
     },
     {
     .iv = TRAINER_PARTY_IVS(18, 18, 18, 18, 18, 18),
     .lvl = 22,
     .species = SPECIES_MACHOP,
+    .ability = ABILITY_NO_GUARD,
     }
 };
 
@@ -6499,6 +6510,7 @@ static const struct TrainerMon sParty_SpencerRoute103[] = {
     {
     .lvl = 5,
     .species = SPECIES_MACHOP,
+    .ability = ABILITY_NO_GUARD,
     }
 };
 
@@ -6507,11 +6519,13 @@ static const struct TrainerMon sParty_SpencerMauville[] = {
     .iv = TRAINER_PARTY_IVS(6, 6, 6, 6, 6, 6),
     .lvl = 18,
     .species = SPECIES_TINKATINK,
+    .ability = ABILITY_OWN_TEMPO,
     },
     {
     .iv = TRAINER_PARTY_IVS(12, 12, 12, 12, 12, 12),
     .lvl = 20,
     .species = SPECIES_MACHOP,
+    .ability = ABILITY_NO_GUARD,
     }
 };
 
@@ -6525,11 +6539,13 @@ static const struct TrainerMon sParty_BrenNearFallarbor[] = {
     .iv = TRAINER_PARTY_IVS(12, 12, 12, 12, 12, 12),
     .lvl = 19,
     .species = SPECIES_BAGON,
+    .ability = ABILITY_SHEER_FORCE,
     },
     {
     .iv = TRAINER_PARTY_IVS(18, 18, 18, 18, 18, 18),
     .lvl = 22,
     .species = SPECIES_PRINPLUP,
+    .ability = ABILITY_COMPETITIVE,
     }
 };
 
@@ -6537,6 +6553,7 @@ static const struct TrainerMon sParty_KyleOldale[] = {
     {
     .lvl = 5,
     .species = SPECIES_CHARMANDER,
+    .ability = ABILITY_SOLAR_POWER,
     }
 };
 
@@ -6545,11 +6562,13 @@ static const struct TrainerMon sParty_BrenMauville[] = {
     .iv = TRAINER_PARTY_IVS(6, 6, 6, 6, 6, 6),
     .lvl = 18,
     .species = SPECIES_ZUBAT,
+    .ability = ABILITY_INFILTRATOR,
     },
     {
     .iv = TRAINER_PARTY_IVS(12, 12, 12, 12, 12, 12),
     .lvl = 20,
     .species = SPECIES_PRINPLUP,
+    .ability = ABILITY_COMPETITIVE,
     }
 };
 
@@ -6558,16 +6577,19 @@ static const struct TrainerMon sParty_KyleNearFallarbor[] = {
     .iv = TRAINER_PARTY_IVS(12, 12, 12, 12, 12, 12),
     .lvl = 20,
     .species = SPECIES_NIDORINO,
+    .ability = ABILITY_RIVALRY,
     },
     {
     .iv = TRAINER_PARTY_IVS(12, 12, 12, 12, 12, 12),
     .lvl = 19,
     .species = SPECIES_HORSEA,
+    .ability = ABILITY_SNIPER,
     },
     {
     .iv = TRAINER_PARTY_IVS(18, 18, 18, 18, 18, 18),
     .lvl = 22,
     .species = SPECIES_CHARMELEON,
+    .ability = ABILITY_SOLAR_POWER,
     }
 };
 
@@ -6575,6 +6597,7 @@ static const struct TrainerMon sParty_SpencerOldale[] = {
     {
     .lvl = 5,
     .species = SPECIES_MACHOP,
+    .ability = ABILITY_NO_GUARD,
     }
 };
 
@@ -6583,11 +6606,13 @@ static const struct TrainerMon sParty_KyleMauville[] = {
     .iv = TRAINER_PARTY_IVS(6, 6, 6, 6, 6, 6),
     .lvl = 18,
     .species = SPECIES_NIDORINO,
+    .ability = ABILITY_RIVALRY,
     },
     {
     .iv = TRAINER_PARTY_IVS(12, 12, 12, 12, 12, 12),
     .lvl = 20,
     .species = SPECIES_CHARMELEON,
+    .ability = ABILITY_SOLAR_POWER,
     }
 };
 
@@ -6613,6 +6638,7 @@ static const struct TrainerMon sParty_BrenOldale[] = {
     {
     .lvl = 5,
     .species = SPECIES_PIPLUP,
+    .ability = ABILITY_COMPETITIVE,
     }
 };
 
@@ -7408,11 +7434,13 @@ static const struct TrainerMon sParty_BrenRustboro[] = {
     .iv = TRAINER_PARTY_IVS(3, 3, 3, 3, 3, 3),
     .lvl = 13,
     .species = SPECIES_ZUBAT,
+    .ability = ABILITY_INFILTRATOR,
     },
     {
     .iv = TRAINER_PARTY_IVS(6, 6, 6, 6, 6, 6),
     .lvl = 15,
     .species = SPECIES_PIPLUP,
+    .ability = ABILITY_COMPETITIVE,
     }
 };
 
@@ -7421,11 +7449,13 @@ static const struct TrainerMon sParty_SpencerRustboro[] = {
     .iv = TRAINER_PARTY_IVS(3, 3, 3, 3, 3, 3),
     .lvl = 13,
     .species = SPECIES_TINKATINK,
+    .ability = ABILITY_OWN_TEMPO,
     },
     {
     .iv = TRAINER_PARTY_IVS(6, 6, 6, 6, 6, 6),
     .lvl = 15,
     .species = SPECIES_MACHOP,
+    .ability = ABILITY_NO_GUARD,
     }
 };
 
@@ -7492,7 +7522,7 @@ static const struct TrainerMon sParty_Jonathan[] = {
     }
 };
 
-static const struct TrainerMon sParty_SpencerDewford[] = {
+static const struct TrainerMon sParty_Unused3[] = {
     {
     .iv = TRAINER_PARTY_IVS(3, 3, 3, 3, 3, 3),
     .lvl = 13,
@@ -7505,7 +7535,7 @@ static const struct TrainerMon sParty_SpencerDewford[] = {
     }
 };
 
-static const struct TrainerMon sParty_BrenDewford[] = {
+static const struct TrainerMon sParty_Unused[] = {
     {
     .iv = TRAINER_PARTY_IVS(3, 3, 3, 3, 3, 3),
     .lvl = 13,
@@ -7515,6 +7545,7 @@ static const struct TrainerMon sParty_BrenDewford[] = {
     .iv = TRAINER_PARTY_IVS(6, 6, 6, 6, 6, 6),
     .lvl = 15,
     .species = SPECIES_PIPLUP,
+    .ability = ABILITY_COMPETITIVE,
     }
 };
 
@@ -8255,6 +8286,7 @@ static const struct TrainerMon sParty_WallyMauville[] = {
     .iv = TRAINER_PARTY_IVS(25, 25, 25, 25, 25, 25),
     .lvl = 16,
     .species = SPECIES_RALTS,
+    .ability = ABILITY_SYNCHRONIZE,
     .moves = {MOVE_DRAINING_KISS, MOVE_CONFUSION, MOVE_HYPNOSIS, MOVE_NONE}
     }
 };
@@ -9640,16 +9672,18 @@ static const struct TrainerMon sParty_Cristin1[] = {
     }
 };
 
-static const struct TrainerMon sParty_KyleDewford[] = {
+static const struct TrainerMon sParty_Unused2[] = {
     {
     .iv = TRAINER_PARTY_IVS(3, 3, 3, 3, 3, 3),
     .lvl = 13,
     .species = SPECIES_NIDORAN_M,
+    .ability = ABILITY_RIVALRY,
     },
     {
     .iv = TRAINER_PARTY_IVS(6, 6, 6, 6, 6, 6),
     .lvl = 15,
     .species = SPECIES_CHARMANDER,
+    .ability = ABILITY_SOLAR_POWER,
     }
 };
 
@@ -9658,11 +9692,13 @@ static const struct TrainerMon sParty_KyleRustboro[] = {
     .iv = TRAINER_PARTY_IVS(3, 3, 3, 3, 3, 3),
     .lvl = 13,
     .species = SPECIES_NIDORAN_M,
+    .ability = ABILITY_RIVALRY,
     },
     {
     .iv = TRAINER_PARTY_IVS(6, 6, 6, 6, 6, 6),
     .lvl = 15,
     .species = SPECIES_CHARMANDER,
+    .ability = ABILITY_SOLAR_POWER,
     }
 };
 
