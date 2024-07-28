@@ -144,7 +144,7 @@ script MeteorFalls_1F_1R_EventScript_MagmaStealsMeteoriteScene {
 	closemessage
 	special (SpawnCameraObject)
 	playse (SE_PIN)
-	applymovement (OBJ_EVENT_ID_PLAYER, MeteorFalls_1F_1R_Movement_NoticeMagma)
+	applymovement (OBJ_EVENT_ID_PLAYER, Common_Movement_FaceDown)
 	applymovement (LOCALID_RIVAL1, MeteorFalls_1F_1R_Movement_NoticeMagma)
 	applymovement (OBJ_EVENT_ID_CAMERA, MeteorFalls_1F_1R_Movement_CameraPanToMagma)
 	waitmovement (0)

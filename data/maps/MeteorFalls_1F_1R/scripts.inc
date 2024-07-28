@@ -134,7 +134,7 @@ MeteorFalls_1F_1R_EventScript_MagmaStealsMeteoriteScene::
 # 146 "data/maps/MeteorFalls_1F_1R/scripts.pory"
 	playse SE_PIN
 # 147 "data/maps/MeteorFalls_1F_1R/scripts.pory"
-	applymovement OBJ_EVENT_ID_PLAYER, MeteorFalls_1F_1R_Movement_NoticeMagma
+	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_FaceDown
 # 148 "data/maps/MeteorFalls_1F_1R/scripts.pory"
 	applymovement 11, MeteorFalls_1F_1R_Movement_NoticeMagma
 # 149 "data/maps/MeteorFalls_1F_1R/scripts.pory"
