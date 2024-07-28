@@ -419,12 +419,31 @@ u32 ScriptGiveMonParameterized(u16 species, u8 level, u16 item, u8 ball, u8 natu
 
 u32 ScriptGiveMon(u16 species, u8 level, u16 item)
 {
+    u8 ability = NUM_ABILITY_PERSONALITY;
     u8 evs[NUM_STATS]        = {0, 0, 0, 0, 0, 0};
     u8 ivs[NUM_STATS]        = {MAX_PER_STAT_IVS + 1, MAX_PER_STAT_IVS + 1, MAX_PER_STAT_IVS + 1,   // We pass "MAX_PER_STAT_IVS + 1" here to ensure that
                                 MAX_PER_STAT_IVS + 1, MAX_PER_STAT_IVS + 1, MAX_PER_STAT_IVS + 1};  // ScriptGiveMonParameterized won't touch the stats' IV.
     u16 moves[MAX_MON_MOVES] = {MOVE_NONE, MOVE_NONE, MOVE_NONE, MOVE_NONE};
 
-    return ScriptGiveMonParameterized(species, level, item, ITEM_POKE_BALL, NUM_NATURES, NUM_ABILITY_PERSONALITY, MON_GENDERLESS, evs, ivs, moves, FALSE, FALSE, NUMBER_OF_MON_TYPES);
+    if (FlagGet(FLAG_SYS_SET_STARTER_STATS)) {
+        switch (species)
+        {
+        case SPECIES_PIPLUP:
+            ability = 2;
+            break;
+
+        case SPECIES_MACHOP:
+            ability = 1;
+            break;
+
+        case SPECIES_CHARMANDER:
+            ability = 2;
+            break;
+        }
+        FlagClear(FLAG_SYS_SET_STARTER_STATS);
+    }
+
+    return ScriptGiveMonParameterized(species, level, item, ITEM_POKE_BALL, NUM_NATURES, ability, MON_GENDERLESS, evs, ivs, moves, FALSE, FALSE, NUMBER_OF_MON_TYPES);
 }
 
 #define PARSE_FLAG(n, default_) (flags & (1 << (n))) ? VarGet(ScriptReadHalfword(ctx)) : (default_)

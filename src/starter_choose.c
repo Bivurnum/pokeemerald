@@ -112,7 +112,7 @@ static const u8 sStarterLabelCoords[STARTER_MON_COUNT][2] =
 
 static const u16 sStarterMon[STARTER_MON_COUNT] =
 {
-    SPECIES_TREECKO,
+    SPECIES_MACHOP,
     SPECIES_PIPLUP,
     SPECIES_CHARMANDER,
 };
@@ -545,6 +545,7 @@ static void Task_HandleConfirmStarterInput(u8 taskId)
         // Return the starter choice and exit.
         gSpecialVar_Result = gTasks[taskId].tStarterSelection;
         ResetAllPicSprites();
+        FlagSet(FLAG_SYS_SET_STARTER_STATS);
         SetMainCallback2(gMain.savedCallback);
         break;
     case 1:  // NO

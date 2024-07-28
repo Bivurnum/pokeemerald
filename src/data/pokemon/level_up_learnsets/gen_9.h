@@ -72,7 +72,7 @@ static const struct LevelUpMove sVenusaurLevelUpLearnset[] = {
 static const struct LevelUpMove sCharmanderLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_SCRATCH),
     LEVEL_UP_MOVE( 1, MOVE_GROWL),
-    LEVEL_UP_MOVE( 4, MOVE_EMBER),
+    LEVEL_UP_MOVE( 6, MOVE_EMBER),
     LEVEL_UP_MOVE( 8, MOVE_SMOKESCREEN),
     LEVEL_UP_MOVE(12, MOVE_DRAGON_BREATH),
     LEVEL_UP_MOVE(17, MOVE_FIRE_FANG),
@@ -1727,10 +1727,12 @@ static const struct LevelUpMove sAlakazamLevelUpLearnset[] = {
 
 #if P_FAMILY_MACHOP
 static const struct LevelUpMove sMachopLevelUpLearnset[] = {
-    LEVEL_UP_MOVE( 1, MOVE_LOW_KICK),
+    LEVEL_UP_MOVE( 1, MOVE_TACKLE),
     LEVEL_UP_MOVE( 1, MOVE_LEER),
     LEVEL_UP_MOVE( 4, MOVE_FOCUS_ENERGY),
+    LEVEL_UP_MOVE( 6, MOVE_KARATE_CHOP),
     LEVEL_UP_MOVE( 8, MOVE_REVENGE),
+    LEVEL_UP_MOVE(10, MOVE_LOW_KICK),
     LEVEL_UP_MOVE(12, MOVE_LOW_SWEEP),
     LEVEL_UP_MOVE(16, MOVE_KNOCK_OFF),
     LEVEL_UP_MOVE(20, MOVE_SCARY_FACE),
