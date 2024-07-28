@@ -154,7 +154,7 @@
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "NULL",
+      "script": "MeteorFalls_1F_1R_EventScript_Rival1",
       "flag": "FLAG_HIDE_METEOR_FALLS_RIVAL1"
     }
   ],
@@ -211,33 +211,6 @@
       "var": "VAR_METEOR_FALLS_STATE",
       "var_value": "3",
       "script": "MeteorFalls_1F_1R_EventScript_MagmaStealsMeteoriteScene"
-    },
-    {
-      "type": "trigger",
-      "x": 13,
-      "y": 18,
-      "elevation": 0,
-      "var": "VAR_METEOR_FALLS_STATE",
-      "var_value": "3",
-      "script": "MeteorFalls_1F_1R_EventScript_SetFollowerLeft"
-    },
-    {
-      "type": "trigger",
-      "x": 14,
-      "y": 17,
-      "elevation": 0,
-      "var": "VAR_METEOR_FALLS_STATE",
-      "var_value": "3",
-      "script": "MeteorFalls_1F_1R_EventScript_SetFollowerUp"
-    },
-    {
-      "type": "trigger",
-      "x": 15,
-      "y": 18,
-      "elevation": 0,
-      "var": "VAR_METEOR_FALLS_STATE",
-      "var_value": "3",
-      "script": "MeteorFalls_1F_1R_EventScript_SetFollowerRight"
     }
   ],
   "bg_events": [

@@ -39,7 +39,6 @@ bool8 FldEff_UseTeleport(void)
     gTasks[taskId].data[8] = (u32)StartTeleportFieldEffect >> 16;
     gTasks[taskId].data[9] = (u32)StartTeleportFieldEffect;
     SetPlayerAvatarTransitionFlags(PLAYER_AVATAR_FLAG_ON_FOOT);
-    DestroyFollower();
     return FALSE;
 }
 

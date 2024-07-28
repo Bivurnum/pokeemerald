@@ -2305,7 +2305,6 @@ static void (*const sEscapeRopeWarpInEffectFuncs[])(struct Task *) = {
 
 static void FieldCallback_EscapeRopeWarpIn(void)
 {
-    DestroyFollower();
     Overworld_PlaySpecialMapMusic();
     WarpFadeInScreen();
     LockPlayerFieldControls();

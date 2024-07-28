@@ -27,16 +27,12 @@ raw `
 mapscripts MeteorFalls_1F_1R_MapScripts {
 	MAP_SCRIPT_ON_TRANSITION {
 		call (Common_EventScript_SetupRivalGfxId)
-		if (var(VAR_METEOR_FALLS_STATE) == 2) {
-			clearflag (FLAG_HIDE_METEOR_FALLS_RIVAL1)
-		}
 	}
 	MAP_SCRIPT_ON_LOAD {
 		call_if_set (FLAG_SYS_GAME_CLEAR, MeteorFalls_1F_1R_EventScript_OpenStevensCave)
 	}
 	MAP_SCRIPT_ON_FRAME_TABLE [
-		VAR_METEOR_FALLS_STATE, 1: MeteorFalls_1F_1R_EventScript_InitRival1Follower
-		VAR_METEOR_FALLS_STATE, 2: MeteorFalls_1F_1R_EventScript_ReturnToRival1Follower
+		VAR_METEOR_FALLS_STATE, 1: MeteorFalls_1F_1R_EventScript_InitRival1
 	]
 }
 
@@ -48,7 +44,7 @@ script MeteorFalls_1F_1R_EventScript_OpenStevensCave {
 	return
 }
 
-script MeteorFalls_1F_1R_EventScript_InitRival1Follower {
+script MeteorFalls_1F_1R_EventScript_InitRival1 {
 	lock
 	applymovement (OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterLeft)
 	applymovement (LOCALID_RIVAL1, Common_Movement_BeginTalkRight)
@@ -59,12 +55,10 @@ script MeteorFalls_1F_1R_EventScript_InitRival1Follower {
 	closemessage
 	applymovement (OBJ_EVENT_ID_PLAYER, Common_Movement_Walk_Left)
 	waitmovement (0)
-	rival1talk (MeteorFalls_1F_1R_Text_SpencerIllFollow,
-				MeteorFalls_1F_1R_Text_BrenIllFollow,
-				MeteorFalls_1F_1R_Text_KyleIllFollow)
+	rival1talk (MeteorFalls_1F_1R_Text_SpencerStrangeVoices,
+				MeteorFalls_1F_1R_Text_BrenStrangeVoices,
+				MeteorFalls_1F_1R_Text_KyleStrangeVoices)
 	closemessage
-	loadword (0, MeteorFalls_1F_1R_EventScript_Rival1Following)
-	setfollower (LOCALID_RIVAL1, FOLLOWER_ALL_AND_CUSTOM)
 	setvar (VAR_METEOR_FALLS_STATE, 3)
 	release
 	end
@@ -85,105 +79,75 @@ text MeteorFalls_1F_1R_Text_KyleOverHere {
 		"Over here…")
 }
 
-text MeteorFalls_1F_1R_Text_SpencerIllFollow {
+text MeteorFalls_1F_1R_Text_SpencerStrangeVoices {
 	format ("I keep hearing strange echoes in here.\N"
-		"Almost like the walls are whispering.\p"
-		"Do you think there are ghosts in here?\N"
-		"I'll follow behind you, just in case…")
+		"Almost like the walls are whispering.\N"
+		"Do you think there are ghosts in here?\p"
+		"Hey! You're super strong.\N"
+		"Will you go check it out, just in case?")
 }
 
-text MeteorFalls_1F_1R_Text_BrenIllFollow {
+text MeteorFalls_1F_1R_Text_BrenStrangeVoices {
 	format ("I keep hearing strange echoes in here.\N"
-		"Almost like the walls are whispering.\p"
-		"Do you think there are ghosts in here?\N"
-		"I'll follow behind you, just in case…")
+		"Almost like the walls are whispering.\N"
+		"Do you think there are ghosts in here?\p"
+		"Hey! You're super strong.\N"
+		"Will you go check it out, just in case?")
 }
 
-text MeteorFalls_1F_1R_Text_KyleIllFollow {
+text MeteorFalls_1F_1R_Text_KyleStrangeVoices {
 	format ("I keep hearing strange echoes in here.\N"
-		"Almost like the walls are whispering.\p"
-		"Do you think there are ghosts in here?\N"
-		"I'll follow behind you, just in case…")
+		"Almost like the walls are whispering.\N"
+		"Do you think there are ghosts in here?\p"
+		"Hey! You're super strong.\N"
+		"Will you go check it out, just in case?")
 }
 
-script MeteorFalls_1F_1R_EventScript_ReturnToRival1Follower {
+script MeteorFalls_1F_1R_EventScript_Rival1 {
 	lock
-	applymovement (OBJ_EVENT_ID_PLAYER, Common_Movement_FaceLeft)
-	applymovement (LOCALID_RIVAL1, Common_Movement_Walk_Right)
+	applymovement (LOCALID_RIVAL1, Common_Movement_FacePlayer)
 	waitmovement (0)
-	rival1talk (MeteorFalls_1F_1R_Text_SpencerWhereDidYouGo,
-				MeteorFalls_1F_1R_Text_BrenWhereDidYouGo,
-				MeteorFalls_1F_1R_Text_KyleWhereDidYouGo)
-	closemessage
-	loadword (0, MeteorFalls_1F_1R_EventScript_Rival1Following)
-	setfollower (LOCALID_RIVAL1, FOLLOWER_ALL_AND_CUSTOM)
-	setvar (VAR_METEOR_FALLS_STATE, 3)
-	release
-	end
-}
-
-text MeteorFalls_1F_1R_Text_SpencerWhereDidYouGo {
-	format ("Where did you go?\n"
-		"I don't want to explore this creepy place by myself!")
-}
-
-text MeteorFalls_1F_1R_Text_BrenWhereDidYouGo {
-	format ("Where did you go?\n"
-		"I don't want to explore this creepy place by myself!")
-}
-
-text MeteorFalls_1F_1R_Text_KyleWhereDidYouGo {
-	format ("Where did you go?\n"
-		"I don't want to explore this creepy place by myself!")
-}
-
-script MeteorFalls_1F_1R_EventScript_Rival1Following {
-	lock
-	facefollower
-	msgbox (MeteorFalls_1F_1R_Text_Rival1Following, MSGBOX_DEFAULT)
+	rival1talk (MeteorFalls_1F_1R_Text_SpencerYouCanClearGhosts,
+				MeteorFalls_1F_1R_Text_BrenYouCanClearGhosts,
+				MeteorFalls_1F_1R_Text_KyleYouCanClearGhosts)
 	closemessage
 	release
 	end
 }
 
-text MeteorFalls_1F_1R_Text_Rival1Following {
-	format ("This place sure is breathtaking despite the eeriness.")
+text MeteorFalls_1F_1R_Text_SpencerYouCanClearGhosts {
+	format ("I'm sure you're strong enough to clear the area of ghosts, right?")
 }
 
-script MeteorFalls_1F_1R_EventScript_SetFollowerLeft {
-	lock
-	setvar (VAR_0x8002, LEFT)
-	release
-	end
+text MeteorFalls_1F_1R_Text_BrenYouCanClearGhosts {
+	format ("I'm sure you're strong enough to clear the area of ghosts, right?")
 }
 
-script MeteorFalls_1F_1R_EventScript_SetFollowerUp {
-	lock
-	setvar (VAR_0x8002, UP)
-	release
-	end
-}
-
-script MeteorFalls_1F_1R_EventScript_SetFollowerRight {
-	lock
-	setvar (VAR_0x8002, RIGHT)
-	release
-	end
+text MeteorFalls_1F_1R_Text_KyleYouCanClearGhosts {
+	format ("I'm sure you're strong enough to clear the area of ghosts, right?")
 }
 
 script MeteorFalls_1F_1R_EventScript_MagmaStealsMeteoriteScene {
 	lockall
 	playbgm (MUS_ENCOUNTER_MAGMA, FALSE)
-	if (var(VAR_0x8002) == UP) {
-		setvar (VAR_0x8002, LEFT)
-		applymovement (OBJ_EVENT_ID_FOLLOWER, MeteorFalls_1F_1R_Movement_Rival1MoveFromUp)
-	}
-	else {
-		applymovement (OBJ_EVENT_ID_FOLLOWER, Common_Movement_FaceDown)
-	}
-	applymovement (OBJ_EVENT_ID_PLAYER, Common_Movement_FaceDown)
-	waitmovement (OBJ_EVENT_ID_FOLLOWER)
-	delay (30)
+	removeobject (LOCALID_RIVAL1)
+	setobjectxyperm (LOCALID_RIVAL1, 22, 18)
+	addobject (LOCALID_RIVAL1)
+	applymovement (OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceDown)
+	applymovement (LOCALID_RIVAL1, MeteorFalls_1F_1R_Movement_Rival1WalkIn)
+	waitmovement (0)
+	applymovement (OBJ_EVENT_ID_PLAYER, Common_Movement_FaceRight)
+	waitmovement (0)
+	rival1talk (MeteorFalls_1F_1R_Text_SpencerWhatsGoingOn,
+				MeteorFalls_1F_1R_Text_BrenWhatsGoingOn,
+				MeteorFalls_1F_1R_Text_KyleWhatsGoingOn)
+	closemessage
+	special (SpawnCameraObject)
+	playse (SE_PIN)
+	applymovement (OBJ_EVENT_ID_PLAYER, MeteorFalls_1F_1R_Movement_NoticeMagma)
+	applymovement (LOCALID_RIVAL1, MeteorFalls_1F_1R_Movement_NoticeMagma)
+	applymovement (OBJ_EVENT_ID_CAMERA, MeteorFalls_1F_1R_Movement_CameraPanToMagma)
+	waitmovement (0)
 	applymovement (LOCALID_MAGMA_GRUNT_1, Common_Movement_WalkInPlaceDown)
 	waitmovement (0)
 	msgbox (MeteorFalls_1F_1R_Text_WithThisMeteorite, MSGBOX_DEFAULT)
@@ -203,7 +167,7 @@ script MeteorFalls_1F_1R_EventScript_MagmaStealsMeteoriteScene {
 	msgbox (MeteorFalls_1F_1R_Text_HoldItRightThereMagma, MSGBOX_DEFAULT)
 	closemessage
 	applymovement (OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterLeft)
-	applymovement (OBJ_EVENT_ID_FOLLOWER, Common_Movement_WalkInPlaceFasterLeft)
+	applymovement (LOCALID_RIVAL1, Common_Movement_WalkInPlaceFasterLeft)
 	applymovement (LOCALID_MAGMA_GRUNT_1, Common_Movement_WalkInPlaceFasterLeft)
 	applymovement (LOCALID_MAGMA_GRUNT_2, Common_Movement_WalkInPlaceFasterLeft)
 	waitmovement (0)
@@ -220,26 +184,18 @@ script MeteorFalls_1F_1R_EventScript_MagmaStealsMeteoriteScene {
 	waitmovement (0)
 	msgbox (MeteorFalls_1F_1R_Text_BeSeeingYouTeamAqua, MSGBOX_DEFAULT)
 	closemessage
-	if (var(VAR_0x8002) == LEFT) {
-	applymovement (OBJ_EVENT_ID_FOLLOWER, MeteorFalls_1F_1R_Movement_PushPlayerOutOfWay)
-	}
-	else {
-	applymovement (OBJ_EVENT_ID_FOLLOWER, MeteorFalls_1F_1R_Movement_PushRival1OutOfWayRight)
-	}
+	applymovement (LOCALID_RIVAL1, MeteorFalls_1F_1R_Movement_PushRival1OutOfWayRight)
 	applymovement (OBJ_EVENT_ID_PLAYER, MeteorFalls_1F_1R_Movement_PushPlayerOutOfWay)
 	applymovement (LOCALID_MAGMA_GRUNT_1, MeteorFalls_1F_1R_Movement_MagmaGrunt1Exit)
 	applymovement (LOCALID_MAGMA_GRUNT_2, MeteorFalls_1F_1R_Movement_MagmaGrunt2Exit)
 	waitmovement (0)
 	removeobject (LOCALID_MAGMA_GRUNT_1)
 	removeobject (LOCALID_MAGMA_GRUNT_2)
-	if (var(VAR_0x8002) == LEFT) {
-	applymovement (OBJ_EVENT_ID_FOLLOWER, MeteorFalls_1F_1R_Movement_Rival1GetInPlaceForArchieLeft)
-	}
-	else {
-	applymovement (OBJ_EVENT_ID_FOLLOWER, MeteorFalls_1F_1R_Movement_Rival1GetInPlaceForArchieRight)
-	}
+	applymovement (LOCALID_RIVAL1, MeteorFalls_1F_1R_Movement_Rival1GetInPlaceForArchieRight)
+	applymovement (OBJ_EVENT_ID_CAMERA, MeteorFalls_1F_1R_Movement_CameraPanBack)
 	applymovement (LOCALID_ARCHIE, MeteorFalls_1F_1R_Movement_ArchieApproachPlayer)
 	waitmovement (0)
+	special (RemoveCameraObject)
 	msgbox (MeteorFalls_1F_1R_Text_ArchieSeenYouBefore, MSGBOX_DEFAULT)
 	closemessage
 	applymovement (LOCALID_AQUA_GRUNT_1, MeteorFalls_1F_1R_Movement_AquaGrunt1ApproachArchie)
@@ -253,7 +209,7 @@ script MeteorFalls_1F_1R_EventScript_MagmaStealsMeteoriteScene {
 	waitmovement (0)
 	msgbox (MeteorFalls_1F_1R_Text_ArchieFarewell, MSGBOX_DEFAULT)
 	closemessage
-	applymovement (OBJ_EVENT_ID_FOLLOWER, Common_Movement_FaceRight)
+	applymovement (LOCALID_RIVAL1, Common_Movement_FaceRight)
 	applymovement (LOCALID_ARCHIE, MeteorFalls_1F_1R_Movement_ArchieExit)
 	applymovement (LOCALID_AQUA_GRUNT_1, MeteorFalls_1F_1R_Movement_AquaGrunt1Exit)
 	applymovement (LOCALID_AQUA_GRUNT_2, MeteorFalls_1F_1R_Movement_AquaGrunt2Exit)
@@ -272,6 +228,40 @@ script MeteorFalls_1F_1R_EventScript_MagmaStealsMeteoriteScene {
 	setvar (VAR_METEOR_FALLS_STATE, 4)
 	releaseall
 	end
+}
+
+movement MeteorFalls_1F_1R_Movement_Rival1WalkIn {
+	walk_left * 7
+}
+
+movement MeteorFalls_1F_1R_Movement_NoticeMagma {
+	emote_exclamation_mark
+	face_down
+}
+
+movement MeteorFalls_1F_1R_Movement_CameraPanToMagma {
+	delay_16 * 2
+	walk_slow_down * 2
+}
+
+movement MeteorFalls_1F_1R_Movement_CameraPanBack {
+	walk_slow_up
+	walk_slow_diag_northwest
+}
+
+text MeteorFalls_1F_1R_Text_SpencerWhatsGoingOn {
+	format ("SPENCER: What's going on?\n"
+		"Did you find the ghosts?")
+}
+
+text MeteorFalls_1F_1R_Text_BrenWhatsGoingOn {
+	format ("BREN: What's going on?\n"
+		"Did you find the ghosts?")
+}
+
+text MeteorFalls_1F_1R_Text_KyleWhatsGoingOn {
+	format ("KYLE: What's going on?\n"
+		"Did you find the ghosts?")
 }
 
 raw `
@@ -430,9 +420,6 @@ movement MeteorFalls_1F_1R_Movement_Rival1GetInPlaceForArchieRight {
 }
 
 script MeteorFalls_1F_1R_EventScript_Rival1AfterGrunts {
-	destroyfollower
-	setobjectxyperm (LOCALID_RIVAL1, 14, 17)
-	addobject (LOCALID_RIVAL1)
 	delay (20)
 	applymovement (LOCALID_RIVAL1, MeteorFalls_1F_1R_Movement_Rival1ApproachPlayer)
 	waitmovement (0)

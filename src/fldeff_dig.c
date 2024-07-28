@@ -31,7 +31,6 @@ bool8 SetUpFieldMove_Dig(void)
 
 static void FieldCallback_Dig(void)
 {
-    DestroyFollower();
     Overworld_ResetStateAfterDigEscRope();
     FieldEffectStart(FLDEFF_USE_DIG);
     gFieldEffectArguments[0] = GetCursorSelectionMonId();
