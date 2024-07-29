@@ -58,6 +58,7 @@ const u32 gBirchBagTilemap[] = INCBIN_U32("graphics/starter_choose/birch_bag.bin
 const u32 gBirchGrassTilemap[] = INCBIN_U32("graphics/starter_choose/birch_grass.bin.lz");
 const u32 gBirchBagGrass_Gfx[] = INCBIN_U32("graphics/starter_choose/tiles.4bpp.lz");
 const u32 gPokeballSelection_Gfx[] = INCBIN_U32("graphics/starter_choose/pokeball_selection.4bpp.lz");
+const u32 gCase_Gfx[] = INCBIN_U32("graphics/starter_choose/case.4bpp.lz");
 static const u32 sStarterCircle_Gfx[] = INCBIN_U32("graphics/starter_choose/starter_circle.4bpp.lz");
 
 static const struct WindowTemplate sWindowTemplates[] =
@@ -110,11 +111,42 @@ static const u8 sStarterLabelCoords[STARTER_MON_COUNT][2] =
     {8, 4},
 };
 
-static const u16 sStarterMon[STARTER_MON_COUNT] =
+static const u8 sCaseCoords[][2] =
 {
+    {30, 64},
+    {90, 88},
+    {150, 64},
+};
+
+static const u16 sStarterMon[] =
+{
+    SPECIES_BULBASAUR,
+    SPECIES_CHARMANDER,
+    SPECIES_SQUIRTLE,
+    SPECIES_CHIKORITA,
+    SPECIES_CYNDAQUIL,
+    SPECIES_TOTODILE,
     SPECIES_TREECKO,
     SPECIES_TORCHIC,
     SPECIES_MUDKIP,
+    SPECIES_TURTWIG,
+    SPECIES_CHIMCHAR,
+    SPECIES_PIPLUP,
+    SPECIES_SNIVY,
+    SPECIES_TEPIG,
+    SPECIES_OSHAWOTT,
+    SPECIES_CHESPIN,
+    SPECIES_FENNEKIN,
+    SPECIES_FROAKIE,
+    SPECIES_ROWLET,
+    SPECIES_LITTEN,
+    SPECIES_POPPLIO,
+    SPECIES_GROOKEY,
+    SPECIES_SCORBUNNY,
+    SPECIES_SOBBLE,
+    SPECIES_SPRIGATITO,
+    SPECIES_FUECOCO,
+    SPECIES_QUAXLY,
 };
 
 static const struct BgTemplate sBgTemplates[3] =
@@ -184,6 +216,23 @@ static const struct OamData sOam_Pokeball =
     .affineParam = 0,
 };
 
+static const struct OamData sOam_Case =
+{
+    .y = DISPLAY_HEIGHT,
+    .affineMode = ST_OAM_AFFINE_OFF,
+    .objMode = ST_OAM_OBJ_NORMAL,
+    .mosaic = FALSE,
+    .bpp = ST_OAM_4BPP,
+    .shape = SPRITE_SHAPE(32x32),
+    .x = 0,
+    .matrixNum = 0,
+    .size = SPRITE_SIZE(32x32),
+    .tileNum = 0,
+    .priority = 1,
+    .paletteNum = 0,
+    .affineParam = 0,
+};
+
 static const struct OamData sOam_StarterCircle =
 {
     .y = DISPLAY_HEIGHT,
@@ -217,6 +266,12 @@ static const union AnimCmd sAnim_Hand[] =
 static const union AnimCmd sAnim_Pokeball_Still[] =
 {
     ANIMCMD_FRAME(0, 30),
+    ANIMCMD_END,
+};
+
+static const union AnimCmd sAnim_Case[] =
+{
+    ANIMCMD_FRAME(64, 30),
     ANIMCMD_END,
 };
 
@@ -257,6 +312,11 @@ static const union AnimCmd * const sAnims_Pokeball[] =
 {
     sAnim_Pokeball_Still,
     sAnim_Pokeball_Moving,
+};
+
+static const union AnimCmd * const sAnims_Case[] =
+{
+    sAnim_Case,
 };
 
 static const union AnimCmd * const sAnims_StarterCircle[] =
@@ -336,6 +396,17 @@ static const struct SpriteTemplate sSpriteTemplate_Pokeball =
     .callback = SpriteCB_Pokeball
 };
 
+static const struct SpriteTemplate sSpriteTemplate_Case =
+{
+    .tileTag = TAG_POKEBALL_SELECT,
+    .paletteTag = TAG_POKEBALL_SELECT,
+    .oam = &sOam_Case,
+    .anims = sAnims_Case,
+    .images = NULL,
+    .affineAnims = gDummySpriteAffineAnimTable,
+    .callback = NULL
+};
+
 static const struct SpriteTemplate sSpriteTemplate_StarterCircle =
 {
     .tileTag = TAG_STARTER_CIRCLE,
@@ -370,6 +441,9 @@ static void VblankCB_StarterChoose(void)
 // Data for sSpriteTemplate_Pokeball
 #define sTaskId data[0]
 #define sBallId data[1]
+
+// Data for sSpriteTemplate_Case
+#define tCaseId data[2]
 
 void CB2_ChooseStarter(void)
 {
@@ -458,6 +532,16 @@ void CB2_ChooseStarter(void)
     spriteId = CreateSprite(&sSpriteTemplate_Pokeball, sPokeballCoords[2][0], sPokeballCoords[2][1], 2);
     gSprites[spriteId].sTaskId = taskId;
     gSprites[spriteId].sBallId = 2;
+
+    // Create three case sprites
+    spriteId = CreateSprite(&sSpriteTemplate_Case, sCaseCoords[0][0], sCaseCoords[0][1], 2);
+    gTasks[taskId].tCaseId = spriteId;
+    
+    spriteId = CreateSprite(&sSpriteTemplate_Case, sCaseCoords[1][0], sCaseCoords[1][1], 2);
+    gTasks[taskId].tCaseId = spriteId;
+    
+    spriteId = CreateSprite(&sSpriteTemplate_Case, sCaseCoords[2][0], sCaseCoords[2][1], 2);
+    gTasks[taskId].tCaseId = spriteId;
 
     sStarterLabelWindowId = WINDOW_NONE;
 }
