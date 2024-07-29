@@ -2018,7 +2018,7 @@ RustboroCity_EventScript_Rival2_1:
 # 1077 "data/maps/RustboroCity/scripts.pory"
 	waitmovement 0
 # 1078 "data/maps/RustboroCity/scripts.pory"
-	setvar VAR_0x8005, 2
+	setvar VAR_TEMP_3, 2
 # 1079 "data/maps/RustboroCity/scripts.pory"
 	goto RustboroCity_EventScript_RivalEncounter
 	return
@@ -2033,7 +2033,7 @@ RustboroCity_EventScript_RivalTrigger0::
 # 1083 "data/maps/RustboroCity/scripts.pory"
 	lockall
 # 1084 "data/maps/RustboroCity/scripts.pory"
-	setvar VAR_0x8005, 0
+	setvar VAR_TEMP_3, 0
 # 1085 "data/maps/RustboroCity/scripts.pory"
 	playbgm MUS_ENCOUNTER_BRENDAN, TRUE
 # 1086 "data/maps/RustboroCity/scripts.pory"
@@ -2067,7 +2067,7 @@ RustboroCity_EventScript_RivalTrigger1::
 # 1101 "data/maps/RustboroCity/scripts.pory"
 	lockall
 # 1102 "data/maps/RustboroCity/scripts.pory"
-	setvar VAR_0x8005, 0
+	setvar VAR_TEMP_3, 0
 # 1103 "data/maps/RustboroCity/scripts.pory"
 	playbgm MUS_ENCOUNTER_BRENDAN, TRUE
 # 1104 "data/maps/RustboroCity/scripts.pory"
@@ -2101,7 +2101,7 @@ RustboroCity_EventScript_RivalTrigger2::
 # 1119 "data/maps/RustboroCity/scripts.pory"
 	lockall
 # 1120 "data/maps/RustboroCity/scripts.pory"
-	setvar VAR_0x8005, 0
+	setvar VAR_TEMP_3, 0
 # 1121 "data/maps/RustboroCity/scripts.pory"
 	playbgm MUS_ENCOUNTER_BRENDAN, TRUE
 # 1122 "data/maps/RustboroCity/scripts.pory"
@@ -2135,7 +2135,7 @@ RustboroCity_EventScript_RivalTrigger3::
 # 1137 "data/maps/RustboroCity/scripts.pory"
 	lockall
 # 1138 "data/maps/RustboroCity/scripts.pory"
-	setvar VAR_0x8005, 0
+	setvar VAR_TEMP_3, 0
 # 1139 "data/maps/RustboroCity/scripts.pory"
 	playbgm MUS_ENCOUNTER_BRENDAN, TRUE
 # 1140 "data/maps/RustboroCity/scripts.pory"
@@ -2169,7 +2169,7 @@ RustboroCity_EventScript_RivalTrigger4::
 # 1155 "data/maps/RustboroCity/scripts.pory"
 	lockall
 # 1156 "data/maps/RustboroCity/scripts.pory"
-	setvar VAR_0x8005, 0
+	setvar VAR_TEMP_3, 0
 # 1157 "data/maps/RustboroCity/scripts.pory"
 	playbgm MUS_ENCOUNTER_BRENDAN, TRUE
 # 1158 "data/maps/RustboroCity/scripts.pory"
@@ -2203,7 +2203,7 @@ RustboroCity_EventScript_RivalTrigger5::
 # 1173 "data/maps/RustboroCity/scripts.pory"
 	lockall
 # 1174 "data/maps/RustboroCity/scripts.pory"
-	setvar VAR_0x8005, 0
+	setvar VAR_TEMP_3, 0
 # 1175 "data/maps/RustboroCity/scripts.pory"
 	playbgm MUS_ENCOUNTER_BRENDAN, TRUE
 # 1176 "data/maps/RustboroCity/scripts.pory"
@@ -2237,7 +2237,7 @@ RustboroCity_EventScript_RivalTrigger6::
 # 1191 "data/maps/RustboroCity/scripts.pory"
 	lockall
 # 1192 "data/maps/RustboroCity/scripts.pory"
-	setvar VAR_0x8005, 0
+	setvar VAR_TEMP_3, 0
 # 1193 "data/maps/RustboroCity/scripts.pory"
 	playbgm MUS_ENCOUNTER_BRENDAN, TRUE
 # 1194 "data/maps/RustboroCity/scripts.pory"
@@ -2271,7 +2271,7 @@ RustboroCity_EventScript_RivalTrigger7::
 # 1209 "data/maps/RustboroCity/scripts.pory"
 	lockall
 # 1210 "data/maps/RustboroCity/scripts.pory"
-	setvar VAR_0x8005, 7
+	setvar VAR_TEMP_3, 7
 # 1211 "data/maps/RustboroCity/scripts.pory"
 	playbgm MUS_ENCOUNTER_BRENDAN, TRUE
 # 1212 "data/maps/RustboroCity/scripts.pory"
@@ -2303,7 +2303,7 @@ RustboroCity_EventScript_RivalTrigger7::
 
 RustboroCity_EventScript_RivalEncounter::
 # 1227 "data/maps/RustboroCity/scripts.pory"
-	compare VAR_0x8005, 2
+	compare VAR_TEMP_3, 2
 	goto_if_eq RustboroCity_EventScript_RivalEncounter_2
 # 1231 "data/maps/RustboroCity/scripts.pory"
 	msgbox RustboroCity_Text_YouThoughtYoudWalkBy, MSGBOX_DEFAULT
@@ -2322,7 +2322,7 @@ RustboroCity_EventScript_RivalEncounter_5:
 # 1242 "data/maps/RustboroCity/scripts.pory"
 	delay 20
 # 1243 "data/maps/RustboroCity/scripts.pory"
-	compare VAR_0x8005, 2
+	compare VAR_TEMP_3, 2
 	goto_if_eq RustboroCity_EventScript_RivalEncounter_11
 # 1259 "data/maps/RustboroCity/scripts.pory"
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_BeginTalkUp
@@ -2338,7 +2338,7 @@ RustboroCity_EventScript_RivalEncounter_10:
 # 1265 "data/maps/RustboroCity/scripts.pory"
 	delay 20
 # 1266 "data/maps/RustboroCity/scripts.pory"
-	compare VAR_0x8005, 2
+	compare VAR_TEMP_3, 2
 	goto_if_eq RustboroCity_EventScript_RivalEncounter_15
 # 1282 "data/maps/RustboroCity/scripts.pory"
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_BeginTalkUp
@@ -2352,7 +2352,7 @@ RustboroCity_EventScript_RivalEncounter_14:
 # 1287 "data/maps/RustboroCity/scripts.pory"
 	closemessage
 # 1288 "data/maps/RustboroCity/scripts.pory"
-	switch VAR_0x8005
+	switch VAR_TEMP_3
 # 1289 "data/maps/RustboroCity/scripts.pory"
 	case 2, RustboroCity_EventScript_RivalEncounter_29
 # 1291 "data/maps/RustboroCity/scripts.pory"
@@ -2367,7 +2367,7 @@ RustboroCity_EventScript_RivalEncounter_27:
 # 1298 "data/maps/RustboroCity/scripts.pory"
 	closemessage
 # 1299 "data/maps/RustboroCity/scripts.pory"
-	compare VAR_0x8005, 2
+	compare VAR_TEMP_3, 2
 	goto_if_eq RustboroCity_EventScript_RivalEncounter_42
 # 1303 "data/maps/RustboroCity/scripts.pory"
 	applymovement 14, RustboroCity_Movement_RivalGoToDevonTriggered
