@@ -226,7 +226,6 @@ script MeteorFalls_1F_1R_EventScript_MagmaStealsMeteoriteScene {
 	setflag (FLAG_HIDE_FALLARBOR_TOWN_BATTLE_TENT_SCOTT)
 	setflag (FLAG_MET_PROF_COZMO)
 	setvar (VAR_METEOR_FALLS_STATE, 4)
-	call (EndOfDemo) //DEMO
 	releaseall
 	end
 }
