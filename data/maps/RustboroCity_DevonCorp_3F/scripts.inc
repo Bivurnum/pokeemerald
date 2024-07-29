@@ -379,7 +379,7 @@ RustboroCity_DevonCorp_3F_EventScript_GiveExpShare::
 # 190 "data/maps/RustboroCity_DevonCorp_3F/scripts.pory"
 	msgbox RustboroCity_DevonCorp_3F_Text_ThankYouForDeliveringLetter, MSGBOX_DEFAULT
 # 191 "data/maps/RustboroCity_DevonCorp_3F/scripts.pory"
-	giveitem ITEM_EXP_SHARE
+	giveitem ITEM_FOCUS_SASH
 # 192 "data/maps/RustboroCity_DevonCorp_3F/scripts.pory"
 	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_ShowBagIsFull
 # 193 "data/maps/RustboroCity_DevonCorp_3F/scripts.pory"

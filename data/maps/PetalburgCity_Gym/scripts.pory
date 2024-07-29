@@ -93,6 +93,10 @@ PetalburgCity_Gym_EventScript_ReturnFromWallyTutorial::
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterUp
 	waitmovement 0
 	msgbox PetalburgCity_Gym_Text_DadGoCollectBadges, MSGBOX_DEFAULT
+	msgbox PetalburgCity_Gym_Text_TakeThisWithYou, MSGBOX_DEFAULT
+	giveitem ITEM_EXP_SHARE
+	setflag FLAG_SYS_EXP_SHARE
+	msgbox PetalburgCity_Gym_Text_TakeCare, MSGBOX_AUTOCLOSE
 	setvar VAR_PETALBURG_GYM_STATE, 2
 	setvar VAR_0x8005 69
 	clearflag FLAG_HIDE_PETALBURG_RIVAL2
@@ -105,7 +109,18 @@ PetalburgCity_Gym_Movement_WallyExitGym:
 	walk_down
 	delay_16
 	step_end
+`
 
+text PetalburgCity_Gym_Text_TakeThisWithYou {
+	format ("Take this with you.\n"
+		"It should help you train.")
+}
+
+text PetalburgCity_Gym_Text_TakeCare {
+	format ("Take care, {PLAYER}.")
+}
+
+raw `
 PetalburgCity_Gym_EventScript_Norman::
 	lock
 	faceplayer
