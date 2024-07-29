@@ -139,7 +139,7 @@ static const u16 sPylonPole_Tilemap[] = INCBIN_U16("graphics/cable_car/pylon_pol
 
 static const struct CompressedSpriteSheet sSpriteSheets[] = {
     { gCableCar_Gfx,      0x800, TAG_CABLE_CAR },
-    { gCableCarDoor_Gfx,   0x40, TAG_DOOR },
+    { gCableCarDoor_Gfx,   0x200, TAG_DOOR },
     { gCableCarCable_Gfx,  0x80, TAG_CABLE },
     { },
 };
@@ -169,9 +169,9 @@ static const struct OamData sOam_CableCarDoor =
     .affineMode = ST_OAM_AFFINE_DOUBLE,
     .objMode = ST_OAM_OBJ_NORMAL,
     .bpp = ST_OAM_4BPP,
-    .shape = SPRITE_SHAPE(16x8),
+    .shape = SPRITE_SHAPE(32x32),
     .x = 0,
-    .size = SPRITE_SIZE(16x8),
+    .size = SPRITE_SIZE(32x32),
     .tileNum = 0,
     .priority = 2,
     .paletteNum = 0,
@@ -789,7 +789,7 @@ static void CreateCableCarSprites(void)
 {
     u8 spriteId;
     u8 i;
-    u8 rival = gSaveBlock2Ptr->friendChoice + 1;
+    u8 rival = 0;
 
     u16 playerGraphicsIds[3] = {
         [KYLE]   = OBJ_EVENT_GFX_KYLE_NORMAL,
@@ -813,8 +813,17 @@ static void CreateCableCarSprites(void)
         SpriteCB_HikerGoingDown
     };
 
-    if (gSaveBlock2Ptr->friendChoice == SPENCER) {
-        rival = 0;
+    switch (gSaveBlock2Ptr->friendChoice) {
+        case SPENCER:
+        break;
+
+        case BREN:
+        rival = 2;
+        break;
+
+        case KYLE:
+        rival = 1;
+        break;
     }
 
     switch (GOING_DOWN)
@@ -829,18 +838,18 @@ static void CreateCableCarSprites(void)
                     gSprites[spriteId].oam.priority = 2;
                     gSprites[spriteId].x2 = 8;
                     gSprites[spriteId].y2 = 16;
-                    gSprites[spriteId].sXPos = 205;
+                    gSprites[spriteId].sXPos = 203;
                     gSprites[spriteId].sYPos = 73;
-
-                    spriteId = CreateObjectGraphicsSprite(playerGraphicsIds[rival], SpriteCB_Player, 200, 73, 102);
+                    // Create Rival2 sprite
+                    spriteId = CreateObjectGraphicsSprite(playerGraphicsIds[rival], SpriteCB_Player, 193, 72, 102);
                     gSprites[spriteId].oam.priority = 2;
                     gSprites[spriteId].x2 = 8;
                     gSprites[spriteId].y2 = 16;
-                    gSprites[spriteId].sXPos = 195;
-                    gSprites[spriteId].sYPos = 73;
+                    gSprites[spriteId].sXPos = 193;
+                    gSprites[spriteId].sYPos = 72;
                 }
                 else {
-                    gSprites[spriteId].oam.priority = 3;
+                    gSprites[spriteId].oam.priority = 2;
                     gSprites[spriteId].x2 = 8;
                     gSprites[spriteId].y2 = 16;
                     gSprites[spriteId].sXPos = 200;
@@ -853,11 +862,11 @@ static void CreateCableCarSprites(void)
             gSprites[spriteId].sXPos = 176;
             gSprites[spriteId].sYPos = 43;
             // Create door sprite
-            spriteId = CreateSprite(&sSpriteTemplates_CableCar[1], 200, 99, 0x65);
+            spriteId = CreateSprite(&sSpriteTemplates_CableCar[1], 200, 87, 0x65);
             gSprites[spriteId].x2 = 8;
             gSprites[spriteId].y2 = 4;
             gSprites[spriteId].sXPos = 200;
-            gSprites[spriteId].sYPos = 99;
+            gSprites[spriteId].sYPos = 87;
             // Init weather
             sCableCar->weather = WEATHER_VOLCANIC_ASH;
             sCableCar->weatherDelay = 350;
@@ -866,7 +875,7 @@ static void CreateCableCarSprites(void)
         case TRUE:
             CopyToBgTilemapBufferRect_ChangePalette(0, sCableCar->groundTilemap + 0x24, 24, 26, 12, 3, 17);
             // Create player sprite
-            spriteId = CreateObjectGraphicsSprite(playerGraphicsIds[gSaveBlock2Ptr->playerGender], SpriteCB_Player, 128, 39, 102);
+            spriteId = CreateObjectGraphicsSprite(playerGraphicsIds[gSaveBlock2Ptr->friendChoice], SpriteCB_Player, 128, 39, 102);
             if (spriteId != MAX_SPRITES)
             {
                 gSprites[spriteId].oam.priority = 2;
@@ -881,11 +890,11 @@ static void CreateCableCarSprites(void)
             gSprites[spriteId].sXPos = 104;
             gSprites[spriteId].sYPos = 9;
             // Create door sprite
-            spriteId = CreateSprite(&sSpriteTemplates_CableCar[1], 128, 65, 0x65);
+            spriteId = CreateSprite(&sSpriteTemplates_CableCar[1], 128, 53, 0x65);
             gSprites[spriteId].x2 = 8;
             gSprites[spriteId].y2 = 4;
             gSprites[spriteId].sXPos = 128;
-            gSprites[spriteId].sYPos = 65;
+            gSprites[spriteId].sYPos = 53;
             // Init weather
             sCableCar->weather = WEATHER_SUNNY;
             sCableCar->weatherDelay = 265;

@@ -30,7 +30,23 @@ Route112_CableCarStation_EventScript_ExitCableCar::
 	setobjectmovementtype LOCALID_ATTENDANT, MOVEMENT_TYPE_FACE_DOWN
 	releaseall
 	end
+`
 
+script Route112_CableCarStation_EventScript_ToggleCableCarRival {
+	lock
+	if (flag(FLAG_RIVAL2_CABLE_CAR) == FALSE) {
+		msgbox ("Rival will ride.", MSGBOX_AUTOCLOSE)
+		setflag (FLAG_RIVAL2_CABLE_CAR)
+	}
+	else {
+		msgbox ("No more Rival.", MSGBOX_AUTOCLOSE)
+		clearflag (FLAG_RIVAL2_CABLE_CAR)
+	}
+	release
+	end
+}
+
+raw `
 Route112_CableCarStation_EventScript_Attendant::
 	lock
 	faceplayer
