@@ -683,7 +683,7 @@
 #define FLAG_HIDE_DIG_HOUSE_RIVAL2              0x280
 #define FLAG_HIDDEN_ITEM_MANIAC_BIG_NUGGET      0x281
 #define FLAG_HIDE_METEOR_FALLS_RIVAL1           0x282
-#define FLAG_UNUSED_0x283  0x283 // Unused Flag
+#define FLAG_RIVAL2_CABLE_CAR                   0x283
 #define FLAG_UNUSED_0x284  0x284 // Unused Flag
 #define FLAG_UNUSED_0x285  0x285 // Unused Flag
 #define FLAG_UNUSED_0x286  0x286 // Unused Flag

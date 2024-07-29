@@ -184,6 +184,13 @@ script Route113_EventScript_RevealRival2Trigger {
 	setobjectmovementtype (LOCALID_RIVAL2, MOVEMENT_TYPE_BURIED)
 	addobject (LOCALID_RIVAL2)
 	clearflag (FLAG_HIDE_ROUTE_113_RIVAL2)
+	getplayerxy (VAR_0x8003, VAR_0x8004)
+	if (var(VAR_0x8003) == 30) {
+		applymovement (OBJ_EVENT_ID_PLAYER, Common_Movement_FaceLeft)
+	}
+	else {
+		applymovement (OBJ_EVENT_ID_PLAYER, Common_Movement_FaceUp)
+	}
 	applymovement (LOCALID_RIVAL2, Route113_Movement_Rival2Reveal)
 	waitmovement (0)
 	rival2talk (Route113_Text_SpencerDidIStartleYou,

@@ -108,27 +108,27 @@ MeteorFalls_1F_1R_EventScript_MagmaStealsMeteoriteScene::
 # 131 "data/maps/MeteorFalls_1F_1R/scripts.pory"
 	lockall
 # 132 "data/maps/MeteorFalls_1F_1R/scripts.pory"
-	playbgm MUS_ENCOUNTER_MAGMA, FALSE
-# 133 "data/maps/MeteorFalls_1F_1R/scripts.pory"
 	removeobject 11
-# 134 "data/maps/MeteorFalls_1F_1R/scripts.pory"
+# 133 "data/maps/MeteorFalls_1F_1R/scripts.pory"
 	setobjectxyperm 11, 22, 18
-# 135 "data/maps/MeteorFalls_1F_1R/scripts.pory"
+# 134 "data/maps/MeteorFalls_1F_1R/scripts.pory"
 	addobject 11
-# 136 "data/maps/MeteorFalls_1F_1R/scripts.pory"
+# 135 "data/maps/MeteorFalls_1F_1R/scripts.pory"
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceDown
-# 137 "data/maps/MeteorFalls_1F_1R/scripts.pory"
+# 136 "data/maps/MeteorFalls_1F_1R/scripts.pory"
 	applymovement 11, MeteorFalls_1F_1R_Movement_Rival1WalkIn
+# 137 "data/maps/MeteorFalls_1F_1R/scripts.pory"
+	waitmovement 0
 # 138 "data/maps/MeteorFalls_1F_1R/scripts.pory"
-	waitmovement 0
-# 139 "data/maps/MeteorFalls_1F_1R/scripts.pory"
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_FaceRight
-# 140 "data/maps/MeteorFalls_1F_1R/scripts.pory"
+# 139 "data/maps/MeteorFalls_1F_1R/scripts.pory"
 	waitmovement 0
-# 141 "data/maps/MeteorFalls_1F_1R/scripts.pory"
+# 140 "data/maps/MeteorFalls_1F_1R/scripts.pory"
 	rival1talk MeteorFalls_1F_1R_Text_SpencerWhatsGoingOn, MeteorFalls_1F_1R_Text_BrenWhatsGoingOn, MeteorFalls_1F_1R_Text_KyleWhatsGoingOn
-# 144 "data/maps/MeteorFalls_1F_1R/scripts.pory"
+# 143 "data/maps/MeteorFalls_1F_1R/scripts.pory"
 	closemessage
+# 144 "data/maps/MeteorFalls_1F_1R/scripts.pory"
+	playbgm MUS_ENCOUNTER_MAGMA, FALSE
 # 145 "data/maps/MeteorFalls_1F_1R/scripts.pory"
 	special SpawnCameraObject
 # 146 "data/maps/MeteorFalls_1F_1R/scripts.pory"

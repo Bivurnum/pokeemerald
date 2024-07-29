@@ -789,6 +789,7 @@ static void CreateCableCarSprites(void)
 {
     u8 spriteId;
     u8 i;
+    u8 rival = gSaveBlock2Ptr->friendChoice + 1;
 
     u16 playerGraphicsIds[3] = {
         [KYLE]   = OBJ_EVENT_GFX_KYLE_NORMAL,
@@ -812,19 +813,39 @@ static void CreateCableCarSprites(void)
         SpriteCB_HikerGoingDown
     };
 
+    if (gSaveBlock2Ptr->friendChoice == SPENCER) {
+        rival = 0;
+    }
+
     switch (GOING_DOWN)
     {
         case FALSE:
         default:
             // Create player sprite
-            spriteId = CreateObjectGraphicsSprite(playerGraphicsIds[gSaveBlock2Ptr->playerGender], SpriteCB_Player, 200, 73, 102);
+            spriteId = CreateObjectGraphicsSprite(playerGraphicsIds[gSaveBlock2Ptr->friendChoice], SpriteCB_Player, 200, 73, 102);
             if (spriteId != MAX_SPRITES)
             {
-                gSprites[spriteId].oam.priority = 2;
-                gSprites[spriteId].x2 = 8;
-                gSprites[spriteId].y2 = 16;
-                gSprites[spriteId].sXPos = 200;
-                gSprites[spriteId].sYPos = 73;
+                if (FlagGet(FLAG_RIVAL2_CABLE_CAR)) {
+                    gSprites[spriteId].oam.priority = 2;
+                    gSprites[spriteId].x2 = 8;
+                    gSprites[spriteId].y2 = 16;
+                    gSprites[spriteId].sXPos = 205;
+                    gSprites[spriteId].sYPos = 73;
+
+                    spriteId = CreateObjectGraphicsSprite(playerGraphicsIds[rival], SpriteCB_Player, 200, 73, 102);
+                    gSprites[spriteId].oam.priority = 2;
+                    gSprites[spriteId].x2 = 8;
+                    gSprites[spriteId].y2 = 16;
+                    gSprites[spriteId].sXPos = 195;
+                    gSprites[spriteId].sYPos = 73;
+                }
+                else {
+                    gSprites[spriteId].oam.priority = 3;
+                    gSprites[spriteId].x2 = 8;
+                    gSprites[spriteId].y2 = 16;
+                    gSprites[spriteId].sXPos = 200;
+                    gSprites[spriteId].sYPos = 73;
+                }
             }
             // Create car sprite
             spriteId = CreateSprite(&sSpriteTemplates_CableCar[0], 176, 43, 0x67);

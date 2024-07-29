@@ -129,7 +129,6 @@ text MeteorFalls_1F_1R_Text_KyleYouCanClearGhosts {
 
 script MeteorFalls_1F_1R_EventScript_MagmaStealsMeteoriteScene {
 	lockall
-	playbgm (MUS_ENCOUNTER_MAGMA, FALSE)
 	removeobject (LOCALID_RIVAL1)
 	setobjectxyperm (LOCALID_RIVAL1, 22, 18)
 	addobject (LOCALID_RIVAL1)
@@ -142,6 +141,7 @@ script MeteorFalls_1F_1R_EventScript_MagmaStealsMeteoriteScene {
 				MeteorFalls_1F_1R_Text_BrenWhatsGoingOn,
 				MeteorFalls_1F_1R_Text_KyleWhatsGoingOn)
 	closemessage
+	playbgm (MUS_ENCOUNTER_MAGMA, FALSE)
 	special (SpawnCameraObject)
 	playse (SE_PIN)
 	applymovement (OBJ_EVENT_ID_PLAYER, Common_Movement_FaceDown)
