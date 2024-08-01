@@ -1,24 +1,34 @@
+const LOCALID_ARCHIE = 1
+const LOCALID_MAXIE = 2
+const LOCALID_TABITHA = 3
+const LOCALID_MAGMA_GRUNT_2 = 22
+const LOCALID_MAGMA_GRUNT_1 = 29
+
 raw `
 .set LOCALID_ARCHIE, 1
 .set LOCALID_MAXIE, 2
 .set LOCALID_TABITHA, 3
 .set LOCALID_MAGMA_GRUNT_2, 22
 .set LOCALID_MAGMA_GRUNT_1, 29
+`
 
+mapscripts MtChimney_MapScripts {
+	MAP_SCRIPT_ON_RESUME {
+		setstepcallback (STEP_CB_ASH)
+	}
+	MAP_SCRIPT_ON_TRANSITION {
+		setvar (VAR_JAGGED_PASS_ASH_WEATHER, 1)
+	}
+	MAP_SCRIPT_ON_FRAME_TABLE [
+		VAR_METEOR_FALLS_STATE, 5: MtChimney_EventScript_Rival2AfterCableCar
+	]
+}
 
-MtChimney_MapScripts::
-	map_script MAP_SCRIPT_ON_RESUME, MtChimney_OnResume
-	map_script MAP_SCRIPT_ON_TRANSITION, MtChimney_OnTransition
-	.byte 0
+script MtChimney_EventScript_Rival2AfterCableCar {
+	
+}
 
-MtChimney_OnTransition:
-	setvar VAR_JAGGED_PASS_ASH_WEATHER, 1
-	end
-
-MtChimney_OnResume:
-	setstepcallback STEP_CB_ASH
-	end
-
+raw `
 MtChimney_EventScript_Archie::
 	lock
 	faceplayer

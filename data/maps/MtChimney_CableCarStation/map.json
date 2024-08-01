@@ -71,7 +71,24 @@
     }
   ],
   "coord_events": [
-
+    {
+      "type": "trigger",
+      "x": 6,
+      "y": 11,
+      "elevation": 0,
+      "var": "VAR_METEOR_FALLS_STATE",
+      "var_value": "5",
+      "script": "MtChimney_CableCarStation_EventScript_LeftDoorTrigger"
+    },
+    {
+      "type": "trigger",
+      "x": 7,
+      "y": 11,
+      "elevation": 0,
+      "var": "VAR_METEOR_FALLS_STATE",
+      "var_value": "5",
+      "script": "MtChimney_CableCarStation_EventScript_RightDoorTrigger"
+    }
   ],
   "bg_events": [
 
