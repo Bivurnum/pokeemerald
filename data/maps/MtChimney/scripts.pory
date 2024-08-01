@@ -3,6 +3,8 @@ const LOCALID_MAXIE = 2
 const LOCALID_TABITHA = 3
 const LOCALID_MAGMA_GRUNT_2 = 22
 const LOCALID_MAGMA_GRUNT_1 = 29
+const LOCALID_RIVAL1 = 31
+const LOCALID_RIVAL2 = 32
 
 raw `
 .set LOCALID_ARCHIE, 1
@@ -10,6 +12,8 @@ raw `
 .set LOCALID_TABITHA, 3
 .set LOCALID_MAGMA_GRUNT_2, 22
 .set LOCALID_MAGMA_GRUNT_1, 29
+.set LOCALID_RIVAL1, 31
+.set LOCALID_RIVAL2, 32
 `
 
 mapscripts MtChimney_MapScripts {
@@ -18,6 +22,9 @@ mapscripts MtChimney_MapScripts {
 	}
 	MAP_SCRIPT_ON_TRANSITION {
 		setvar (VAR_JAGGED_PASS_ASH_WEATHER, 1)
+		if (var(VAR_LITTLEROOT_RIVAL_STATE) == 21) {
+			setobjectxyperm (LOCALID_RIVAL2, 18, 37)
+		}
 	}
 	MAP_SCRIPT_ON_FRAME_TABLE [
 		VAR_METEOR_FALLS_STATE, 5: MtChimney_EventScript_Rival2AfterCableCar
@@ -25,7 +32,63 @@ mapscripts MtChimney_MapScripts {
 }
 
 script MtChimney_EventScript_Rival2AfterCableCar {
-	
+	lockall
+	playse (SE_PIN)
+	applymovement (OBJ_EVENT_ID_PLAYER, Common_Movement_ExclamationMark)
+	applymovement (LOCALID_RIVAL2, Common_Movement_ExclamationMark)
+	waitmovement (0)
+	applymovement (OBJ_EVENT_ID_PLAYER, Common_Movement_FaceRight)
+	applymovement (LOCALID_RIVAL2, Common_Movement_FaceRight)
+	waitmovement (0)
+	special (SpawnCameraObject)
+	delay (10)
+	applymovement (OBJ_EVENT_ID_CAMERA, MtChimney_Movement_CameraPanBackAndForth)
+	waitmovement (0)
+	special (RemoveCameraObject)
+	call_if_eq (VAR_LITTLEROOT_RIVAL_STATE, 21, MtChimney_EventScript_LeftRival2Talk)
+	call_if_eq (VAR_LITTLEROOT_RIVAL_STATE, 22, MtChimney_EventScript_RightRival2Talk)
+	waitmovement (0)
+	rival2talk (MtChimney_Text_SpencerFigureOutWhatsGoingOn,
+				MtChimney_Text_BrenFigureOutWhatsGoingOn,
+				MtChimney_Text_KyleFigureOutWhatsGoingOn)
+	closemessage
+
+	setvar (VAR_LITTLEROOT_RIVAL_STATE, 23)
+	releaseall
+	end
+}
+
+script MtChimney_EventScript_LeftRival2Talk {
+	applymovement (LOCALID_RIVAL2, Common_Movement_WalkInPlaceFasterLeft)
+}
+
+script MtChimney_EventScript_RightRival2Talk {
+	applymovement (OBJ_EVENT_ID_PLAYER, Common_Movement_FaceLeft)
+	applymovement (LOCALID_RIVAL2, Common_Movement_WalkInPlaceFasterRight)
+}
+
+movement MtChimney_Movement_CameraPanBackAndForth {
+	walk_slow_right * 3
+	delay_16 * 6
+	walk_slow_left * 3
+}
+
+text MtChimney_Text_SpencerFigureOutWhatsGoingOn {
+	format ("Whoa!\N"
+		"Things are pretty serious here.\p"
+		"Let's go figure out what's going on!")
+}
+
+text MtChimney_Text_BrenFigureOutWhatsGoingOn {
+	format ("Whoa!\N"
+		"Things are pretty serious here.\p"
+		"Let's go figure out what's going on!")
+}
+
+text MtChimney_Text_KyleFigureOutWhatsGoingOn {
+	format ("Whoa!\N"
+		"Things are pretty serious here.\p"
+		"Let's go figure out what's going on!")
 }
 
 raw `
@@ -442,7 +505,14 @@ MtChimney_EventScript_BusyMagmaGrunt5::
 MtChimney_EventScript_BusyMagmaGrunt6::
 	msgbox MtChimney_Text_KeepMakingMoreLand, MSGBOX_SIGN
 	end
+`
 
+script MtChimney_EventScript_BusyMagmaGrunt7 {
+	msgbox (MtChimney_Text_DidntExpectKid, MSGBOX_SIGN)
+	end
+}
+
+raw `
 MtChimney_EventScript_MagmaPoochyena::
 	msgbox MtChimney_Text_Bufoh, MSGBOX_SIGN
 	end
@@ -857,3 +927,8 @@ MtChimney_Text_SawyerPostRematch:
 	.string "I'm overdressed for these parts.$"
 
 `
+
+text MtChimney_Text_DidntExpectKid {
+	format ("I didn't expect to battle a kid.\N"
+		"How is he so strong?!")
+}
