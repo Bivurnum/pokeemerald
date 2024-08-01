@@ -60,11 +60,14 @@ script MtChimney_CableCarStation_EventScript_ExitCableCarWithRival2 {
 
 script MtChimney_CableCarStation_EventScript_LeftDoorTrigger {
 	lock
-	setvar ()
+	setvar (VAR_LITTLEROOT_RIVAL_STATE, 21)
+	release
 }
 
 script MtChimney_CableCarStation_EventScript_RightDoorTrigger {
-	
+	lock
+	setvar (VAR_LITTLEROOT_RIVAL_STATE, 22)
+	release
 }
 
 movement Route112_CableCarStation_Movement_ExitCableCarWithRival2 {
