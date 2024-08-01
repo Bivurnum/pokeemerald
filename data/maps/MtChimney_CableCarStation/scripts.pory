@@ -1,35 +1,100 @@
+const LOCALID_ATTENDANT = 1
+const LOCALID_RIVAL2 = 3
+
 raw `
 .set LOCALID_ATTENDANT, 1
+.set LOCALID_RIVAL2, 3
+`
 
-MtChimney_CableCarStation_MapScripts::
-	map_script MAP_SCRIPT_ON_TRANSITION, MtChimney_CableCarStation_OnTransition
-	map_script MAP_SCRIPT_ON_FRAME_TABLE, MtChimney_CableCarStation_OnFrame
-	.byte 0
+mapscripts MtChimney_CableCarStation_MapScripts {
+	MAP_SCRIPT_ON_TRANSITION {
+		call_if_eq (VAR_CABLE_CAR_STATION_STATE, 1, MtChimney_CableCarStation_EventScript_MoveAttendantAside)
+	}
+	MAP_SCRIPT_ON_FRAME_TABLE [
+		VAR_CABLE_CAR_STATION_STATE, 1: MtChimney_CableCarStation_EventScript_ExitCableCar
+	]
+}
 
-MtChimney_CableCarStation_OnTransition:
-	call_if_eq VAR_CABLE_CAR_STATION_STATE, 1, MtChimney_CableCarStation_EventScript_MoveAttendantAside
-	end
-
-MtChimney_CableCarStation_EventScript_MoveAttendantAside::
-	setobjectxyperm LOCALID_ATTENDANT, 5, 4
-	setobjectmovementtype LOCALID_ATTENDANT, MOVEMENT_TYPE_FACE_RIGHT
+script MtChimney_CableCarStation_EventScript_MoveAttendantAside {
+	setobjectxyperm (LOCALID_ATTENDANT, 5, 4)
+	setobjectmovementtype (LOCALID_ATTENDANT, MOVEMENT_TYPE_FACE_RIGHT)
 	return
+}
 
-MtChimney_CableCarStation_OnFrame:
-	map_script_2 VAR_CABLE_CAR_STATION_STATE, 1, MtChimney_CableCarStation_EventScript_ExitCableCar
-	.2byte 0
-
-MtChimney_CableCarStation_EventScript_ExitCableCar::
+script MtChimney_CableCarStation_EventScript_ExitCableCar {
 	lockall
-	applymovement OBJ_EVENT_ID_PLAYER, MtChimney_CableCarStation_Movement_ExitCableCar
-	applymovement LOCALID_ATTENDANT, MtChimney_CableCarStation_Movement_FollowPlayerOutFromCableCar
-	waitmovement 0
-	setvar VAR_CABLE_CAR_STATION_STATE, 0
-	setobjectxyperm LOCALID_ATTENDANT, 6, 7
-	setobjectmovementtype LOCALID_ATTENDANT, MOVEMENT_TYPE_FACE_DOWN
+	goto_if_set (FLAG_RIVAL2_CABLE_CAR, MtChimney_CableCarStation_EventScript_ExitCableCarWithRival2)
+	applymovement (OBJ_EVENT_ID_PLAYER, MtChimney_CableCarStation_Movement_ExitCableCar)
+	applymovement (LOCALID_ATTENDANT, MtChimney_CableCarStation_Movement_FollowPlayerOutFromCableCar)
+	waitmovement (0)
+	setvar (VAR_CABLE_CAR_STATION_STATE, 0)
+	setobjectxyperm (LOCALID_ATTENDANT, 6, 7)
+	setobjectmovementtype (LOCALID_ATTENDANT, MOVEMENT_TYPE_FACE_DOWN)
 	releaseall
 	end
+}
 
+script MtChimney_CableCarStation_EventScript_ExitCableCarWithRival2 {
+	applymovement (OBJ_EVENT_ID_PLAYER, Route112_CableCarStation_Movement_ExitCableCarWithRival2)
+	applymovement (LOCALID_ATTENDANT, Route112_CableCarStation_Movement_FollowPlayerOutFromCableCarAfterRival2)
+	applymovement (LOCALID_RIVAL2, Route112_CableCarStation_Movement_Rival2ExitCableCar)
+	waitmovement (0)
+	rival2talk (Route112_CableCarStation_Text_SpencerGoSeeWhatsGoingOn,
+				Route112_CableCarStation_Text_BrenGoSeeWhatsGoingOn,
+				Route112_CableCarStation_Text_KyleGoSeeWhatsGoingOn)
+	closemessage
+	delay (20)
+	applymovement (OBJ_EVENT_ID_PLAYER, Common_Movement_FaceDown)
+	applymovement (LOCALID_RIVAL2, Route112_CableCarStation_Movement_Rival2LeaveStation)
+	waitmovement (0)
+	playse (SE_EXIT)
+	removeobject (LOCALID_RIVAL2)
+	waitse
+	setvar (VAR_CABLE_CAR_STATION_STATE, 0)
+	clearflag (FLAG_RIVAL2_CABLE_CAR)
+	setobjectxyperm (LOCALID_ATTENDANT, 6, 7)
+	setobjectmovementtype (LOCALID_ATTENDANT, MOVEMENT_TYPE_FACE_DOWN)
+	releaseall
+	end
+}
+
+movement Route112_CableCarStation_Movement_ExitCableCarWithRival2 {
+	walk_down * 4
+	walk_right
+	walk_in_place_faster_left
+}
+
+movement Route112_CableCarStation_Movement_Rival2ExitCableCar {
+	delay_16
+	set_visible
+	walk_down * 4
+	walk_in_place_faster_right
+}
+
+movement Route112_CableCarStation_Movement_FollowPlayerOutFromCableCarAfterRival2 {
+	delay_16 * 2
+	walk_right
+	walk_down * 2
+}
+
+movement Route112_CableCarStation_Movement_Rival2LeaveStation {
+	walk_down * 3
+	delay_16
+}
+
+text Route112_CableCarStation_Text_SpencerGoSeeWhatsGoingOn {
+	format ("Let's go see what's going on up here!")
+}
+
+text Route112_CableCarStation_Text_BrenGoSeeWhatsGoingOn {
+	format ("Let's go see what's going on up here!")
+}
+
+text Route112_CableCarStation_Text_KyleGoSeeWhatsGoingOn {
+	format ("Let's go see what's going on up here!")
+}
+
+raw `
 MtChimney_CableCarStation_EventScript_Attendant::
 	lock
 	faceplayer

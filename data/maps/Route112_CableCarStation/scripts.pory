@@ -1,49 +1,178 @@
+const LOCALID_ATTENDANT = 1
+const LOCALID_RIVAL2 = 3
+
 raw `
 .set LOCALID_ATTENDANT, 1
-
-Route112_CableCarStation_MapScripts::
-	map_script MAP_SCRIPT_ON_TRANSITION, Route112_CableCarStation_OnTransition
-	map_script MAP_SCRIPT_ON_FRAME_TABLE, Route112_CableCarStation_OnFrame
-	.byte 0
-
-Route112_CableCarStation_OnTransition:
-	setescapewarp MAP_ROUTE112, 28, 28
-	call_if_eq VAR_CABLE_CAR_STATION_STATE, 2, Route112_CableCarStation_EventScript_MoveAttendantAside
-	end
-
-Route112_CableCarStation_EventScript_MoveAttendantAside::
-	setobjectxyperm LOCALID_ATTENDANT, 7, 4
-	setobjectmovementtype LOCALID_ATTENDANT, MOVEMENT_TYPE_FACE_LEFT
-	return
-
-Route112_CableCarStation_OnFrame:
-	map_script_2 VAR_CABLE_CAR_STATION_STATE, 2, Route112_CableCarStation_EventScript_ExitCableCar
-	.2byte 0
-
-Route112_CableCarStation_EventScript_ExitCableCar::
-	lockall
-	applymovement OBJ_EVENT_ID_PLAYER, Route112_CableCarStation_Movement_ExitCableCar
-	applymovement LOCALID_ATTENDANT, Route112_CableCarStation_Movement_FollowPlayerOutFromCableCar
-	waitmovement 0
-	setvar VAR_CABLE_CAR_STATION_STATE, 0
-	setobjectxyperm LOCALID_ATTENDANT, 6, 7
-	setobjectmovementtype LOCALID_ATTENDANT, MOVEMENT_TYPE_FACE_DOWN
-	releaseall
-	end
+.set LOCALID_RIVAL2, 3
 `
 
-script Route112_CableCarStation_EventScript_ToggleCableCarRival {
+mapscripts Route112_CableCarStation_MapScripts {
+	MAP_SCRIPT_ON_TRANSITION {
+		setescapewarp (MAP_ROUTE112, 28, 28)
+		call_if_eq (VAR_CABLE_CAR_STATION_STATE, 2, Route112_CableCarStation_EventScript_MoveAttendantAside)
+	}
+	MAP_SCRIPT_ON_FRAME_TABLE [
+		VAR_CABLE_CAR_STATION_STATE, 2: Route112_CableCarStation_EventScript_ExitCableCar
+	]
+}
+
+script Route112_CableCarStation_EventScript_MoveAttendantAside {
+	setobjectxyperm (LOCALID_ATTENDANT, 7, 4)
+	setobjectmovementtype (LOCALID_ATTENDANT, MOVEMENT_TYPE_FACE_LEFT)
+	return
+}
+
+script Route112_CableCarStation_EventScript_ExitCableCar {
+	lockall
+	applymovement (OBJ_EVENT_ID_PLAYER, Route112_CableCarStation_Movement_ExitCableCar)
+	applymovement (LOCALID_ATTENDANT, Route112_CableCarStation_Movement_FollowPlayerOutFromCableCar)
+	waitmovement (0)
+	setvar (VAR_CABLE_CAR_STATION_STATE, 0)
+	setobjectxyperm (LOCALID_ATTENDANT, 6, 7)
+	setobjectmovementtype (LOCALID_ATTENDANT, MOVEMENT_TYPE_FACE_DOWN)
+	releaseall
+	end
+}
+
+script Route112_CableCarStation_EventScript_Rival2Trigger1 {
 	lock
-	if (flag(FLAG_RIVAL2_CABLE_CAR) == FALSE) {
-		msgbox ("Rival will ride.", MSGBOX_AUTOCLOSE)
-		setflag (FLAG_RIVAL2_CABLE_CAR)
-	}
-	else {
-		msgbox ("No more Rival.", MSGBOX_AUTOCLOSE)
-		clearflag (FLAG_RIVAL2_CABLE_CAR)
-	}
+	call (Route112_CableCarStation_EventScript_BeginRival2Scene)
+	applymovement (OBJ_EVENT_ID_PLAYER, Route112_CableCarStation_Movement_WalkToRival2Left)
+	goto (Route112_CableCarStation_EventScript_Rival2Scene)
+	end
+}
+
+script Route112_CableCarStation_EventScript_Rival2Trigger2 {
+	lock
+	call (Route112_CableCarStation_EventScript_BeginRival2Scene)
+	goto (Route112_CableCarStation_EventScript_Rival2Scene)
+	end
+}
+
+script Route112_CableCarStation_EventScript_Rival2Trigger3 {
+	lock
+	call (Route112_CableCarStation_EventScript_BeginRival2Scene)
+	applymovement (OBJ_EVENT_ID_PLAYER, Route112_CableCarStation_Movement_WalkToRival2Right)
+	goto (Route112_CableCarStation_EventScript_Rival2Scene)
+	end
+}
+
+script Route112_CableCarStation_EventScript_BeginRival2Scene {
+	playse (SE_EXIT)
+	addobject (LOCALID_RIVAL2)
+	applymovement (OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterDown)
+	waitmovement (0)
+	delay (20)
+	waitse
+	rival2talk (Route112_CableCarStation_Text_SpencerGladICaughtYou,
+				Route112_CableCarStation_Text_BrenGladICaughtYou,
+				Route112_CableCarStation_Text_KyleGladICaughtYou)
+	closemessage
+	applymovement (LOCALID_RIVAL2, Route112_CableCarStation_Movement_WalkToPlayer)
+	return
+}
+
+script Route112_CableCarStation_EventScript_Rival2Scene {
+	waitmovement (0)
+	applymovement (LOCALID_RIVAL2, Common_Movement_BeginTalkUp)
+	waitmovement (0)
+	rival2talk (Route112_CableCarStation_Text_SpencerLetsTakeTheCableCar,
+				Route112_CableCarStation_Text_BrenLetsTakeTheCableCar,
+				Route112_CableCarStation_Text_KyleLetsTakeTheCableCar)
+	closemessage
+	delay (16)
+	applymovement (LOCALID_RIVAL2, Common_Movement_Walk_Up)
+	applymovement (OBJ_EVENT_ID_PLAYER, Common_Movement_Walk_Up)
+	waitmovement (0)
+	delay (16)
+	msgbox (Route112_CableCarStation_Text_BothOfYouStepThisWay, MSGBOX_AUTOCLOSE)
+	applymovement (LOCALID_ATTENDANT, Route112_CableCarStation_Movement_LeadPlayerToCableCar)
+	applymovement (OBJ_EVENT_ID_PLAYER, Route112_CableCarStation_Movement_BoardCableCarWithRival2)
+	applymovement (LOCALID_RIVAL2, Route112_CableCarStation_Movement_Rival2BoardCableCar)
+	waitmovement (0)
+	setvar (VAR_0x8004, FALSE)  // Going up
+	setvar (VAR_CABLE_CAR_STATION_STATE, 1)
+	setvar (VAR_METEOR_FALLS_STATE, 5)
+	setflag (FLAG_RIVAL2_CABLE_CAR)
+	incrementgamestat (GAME_STAT_RODE_CABLE_CAR)
+	special (CableCarWarp)
+	special (CableCar)
+	waitstate
 	release
 	end
+}
+
+movement Route112_CableCarStation_Movement_WalkToPlayer {
+	walk_up * 2
+}
+
+movement Route112_CableCarStation_Movement_WalkToRival2Left {
+	walk_right
+	walk_down
+}
+
+movement Route112_CableCarStation_Movement_WalkToRival2Right {
+	walk_left
+	walk_down
+}
+
+movement Route112_CableCarStation_Movement_BoardCableCarWithRival2 {
+	walk_up * 3
+	set_invisible
+}
+
+movement Route112_CableCarStation_Movement_Rival2BoardCableCar {
+	walk_up * 4
+}
+
+text Route112_CableCarStation_Text_SpencerGladICaughtYou {
+	format ("Oh, {PLAYER}!\n"
+		"I'm glad I caught you!")
+}
+
+text Route112_CableCarStation_Text_BrenGladICaughtYou {
+	format ("Oh, {PLAYER}!\n"
+		"I'm glad I caught you!")
+}
+
+text Route112_CableCarStation_Text_KyleGladICaughtYou {
+	format ("Oh, {PLAYER}!\n"
+		"I'm glad I caught you!")
+}
+
+text Route112_CableCarStation_Text_SpencerLetsTakeTheCableCar {
+	format ("KYLE told me there was some serious trouble up on MT. CHIMNEY.\N"
+		"Then he just ran off!\p"
+		"I didn't know what to do, so I came looking for you.\p"
+		"I'm so worried!\N"
+		"We have to go see if KYLE is alright!\p"
+		"C'mon!\N"
+		"Let's take the cable car to the top.")
+}
+
+text Route112_CableCarStation_Text_BrenLetsTakeTheCableCar {
+	format ("SPENCER told me there was some serious trouble up on MT. CHIMNEY.\N"
+		"Then he just ran off!\p"
+		"I didn't know what to do, so I came looking for you.\p"
+		"I'm so worried!\N"
+		"We have to go see if SPENCER is alright!\p"
+		"C'mon!\N"
+		"Let's take the cable car to the top.")
+}
+
+text Route112_CableCarStation_Text_KyleLetsTakeTheCableCar {
+	format ("BREN told me there was some serious trouble up on MT. CHIMNEY.\N"
+		"Then he just ran off!\p"
+		"I didn't know what to do, so I came looking for you.\p"
+		"I'm so worried!\N"
+		"We have to go see if BREN is alright!\p"
+		"C'mon!\N"
+		"Let's take the cable car to the top.")
+}
+
+text Route112_CableCarStation_Text_BothOfYouStepThisWay {
+	format ("The CABLE CAR is ready to go up.\n"
+		"Both of you please step this way.")
 }
 
 raw `
