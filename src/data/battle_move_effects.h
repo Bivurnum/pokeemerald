@@ -1934,6 +1934,12 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
         .battleTvScore = 0, // TODO: Assign points
     },
 
+    [EFFECT_SHELL_SIDE_ARM] =
+    {
+        .battleScript = BattleScript_EffectShellSideArm,
+        .battleTvScore = 0, // TODO: Assign points
+    },
+
     [EFFECT_TERRAIN_PULSE] =
     {
         .battleScript = BattleScript_EffectHit,
