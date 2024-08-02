@@ -51,24 +51,11 @@ script MtChimney_CableCarStation_EventScript_ExitCableCarWithRival2 {
 	removeobject (LOCALID_RIVAL2)
 	waitse
 	setvar (VAR_CABLE_CAR_STATION_STATE, 0)
-	setvar (VAR_LITTLEROOT_RIVAL_STATE, 22)
 	clearflag (FLAG_RIVAL2_CABLE_CAR)
 	setobjectxyperm (LOCALID_ATTENDANT, 6, 7)
 	setobjectmovementtype (LOCALID_ATTENDANT, MOVEMENT_TYPE_FACE_DOWN)
 	releaseall
 	end
-}
-
-script MtChimney_CableCarStation_EventScript_LeftDoorTrigger {
-	lock
-	setvar (VAR_LITTLEROOT_RIVAL_STATE, 21)
-	release
-}
-
-script MtChimney_CableCarStation_EventScript_RightDoorTrigger {
-	lock
-	setvar (VAR_LITTLEROOT_RIVAL_STATE, 22)
-	release
 }
 
 movement Route112_CableCarStation_Movement_ExitCableCarWithRival2 {
