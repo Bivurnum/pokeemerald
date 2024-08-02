@@ -259,21 +259,21 @@ static const u16 sPlayerAvatarGfxIds[][3] =
     [PLAYER_AVATAR_STATE_VSSEEKER]   = {OBJ_EVENT_GFX_KYLE_FIELD_MOVE, OBJ_EVENT_GFX_BREN_FIELD_MOVE, OBJ_EVENT_GFX_SPENCER_FIELD_MOVE},
 };
 
-static const u16 sFRLGAvatarGfxIds[GENDER_COUNT] =
+static const u8 sFRLGAvatarGfxIds[GENDER_COUNT] =
 {
     [KYLE]   = OBJ_EVENT_GFX_RED,
     [BREN] = OBJ_EVENT_GFX_RED,
     [SPENCER] = OBJ_EVENT_GFX_RED
 };
 
-static const u16 sRSAvatarGfxIds[GENDER_COUNT] =
+static const u8 sRSAvatarGfxIds[GENDER_COUNT] =
 {
     [KYLE]   = OBJ_EVENT_GFX_LINK_RS_BRENDAN,
     [BREN] = OBJ_EVENT_GFX_LINK_RS_BRENDAN,
     [SPENCER] = OBJ_EVENT_GFX_LINK_RS_BRENDAN
 };
 
-static const u16 sPlayerAvatarGfxToStateFlag[GENDER_COUNT][5][2] =
+static const u8 sPlayerAvatarGfxToStateFlag[GENDER_COUNT][5][2] =
 {
     [KYLE] =
     {
@@ -1225,32 +1225,32 @@ void StopPlayerAvatar(void)
     }
 }
 
-u16 GetRivalAvatarGraphicsIdByStateIdAndGender(u8 state, u8 gender)
+u8 GetRivalAvatarGraphicsIdByStateIdAndGender(u8 state, u8 gender)
 {
     return sRivalAvatarGfxIds[state][gender];
 }
 
-u16 GetPlayerAvatarGraphicsIdByStateIdAndGender(u8 state, u8 gender)
+u8 GetPlayerAvatarGraphicsIdByStateIdAndGender(u8 state, u8 gender)
 {
     return sPlayerAvatarGfxIds[state][gender];
 }
 
-u16 GetFRLGAvatarGraphicsIdByGender(u8 gender)
+u8 GetFRLGAvatarGraphicsIdByGender(u8 gender)
 {
     return sFRLGAvatarGfxIds[gender];
 }
 
-u16 GetRSAvatarGraphicsIdByGender(u8 gender)
+u8 GetRSAvatarGraphicsIdByGender(u8 gender)
 {
     return sRSAvatarGfxIds[gender];
 }
 
-u16 GetPlayerAvatarGraphicsIdByStateId(u8 state)
+u8 GetPlayerAvatarGraphicsIdByStateId(u8 state)
 {
     return GetPlayerAvatarGraphicsIdByStateIdAndGender(state, gPlayerAvatar.gender);
 }
 
-u8 unref_GetRivalAvatarGenderByGraphicsId(u16 gfxId)
+u8 unref_GetRivalAvatarGenderByGraphicsId(u8 gfxId)
 {
 //    switch (gfxId)
 //    {
@@ -1268,7 +1268,7 @@ u8 unref_GetRivalAvatarGenderByGraphicsId(u16 gfxId)
 //    }
 }
 
-u8 GetPlayerAvatarGenderByGraphicsId(u16 gfxId)
+u8 GetPlayerAvatarGenderByGraphicsId(u8 gfxId)
 {
     switch (gfxId)
     {
@@ -1346,7 +1346,7 @@ void SetPlayerAvatarStateMask(u8 flags)
     gPlayerAvatar.flags |= flags;
 }
 
-static u8 GetPlayerAvatarStateTransitionByGraphicsId(u16 graphicsId, u8 gender)
+static u8 GetPlayerAvatarStateTransitionByGraphicsId(u8 graphicsId, u8 gender)
 {
     u8 i;
 
@@ -1358,7 +1358,7 @@ static u8 GetPlayerAvatarStateTransitionByGraphicsId(u16 graphicsId, u8 gender)
     return PLAYER_AVATAR_FLAG_ON_FOOT;
 }
 
-u16 GetPlayerAvatarGraphicsIdByCurrentState(void)
+u8 GetPlayerAvatarGraphicsIdByCurrentState(void)
 {
     u8 i;
     u8 flags = gPlayerAvatar.flags;
@@ -1371,7 +1371,7 @@ u16 GetPlayerAvatarGraphicsIdByCurrentState(void)
     return 0;
 }
 
-void SetPlayerAvatarExtraStateTransition(u16 graphicsId, u8 transitionFlag)
+void SetPlayerAvatarExtraStateTransition(u8 graphicsId, u8 transitionFlag)
 {
     u8 stateFlag = GetPlayerAvatarStateTransitionByGraphicsId(graphicsId, gPlayerAvatar.gender);
 
