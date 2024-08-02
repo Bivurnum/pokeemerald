@@ -2,9 +2,8 @@
 
 # 5 "data/maps/Route117/scripts.pory"
 .set LOCALID_DAYCARE_MAN, 3
-# 6 "data/maps/Route117/scripts.pory"
-.set LOCALID_RIVAL2, 25
-# 7 "data/maps/Route117/scripts.pory"
+.set LOCALID_DAYCARE_MON_0, 25
+.set LOCALID_DAYCARE_MON_1, 26
 
 # 8 "data/maps/Route117/scripts.pory"
 Route117_MapScripts::
@@ -20,9 +19,41 @@ Route117_OnTransition:
 	call Common_EventScript_SetupRivalGfxId
 # 14 "data/maps/Route117/scripts.pory"
 	call Route117_EventScript_TryMoveDayCareMan
-# 15 "data/maps/Route117/scripts.pory"
+	@ set flags for OW daycare mons
+	setflag FLAG_TEMP_1
+	setflag FLAG_TEMP_2
+	getdaycaregfx VAR_OBJ_GFX_ID_0, VAR_OBJ_GFX_ID_1, VAR_TEMP_0, VAR_TEMP_1
+	switch VAR_RESULT
+	case 2, Route117_EventScript_ShowDaycareMon1
+	case 1, Route117_EventScript_ShowDaycareMon0
 	end
-# 16 "data/maps/Route117/scripts.pory"
+
+Route117_EventScript_ShowDaycareMon1:
+	@ set pokemon movement type based on compatibility
+	special SetDaycareCompatibilityString
+	call_if_eq VAR_RESULT, PARENTS_INCOMPATIBLE, Route117_EventScript_DaycareMonIncompatible
+	@ Don't do anything if PARENTS_LOW_COMPATIBILITY
+	call_if_eq VAR_RESULT, PARENTS_MED_COMPATIBILITY, Route117_EventScript_DaycareMonMedCompatibility
+	call_if_eq VAR_RESULT, PARENTS_MAX_COMPATIBILITY, Route117_EventScript_DaycareMonMaxCompatibility
+	clearflag FLAG_TEMP_2
+Route117_EventScript_ShowDaycareMon0:
+	clearflag FLAG_TEMP_1
+	end
+
+Route117_EventScript_DaycareMonIncompatible: @ mons never face each other
+	setobjectmovementtype LOCALID_DAYCARE_MON_0, MOVEMENT_TYPE_FACE_DOWN_UP_AND_LEFT
+	setobjectmovementtype LOCALID_DAYCARE_MON_1, MOVEMENT_TYPE_FACE_DOWN_UP_AND_RIGHT
+	return
+
+Route117_EventScript_DaycareMonMedCompatibility: @ down and towards each other
+	setobjectmovementtype LOCALID_DAYCARE_MON_0, MOVEMENT_TYPE_FACE_DOWN_AND_RIGHT
+	setobjectmovementtype LOCALID_DAYCARE_MON_1, MOVEMENT_TYPE_FACE_DOWN_AND_LEFT
+	return
+
+Route117_EventScript_DaycareMonMaxCompatibility: @ facing; walk in place
+	setobjectmovementtype LOCALID_DAYCARE_MON_0, MOVEMENT_TYPE_WALK_IN_PLACE_RIGHT
+	setobjectmovementtype LOCALID_DAYCARE_MON_1, MOVEMENT_TYPE_WALK_IN_PLACE_LEFT
+	return
 
 # 17 "data/maps/Route117/scripts.pory"
 Route117_EventScript_TryMoveDayCareMan::

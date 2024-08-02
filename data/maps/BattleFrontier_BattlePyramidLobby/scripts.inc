@@ -122,7 +122,7 @@ BattleFrontier_BattlePyramidLobby_EventScript_GiveBattlePoints::
 	pyramid_clearhelditems
 # 62 "data/maps/BattleFrontier_BattlePyramidLobby/scripts.pory"
 	special HealPlayerParty
-# 63 "data/maps/BattleFrontier_BattlePyramidLobby/scripts.pory"
+	callnative UpdateFollowingPokemon
 	message BattleFrontier_BattlePyramidLobby_Text_UsedBattleBagWillBeKept
 # 64 "data/maps/BattleFrontier_BattlePyramidLobby/scripts.pory"
 	waitmessage
@@ -170,7 +170,7 @@ BattleFrontier_BattlePyramidLobby_EventScript_LostChallenge::
 	pyramid_clearhelditems
 # 86 "data/maps/BattleFrontier_BattlePyramidLobby/scripts.pory"
 	special HealPlayerParty
-# 87 "data/maps/BattleFrontier_BattlePyramidLobby/scripts.pory"
+	callnative UpdateFollowingPokemon
 	lockall
 # 88 "data/maps/BattleFrontier_BattlePyramidLobby/scripts.pory"
 	message BattleFrontier_BattlePyramidLobby_Text_DisappointingHereIsBag
@@ -268,7 +268,7 @@ BattleFrontier_BattlePyramidLobby_EventScript_TryEnterChallenge::
 	msgbox BattleFrontier_BattlePyramidLobby_Text_SelectThreeMons, MSGBOX_DEFAULT
 # 135 "data/maps/BattleFrontier_BattlePyramidLobby/scripts.pory"
 	fadescreen FADE_TO_BLACK
-# 136 "data/maps/BattleFrontier_BattlePyramidLobby/scripts.pory"
+	callnative RemoveFollowingPokemon
 	call BattleFrontier_EventScript_GetLvlMode
 # 137 "data/maps/BattleFrontier_BattlePyramidLobby/scripts.pory"
 	copyvar VAR_0x8004, VAR_RESULT
@@ -396,7 +396,7 @@ BattleFrontier_BattlePyramidLobby_EventScript_CancelChallengeSaveFailed::
 BattleFrontier_BattlePyramidLobby_EventScript_LoadPartyAndCancelChallenge::
 # 199 "data/maps/BattleFrontier_BattlePyramidLobby/scripts.pory"
 	special LoadPlayerParty
-# 200 "data/maps/BattleFrontier_BattlePyramidLobby/scripts.pory"
+	callnative UpdateFollowingPokemon
 BattleFrontier_BattlePyramidLobby_EventScript_CancelChallenge::
 # 201 "data/maps/BattleFrontier_BattlePyramidLobby/scripts.pory"
 	msgbox BattleFrontier_BattlePyramidLobby_Text_AwaitFutureChallenge, MSGBOX_DEFAULT

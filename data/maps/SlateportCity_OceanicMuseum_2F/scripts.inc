@@ -196,9 +196,8 @@ SlateportCity_OceanicMuseum_2F_EventScript_CaptStern_1:
 	waitfanfare
 # 134 "data/maps/SlateportCity_OceanicMuseum_2F/scripts.pory"
 	special HealPlayerParty
-# 135 "data/maps/SlateportCity_OceanicMuseum_2F/scripts.pory"
-	removeobject 1
-# 136 "data/maps/SlateportCity_OceanicMuseum_2F/scripts.pory"
+	callnative UpdateFollowingPokemon
+	removeobject LOCALID_CAPT_STERN
 	setflag FLAG_HIDE_ROUTE_110_TEAM_AQUA
 # 137 "data/maps/SlateportCity_OceanicMuseum_2F/scripts.pory"
 	call_if_eq VAR_REGISTER_BIRCH_STATE, 0, SlateportCity_OceanicMuseum_2F_EventScript_ReadyRegisterBirch

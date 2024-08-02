@@ -556,7 +556,7 @@ RusturfTunnel_EventScript_TunnelBlockagePos3::
 RusturfTunnel_EventScript_AquaGruntBackUp::
 # 296 "data/maps/RusturfTunnel/scripts.pory"
 	lockall
-# 297 "data/maps/RusturfTunnel/scripts.pory"
+	setflag FLAG_SAFE_FOLLOWER_MOVEMENT
 	msgbox RusturfTunnel_Text_ComeAndGetSome, MSGBOX_DEFAULT
 # 298 "data/maps/RusturfTunnel/scripts.pory"
 	closemessage

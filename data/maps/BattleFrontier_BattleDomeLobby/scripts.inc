@@ -140,7 +140,7 @@ BattleFrontier_BattleDomeLobby_EventScript_GiveBattlePoints::
 	special LoadPlayerParty
 # 71 "data/maps/BattleFrontier_BattleDomeLobby/scripts.pory"
 	special HealPlayerParty
-# 72 "data/maps/BattleFrontier_BattleDomeLobby/scripts.pory"
+	callnative UpdateFollowingPokemon
 	goto BattleFrontier_BattleDomeLobby_EventScript_AskRecordBattle
 # 73 "data/maps/BattleFrontier_BattleDomeLobby/scripts.pory"
 
@@ -168,7 +168,7 @@ BattleFrontier_BattleDomeLobby_EventScript_LostChallenge::
 	special LoadPlayerParty
 # 85 "data/maps/BattleFrontier_BattleDomeLobby/scripts.pory"
 	special HealPlayerParty
-# 86 "data/maps/BattleFrontier_BattleDomeLobby/scripts.pory"
+	callnative UpdateFollowingPokemon
 BattleFrontier_BattleDomeLobby_EventScript_AskRecordBattle::
 # 87 "data/maps/BattleFrontier_BattleDomeLobby/scripts.pory"
 	dome_save 0
@@ -324,7 +324,7 @@ BattleFrontier_BattleDomeLobby_EventScript_TryEnterChallenge::
 	msgbox BattleFrontier_BattleDomeLobby_Text_SelectThreeMons, MSGBOX_DEFAULT
 # 163 "data/maps/BattleFrontier_BattleDomeLobby/scripts.pory"
 	fadescreen FADE_TO_BLACK
-# 164 "data/maps/BattleFrontier_BattleDomeLobby/scripts.pory"
+	callnative RemoveFollowingPokemon
 	call BattleFrontier_EventScript_GetLvlMode
 # 165 "data/maps/BattleFrontier_BattleDomeLobby/scripts.pory"
 	copyvar VAR_0x8004, VAR_RESULT
@@ -448,7 +448,7 @@ BattleFrontier_BattleDomeLobby_EventScript_CancelChallengeSaveFailed::
 BattleFrontier_BattleDomeLobby_EventScript_LoadPartyCancelChallenge::
 # 225 "data/maps/BattleFrontier_BattleDomeLobby/scripts.pory"
 	special LoadPlayerParty
-# 226 "data/maps/BattleFrontier_BattleDomeLobby/scripts.pory"
+	callnative UpdateFollowingPokemon
 BattleFrontier_BattleDomeLobby_EventScript_CancelChallenge::
 # 227 "data/maps/BattleFrontier_BattleDomeLobby/scripts.pory"
 	msgbox BattleFrontier_BattleDomeLobby_Text_HopeToSeeYouAgain, MSGBOX_DEFAULT

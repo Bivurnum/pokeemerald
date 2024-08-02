@@ -38,7 +38,7 @@ BattleFrontier_BattleDomeBattleRoom_MapScripts::
 
 # 20 "data/maps/BattleFrontier_BattleDomeBattleRoom/scripts.pory"
 BattleFrontier_BattleDomeBattleRoom_OnTransition:
-# 21 "data/maps/BattleFrontier_BattleDomeBattleRoom/scripts.pory"
+	setflag FLAG_TEMP_HIDE_FOLLOWER
 	dome_setopponentgfx
 # 22 "data/maps/BattleFrontier_BattleDomeBattleRoom/scripts.pory"
 	frontier_get FRONTIER_DATA_BATTLE_NUM

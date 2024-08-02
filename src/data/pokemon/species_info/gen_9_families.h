@@ -54,6 +54,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         FOOTPRINT(Sprigatito)
         .levelUpLearnset = sSprigatitoLevelUpLearnset,
         .teachableLearnset = sSprigatitoTeachableLearnset,
+        .eggMoveLearnset = sSprigatitoEggMoveLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 16, SPECIES_FLORAGATO}),
     },
 
@@ -129,7 +130,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FIELD, EGG_GROUP_GRASS),
         .abilities = { ABILITY_OVERGROW, ABILITY_NONE, ABILITY_PROTEAN },
         .bodyColor = BODY_COLOR_GREEN,
-        .speciesName = _("Meowscarad"),
+        .speciesName = HANDLE_EXPANDED_SPECIES_NAME("Meowscarad", "Meowscarada"),
         .cryId = CRY_MEOWSCARADA,
         .natDexNum = NATIONAL_DEX_MEOWSCARADA,
         .categoryName = _("Magician"),
@@ -214,6 +215,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         FOOTPRINT(Fuecoco)
         .levelUpLearnset = sFuecocoLevelUpLearnset,
         .teachableLearnset = sFuecocoTeachableLearnset,
+        .eggMoveLearnset = sFuecocoEggMoveLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 16, SPECIES_CROCALOR}),
     },
 
@@ -374,6 +376,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         FOOTPRINT(Quaxly)
         .levelUpLearnset = sQuaxlyLevelUpLearnset,
         .teachableLearnset = sQuaxlyTeachableLearnset,
+        .eggMoveLearnset = sQuaxlyEggMoveLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 16, SPECIES_QUAXWELL}),
     },
 
@@ -534,6 +537,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         FOOTPRINT(Lechonk)
         .levelUpLearnset = sLechonkLevelUpLearnset,
         .teachableLearnset = sLechonkTeachableLearnset,
+        .eggMoveLearnset = sLechonkEggMoveLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL_MALE, 18, SPECIES_OINKOLOGNE_MALE},
                                 {EVO_LEVEL_FEMALE, 18, SPECIES_OINKOLOGNE_FEMALE}),
     },
@@ -695,6 +699,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         FOOTPRINT(Tarountula)
         .levelUpLearnset = sTarountulaLevelUpLearnset,
         .teachableLearnset = sTarountulaTeachableLearnset,
+        .eggMoveLearnset = sTarountulaEggMoveLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 15, SPECIES_SPIDOPS}),
     },
 
@@ -802,6 +807,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         FOOTPRINT(Nymble)
         .levelUpLearnset = sNymbleLevelUpLearnset,
         .teachableLearnset = sNymbleTeachableLearnset,
+        .eggMoveLearnset = sNymbleEggMoveLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 24, SPECIES_LOKIX}),
     },
 
@@ -909,6 +915,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         FOOTPRINT(Pawmi)
         .levelUpLearnset = sPawmiLevelUpLearnset,
         .teachableLearnset = sPawmiTeachableLearnset,
+        .eggMoveLearnset = sPawmiEggMoveLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 18, SPECIES_PAWMO}),
     },
 
@@ -962,7 +969,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         FOOTPRINT(Pawmo)
         .levelUpLearnset = sPawmoLevelUpLearnset,
         .teachableLearnset = sPawmoTeachableLearnset,
-        .evolutions = EVOLUTION({EVO_NONE, 0, SPECIES_PAWMOT}),
+        .evolutions = EVOLUTION({EVO_OVERWORLD_STEPS, 1000, SPECIES_PAWMOT}),
     },
 
     [SPECIES_PAWMOT] =
@@ -1069,6 +1076,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         FOOTPRINT(Tandemaus)
         .levelUpLearnset = sTandemausLevelUpLearnset,
         .teachableLearnset = sTandemausTeachableLearnset,
+        .eggMoveLearnset = sTandemausEggMoveLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL_FAMILY_OF_FOUR, 25, SPECIES_MAUSHOLD_FAMILY_OF_FOUR},
                                 {EVO_LEVEL_FAMILY_OF_THREE, 25, SPECIES_MAUSHOLD_FAMILY_OF_THREE}),
     },
@@ -1230,6 +1238,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         FOOTPRINT(Fidough)
         .levelUpLearnset = sFidoughLevelUpLearnset,
         .teachableLearnset = sFidoughTeachableLearnset,
+        .eggMoveLearnset = sFidoughEggMoveLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 26, SPECIES_DACHSBUN}),
     },
 
@@ -1337,6 +1346,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         FOOTPRINT(Smoliv)
         .levelUpLearnset = sSmolivLevelUpLearnset,
         .teachableLearnset = sSmolivTeachableLearnset,
+        .eggMoveLearnset = sSmolivEggMoveLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 25, SPECIES_DOLLIV}),
     },
 
@@ -1466,7 +1476,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FLYING),
         .abilities = { ABILITY_INTIMIDATE, ABILITY_HUSTLE, ABILITY_GUTS },
         .bodyColor = BODY_COLOR_GREEN,
-        .speciesName = _("Sqawkabily"),
+        .speciesName = HANDLE_EXPANDED_SPECIES_NAME("Sqawkabily", "Squawkabilly"),
         .cryId = CRY_SQUAWKABILLY,
         .natDexNum = NATIONAL_DEX_SQUAWKABILLY,
         .categoryName = _("Parrot"),
@@ -1497,6 +1507,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         FOOTPRINT(Squawkabilly)
         .levelUpLearnset = sSquawkabillyLevelUpLearnset,
         .teachableLearnset = sSquawkabillyTeachableLearnset,
+        .eggMoveLearnset = sSquawkabillyEggMoveLearnset,
         .formSpeciesIdTable = sSquawkabillyFormSpeciesIdTable,
     },
 
@@ -1519,7 +1530,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FLYING),
         .abilities = { ABILITY_INTIMIDATE, ABILITY_HUSTLE, ABILITY_GUTS },
         .bodyColor = BODY_COLOR_BLUE,
-        .speciesName = _("Sqawkabily"),
+        .speciesName = HANDLE_EXPANDED_SPECIES_NAME("Sqawkabily", "Squawkabilly"),
         .cryId = CRY_SQUAWKABILLY,
         .natDexNum = NATIONAL_DEX_SQUAWKABILLY,
         .categoryName = _("Parrot"),
@@ -1550,6 +1561,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         FOOTPRINT(Squawkabilly)
         .levelUpLearnset = sSquawkabillyLevelUpLearnset,
         .teachableLearnset = sSquawkabillyTeachableLearnset,
+        .eggMoveLearnset = sSquawkabillyEggMoveLearnset,
         .formSpeciesIdTable = sSquawkabillyFormSpeciesIdTable,
     },
 
@@ -1572,7 +1584,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FLYING),
         .abilities = { ABILITY_INTIMIDATE, ABILITY_HUSTLE, ABILITY_SHEER_FORCE },
         .bodyColor = BODY_COLOR_YELLOW,
-        .speciesName = _("Sqawkabily"),
+        .speciesName = HANDLE_EXPANDED_SPECIES_NAME("Sqawkabily", "Squawkabilly"),
         .cryId = CRY_SQUAWKABILLY,
         .natDexNum = NATIONAL_DEX_SQUAWKABILLY,
         .categoryName = _("Parrot"),
@@ -1603,6 +1615,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         FOOTPRINT(Squawkabilly)
         .levelUpLearnset = sSquawkabillyLevelUpLearnset,
         .teachableLearnset = sSquawkabillyTeachableLearnset,
+        .eggMoveLearnset = sSquawkabillyEggMoveLearnset,
         .formSpeciesIdTable = sSquawkabillyFormSpeciesIdTable,
     },
 
@@ -1625,7 +1638,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FLYING),
         .abilities = { ABILITY_INTIMIDATE, ABILITY_HUSTLE, ABILITY_SHEER_FORCE },
         .bodyColor = BODY_COLOR_WHITE,
-        .speciesName = _("Sqawkabily"),
+        .speciesName = HANDLE_EXPANDED_SPECIES_NAME("Sqawkabily", "Squawkabilly"),
         .cryId = CRY_SQUAWKABILLY,
         .natDexNum = NATIONAL_DEX_SQUAWKABILLY,
         .categoryName = _("Parrot"),
@@ -1656,6 +1669,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         FOOTPRINT(Squawkabilly)
         .levelUpLearnset = sSquawkabillyLevelUpLearnset,
         .teachableLearnset = sSquawkabillyTeachableLearnset,
+        .eggMoveLearnset = sSquawkabillyEggMoveLearnset,
         .formSpeciesIdTable = sSquawkabillyFormSpeciesIdTable,
     },
 #endif //P_FAMILY_SQUAWKABILLY
@@ -1711,6 +1725,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         FOOTPRINT(Nacli)
         .levelUpLearnset = sNacliLevelUpLearnset,
         .teachableLearnset = sNacliTeachableLearnset,
+        .eggMoveLearnset = sNacliEggMoveLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 24, SPECIES_NACLSTACK}),
     },
 
@@ -1871,6 +1886,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         FOOTPRINT(Charcadet)
         .levelUpLearnset = sCharcadetLevelUpLearnset,
         .teachableLearnset = sCharcadetTeachableLearnset,
+        .eggMoveLearnset = sCharcadetEggMoveLearnset,
         .evolutions = EVOLUTION({EVO_ITEM, ITEM_AUSPICIOUS_ARMOR, SPECIES_ARMAROUGE},
                                 {EVO_ITEM, ITEM_MALICIOUS_ARMOR, SPECIES_CERULEDGE}),
     },
@@ -2032,6 +2048,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         FOOTPRINT(Tadbulb)
         .levelUpLearnset = sTadbulbLevelUpLearnset,
         .teachableLearnset = sTadbulbTeachableLearnset,
+        .eggMoveLearnset = sTadbulbEggMoveLearnset,
         .evolutions = EVOLUTION({EVO_ITEM, ITEM_THUNDER_STONE, SPECIES_BELLIBOLT}),
     },
 
@@ -2139,6 +2156,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         FOOTPRINT(Wattrel)
         .levelUpLearnset = sWattrelLevelUpLearnset,
         .teachableLearnset = sWattrelTeachableLearnset,
+        .eggMoveLearnset = sWattrelEggMoveLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 25, SPECIES_KILOWATTREL}),
     },
 
@@ -2161,7 +2179,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_WATER_1, EGG_GROUP_FLYING),
         .abilities = { ABILITY_WIND_POWER, ABILITY_VOLT_ABSORB, ABILITY_COMPETITIVE },
         .bodyColor = BODY_COLOR_YELLOW,
-        .speciesName = _("Kilowatrel"),
+        .speciesName = HANDLE_EXPANDED_SPECIES_NAME("Kilowatrel", "Kilowattrel"),
         .cryId = CRY_KILOWATTREL,
         .natDexNum = NATIONAL_DEX_KILOWATTREL,
         .categoryName = _("Frigatebird"),
@@ -2246,6 +2264,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         FOOTPRINT(Maschiff)
         .levelUpLearnset = sMaschiffLevelUpLearnset,
         .teachableLearnset = sMaschiffTeachableLearnset,
+        .eggMoveLearnset = sMaschiffEggMoveLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 30, SPECIES_MABOSSTIFF}),
     },
 
@@ -2353,6 +2372,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         FOOTPRINT(Shroodle)
         .levelUpLearnset = sShroodleLevelUpLearnset,
         .teachableLearnset = sShroodleTeachableLearnset,
+        .eggMoveLearnset = sShroodleEggMoveLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 28, SPECIES_GRAFAIAI}),
     },
 
@@ -2460,7 +2480,8 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         FOOTPRINT(Bramblin)
         .levelUpLearnset = sBramblinLevelUpLearnset,
         .teachableLearnset = sBramblinTeachableLearnset,
-        .evolutions = EVOLUTION({EVO_NONE, 0, SPECIES_BRAMBLEGHAST}),
+        .eggMoveLearnset = sBramblinEggMoveLearnset,
+        .evolutions = EVOLUTION({EVO_OVERWORLD_STEPS, 1000, SPECIES_BRAMBLEGHAST}),
     },
 
     [SPECIES_BRAMBLEGHAST] =
@@ -2482,7 +2503,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_GRASS),
         .abilities = { ABILITY_WIND_RIDER, ABILITY_NONE, ABILITY_INFILTRATOR },
         .bodyColor = BODY_COLOR_BROWN,
-        .speciesName = _("Brmblghast"),
+        .speciesName = HANDLE_EXPANDED_SPECIES_NAME("Brmblghast", "Brambleghast"),
         .cryId = CRY_BRAMBLEGHAST,
         .natDexNum = NATIONAL_DEX_BRAMBLEGHAST,
         .categoryName = _("Tumbleweed"),
@@ -2567,6 +2588,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         FOOTPRINT(Toedscool)
         .levelUpLearnset = sToedscoolLevelUpLearnset,
         .teachableLearnset = sToedscoolTeachableLearnset,
+        .eggMoveLearnset = sToedscoolEggMoveLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 30, SPECIES_TOEDSCRUEL}),
     },
 
@@ -2674,6 +2696,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         FOOTPRINT(Klawf)
         .levelUpLearnset = sKlawfLevelUpLearnset,
         .teachableLearnset = sKlawfTeachableLearnset,
+        .eggMoveLearnset = sKlawfEggMoveLearnset,
     },
 #endif //P_FAMILY_KLAWF
 
@@ -2728,6 +2751,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         FOOTPRINT(Capsakid)
         .levelUpLearnset = sCapsakidLevelUpLearnset,
         .teachableLearnset = sCapsakidTeachableLearnset,
+        .eggMoveLearnset = sCapsakidEggMoveLearnset,
         .evolutions = EVOLUTION({EVO_ITEM, ITEM_FIRE_STONE, SPECIES_SCOVILLAIN}),
     },
 
@@ -2835,7 +2859,8 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         FOOTPRINT(Rellor)
         .levelUpLearnset = sRellorLevelUpLearnset,
         .teachableLearnset = sRellorTeachableLearnset,
-        .evolutions = EVOLUTION({EVO_NONE, 0, SPECIES_RABSCA}),
+        .eggMoveLearnset = sRellorEggMoveLearnset,
+        .evolutions = EVOLUTION({EVO_OVERWORLD_STEPS, 1000, SPECIES_RABSCA}),
     },
 
     [SPECIES_RABSCA] =
@@ -2942,6 +2967,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         FOOTPRINT(Flittle)
         .levelUpLearnset = sFlittleLevelUpLearnset,
         .teachableLearnset = sFlittleTeachableLearnset,
+        .eggMoveLearnset = sFlittleEggMoveLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 35, SPECIES_ESPATHRA}),
     },
 
@@ -3049,6 +3075,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         FOOTPRINT(Tinkatink)
         .levelUpLearnset = sTinkatinkLevelUpLearnset,
         .teachableLearnset = sTinkatinkTeachableLearnset,
+        .eggMoveLearnset = sTinkatinkEggMoveLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 24, SPECIES_TINKATUFF}),
     },
 
@@ -3208,6 +3235,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         FOOTPRINT(Wiglett)
         .levelUpLearnset = sWiglettLevelUpLearnset,
         .teachableLearnset = sWiglettTeachableLearnset,
+        .eggMoveLearnset = sWiglettEggMoveLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 26, SPECIES_WUGTRIO}),
     },
 
@@ -3315,6 +3343,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         FOOTPRINT(Bombirdier)
         .levelUpLearnset = sBombirdierLevelUpLearnset,
         .teachableLearnset = sBombirdierTeachableLearnset,
+        .eggMoveLearnset = sBombirdierEggMoveLearnset,
     },
 #endif //P_FAMILY_BOMBIRDIER
 
@@ -3368,6 +3397,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         FOOTPRINT(Finizen)
         .levelUpLearnset = sFinizenLevelUpLearnset,
         .teachableLearnset = sFinizenTeachableLearnset,
+        .eggMoveLearnset = sFinizenEggMoveLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 38, SPECIES_PALAFIN_ZERO}),
     },
 
@@ -3531,6 +3561,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         FOOTPRINT(Varoom)
         .levelUpLearnset = sVaroomLevelUpLearnset,
         .teachableLearnset = sVaroomTeachableLearnset,
+        .eggMoveLearnset = sVaroomEggMoveLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 40, SPECIES_REVAVROOM}),
     },
 
@@ -3638,6 +3669,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         FOOTPRINT(Cyclizar)
         .levelUpLearnset = sCyclizarLevelUpLearnset,
         .teachableLearnset = sCyclizarTeachableLearnset,
+        .eggMoveLearnset = sCyclizarEggMoveLearnset,
     },
 #endif //P_FAMILY_CYCLIZAR
 
@@ -3692,6 +3724,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         FOOTPRINT(Orthworm)
         .levelUpLearnset = sOrthwormLevelUpLearnset,
         .teachableLearnset = sOrthwormTeachableLearnset,
+        .eggMoveLearnset = sOrthwormEggMoveLearnset,
     },
 #endif //P_FAMILY_ORTHWORM
 
@@ -3747,6 +3780,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         FOOTPRINT(Glimmet)
         .levelUpLearnset = sGlimmetLevelUpLearnset,
         .teachableLearnset = sGlimmetTeachableLearnset,
+        .eggMoveLearnset = sGlimmetEggMoveLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 35, SPECIES_GLIMMORA}),
     },
 
@@ -3855,6 +3889,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         FOOTPRINT(Greavard)
         .levelUpLearnset = sGreavardLevelUpLearnset,
         .teachableLearnset = sGreavardTeachableLearnset,
+        .eggMoveLearnset = sGreavardEggMoveLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL_NIGHT, 30, SPECIES_HOUNDSTONE}),
     },
 
@@ -3962,6 +3997,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         FOOTPRINT(Flamigo)
         .levelUpLearnset = sFlamigoLevelUpLearnset,
         .teachableLearnset = sFlamigoTeachableLearnset,
+        .eggMoveLearnset = sFlamigoEggMoveLearnset,
     },
 #endif //P_FAMILY_FLAMIGO
 
@@ -4016,6 +4052,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         FOOTPRINT(Cetoddle)
         .levelUpLearnset = sCetoddleLevelUpLearnset,
         .teachableLearnset = sCetoddleTeachableLearnset,
+        .eggMoveLearnset = sCetoddleEggMoveLearnset,
         .evolutions = EVOLUTION({EVO_ITEM, ITEM_ICE_STONE, SPECIES_CETITAN}),
     },
 
@@ -4124,6 +4161,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         FOOTPRINT(Veluza)
         .levelUpLearnset = sVeluzaLevelUpLearnset,
         .teachableLearnset = sVeluzaTeachableLearnset,
+        .eggMoveLearnset = sVeluzaEggMoveLearnset,
     },
 #endif //P_FAMILY_VELUZA
 
@@ -4179,6 +4217,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         FOOTPRINT(Dondozo)
         .levelUpLearnset = sDondozoLevelUpLearnset,
         .teachableLearnset = sDondozoTeachableLearnset,
+        .eggMoveLearnset = sDondozoEggMoveLearnset,
     },
 #endif //P_FAMILY_DONDOZO
 
@@ -4233,6 +4272,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         FOOTPRINT(Tatsugiri)
         .levelUpLearnset = sTatsugiriLevelUpLearnset,
         .teachableLearnset = sTatsugiriTeachableLearnset,
+        .eggMoveLearnset = sTatsugiriEggMoveLearnset,
         .formSpeciesIdTable = sTatsugiriFormSpeciesIdTable,
     },
 
@@ -4285,6 +4325,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         FOOTPRINT(Tatsugiri)
         .levelUpLearnset = sTatsugiriLevelUpLearnset,
         .teachableLearnset = sTatsugiriTeachableLearnset,
+        .eggMoveLearnset = sTatsugiriEggMoveLearnset,
         .formSpeciesIdTable = sTatsugiriFormSpeciesIdTable,
     },
 
@@ -4337,6 +4378,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         FOOTPRINT(Tatsugiri)
         .levelUpLearnset = sTatsugiriLevelUpLearnset,
         .teachableLearnset = sTatsugiriTeachableLearnset,
+        .eggMoveLearnset = sTatsugiriEggMoveLearnset,
         .formSpeciesIdTable = sTatsugiriFormSpeciesIdTable,
     },
 #endif //P_FAMILY_TATSUGIRI
@@ -4390,7 +4432,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .iconSprite = gMonIcon_GreatTusk,
         .iconPalIndex = 0,
         FOOTPRINT(GreatTusk)
-        .isParadoxForm = TRUE,
+        .isParadox = TRUE,
         .levelUpLearnset = sGreatTuskLevelUpLearnset,
         .teachableLearnset = sGreatTuskTeachableLearnset,
     },
@@ -4416,7 +4458,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED),
         .abilities = { ABILITY_PROTOSYNTHESIS, ABILITY_NONE, ABILITY_NONE },
         .bodyColor = BODY_COLOR_PINK,
-        .speciesName = _("ScreamTail"),
+        .speciesName = HANDLE_EXPANDED_SPECIES_NAME("ScreamTail", "Scream Tail"),
         .cryId = CRY_SCREAM_TAIL,
         .natDexNum = NATIONAL_DEX_SCREAM_TAIL,
         .categoryName = _("Paradox"),
@@ -4445,7 +4487,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .iconSprite = gMonIcon_ScreamTail,
         .iconPalIndex = 0,
         FOOTPRINT(ScreamTail)
-        .isParadoxForm = TRUE,
+        .isParadox = TRUE,
         .levelUpLearnset = sScreamTailLevelUpLearnset,
         .teachableLearnset = sScreamTailTeachableLearnset,
     },
@@ -4471,7 +4513,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED),
         .abilities = { ABILITY_PROTOSYNTHESIS, ABILITY_NONE, ABILITY_NONE },
         .bodyColor = BODY_COLOR_WHITE,
-        .speciesName = _("BruteBonet"),
+        .speciesName = HANDLE_EXPANDED_SPECIES_NAME("BruteBonet", "Brute Bonnet"),
         .cryId = CRY_BRUTE_BONNET,
         .natDexNum = NATIONAL_DEX_BRUTE_BONNET,
         .categoryName = _("Paradox"),
@@ -4500,7 +4542,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .iconSprite = gMonIcon_BruteBonnet,
         .iconPalIndex = 1,
         FOOTPRINT(BruteBonnet)
-        .isParadoxForm = TRUE,
+        .isParadox = TRUE,
         .levelUpLearnset = sBruteBonnetLevelUpLearnset,
         .teachableLearnset = sBruteBonnetTeachableLearnset,
     },
@@ -4528,7 +4570,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED),
         .abilities = { ABILITY_PROTOSYNTHESIS, ABILITY_NONE, ABILITY_NONE },
         .bodyColor = BODY_COLOR_GRAY,
-        .speciesName = _("FluttrMane"),
+        .speciesName = HANDLE_EXPANDED_SPECIES_NAME("FluttrMane", "Flutter Mane"),
         .cryId = CRY_FLUTTER_MANE,
         .natDexNum = NATIONAL_DEX_FLUTTER_MANE,
         .categoryName = _("Paradox"),
@@ -4558,7 +4600,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .iconSprite = gMonIcon_FlutterMane,
         .iconPalIndex = 2,
         FOOTPRINT(FlutterMane)
-        .isParadoxForm = TRUE,
+        .isParadox = TRUE,
         .levelUpLearnset = sFlutterManeLevelUpLearnset,
         .teachableLearnset = sFlutterManeTeachableLearnset,
     },
@@ -4584,7 +4626,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED),
         .abilities = { ABILITY_PROTOSYNTHESIS, ABILITY_NONE, ABILITY_NONE },
         .bodyColor = BODY_COLOR_WHITE,
-        .speciesName = _("SlithrWing"),
+        .speciesName = HANDLE_EXPANDED_SPECIES_NAME("SlithrWing", "Slither Wing"),
         .cryId = CRY_SLITHER_WING,
         .natDexNum = NATIONAL_DEX_SLITHER_WING,
         .categoryName = _("Paradox"),
@@ -4612,7 +4654,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .iconSprite = gMonIcon_SlitherWing,
         .iconPalIndex = 1,
         FOOTPRINT(SlitherWing)
-        .isParadoxForm = TRUE,
+        .isParadox = TRUE,
         .levelUpLearnset = sSlitherWingLevelUpLearnset,
         .teachableLearnset = sSlitherWingTeachableLearnset,
     },
@@ -4638,7 +4680,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED),
         .abilities = { ABILITY_PROTOSYNTHESIS, ABILITY_NONE, ABILITY_NONE },
         .bodyColor = BODY_COLOR_GRAY,
-        .speciesName = _("SndyShocks"),
+        .speciesName = HANDLE_EXPANDED_SPECIES_NAME("SndyShocks", "Sandy Shocks"),
         .cryId = CRY_SANDY_SHOCKS,
         .natDexNum = NATIONAL_DEX_SANDY_SHOCKS,
         .categoryName = _("Paradox"),
@@ -4667,7 +4709,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .iconSprite = gMonIcon_SandyShocks,
         .iconPalIndex = 0,
         FOOTPRINT(SandyShocks)
-        .isParadoxForm = TRUE,
+        .isParadox = TRUE,
         .levelUpLearnset = sSandyShocksLevelUpLearnset,
         .teachableLearnset = sSandyShocksTeachableLearnset,
     },
@@ -4693,7 +4735,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED),
         .abilities = { ABILITY_QUARK_DRIVE, ABILITY_NONE, ABILITY_NONE },
         .bodyColor = BODY_COLOR_GRAY,
-        .speciesName = _("IronTreads"),
+        .speciesName = HANDLE_EXPANDED_SPECIES_NAME("IronTreads", "Iron Treads"),
         .cryId = CRY_IRON_TREADS,
         .natDexNum = NATIONAL_DEX_IRON_TREADS,
         .categoryName = _("Paradox"),
@@ -4722,7 +4764,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .iconSprite = gMonIcon_IronTreads,
         .iconPalIndex = 1,
         FOOTPRINT(IronTreads)
-        .isParadoxForm = TRUE,
+        .isParadox = TRUE,
         .levelUpLearnset = sIronTreadsLevelUpLearnset,
         .teachableLearnset = sIronTreadsTeachableLearnset,
     },
@@ -4748,7 +4790,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED),
         .abilities = { ABILITY_QUARK_DRIVE, ABILITY_NONE, ABILITY_NONE },
         .bodyColor = BODY_COLOR_RED,
-        .speciesName = _("IronBundle"),
+        .speciesName = HANDLE_EXPANDED_SPECIES_NAME("IronBundle", "Iron Bundle"),
         .cryId = CRY_IRON_BUNDLE,
         .natDexNum = NATIONAL_DEX_IRON_BUNDLE,
         .categoryName = _("Paradox"),
@@ -4777,7 +4819,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .iconSprite = gMonIcon_IronBundle,
         .iconPalIndex = 0,
         FOOTPRINT(IronBundle)
-        .isParadoxForm = TRUE,
+        .isParadox = TRUE,
         .levelUpLearnset = sIronBundleLevelUpLearnset,
         .teachableLearnset = sIronBundleTeachableLearnset,
     },
@@ -4832,7 +4874,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .iconSprite = gMonIcon_IronHands,
         .iconPalIndex = 0,
         FOOTPRINT(IronHands)
-        .isParadoxForm = TRUE,
+        .isParadox = TRUE,
         .levelUpLearnset = sIronHandsLevelUpLearnset,
         .teachableLearnset = sIronHandsTeachableLearnset,
     },
@@ -4858,7 +4900,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED),
         .abilities = { ABILITY_QUARK_DRIVE, ABILITY_NONE, ABILITY_NONE },
         .bodyColor = BODY_COLOR_BLUE,
-        .speciesName = _("IronJuguls"),
+        .speciesName = HANDLE_EXPANDED_SPECIES_NAME("IronJuguls", "Iron Jugulis"),
         .cryId = CRY_IRON_JUGULIS,
         .natDexNum = NATIONAL_DEX_IRON_JUGULIS,
         .categoryName = _("Paradox"),
@@ -4888,7 +4930,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .iconSprite = gMonIcon_IronJugulis,
         .iconPalIndex = 0,
         FOOTPRINT(IronJugulis)
-        .isParadoxForm = TRUE,
+        .isParadox = TRUE,
         .levelUpLearnset = sIronJugulisLevelUpLearnset,
         .teachableLearnset = sIronJugulisTeachableLearnset,
     },
@@ -4944,7 +4986,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .iconSprite = gMonIcon_IronMoth,
         .iconPalIndex = 3,
         FOOTPRINT(IronMoth)
-        .isParadoxForm = TRUE,
+        .isParadox = TRUE,
         .levelUpLearnset = sIronMothLevelUpLearnset,
         .teachableLearnset = sIronMothTeachableLearnset,
     },
@@ -4970,7 +5012,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED),
         .abilities = { ABILITY_QUARK_DRIVE, ABILITY_NONE, ABILITY_NONE },
         .bodyColor = BODY_COLOR_GREEN,
-        .speciesName = _("IronThorns"),
+        .speciesName = HANDLE_EXPANDED_SPECIES_NAME("IronThorns", "Iron Thorns"),
         .cryId = CRY_IRON_THORNS,
         .natDexNum = NATIONAL_DEX_IRON_THORNS,
         .categoryName = _("Paradox"),
@@ -4999,7 +5041,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .iconSprite = gMonIcon_IronThorns,
         .iconPalIndex = 1,
         FOOTPRINT(IronThorns)
-        .isParadoxForm = TRUE,
+        .isParadox = TRUE,
         .levelUpLearnset = sIronThornsLevelUpLearnset,
         .teachableLearnset = sIronThornsTeachableLearnset,
     },
@@ -5056,6 +5098,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         FOOTPRINT(Frigibax)
         .levelUpLearnset = sFrigibaxLevelUpLearnset,
         .teachableLearnset = sFrigibaxTeachableLearnset,
+        .eggMoveLearnset = sFrigibaxEggMoveLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 35, SPECIES_ARCTIBAX}),
     },
 
@@ -5217,7 +5260,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .levelUpLearnset = sGimmighoulLevelUpLearnset,
         .teachableLearnset = sGimmighoulTeachableLearnset,
         .formSpeciesIdTable = sGimmighoulFormSpeciesIdTable,
-        .evolutions = EVOLUTION({EVO_NONE, 0, SPECIES_GHOLDENGO}),
+        .evolutions = EVOLUTION({EVO_ITEM_COUNT_999, ITEM_GIMMIGHOUL_COIN, SPECIES_GHOLDENGO}),
     },
 
     [SPECIES_GIMMIGHOUL_ROAMING] =
@@ -5271,7 +5314,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .levelUpLearnset = sGimmighoulLevelUpLearnset,
         .teachableLearnset = sGimmighoulTeachableLearnset,
         .formSpeciesIdTable = sGimmighoulFormSpeciesIdTable,
-        .evolutions = EVOLUTION({EVO_NONE, 0, SPECIES_GHOLDENGO}),
+        .evolutions = EVOLUTION({EVO_ITEM_COUNT_999, ITEM_GIMMIGHOUL_COIN, SPECIES_GHOLDENGO}),
     },
 
     [SPECIES_GHOLDENGO] =
@@ -5568,7 +5611,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED),
         .abilities = { ABILITY_PROTOSYNTHESIS, ABILITY_NONE, ABILITY_NONE },
         .bodyColor = BODY_COLOR_BLUE,
-        .speciesName = _("RoarngMoon"),
+        .speciesName = HANDLE_EXPANDED_SPECIES_NAME("RoarngMoon", "Roaring Moon"),
         .cryId = CRY_ROARING_MOON,
         .natDexNum = NATIONAL_DEX_ROARING_MOON,
         .categoryName = _("Paradox"),
@@ -5598,7 +5641,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .iconSprite = gMonIcon_RoaringMoon,
         .iconPalIndex = 0,
         FOOTPRINT(RoaringMoon)
-        .isParadoxForm = TRUE,
+        .isParadox = TRUE,
         .levelUpLearnset = sRoaringMoonLevelUpLearnset,
         .teachableLearnset = sRoaringMoonTeachableLearnset,
     },
@@ -5624,7 +5667,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED),
         .abilities = { ABILITY_QUARK_DRIVE, ABILITY_NONE, ABILITY_NONE },
         .bodyColor = BODY_COLOR_WHITE,
-        .speciesName = _("IronVliant"),
+        .speciesName = HANDLE_EXPANDED_SPECIES_NAME("IronVliant", "Iron Valiant"),
         .cryId = CRY_IRON_VALIANT,
         .natDexNum = NATIONAL_DEX_IRON_VALIANT,
         .categoryName = _("Paradox"),
@@ -5652,7 +5695,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .iconSprite = gMonIcon_IronValiant,
         .iconPalIndex = 1,
         FOOTPRINT(IronValiant)
-        .isParadoxForm = TRUE,
+        .isParadox = TRUE,
         .levelUpLearnset = sIronValiantLevelUpLearnset,
         .teachableLearnset = sIronValiantTeachableLearnset,
     },
@@ -5708,7 +5751,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .iconPalIndex = 0,
         FOOTPRINT(Koraidon)
         .isLegendary = TRUE,
-        .isParadoxForm = TRUE,
+        .isFrontierBanned = TRUE,
         .levelUpLearnset = sKoraidonLevelUpLearnset,
         .teachableLearnset = sKoraidonTeachableLearnset,
     },
@@ -5764,7 +5807,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .iconPalIndex = 2,
         FOOTPRINT(Miraidon)
         .isLegendary = TRUE,
-        .isParadoxForm = TRUE,
+        .isFrontierBanned = TRUE,
         .levelUpLearnset = sMiraidonLevelUpLearnset,
         .teachableLearnset = sMiraidonTeachableLearnset,
     },
@@ -5790,7 +5833,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED),
         .abilities = { ABILITY_PROTOSYNTHESIS, ABILITY_NONE, ABILITY_NONE },
         .bodyColor = BODY_COLOR_BLUE,
-        .speciesName = _("WalkngWake"),
+        .speciesName = HANDLE_EXPANDED_SPECIES_NAME("WalkngWake", "Walking Wake"),
         .cryId = CRY_WALKING_WAKE,
         .natDexNum = NATIONAL_DEX_WALKING_WAKE,
         .categoryName = _("Paradox"),
@@ -5818,7 +5861,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .iconSprite = gMonIcon_WalkingWake,
         .iconPalIndex = 2,
         FOOTPRINT(WalkingWake)
-        .isParadoxForm = TRUE,
+        .isParadox = TRUE,
         .levelUpLearnset = sWalkingWakeLevelUpLearnset,
         .teachableLearnset = sWalkingWakeTeachableLearnset,
     },
@@ -5844,7 +5887,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED),
         .abilities = { ABILITY_QUARK_DRIVE, ABILITY_NONE, ABILITY_NONE },
         .bodyColor = BODY_COLOR_GREEN,
-        .speciesName = _("IronLeaves"),
+        .speciesName = HANDLE_EXPANDED_SPECIES_NAME("IronLeaves", "Iron Leaves"),
         .cryId = CRY_IRON_LEAVES,
         .natDexNum = NATIONAL_DEX_IRON_LEAVES,
         .categoryName = _("Paradox"),
@@ -5872,7 +5915,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .iconSprite = gMonIcon_IronLeaves,
         .iconPalIndex = 1,
         FOOTPRINT(IronLeaves)
-        .isParadoxForm = TRUE,
+        .isParadox = TRUE,
         .levelUpLearnset = sIronLeavesLevelUpLearnset,
         .teachableLearnset = sIronLeavesTeachableLearnset,
     },
@@ -5898,7 +5941,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_MINERAL, EGG_GROUP_AMORPHOUS),
         .abilities = { ABILITY_HOSPITALITY, ABILITY_NONE, ABILITY_HEATPROOF },
         .bodyColor = BODY_COLOR_GREEN,
-        .speciesName = _("Ptchageist"),
+        .speciesName = HANDLE_EXPANDED_SPECIES_NAME("Ptchageist", "Poltchageist"),
         .cryId = CRY_POLTCHAGEIST,
         .natDexNum = NATIONAL_DEX_POLTCHAGEIST,
         .categoryName = _("Matcha"),
@@ -5951,7 +5994,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_MINERAL, EGG_GROUP_AMORPHOUS),
         .abilities = { ABILITY_HOSPITALITY, ABILITY_NONE, ABILITY_HEATPROOF },
         .bodyColor = BODY_COLOR_GREEN,
-        .speciesName = _("Ptchageist"),
+        .speciesName = HANDLE_EXPANDED_SPECIES_NAME("Ptchageist", "Poltchageist"),
         .cryId = CRY_POLTCHAGEIST,
         .natDexNum = NATIONAL_DEX_POLTCHAGEIST,
         .categoryName = _("Matcha"),
@@ -6222,7 +6265,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED),
         .abilities = { ABILITY_TOXIC_CHAIN, ABILITY_NONE, ABILITY_TECHNICIAN },
         .bodyColor = BODY_COLOR_BLACK,
-        .speciesName = _("Fezndipiti"),
+        .speciesName = HANDLE_EXPANDED_SPECIES_NAME("Fezndipiti", "Fezandipiti"),
         .cryId = CRY_FEZANDIPITI,
         .natDexNum = NATIONAL_DEX_FEZANDIPITI,
         .categoryName = _("Retainer"),
@@ -6258,66 +6301,68 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
 #endif //P_FAMILY_FEZANDIPITI
 
 #if P_FAMILY_OGERPON
-#define OGERPON_SPECIES_INFO(Form, type, ability, color, iconpalette)                   \
-    {                                                                                   \
-        .baseHP        = 80,                                                            \
-        .baseAttack    = 120,                                                           \
-        .baseDefense   = 84,                                                            \
-        .baseSpeed     = 110,                                                           \
-        .baseSpAttack  = 60,                                                            \
-        .baseSpDefense = 96,                                                            \
-        .types = MON_TYPES(TYPE_GRASS, type),                                           \
-        .catchRate = 5,                                                                 \
-        .expYield = 275,                                                                \
-        .evYield_Attack = 3,                                                            \
-        .genderRatio = MON_FEMALE,                                                      \
-        .eggCycles = 10,                                                                \
-        .friendship = STANDARD_FRIENDSHIP,                                              \
-        .growthRate = GROWTH_SLOW,                                                      \
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED),                      \
-        .abilities = { ability, ABILITY_NONE },                                         \
-        .bodyColor = color,                                                             \
-        .speciesName = _("Ogerpon"),                                                    \
-        .cryId = CRY_OGERPON,                                                           \
-        .natDexNum = NATIONAL_DEX_OGERPON,                                              \
-        .categoryName = _("Mask"),                                                      \
-        .height = 12,                                                                   \
-        .weight = 398,                                                                  \
-        .description = gOgerpon##Form##PokedexText,                                     \
-        .pokemonScale = 356,                                                            \
-        .pokemonOffset = 17,                                                            \
-        .trainerScale = 256,                                                            \
-        .trainerOffset = 0,                                                             \
-        .frontPic = gMonFrontPic_Ogerpon##Form,                                         \
-        .frontPicSize = MON_COORDS_SIZE(64, 64),                                        \
-        .frontPicYOffset = 0,                                                           \
-        .frontAnimFrames = sAnims_Ogerpon,                                              \
-        /*.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,*/                                    \
-        .backPic = gMonBackPic_Ogerpon##Form,                                           \
-        .backPicSize = MON_COORDS_SIZE(64, 64),                                         \
-        .backPicYOffset = 16,                                                           \
-        /*.backAnimId = BACK_ANIM_NONE,*/                                               \
-        .palette = gMonPalette_Ogerpon##Form,                                           \
-        .shinyPalette = gMonShinyPalette_Ogerpon##Form,                                 \
-        .iconSprite = gMonIcon_Ogerpon##Form,                                           \
-        .iconPalIndex = iconpalette,                                                    \
-        FOOTPRINT(Ogerpon)                                                              \
-        .levelUpLearnset = sOgerponLevelUpLearnset,                                     \
-        .teachableLearnset = sOgerponTeachableLearnset,                                 \
-        .formSpeciesIdTable = sOgerponFormSpeciesIdTable,                               \
-        .formChangeTable = sOgerponFormChangeTable,                                     \
-        .isLegendary = TRUE,                                                            \
+#define OGERPON_SPECIES_INFO(Form1, Form2, type, ability, color, iconpalette, isTeraform)   \
+    {                                                                                       \
+        .baseHP        = 80,                                                                \
+        .baseAttack    = 120,                                                               \
+        .baseDefense   = 84,                                                                \
+        .baseSpeed     = 110,                                                               \
+        .baseSpAttack  = 60,                                                                \
+        .baseSpDefense = 96,                                                                \
+        .types = MON_TYPES(TYPE_GRASS, type),                                               \
+        .forceTeraType = type,                                                              \
+        .catchRate = 5,                                                                     \
+        .expYield = 275,                                                                    \
+        .evYield_Attack = 3,                                                                \
+        .genderRatio = MON_FEMALE,                                                          \
+        .eggCycles = 10,                                                                    \
+        .friendship = STANDARD_FRIENDSHIP,                                                  \
+        .growthRate = GROWTH_SLOW,                                                          \
+        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED),                          \
+        .abilities = { ability, ABILITY_NONE },                                             \
+        .bodyColor = color,                                                                 \
+        .speciesName = _("Ogerpon"),                                                        \
+        .cryId = CRY_OGERPON,                                                               \
+        .natDexNum = NATIONAL_DEX_OGERPON,                                                  \
+        .categoryName = _("Mask"),                                                          \
+        .height = 12,                                                                       \
+        .weight = 398,                                                                      \
+        .description = gOgerpon##Form1##MaskPokedexText,                                    \
+        .pokemonScale = 356,                                                                \
+        .pokemonOffset = 17,                                                                \
+        .trainerScale = 256,                                                                \
+        .trainerOffset = 0,                                                                 \
+        .frontPic = gMonFrontPic_Ogerpon##Form1##Form2,                                     \
+        .frontPicSize = MON_COORDS_SIZE(64, 64),                                            \
+        .frontPicYOffset = 0,                                                               \
+        .frontAnimFrames = sAnims_Ogerpon,                                                  \
+        /*.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,*/                                        \
+        .backPic = gMonBackPic_Ogerpon##Form1##Form2,                                       \
+        .backPicSize = MON_COORDS_SIZE(64, 64),                                             \
+        .backPicYOffset = 0,                                                                \
+        /*.backAnimId = BACK_ANIM_NONE,*/                                                   \
+        .palette = gMonPalette_Ogerpon##Form1##Form2,                                       \
+        .shinyPalette = gMonShinyPalette_Ogerpon##Form1##Form2,                             \
+        .iconSprite = gMonIcon_Ogerpon##Form1##Mask,                                        \
+        .iconPalIndex = iconpalette,                                                        \
+        FOOTPRINT(Ogerpon)                                                                  \
+        .levelUpLearnset = sOgerponLevelUpLearnset,                                         \
+        .teachableLearnset = sOgerponTeachableLearnset,                                     \
+        .formSpeciesIdTable = sOgerponFormSpeciesIdTable,                                   \
+        .formChangeTable = sOgerponFormChangeTable,                                         \
+        .isLegendary = TRUE,                                                                \
+        .isTeraForm = isTeraform,                                                           \
     }
 
-    [SPECIES_OGERPON_TEAL_MASK]             = OGERPON_SPECIES_INFO(TealMask,        TYPE_GRASS, ABILITY_DEFIANT,                   BODY_COLOR_GREEN, 1),
-    [SPECIES_OGERPON_WELLSPRING_MASK]       = OGERPON_SPECIES_INFO(WellspringMask,  TYPE_WATER, ABILITY_WATER_ABSORB,              BODY_COLOR_BLUE,  0),
-    [SPECIES_OGERPON_HEARTHFLAME_MASK]      = OGERPON_SPECIES_INFO(HearthflameMask, TYPE_FIRE,  ABILITY_MOLD_BREAKER,              BODY_COLOR_RED,   0),
-    [SPECIES_OGERPON_CORNERSTONE_MASK]      = OGERPON_SPECIES_INFO(CornerstoneMask, TYPE_ROCK,  ABILITY_STURDY,                    BODY_COLOR_GRAY,  0),
+    [SPECIES_OGERPON_TEAL_MASK]             = OGERPON_SPECIES_INFO(Teal,        Mask,     TYPE_GRASS, ABILITY_DEFIANT,                        BODY_COLOR_GREEN, 1, FALSE),
+    [SPECIES_OGERPON_WELLSPRING_MASK]       = OGERPON_SPECIES_INFO(Wellspring,  Mask,     TYPE_WATER, ABILITY_WATER_ABSORB,                   BODY_COLOR_BLUE,  0, FALSE),
+    [SPECIES_OGERPON_HEARTHFLAME_MASK]      = OGERPON_SPECIES_INFO(Hearthflame, Mask,     TYPE_FIRE,  ABILITY_MOLD_BREAKER,                   BODY_COLOR_RED,   0, FALSE),
+    [SPECIES_OGERPON_CORNERSTONE_MASK]      = OGERPON_SPECIES_INFO(Cornerstone, Mask,     TYPE_ROCK,  ABILITY_STURDY,                         BODY_COLOR_GRAY,  0, FALSE),
 #if P_TERA_FORMS
-    [SPECIES_OGERPON_TEAL_MASK_TERA]        = OGERPON_SPECIES_INFO(TealMask,        TYPE_GRASS, ABILITY_EMBODY_ASPECT_TEAL_MASK,        BODY_COLOR_GREEN, 1),
-    [SPECIES_OGERPON_WELLSPRING_MASK_TERA]  = OGERPON_SPECIES_INFO(WellspringMask,  TYPE_WATER, ABILITY_EMBODY_ASPECT_WELLSPRING_MASK,  BODY_COLOR_BLUE,  0),
-    [SPECIES_OGERPON_HEARTHFLAME_MASK_TERA] = OGERPON_SPECIES_INFO(HearthflameMask, TYPE_FIRE,  ABILITY_EMBODY_ASPECT_HEARTHFLAME_MASK, BODY_COLOR_RED,   0),
-    [SPECIES_OGERPON_CORNERSTONE_MASK_TERA] = OGERPON_SPECIES_INFO(CornerstoneMask, TYPE_ROCK,  ABILITY_EMBODY_ASPECT_CORNERSTONE_MASK, BODY_COLOR_GRAY,  0),
+    [SPECIES_OGERPON_TEAL_MASK_TERA]        = OGERPON_SPECIES_INFO(Teal,        MaskTera, TYPE_GRASS, ABILITY_EMBODY_ASPECT_TEAL_MASK,        BODY_COLOR_GREEN, 1, TRUE),
+    [SPECIES_OGERPON_WELLSPRING_MASK_TERA]  = OGERPON_SPECIES_INFO(Wellspring,  MaskTera, TYPE_WATER, ABILITY_EMBODY_ASPECT_WELLSPRING_MASK,  BODY_COLOR_BLUE,  0, TRUE),
+    [SPECIES_OGERPON_HEARTHFLAME_MASK_TERA] = OGERPON_SPECIES_INFO(Hearthflame, MaskTera, TYPE_FIRE,  ABILITY_EMBODY_ASPECT_HEARTHFLAME_MASK, BODY_COLOR_RED,   0, TRUE),
+    [SPECIES_OGERPON_CORNERSTONE_MASK_TERA] = OGERPON_SPECIES_INFO(Cornerstone, MaskTera, TYPE_ROCK,  ABILITY_EMBODY_ASPECT_CORNERSTONE_MASK, BODY_COLOR_GRAY,  0, TRUE),
 #endif //P_TERA_FORMS
 
 #endif //P_FAMILY_OGERPON
@@ -6342,7 +6387,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED),
         .abilities = { ABILITY_PROTOSYNTHESIS, ABILITY_NONE, ABILITY_NONE },
         .bodyColor = BODY_COLOR_BROWN,
-        .speciesName = _("GouginFire"),
+        .speciesName = HANDLE_EXPANDED_SPECIES_NAME("GouginFire", "Gouging Fire"),
         .cryId = CRY_GOUGING_FIRE,
         .natDexNum = NATIONAL_DEX_GOUGING_FIRE,
         .categoryName = _("Paradox"),
@@ -6371,7 +6416,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .iconSprite = gMonIcon_GougingFire,
         .iconPalIndex = 5,
         FOOTPRINT(GougingFire)
-        .isParadoxForm = TRUE,
+        .isParadox = TRUE,
         .levelUpLearnset = sGougingFireLevelUpLearnset,
         .teachableLearnset = sGougingFireTeachableLearnset,
     },
@@ -6397,7 +6442,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED),
         .abilities = { ABILITY_PROTOSYNTHESIS, ABILITY_NONE, ABILITY_NONE },
         .bodyColor = BODY_COLOR_YELLOW,
-        .speciesName = _("RagingBolt"),
+        .speciesName = HANDLE_EXPANDED_SPECIES_NAME("RagingBolt", "Raging Bolt"),
         .cryId = CRY_RAGING_BOLT,
         .natDexNum = NATIONAL_DEX_RAGING_BOLT,
         .categoryName = _("Paradox"),
@@ -6426,7 +6471,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .iconSprite = gMonIcon_RagingBolt,
         .iconPalIndex = 2,
         FOOTPRINT(RagingBolt)
-        .isParadoxForm = TRUE,
+        .isParadox = TRUE,
         .levelUpLearnset = sRagingBoltLevelUpLearnset,
         .teachableLearnset = sRagingBoltTeachableLearnset,
     },
@@ -6452,7 +6497,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED),
         .abilities = { ABILITY_QUARK_DRIVE, ABILITY_NONE, ABILITY_NONE },
         .bodyColor = BODY_COLOR_GRAY,
-        .speciesName = _("IronBouldr"),
+        .speciesName = HANDLE_EXPANDED_SPECIES_NAME("IronBouldr", "Iron Boulder"),
         .cryId = CRY_IRON_BOULDER,
         .natDexNum = NATIONAL_DEX_IRON_BOULDER,
         .categoryName = _("Paradox"),
@@ -6480,7 +6525,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .iconSprite = gMonIcon_IronBoulder,
         .iconPalIndex = 5,
         FOOTPRINT(IronBoulder)
-        .isParadoxForm = TRUE,
+        .isParadox = TRUE,
         .levelUpLearnset = sIronBoulderLevelUpLearnset,
         .teachableLearnset = sIronBoulderTeachableLearnset,
     },
@@ -6535,7 +6580,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .iconSprite = gMonIcon_IronCrown,
         .iconPalIndex = 3,
         FOOTPRINT(IronCrown)
-        .isParadoxForm = TRUE,
+        .isParadox = TRUE,
         .levelUpLearnset = sIronCrownLevelUpLearnset,
         .teachableLearnset = sIronCrownTeachableLearnset,
     },
@@ -6551,6 +6596,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .baseSpAttack  = 65,
         .baseSpDefense = 85,
         .types = MON_TYPES(TYPE_NORMAL),
+        .forceTeraType = TYPE_STELLAR,
         .catchRate = 255,
         .expYield = 90,
         .evYield_Defense = 1,
@@ -6592,6 +6638,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .iconPalIndex = 0,
         FOOTPRINT(TerapagosNormal)
         .isLegendary = TRUE,
+        .isFrontierBanned = TRUE,
         .levelUpLearnset = sTerapagosLevelUpLearnset,
         .teachableLearnset = sTerapagosTeachableLearnset,
         .formSpeciesIdTable = sTerapagosFormSpeciesIdTable,
@@ -6607,6 +6654,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .baseSpAttack  = 105,
         .baseSpDefense = 110,
         .types = MON_TYPES(TYPE_NORMAL),
+        .forceTeraType = TYPE_STELLAR,
         .catchRate = 255,
         .expYield = 120,
         .evYield_Defense = 2,
@@ -6649,6 +6697,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .iconPalIndex = 0,
         FOOTPRINT(TerapagosTerastal)
         .isLegendary = TRUE,
+        .isFrontierBanned = TRUE,
         .levelUpLearnset = sTerapagosLevelUpLearnset,
         .teachableLearnset = sTerapagosTeachableLearnset,
         .formSpeciesIdTable = sTerapagosFormSpeciesIdTable,
@@ -6664,6 +6713,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .baseSpAttack  = 130,
         .baseSpDefense = 110,
         .types = MON_TYPES(TYPE_NORMAL),
+        .forceTeraType = TYPE_STELLAR,
         .catchRate = 255,
         .expYield = 140,
         .evYield_HP = 3,
@@ -6689,21 +6739,23 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .pokemonOffset = 0,
         .trainerScale = 365,
         .trainerOffset = 7,
-        //.frontPic = gMonFrontPic_TerapagosStellar,
-        //.frontPicSize = MON_COORDS_SIZE(64, 64),
+        .frontPic = gMonFrontPic_TerapagosStellar,
+        .frontPicSize = MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = 0,
         .frontAnimFrames = sAnims_TerapagosStellar,
         //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
-        //.backPic = gMonBackPic_TerapagosStellar,
-        //.backPicSize = MON_COORDS_SIZE(64, 64),
+        .backPic = gMonBackPic_TerapagosStellar,
+        .backPicSize = MON_COORDS_SIZE(64, 64),
         .backPicYOffset = 0,
         //.backAnimId = BACK_ANIM_NONE,
-        //.palette = gMonPalette_TerapagosStellar,
-        //.shinyPalette = gMonShinyPalette_TerapagosStellar,
+        .palette = gMonPalette_TerapagosStellar,
+        .shinyPalette = gMonShinyPalette_TerapagosStellar,
         .iconSprite = gMonIcon_TerapagosStellar,
         .iconPalIndex = 0,
         FOOTPRINT(TerapagosStellar)
         .isLegendary = TRUE,
+        .isTeraForm = TRUE,
+        .isFrontierBanned = TRUE,
         .levelUpLearnset = sTerapagosLevelUpLearnset,
         .teachableLearnset = sTerapagosTeachableLearnset,
         .formSpeciesIdTable = sTerapagosFormSpeciesIdTable,
@@ -6761,6 +6813,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .iconPalIndex = 0,
         FOOTPRINT(Pecharunt)
         .isMythical = TRUE,
+        .isFrontierBanned = TRUE,
         .levelUpLearnset = sPecharuntLevelUpLearnset,
         .teachableLearnset = sPecharuntTeachableLearnset,
     },
