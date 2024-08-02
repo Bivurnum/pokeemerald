@@ -52,7 +52,9 @@ script MtChimney_EventScript_Rival2AfterCableCar {
 				MtChimney_Text_BrenFigureOutWhatsGoingOn,
 				MtChimney_Text_KyleFigureOutWhatsGoingOn)
 	closemessage
-
+	loadword (0, MtChimney_EventScript_Rival2Following)
+	setfollower (LOCALID_RIVAL2, FOLLOWER_ALL_AND_CUSTOM)
+	setvar (VAR_METEOR_FALLS_STATE, 6)
 	setvar (VAR_LITTLEROOT_RIVAL_STATE, 23)
 	releaseall
 	end
@@ -65,6 +67,24 @@ script MtChimney_EventScript_LeftRival2Talk {
 script MtChimney_EventScript_RightRival2Talk {
 	applymovement (OBJ_EVENT_ID_PLAYER, Common_Movement_FaceLeft)
 	applymovement (LOCALID_RIVAL2, Common_Movement_WalkInPlaceFasterRight)
+}
+
+script MtChimney_EventScript_Rival2Following {
+	lock
+	facefollower
+	if (var(VAR_METEOR_FALLS_STATE) == 6) {
+		rival2talk (MtChimney_Text_SpencerFollowing1,
+					MtChimney_Text_BrenFollowing1,
+					MtChimney_Text_KyleFollowing1)
+	}
+	else {
+		rival2talk (MtChimney_Text_SpencerFollowing2,
+					MtChimney_Text_BrenFollowing2,
+					MtChimney_Text_KyleFollowing2)
+	}
+	closemessage
+	release
+	end
 }
 
 movement MtChimney_Movement_CameraPanBackAndForth {
@@ -89,6 +109,33 @@ text MtChimney_Text_KyleFigureOutWhatsGoingOn {
 	format ("Whoa!\N"
 		"Things are pretty serious here.\p"
 		"Let's go figure out what's going on!")
+}
+
+text MtChimney_Text_SpencerFollowing1 {
+	format ("Let's go figure out what's going on!")
+}
+
+text MtChimney_Text_BrenFollowing1 {
+	format ("Let's go figure out what's going on!")
+}
+
+text MtChimney_Text_KyleFollowing1 {
+	format ("Let's go figure out what's going on!")
+}
+
+text MtChimney_Text_SpencerFollowing2 {
+	format ("Quick!\N"
+		"We need to stop TEAM MAGMA!")
+}
+
+text MtChimney_Text_BrenFollowing2 {
+	format ("Quick!\N"
+		"We need to stop TEAM MAGMA!")
+}
+
+text MtChimney_Text_KyleFollowing2 {
+	format ("Quick!\N"
+		"We need to stop TEAM MAGMA!")
 }
 
 raw `
