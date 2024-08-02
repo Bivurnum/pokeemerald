@@ -41,3 +41,114 @@ EVs: 252 Atk / 252 SpA / 6 SpD
 - Protect
 - Solar Beam
 - Dragon Claw
+
+=== PARTNER_KYLE_WOODS ===
+Name: KYLE
+Class: Rival
+Pic: Kyle
+Gender: Male
+Music: Male
+
+Charmander
+Level: 11
+Solar Power
+
+Nidoran M
+Level: 8
+Rivalry
+
+=== PARTNER_BREN_WOODS ===
+Name: BREN
+Class: Rival
+Pic: Bren
+Gender: Male
+Music: Male
+
+Piplup
+Level: 11
+Competitive
+
+Zubat
+Level: 8
+Infiltrator
+
+=== PARTNER_SPENCER_WOODS ===
+Name: SPENCER
+Class: Rival
+Pic: Spencer
+Gender: Male
+Music: Male
+
+Machop
+Level: 11
+No Guard
+
+Tinkatink
+Level: 8
+Own Tempo
+
+=== PARTNER_KYLE_MUSEUM ===
+Name: KYLE
+Class: Rival
+Pic: Kyle
+Gender: Male
+Music: Male
+
+Charmander
+Level: 15
+IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
+Solar Power
+
+Nidoran M
+Level: 14
+IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
+Rivalry
+
+=== PARTNER_BREN_MUSEUM ===
+Name: BREN
+Class: Rival
+Pic: Bren
+Gender: Male
+Music: Male
+
+Piplup
+Level: 15
+IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
+Competitive
+
+Zubat
+Level: 14
+IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
+Infiltrator
+
+=== PARTNER_SPENCER_MUSEUM ===
+Name: SPENCER
+Class: Rival
+Pic: Spencer
+Gender: Male
+Music: Male
+
+Machop
+Level: 15
+IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
+No Guard
+
+Tinkatink
+Level: 14
+IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
+Own Tempo
+
+=== PARTNER_WALLY_ROUTE_114 ===
+Name: WALLY
+Class: Rival
+Pic: Wally
+Gender: Male
+Music: Male
+
+Ralts
+Level: 19
+IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
+Synchronize
+- Draining Kiss
+- Confusion
+- Hypnosis
