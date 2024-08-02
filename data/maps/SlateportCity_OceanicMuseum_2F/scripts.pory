@@ -133,6 +133,7 @@ script SlateportCity_OceanicMuseum_2F_EventScript_CaptStern {
 	waitfanfare
 	special (HealPlayerParty)
 	removeobject (LOCALID_CAPT_STERN)
+	callnative (UpdateFollowingPokemon)
 	setflag (FLAG_HIDE_ROUTE_110_TEAM_AQUA)
 	call_if_eq (VAR_REGISTER_BIRCH_STATE, 0, SlateportCity_OceanicMuseum_2F_EventScript_ReadyRegisterBirch)
 	setflag (FLAG_DELIVERED_DEVON_GOODS)
