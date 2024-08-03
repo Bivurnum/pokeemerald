@@ -12051,10 +12051,10 @@ AI: Check Bad Move / Try To Faint / Check Viability
 Ralts
 Level: 16
 Ability: Synchronize
+IVs: 3 HP / 3 Atk / 3 Def / 3 SpA / 3 SpD / 3 Spe
 - Draining Kiss
 - Confusion
 - Hypnosis
-IVs: 3 HP / 3 Atk / 3 Def / 3 SpA / 3 SpD / 3 Spe
 
 === TRAINER_WALLY_VR_2 ===
 Name: WALLY
