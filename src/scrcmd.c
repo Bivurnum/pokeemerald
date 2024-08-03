@@ -1100,7 +1100,6 @@ bool8 ScrCmd_removeobjectat(struct ScriptContext *ctx)
 bool8 ScrCmd_updateobject(struct ScriptContext *ctx)
 {
     u16 localId = VarGet(ScriptReadHalfword(ctx));
-    u8 setFlag = 1;
 
     RemoveObjectEventByLocalIdAndMap(localId, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup);
     TrySpawnObjectEvent(localId, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup);
@@ -1112,7 +1111,6 @@ bool8 ScrCmd_updateobjectat(struct ScriptContext *ctx)
     u16 objectId = VarGet(ScriptReadHalfword(ctx));
     u8 mapGroup = ScriptReadByte(ctx);
     u8 mapNum = ScriptReadByte(ctx);
-    u8 setFlag = 1;
 
     RemoveObjectEventByLocalIdAndMap(objectId, mapNum, mapGroup);
     TrySpawnObjectEvent(objectId, mapNum, mapGroup);
