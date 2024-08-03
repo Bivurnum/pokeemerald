@@ -45,7 +45,7 @@ EVs: 252 Atk / 252 SpA / 6 SpD
 === PARTNER_KYLE_WOODS ===
 Name: KYLE
 Class: Rival
-Pic: Kyle
+Pic: Red
 Gender: Male
 Music: Male
 
@@ -60,7 +60,7 @@ Ability: Rivalry
 === PARTNER_BREN_WOODS ===
 Name: BREN
 Class: Rival
-Pic: Bren
+Pic: Red
 Gender: Male
 Music: Male
 
@@ -75,7 +75,7 @@ Ability: Infiltrator
 === PARTNER_SPENCER_WOODS ===
 Name: SPENCER
 Class: Rival
-Pic: Spencer
+Pic: Red
 Gender: Male
 Music: Male
 
@@ -90,7 +90,7 @@ Ability: Own Tempo
 === PARTNER_KYLE_MUSEUM ===
 Name: KYLE
 Class: Rival
-Pic: Kyle
+Pic: Red
 Gender: Male
 Music: Male
 
@@ -107,7 +107,7 @@ Ability: Rivalry
 === PARTNER_BREN_MUSEUM ===
 Name: BREN
 Class: Rival
-Pic: Bren
+Pic: Red
 Gender: Male
 Music: Male
 
@@ -124,7 +124,7 @@ Ability: Infiltrator
 === PARTNER_SPENCER_MUSEUM ===
 Name: SPENCER
 Class: Rival
-Pic: Spencer
+Pic: Red
 Gender: Male
 Music: Male
 
