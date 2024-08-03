@@ -9576,7 +9576,7 @@ Music: Male
 Double Battle: No
 AI: Check Bad Move / Try To Faint / Check Viability
 
-Nidoran M
+Nidoran-M (M)
 Level: 14
 Ability: Rivalry
 IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
@@ -10876,7 +10876,7 @@ AI: Check Bad Move
 Zubat
 Level: 13
 Ability: Infiltrator
-IVs: 3 HP / 3 Atk / 3 Def / 3 SpA / 3 SpD / 3 Spe
+IVs: 3 HP / 3 Atk / 3 Def / 3 SpA / 3 SpD / 13 Spe
 
 Piplup
 Level: 15
@@ -14147,21 +14147,23 @@ Torchic
 Level: 15
 IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
 
-=== TRAINER_MAY_RUSTBORO_TORCHIC ===
-Name: MAY
+=== TRAINER_KYLE_RUSTBORO ===
+Name: KYLE
 Class: Rival
-Pic: May
-Gender: Female
-Music: Female
+Pic: Kyle
+Gender: Male
+Music: Male
 Double Battle: No
 AI: Check Bad Move / Try To Faint / Check Viability
 
-Torkoal
+Nidoran-M (M)
 Level: 13
+Ability: Rivalry
 IVs: 3 HP / 3 Atk / 3 Def / 3 SpA / 3 SpD / 3 Spe
 
-Mudkip
+Charmander
 Level: 15
+Ability: Solar Power
 IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
 
 === TRAINER_ROXANNE_2 ===
