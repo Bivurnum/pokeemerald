@@ -600,7 +600,6 @@ bool8 ScrCmd_clearflag(struct ScriptContext *ctx)
 bool8 ScrCmd_checkflag(struct ScriptContext *ctx)
 {
     ctx->comparisonResult = FlagGet(ScriptReadHalfword(ctx));
-    gSpecialVar_Result = ctx->comparisonResult;
     return FALSE;
 }
 
@@ -1083,9 +1082,8 @@ bool8 ScrCmd_waitmovementat(struct ScriptContext *ctx)
 bool8 ScrCmd_removeobject(struct ScriptContext *ctx)
 {
     u16 localId = VarGet(ScriptReadHalfword(ctx));
-    u8 setFlag = 0;
 
-    RemoveObjectEventByLocalIdAndMap(localId, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup, setFlag);
+    RemoveObjectEventByLocalIdAndMap(localId, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup);
     return FALSE;
 }
 
@@ -1094,9 +1092,8 @@ bool8 ScrCmd_removeobjectat(struct ScriptContext *ctx)
     u16 objectId = VarGet(ScriptReadHalfword(ctx));
     u8 mapGroup = ScriptReadByte(ctx);
     u8 mapNum = ScriptReadByte(ctx);
-    u8 setFlag = 0;
 
-    RemoveObjectEventByLocalIdAndMap(objectId, mapNum, mapGroup, setFlag);
+    RemoveObjectEventByLocalIdAndMap(objectId, mapNum, mapGroup);
     return FALSE;
 }
 
@@ -1105,7 +1102,7 @@ bool8 ScrCmd_updateobject(struct ScriptContext *ctx)
     u16 localId = VarGet(ScriptReadHalfword(ctx));
     u8 setFlag = 1;
 
-    RemoveObjectEventByLocalIdAndMap(localId, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup, setFlag);
+    RemoveObjectEventByLocalIdAndMap(localId, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup);
     TrySpawnObjectEvent(localId, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup);
     return FALSE;
 }
@@ -1117,7 +1114,7 @@ bool8 ScrCmd_updateobjectat(struct ScriptContext *ctx)
     u8 mapNum = ScriptReadByte(ctx);
     u8 setFlag = 1;
 
-    RemoveObjectEventByLocalIdAndMap(objectId, mapNum, mapGroup, setFlag);
+    RemoveObjectEventByLocalIdAndMap(objectId, mapNum, mapGroup);
     TrySpawnObjectEvent(objectId, mapNum, mapGroup);
     return FALSE;
 }
@@ -1990,10 +1987,6 @@ bool8 ScrCmd_trainerbattle(struct ScriptContext *ctx)
 
 bool8 ScrCmd_dotrainerbattle(struct ScriptContext *ctx)
 {
-    if (FlagGet(FLAG_SYS_DOUBLE_VS_2)) 
-        gNoOfApproachingTrainers = 2;
-
-    FlagClear (FLAG_SYS_DOUBLE_VS_2);
     BattleSetup_StartTrainerBattle();
     return TRUE;
 }
