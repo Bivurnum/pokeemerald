@@ -73,7 +73,7 @@ script RustboroCity_DevonCorp_3F_EventScript_MeetPresident {
 	msgbox (RustboroCity_DevonCorp_3F_Text_MaybeBrineyCanHelp, MSGBOX_DEFAULT)
 	closemessage
 	loadword (0, RustboroCity_DevonCorp_3F_EventScript_RivalFollowing)
-	setfollower (LOCALID_RIVAL1, CUSTOM_SCRIPT_AND_RUN)
+	//setfollower (LOCALID_RIVAL1, CUSTOM_SCRIPT_AND_RUN)
 	setflag (FLAG_HIDE_ROUTE_116_WANDAS_BOYFRIEND)
 	clearflag (FLAG_HIDE_RUSTURF_TUNNEL_WANDAS_BOYFRIEND)
 	clearflag (FLAG_HIDE_RUSTURF_TUNNEL_WANDA)
@@ -89,7 +89,7 @@ script RustboroCity_DevonCorp_3F_EventScript_MeetPresident {
 
 script RustboroCity_DevonCorp_3F_EventScript_RivalFollowing {
 	lock
-	facefollower
+	//facefollower
 	msgbox (RustboroCity_DevonCorp_3F_Text_RivalFollowing, MSGBOX_DEFAULT)
 	closemessage
 	release
