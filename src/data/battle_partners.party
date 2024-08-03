@@ -51,11 +51,11 @@ Music: Male
 
 Charmander
 Level: 11
-Solar Power
+Ability: Solar Power
 
 Nidoran M
 Level: 8
-Rivalry
+Ability: Rivalry
 
 === PARTNER_BREN_WOODS ===
 Name: BREN
@@ -66,11 +66,11 @@ Music: Male
 
 Piplup
 Level: 11
-Competitive
+Ability: Competitive
 
 Zubat
 Level: 8
-Infiltrator
+Ability: Infiltrator
 
 === PARTNER_SPENCER_WOODS ===
 Name: SPENCER
@@ -81,11 +81,11 @@ Music: Male
 
 Machop
 Level: 11
-No Guard
+Ability: No Guard
 
 Tinkatink
 Level: 8
-Own Tempo
+Ability: Own Tempo
 
 === PARTNER_KYLE_MUSEUM ===
 Name: KYLE
@@ -97,12 +97,12 @@ Music: Male
 Charmander
 Level: 15
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
-Solar Power
+Ability: Solar Power
 
 Nidoran M
 Level: 14
 IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
-Rivalry
+Ability: Rivalry
 
 === PARTNER_BREN_MUSEUM ===
 Name: BREN
@@ -114,12 +114,12 @@ Music: Male
 Piplup
 Level: 15
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
-Competitive
+Ability: Competitive
 
 Zubat
 Level: 14
 IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
-Infiltrator
+Ability: Infiltrator
 
 === PARTNER_SPENCER_MUSEUM ===
 Name: SPENCER
@@ -131,12 +131,12 @@ Music: Male
 Machop
 Level: 15
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
-No Guard
+Ability: No Guard
 
 Tinkatink
 Level: 14
 IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
-Own Tempo
+Ability: Own Tempo
 
 === PARTNER_WALLY_ROUTE_114 ===
 Name: WALLY
@@ -148,7 +148,7 @@ Music: Male
 Ralts
 Level: 19
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
-Synchronize
+Ability: Synchronize
 - Draining Kiss
 - Confusion
 - Hypnosis

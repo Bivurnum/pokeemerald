@@ -2862,8 +2862,8 @@ Carvanha
 Level: 25
 IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
 
-=== TRAINER_SPENCER ===
-Name: SPENCER
+=== TRAINER_LONNIE ===
+Name: LONNIE
 Class: Swimmer M
 Pic: Swimmer M
 Gender: Male
@@ -9512,7 +9512,7 @@ AI: Check Bad Move / Try To Faint / Check Viability
 
 Charmander
 Level: 5
-Solar Power
+Ability: Solar Power
 IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
 
 === TRAINER_SPENCER_SEASHORE ===
@@ -9526,12 +9526,12 @@ AI: Check Bad Move / Try To Faint / Check Viability
 
 Tinkatink
 Level: 14
-Own Tempo
+Ability: Own Tempo
 IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
 
 Machop
 Level: 15
-No Guard
+Ability: No Guard
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
 
 === TRAINER_BREN_SEASHORE ===
@@ -9545,12 +9545,12 @@ AI: Check Bad Move / Try To Faint / Check Viability
 
 Zubat
 Level: 14
-Infiltrator
+Ability: Infiltrator
 IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
 
 Piplup
 Level: 15
-Competitive
+Ability: Competitive
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
 
 === TRAINER_BREN_ROUTE_103 ===
@@ -9564,7 +9564,7 @@ AI: Check Bad Move / Try To Faint / Setup First Turn
 
 Piplup
 Level: 5
-Competitive
+Ability: Competitive
 IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
 
 === TRAINER_KYLE_SEASHORE ===
@@ -9578,12 +9578,12 @@ AI: Check Bad Move / Try To Faint / Check Viability
 
 Nidoran M
 Level: 14
-Rivalry
+Ability: Rivalry
 IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
 
 Charmander
 Level: 15
-Solar Power
+Ability: Solar Power
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
 
 === TRAINER_SPENCER_NEAR_FALLARBOR ===
@@ -9597,17 +9597,17 @@ AI: Check Bad Move / Try To Faint / Check Viability
 
 Tinkatink
 Level: 20
-Own Tempo
+Ability: Own Tempo
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
 
 Growlithe
 Level: 19
-Flash Fire
+Ability: Flash Fire
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
 
 Machop
 Level: 22
-No Guard
+Ability: No Guard
 IVs: 18 HP / 18 Atk / 18 Def / 18 SpA / 18 SpD / 18 Spe
 
 === TRAINER_SPENCER_ROUTE_103 ===
@@ -9621,7 +9621,7 @@ AI: Check Bad Move / Try To Faint / Check Viability
 
 Machop
 Level: 5
-No Guard
+Ability: No Guard
 IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
 
 === TRAINER_SPENCER_MAUVILLE ===
@@ -9635,12 +9635,12 @@ AI: Check Bad Move / Try To Faint / Check Viability
 
 Tinkatink
 Level: 18
-Own Tempo
+Ability: Own Tempo
 IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
 
 Machop
 Level: 20
-No Guard
+Ability: No Guard
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
 
 === TRAINER_BREN_NEAR_FALLARBOR ===
@@ -9654,17 +9654,17 @@ AI: Check Bad Move / Try To Faint / Check Viability
 
 Zubat
 Level: 20
-Infiltrator
+Ability: Infiltrator
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
 
 Bagon
 Level: 19
-Sheer Force
+Ability: Sheer Force
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
 
 Prinplup
 Level: 22
-Competitive
+Ability: Competitive
 IVs: 18 HP / 18 Atk / 18 Def / 18 SpA / 18 SpD / 18 Spe
 
 === TRAINER_KYLE_OLDALE ===
@@ -9678,7 +9678,7 @@ AI: Check Bad Move / Try To Faint / Check Viability
 
 Charmander
 Level: 5
-Solar Power
+Ability: Solar Power
 IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
 
 === TRAINER_BREN_MAUVILLE ===
@@ -9692,12 +9692,12 @@ AI: Check Bad Move / Try To Faint / Check Viability
 
 Zubat
 Level: 18
-Infiltrator
+Ability: Infiltrator
 IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
 
 Prinplup
 Level: 20
-Competitive
+Ability: Competitive
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
 
 === TRAINER_KYLE_NEAR_FALLARBOR ===
@@ -9711,17 +9711,17 @@ AI: Check Bad Move / Try To Faint / Check Viability
 
 Nidorino
 Level: 20
-Rivalry
+Ability: Rivalry
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
 
 Horsea
 Level: 19
-Sniper
+Ability: Sniper
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
 
 Charmeleon
 Level: 22
-Solar Power
+Ability: Solar Power
 IVs: 18 HP / 18 Atk / 18 Def / 18 SpA / 18 SpD / 18 Spe
 
 === TRAINER_SPENCER_OLDALE ===
@@ -9735,7 +9735,7 @@ AI: Check Bad Move / Try To Faint / Check Viability
 
 Machop
 Level: 5
-No Guard
+Ability: No Guard
 IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
 
 === TRAINER_KYLE_MAUVILLE ===
@@ -9749,12 +9749,12 @@ AI: Check Bad Move / Try To Faint / Check Viability
 
 Nidorino
 Level: 18
-Rivalry
+Ability: Rivalry
 IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
 
 Charmeleon
 Level: 20
-Solar Power
+Ability: Solar Power
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
 
 === TRAINER_MAY_ROUTE_119_TREECKO ===
@@ -9789,7 +9789,7 @@ AI: Check Bad Move / Try To Faint / Check Viability
 
 Piplup
 Level: 5
-Competitive
+Ability: Competitive
 IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
 
 === TRAINER_MAY_ROUTE_110_TORCHIC ===
@@ -10856,12 +10856,12 @@ AI: Check Bad Move
 
 Tinkatink
 Level: 13
-Own Tempo
+Ability: Own Tempo
 IVs: 3 HP / 3 Atk / 3 Def / 3 SpA / 3 SpD / 3 Spe
 
 Machop
 Level: 15
-No Guard
+Ability: No Guard
 IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
 
 === TRAINER_BREN_RUSTBORO ===
@@ -10875,12 +10875,12 @@ AI: Check Bad Move
 
 Zubat
 Level: 13
-Infiltrator
+Ability: Infiltrator
 IVs: 3 HP / 3 Atk / 3 Def / 3 SpA / 3 SpD / 3 Spe
 
 Piplup
 Level: 15
-Competitive
+Ability: Competitive
 IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
 
 === TRAINER_PAXTON ===
@@ -12050,6 +12050,7 @@ AI: Check Bad Move / Try To Faint / Check Viability
 
 Ralts
 Level: 16
+Ability: Synchronize
 - Draining Kiss
 - Confusion
 - Hypnosis
