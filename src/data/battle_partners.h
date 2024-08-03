@@ -134,7 +134,8 @@
             {
 #line 56
             .species = SPECIES_NIDORAN_M,
-            .gender = TRAINER_MON_RANDOM_GENDER,
+#line 56
+            .gender = TRAINER_MON_MALE,
 #line 59
             .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
 #line 58
@@ -263,7 +264,8 @@
             {
 #line 102
             .species = SPECIES_NIDORAN_M,
-            .gender = TRAINER_MON_RANDOM_GENDER,
+#line 102
+            .gender = TRAINER_MON_MALE,
 #line 104
             .iv = TRAINER_PARTY_IVS(6, 6, 6, 6, 6, 6),
 #line 105

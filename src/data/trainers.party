@@ -46,7 +46,7 @@ Optional fields for Pokemon:
           (Order does not matter)
     - EVs (252 HP / 128 Spe / 48 Def, defaults to all 0, is not capped at 512 total)
           (Order does not matter)
-    - Ball (Poke Ball or ITEM_POKE_BALL, defaults to Poke Ball
+    - Ball (Poke Ball or ITEM_POKE_BALL, defaults to Poke Ball)
     - Happiness (Number between 1 and 255)
     - Nature (Rash or NATURE_RASH, defaults to Hardy)
     - Shiny (Yes/No, defaults to No)
@@ -10876,7 +10876,7 @@ AI: Check Bad Move
 Zubat
 Level: 13
 Ability: Infiltrator
-IVs: 3 HP / 3 Atk / 3 Def / 3 SpA / 3 SpD / 13 Spe
+IVs: 3 HP / 3 Atk / 3 Def / 3 SpA / 3 SpD / 3 Spe
 
 Piplup
 Level: 15
