@@ -111,7 +111,7 @@
 #line 47
         .trainerClass = TRAINER_CLASS_RIVAL,
 #line 48
-        .trainerPic = TRAINER_BACK_PIC_KYLE,
+        .trainerPic = TRAINER_BACK_PIC_RED,
         .encounterMusic_gender = 
 #line 50
             TRAINER_ENCOUNTER_MUSIC_MALE,
@@ -155,7 +155,7 @@
 #line 62
         .trainerClass = TRAINER_CLASS_RIVAL,
 #line 63
-        .trainerPic = TRAINER_BACK_PIC_BREN,
+        .trainerPic = TRAINER_BACK_PIC_RED,
         .encounterMusic_gender = 
 #line 65
             TRAINER_ENCOUNTER_MUSIC_MALE,
@@ -198,7 +198,7 @@
 #line 77
         .trainerClass = TRAINER_CLASS_RIVAL,
 #line 78
-        .trainerPic = TRAINER_BACK_PIC_SPENCER,
+        .trainerPic = TRAINER_BACK_PIC_RED,
         .encounterMusic_gender = 
 #line 80
             TRAINER_ENCOUNTER_MUSIC_MALE,
@@ -241,7 +241,7 @@
 #line 92
         .trainerClass = TRAINER_CLASS_RIVAL,
 #line 93
-        .trainerPic = TRAINER_BACK_PIC_KYLE,
+        .trainerPic = TRAINER_BACK_PIC_RED,
         .encounterMusic_gender = 
 #line 95
             TRAINER_ENCOUNTER_MUSIC_MALE,
@@ -285,7 +285,7 @@
 #line 109
         .trainerClass = TRAINER_CLASS_RIVAL,
 #line 110
-        .trainerPic = TRAINER_BACK_PIC_BREN,
+        .trainerPic = TRAINER_BACK_PIC_RED,
         .encounterMusic_gender = 
 #line 112
             TRAINER_ENCOUNTER_MUSIC_MALE,
@@ -328,7 +328,7 @@
 #line 126
         .trainerClass = TRAINER_CLASS_RIVAL,
 #line 127
-        .trainerPic = TRAINER_BACK_PIC_SPENCER,
+        .trainerPic = TRAINER_BACK_PIC_RED,
         .encounterMusic_gender = 
 #line 129
             TRAINER_ENCOUNTER_MUSIC_MALE,

@@ -132,10 +132,6 @@ RustboroCity_DevonCorp_3F_EventScript_MeetPresident::
 	msgbox RustboroCity_DevonCorp_3F_Text_MaybeBrineyCanHelp, MSGBOX_DEFAULT
 # 74 "data/maps/RustboroCity_DevonCorp_3F/scripts.pory"
 	closemessage
-# 75 "data/maps/RustboroCity_DevonCorp_3F/scripts.pory"
-	loadword 0, RustboroCity_DevonCorp_3F_EventScript_RivalFollowing
-# 76 "data/maps/RustboroCity_DevonCorp_3F/scripts.pory"
-	setfollower 4, CUSTOM_SCRIPT_AND_RUN
 # 77 "data/maps/RustboroCity_DevonCorp_3F/scripts.pory"
 	setflag FLAG_HIDE_ROUTE_116_WANDAS_BOYFRIEND
 # 78 "data/maps/RustboroCity_DevonCorp_3F/scripts.pory"
@@ -162,8 +158,6 @@ RustboroCity_DevonCorp_3F_EventScript_MeetPresident::
 RustboroCity_DevonCorp_3F_EventScript_RivalFollowing::
 # 91 "data/maps/RustboroCity_DevonCorp_3F/scripts.pory"
 	lock
-# 92 "data/maps/RustboroCity_DevonCorp_3F/scripts.pory"
-	facefollower
 # 93 "data/maps/RustboroCity_DevonCorp_3F/scripts.pory"
 	msgbox RustboroCity_DevonCorp_3F_Text_RivalFollowing, MSGBOX_DEFAULT
 # 94 "data/maps/RustboroCity_DevonCorp_3F/scripts.pory"

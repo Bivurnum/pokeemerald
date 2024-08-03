@@ -1429,11 +1429,7 @@ void RemoveObjectEventByLocalIdAndMap(u8 localId, u8 mapNum, u8 mapGroup)
     u8 objectEventId;
     if (!TryGetObjectEventIdByLocalIdAndMap(localId, mapNum, mapGroup, &objectEventId))
     {
-            FlagSet(GetObjectEventFlagIdByObjectEventId(objectEventId));
-            FlagSet(GetObjectEventFlagIdByObjectEventId(objectEventId));
-        }
         FlagSet(GetObjectEventFlagIdByObjectEventId(objectEventId));
-        }
         RemoveObjectEvent(&gObjectEvents[objectEventId]);
     }
 }
