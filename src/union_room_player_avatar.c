@@ -177,8 +177,7 @@ static void CreateUnionRoomPlayerObjectEvent(u32 leaderId)
 
 static void RemoveUnionRoomPlayerObjectEvent(u32 leaderId)
 {
-    u8 setFlag = 0;
-    RemoveObjectEventByLocalIdAndMap(sUnionRoomLocalIds[leaderId], gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup, setFlag);
+    RemoveObjectEventByLocalIdAndMap(sUnionRoomLocalIds[leaderId], gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup);
 }
 
 static bool32 SetUnionRoomPlayerEnterExitMovement(u32 leaderId, const u8 *movement)

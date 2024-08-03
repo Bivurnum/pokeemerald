@@ -918,9 +918,9 @@ void GetPlayerBigGuyGirlString(void)
 
 void GetRivalSonDaughterString(void)
 {
-//    if (gSaveBlock2Ptr->playerGender == MALE)
-//        StringCopy(gStringVar1, gText_Daughter);
-//    else
+    if (gSaveBlock2Ptr->playerGender == MALE)
+        StringCopy(gStringVar1, gText_Daughter);
+    else
         StringCopy(gStringVar1, gText_Son);
 }
 
@@ -1272,9 +1272,8 @@ void SpawnCameraObject(void)
 
 void RemoveCameraObject(void)
 {
-    u8 setFlag = 0;
     CameraObjectSetFollowedSpriteId(GetPlayerAvatarSpriteId());
-    RemoveObjectEventByLocalIdAndMap(OBJ_EVENT_ID_CAMERA, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup, setFlag);
+    RemoveObjectEventByLocalIdAndMap(OBJ_EVENT_ID_CAMERA, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup);
 }
 
 u8 GetPokeblockNameByMonNature(void)

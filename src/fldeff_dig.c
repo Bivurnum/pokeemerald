@@ -43,7 +43,6 @@ bool8 FldEff_UseDig(void)
     gTasks[taskId].data[9] = (u32)StartDigFieldEffect;
     if (!ShouldDoBrailleDigEffect())
         SetPlayerAvatarTransitionFlags(PLAYER_AVATAR_FLAG_ON_FOOT);
-        
     return FALSE;
 }
 

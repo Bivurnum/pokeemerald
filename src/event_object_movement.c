@@ -1424,13 +1424,15 @@ static void RemoveObjectEvent(struct ObjectEvent *objectEvent)
     objectEvent->graphicsId = objectEvent->shiny = 0;
 }
 
-void RemoveObjectEventByLocalIdAndMap(u8 localId, u8 mapNum, u8 mapGroup, u8 setFlag)
+void RemoveObjectEventByLocalIdAndMap(u8 localId, u8 mapNum, u8 mapGroup)
 {
     u8 objectEventId;
     if (!TryGetObjectEventIdByLocalIdAndMap(localId, mapNum, mapGroup, &objectEventId))
     {
-        if (setFlag != 1) {
             FlagSet(GetObjectEventFlagIdByObjectEventId(objectEventId));
+            FlagSet(GetObjectEventFlagIdByObjectEventId(objectEventId));
+        }
+        FlagSet(GetObjectEventFlagIdByObjectEventId(objectEventId));
         }
         RemoveObjectEvent(&gObjectEvents[objectEventId]);
     }
@@ -8887,9 +8889,6 @@ static void UpdateObjectEventOffscreen(struct ObjectEvent *objectEvent, struct S
 
     if ((s16)y >= DISPLAY_HEIGHT + 16 || (s16)y2 < -16)
         objectEvent->offScreen = TRUE;
-        
-    if (FlagGet(FLAG_FORCE_LOAD_OFFSCREEN_OBJEV))
-        objectEvent->offScreen = FALSE;
 }
 
 static void UpdateObjectEventSpriteVisibility(struct ObjectEvent *objectEvent, struct Sprite *sprite)

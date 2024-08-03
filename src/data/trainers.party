@@ -9504,7 +9504,7 @@ IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
 === TRAINER_KYLE_ROUTE_103 ===
 Name: KYLE
 Class: Rival
-Pic: Friend Kyle
+Pic: Kyle
 Gender: Male
 Music: Male
 Double Battle: No
@@ -9518,7 +9518,7 @@ IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
 === TRAINER_SPENCER_SEASHORE ===
 Name: SPENCER
 Class: Rival
-Pic: Friend Spencer
+Pic: Spencer
 Gender: Male
 Music: Male
 Double Battle: No
@@ -9537,7 +9537,7 @@ IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
 === TRAINER_BREN_SEASHORE ===
 Name: BREN
 Class: Rival
-Pic: Friend Bren
+Pic: Bren
 Gender: Male
 Music: Male
 Double Battle: No
@@ -9556,7 +9556,7 @@ IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
 === TRAINER_BREN_ROUTE_103 ===
 Name: BREN
 Class: Rival
-Pic: Friend Bren
+Pic: Bren
 Gender: Male
 Music: Male
 Double Battle: No
@@ -9570,7 +9570,7 @@ IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
 === TRAINER_KYLE_SEASHORE ===
 Name: KYLE
 Class: Rival
-Pic: Friend Kyle
+Pic: Kyle
 Gender: Male
 Music: Male
 Double Battle: No
@@ -9589,7 +9589,7 @@ IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
 === TRAINER_SPENCER_NEAR_FALLARBOR ===
 Name: SPENCER
 Class: Rival
-Pic: Friend Spencer
+Pic: Spencer
 Gender: Male
 Music: Male
 Double Battle: No
@@ -9613,7 +9613,7 @@ IVs: 18 HP / 18 Atk / 18 Def / 18 SpA / 18 SpD / 18 Spe
 === TRAINER_SPENCER_ROUTE_103 ===
 Name: SPENCER
 Class: Rival
-Pic: Friend Spencer
+Pic: Spencer
 Gender: Male
 Music: Male
 Double Battle: No
@@ -9627,7 +9627,7 @@ IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
 === TRAINER_SPENCER_MAUVILLE ===
 Name: SPENCER
 Class: Rival
-Pic: Friend Spencer
+Pic: Spencer
 Gender: Male
 Music: Male
 Double Battle: No
@@ -9646,7 +9646,7 @@ IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
 === TRAINER_BREN_NEAR_FALLARBOR ===
 Name: BREN
 Class: Rival
-Pic: Friend Bren
+Pic: Bren
 Gender: Male
 Music: Male
 Double Battle: No
@@ -9670,7 +9670,7 @@ IVs: 18 HP / 18 Atk / 18 Def / 18 SpA / 18 SpD / 18 Spe
 === TRAINER_KYLE_OLDALE ===
 Name: KYLE
 Class: Rival
-Pic: Friend Kyle
+Pic: Kyle
 Gender: Male
 Music: Male
 Double Battle: No
@@ -9684,7 +9684,7 @@ IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
 === TRAINER_BREN_MAUVILLE ===
 Name: BREN
 Class: Rival
-Pic: Friend Bren
+Pic: Bren
 Gender: Male
 Music: Male
 Double Battle: No
@@ -9703,7 +9703,7 @@ IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
 === TRAINER_KYLE_NEAR_FALLARBOR ===
 Name: KYLE
 Class: Rival
-Pic: Friend Kyle
+Pic: Kyle
 Gender: Male
 Music: Male
 Double Battle: No
@@ -9727,7 +9727,7 @@ IVs: 18 HP / 18 Atk / 18 Def / 18 SpA / 18 SpD / 18 Spe
 === TRAINER_SPENCER_OLDALE ===
 Name: SPENCER
 Class: Rival
-Pic: Friend Spencer
+Pic: Spencer
 Gender: Male
 Music: Male
 Double Battle: No
@@ -9741,7 +9741,7 @@ IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
 === TRAINER_KYLE_MAUVILLE ===
 Name: KYLE
 Class: Rival
-Pic: Friend Kyle
+Pic: Kyle
 Gender: Male
 Music: Male
 Double Battle: No
@@ -9781,7 +9781,7 @@ IVs: 18 HP / 18 Atk / 18 Def / 18 SpA / 18 SpD / 18 Spe
 === TRAINER_BREN_OLDALE ===
 Name: BREN
 Class: Rival
-Pic: Friend Bren
+Pic: Bren
 Gender: Male
 Music: Male
 Double Battle: No
@@ -10848,7 +10848,7 @@ IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
 === TRAINER_SPENCER_RUSTBORO ===
 Name: SPENCER
 Class: Rival
-Pic: Friend Spencer
+Pic: Spencer
 Gender: Male
 Music: Male
 Double Battle: No
@@ -10867,7 +10867,7 @@ IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
 === TRAINER_BREN_RUSTBORO ===
 Name: BREN
 Class: Rival
-Pic: Friend Bren
+Pic: Bren
 Gender: Male
 Music: Male
 Double Battle: No
