@@ -53,9 +53,7 @@ static u8 GetFollowerMapObjId(void);
 static u16 GetFollowerSprite(void);
 static void TryUpdateFollowerSpriteUnderwater(void);
 static void Task_ReallowPlayerMovement(u8 taskId);
-static u8 DetermineFollowerDirection(struct ObjectEvent* player, struct ObjectEvent* follower);
 static void PlayerLogCoordinates(struct ObjectEvent* player);
-static u8 DetermineFollowerState(struct ObjectEvent* follower, u8 state, u8 direction);
 static bool8 IsStateMovement(u8 state);
 static u8 ReturnFollowerDelayedState(u8 direction);
 static void SetSurfJump(void);
@@ -329,7 +327,7 @@ static void Task_ReallowPlayerMovement(u8 taskId)
     DestroyTask(taskId);
 }
 
-static u8 DetermineFollowerDirection(struct ObjectEvent* player, struct ObjectEvent* follower)
+u8 DetermineFollowerDirection(struct ObjectEvent* player, struct ObjectEvent* follower)
 {
     //Move the follower towards the player
     s8 delta_x = follower->currentCoords.x - player->currentCoords.x;
@@ -355,7 +353,7 @@ static void PlayerLogCoordinates(struct ObjectEvent* player)
 }
 
 #define RETURN_STATE(state, dir) return newState == MOVEMENT_INVALID ? state + (dir - 1) : ReturnFollowerDelayedState(dir - 1);
-static u8 DetermineFollowerState(struct ObjectEvent* follower, u8 state, u8 direction)
+u8 DetermineFollowerState(struct ObjectEvent* follower, u8 state, u8 direction)
 {
     u8 newState = MOVEMENT_INVALID;
     #if SIDEWAYS_STAIRS_IMPLEMENTED == TRUE
@@ -755,6 +753,7 @@ static void Task_FinishSurfDismount(u8 taskId)
     gPlayerAvatar.preventStep = FALSE;
 }
 
+/* Consolidated into field_screen_effect.c
 void Task_DoDoorWarp(u8 taskId)
 {
     struct Task *task = &gTasks[taskId];
@@ -830,6 +829,7 @@ void Task_DoDoorWarp(u8 taskId)
         break;
     }
 }
+*/
 
 static u8 GetPlayerFaceToDoorDirection(struct ObjectEvent* player, struct ObjectEvent* follower)
 {
