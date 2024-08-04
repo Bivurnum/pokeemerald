@@ -1912,15 +1912,18 @@
     .byte 0xe9
     .endm
 
+
+@ Supplementary
+
 	@ Creates a follower from an NPC and destroys Pokemon follower
-	.macro setfollower localId:req, flags:req
+	.macro setfollower localId:req, flags:req, script
+	.ifnb \script
+		loadword 0, \script
+	.endif
 	createfollower \localId, \flags
 	delay 16
 	updatefollowingPKMN
 	.endm
-
-
-@ Supplementary
 
 	.macro goto_if_unset flag:req, dest:req
 	checkflag \flag
