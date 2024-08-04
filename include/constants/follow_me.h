@@ -28,6 +28,11 @@
 #define ALL_WATER                           FOLLOWER_FLAG_ALL_WATER
 #define ALL_LAND                            FOLLOWER_FLAG_ALL_LAND
 #define FOLLOWER_ALL                        FOLLOWER_FLAG_ALL
+#define FOLLOWER_ALL_SCRIPT                 FOLLOWER_FLAG_ALL | FOLLOWER_FLAG_CUSTOM_FOLLOW_SCRIPT
+
+
+// If set to TRUE, the player will turn to face the follower when they exit a doorway
+#define FACE_FOLLOWER_ON_DOOR_EXIT          FALSE
 
 
 #endif // GUARD_CONSTANTS_FOLLOW_ME_H

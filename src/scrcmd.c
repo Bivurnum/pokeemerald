@@ -2470,11 +2470,14 @@ bool8 ScrCmd_warpwhitefade(struct ScriptContext *ctx)
 
 // follow me script commands
 #include "follow_me.h"
-bool8 ScrCmd_setfollower(struct ScriptContext *ctx)
+bool8 ScrCmd_createfollower(struct ScriptContext *ctx)
 {
     u8 localId = ScriptReadByte(ctx);
     u16 flags = ScriptReadHalfword(ctx);
 
+    if (OW_FOLLOWERS_ENABLED == TRUE && !FlagGet(FLAG_TEMP_HIDE_FOLLOWER)) {
+        ReturnFollowingMonToBallForFollowMe();
+    }
     SetUpFollowerSprite(localId, flags);
     return FALSE;
 }
@@ -2482,6 +2485,9 @@ bool8 ScrCmd_setfollower(struct ScriptContext *ctx)
 bool8 ScrCmd_destroyfollower(struct ScriptContext *ctx)
 {
     DestroyFollower();
+    if (OW_FOLLOWERS_ENABLED == TRUE) {
+        UpdateFollowingPokemon();
+    }
     return FALSE;
 }
 
@@ -2494,6 +2500,14 @@ bool8 ScrCmd_facefollower(struct ScriptContext *ctx)
 bool8 ScrCmd_checkfollower(struct ScriptContext *ctx)
 {
     CheckPlayerHasFollower();
+    return FALSE;
+}
+
+bool8 ScrCmd_updatefollowingPKMN(struct ScriptContext *ctx)
+{
+    if (OW_FOLLOWERS_ENABLED == TRUE) {
+        UpdateFollowingPokemon();
+    }
     return FALSE;
 }
 
