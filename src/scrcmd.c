@@ -2503,7 +2503,7 @@ bool8 ScrCmd_checkfollower(struct ScriptContext *ctx)
     return FALSE;
 }
 
-bool8 ScrCmd_updatefollowingPKMN(struct ScriptContext *ctx)
+bool8 ScrCmd_updatefollowingmon(struct ScriptContext *ctx)
 {
     if (OW_FOLLOWERS_ENABLED == TRUE) {
         UpdateFollowingPokemon();

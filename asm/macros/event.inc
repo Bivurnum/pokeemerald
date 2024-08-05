@@ -1908,7 +1908,7 @@
     .endm
 
 	@ Updates Pokemon follower
-	.macro updatefollowingPKMN
+	.macro updatefollowingmon
     .byte 0xe9
     .endm
 
@@ -1922,7 +1922,7 @@
 	.endif
 	createfollower \localId, \flags
 	delay 16
-	updatefollowingPKMN
+	updatefollowingmon
 	.endm
 
 	.macro goto_if_unset flag:req, dest:req
