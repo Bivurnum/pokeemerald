@@ -92,6 +92,8 @@ RustboroCity_EventScript_ScientistAddMatchCall::
 	lockall
 # 77 "data/maps/RustboroCity/scripts.pory"
 	setvar VAR_ROUTE104_STATE, 1
+# 78 "data/maps/RustboroCity/scripts.pory"
+	destroyfollower
 # 79 "data/maps/RustboroCity/scripts.pory"
 	playse SE_EXIT
 # 80 "data/maps/RustboroCity/scripts.pory"

@@ -75,7 +75,7 @@ script RustboroCity_EventScript_SetForReturnGoods {
 script RustboroCity_EventScript_ScientistAddMatchCall {
 	lockall
 	setvar (VAR_ROUTE104_STATE, 1)
-	// destroyfollower
+	destroyfollower
 	playse (SE_EXIT)
 	delay (10)
 	addobject (LOCALID_RIVAL1)
