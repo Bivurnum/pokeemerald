@@ -1903,7 +1903,7 @@
 	@ Starts a double battle with the player against two trainers
 	@ Takes two trainers and defeat text for each
 	.macro trainerbattle_two_trainers trainer_a:req, lose_text_a:req, trainer_b:req, lose_text_b:req
-	.byte 0xe7
+	.byte 0xe8
 	.byte TRAINER_BATTLE_TWO_TRAINERS_NO_INTRO
 	.2byte \trainer_a
 	.4byte \lose_text_a
@@ -1911,7 +1911,45 @@
 	.4byte \lose_text_b
 	.endm
 
+	@ sets an NPC up to follow the player
+    .macro createfollower localId:req, flags:req
+    .byte 0xe9
+    .byte \localId
+    .2byte \flags
+    .endm
+    
+    @ remove the following NPC (assumes there will only ever be one)
+    .macro destroyfollower
+    .byte 0xea
+    .endm
+    
+    @ makes the player and follower face one another
+    .macro facefollower
+    .byte 0xeb
+    .endm
+    
+    @ checks if you have a follower. returns the result to VAR_RESULT
+    .macro checkfollower
+    .byte 0xec
+    .endm
+
+	@ Updates Pokemon follower
+	.macro updatefollowingPKMN
+    .byte 0xed
+    .endm
+
+
 @ Supplementary
+
+	@ Creates a follower from an NPC and destroys Pokemon follower
+	.macro setfollower localId:req, flags:req, script
+	.ifnb \script
+		loadword 0, \script
+	.endif
+	createfollower \localId, \flags
+	delay 16
+	updatefollowingPKMN
+	.endm
 
 	.macro goto_if_unset flag:req, dest:req
 	checkflag \flag
