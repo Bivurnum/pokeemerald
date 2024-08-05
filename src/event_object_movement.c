@@ -2135,7 +2135,7 @@ void UpdateFollowingPokemon(void)
     sprite->data[6] = 0; // set animation data
 }
 
-void ReturnFollowingMonToBallForFollowMe(void)
+void ReturnFollowingMonToBall(void)
 {
     struct ObjectEvent *objectEvent = GetFollowerObject();
     struct Sprite *sprite = &gSprites[objectEvent->spriteId];
@@ -2155,10 +2155,7 @@ void ReturnFollowingMonToBallForFollowMe(void)
     }
 
     ClearObjectEventMovement(objectEvent, sprite);
-    ObjectEventSetSingleMovement(objectEvent, sprite, MOVEMENT_ACTION_ENTER_POKEBALL);
-    objectEvent->singleMovementActive = 1;
-    sprite->sTypeFuncId = 2; // movement action sets state to 0
-    ObjectEventExecSingleMovementAction(objectEvent, sprite);
+    ObjectEventSetHeldMovement(objectEvent, MOVEMENT_ACTION_ENTER_POKEBALL);
 }
 
 // Remove follower object. Idempotent.
