@@ -2475,7 +2475,7 @@ bool8 ScrCmd_createfollower(struct ScriptContext *ctx)
     u8 localId = ScriptReadByte(ctx);
     u16 flags = ScriptReadHalfword(ctx);
 
-    if (OW_FOLLOWERS_ENABLED == TRUE && !FlagGet(FLAG_TEMP_HIDE_FOLLOWER)) {
+    if (OW_FOLLOWERS_ENABLED == TRUE && FlagGet(FLAG_SYS_POKEMON_GET)) {
         ReturnFollowingMonToBallForFollowMe();
     }
     SetUpFollowerSprite(localId, flags);
