@@ -32,7 +32,7 @@
 
 
 // If set to TRUE, the player will turn to face the follower when they exit a doorway
-#define FACE_FOLLOWER_ON_DOOR_EXIT          FALSE
+#define FACE_FOLLOWER_ON_DOOR_EXIT          TRUE
 
 
 #endif // GUARD_CONSTANTS_FOLLOW_ME_H
