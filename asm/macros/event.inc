@@ -1912,6 +1912,12 @@
     .byte 0xe9
     .endm
 
+	@ Returns Pokemon follower to ball
+	.macro ballfollowingmon
+	.byte 0xea
+	delay 16
+	.endm
+
 
 @ Supplementary
 
@@ -1920,8 +1926,8 @@
 	.ifnb \script
 		loadword 0, \script
 	.endif
+	ballfollowingmon
 	createfollower \localId, \flags
-	delay 16
 	updatefollowingmon
 	.endm
 
