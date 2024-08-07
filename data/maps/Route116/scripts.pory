@@ -330,6 +330,7 @@ script Route116_EventScript_Briney {
 
 script Route116_EventScript_BrineyTrigger0 {
 	lockall
+	ballfollowingmon
 	applymovement (OBJ_EVENT_ID_PLAYER, Route116_Movement_PlayerApproachRival0)
 	waitmovement (0)
 	goto (Route116_EventScript_BrineyEvent)
@@ -338,6 +339,7 @@ script Route116_EventScript_BrineyTrigger0 {
 
 script Route116_EventScript_BrineyTrigger1 {
 	lockall
+	ballfollowingmon
 	applymovement (OBJ_EVENT_ID_PLAYER, Route116_Movement_PlayerApproachRival1)
 	waitmovement (0)
 	goto (Route116_EventScript_BrineyEvent)
@@ -346,6 +348,7 @@ script Route116_EventScript_BrineyTrigger1 {
 
 script Route116_EventScript_BrineyTrigger2 {
 	lockall
+	ballfollowingmon
 	applymovement (OBJ_EVENT_ID_PLAYER, Route116_Movement_PlayerApproachRival2)
 	waitmovement (0)
 	goto (Route116_EventScript_BrineyEvent)
@@ -354,6 +357,7 @@ script Route116_EventScript_BrineyTrigger2 {
 
 script Route116_EventScript_BrineyTrigger3 {
 	lockall
+	ballfollowingmon
 	applymovement (OBJ_EVENT_ID_PLAYER, Route116_Movement_PlayerApproachRival3)
 	waitmovement (0)
 	goto (Route116_EventScript_BrineyEvent)

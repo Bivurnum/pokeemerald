@@ -1934,9 +1934,15 @@
     .endm
 
 	@ Updates Pokemon follower
-	.macro updatefollowingPKMN
+	.macro updatefollowingmon
     .byte 0xed
     .endm
+
+	@ Returns Pokemon follower to ball
+	.macro ballfollowingmon
+	.byte 0xee
+	delay 16
+	.endm
 
 
 @ Supplementary
@@ -1946,9 +1952,9 @@
 	.ifnb \script
 		loadword 0, \script
 	.endif
+	ballfollowingmon
 	createfollower \localId, \flags
-	delay 16
-	updatefollowingPKMN
+	updatefollowingmon
 	.endm
 
 	.macro goto_if_unset flag:req, dest:req
