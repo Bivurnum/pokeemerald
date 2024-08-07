@@ -232,6 +232,7 @@ script OldaleTown_EventScript_Rival {
 
 script OldaleTown_EventScript_RivalTrigger1 {
 	lockall
+	ballfollowingmon
 	playbgm (MUS_ENCOUNTER_BRENDAN, TRUE)
 	applymovement (LOCALID_RIVAL, OldaleTown_Movement_RivalApproachPlayer1)
 	waitmovement (0)
@@ -244,6 +245,7 @@ script OldaleTown_EventScript_RivalTrigger1 {
 
 script OldaleTown_EventScript_RivalTrigger2 {
 	lockall
+	ballfollowingmon
 	playbgm (MUS_ENCOUNTER_BRENDAN, TRUE)
 	applymovement (LOCALID_RIVAL, OldaleTown_Movement_RivalApproachPlayer2)
 	waitmovement (0)
@@ -256,6 +258,7 @@ script OldaleTown_EventScript_RivalTrigger2 {
 
 script OldaleTown_EventScript_RivalTrigger3 {
 	lockall
+	ballfollowingmon
 	playbgm (MUS_ENCOUNTER_BRENDAN, TRUE)
 	applymovement (LOCALID_RIVAL, OldaleTown_Movement_RivalApproachPlayer3)
 	waitmovement (0)
