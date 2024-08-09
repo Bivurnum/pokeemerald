@@ -168,8 +168,7 @@ DewfordTown_EventScript_SailToPetalburg::
 
 script DewfordTown_EventScript_SailToSlateport {
 	call (EventScript_BackupMrBrineyLocation)
-	checkflag (FLAG_HIDE_OUTDOOR_DEWFORD_RIVALS)
-	if (var(VAR_RESULT) == FALSE) {
+	if (flag(FLAG_HIDE_OUTDOOR_DEWFORD_RIVALS) == FALSE) {
 		applymovement (LOCALID_RIVAL1_DEWFORD, DewfordTown_Movement_RivalsJoinBoatToSlateport)
 		applymovement (LOCALID_RIVAL2_DEWFORD, DewfordTown_Movement_RivalsJoinBoatToSlateport)
 		waitmovement (0)
@@ -182,15 +181,13 @@ script DewfordTown_EventScript_SailToSlateport {
 	waitmovement (0)
 	removeobject (LOCALID_BRINEY_DEWFORD)
 	applymovement (OBJ_EVENT_ID_PLAYER, DewfordTown_Movement_PlayerBoardBoat)
-	checkflag (FLAG_HIDE_OUTDOOR_DEWFORD_RIVALS)
-	if (var(VAR_RESULT) == FALSE) {
+	if (flag(FLAG_HIDE_OUTDOOR_DEWFORD_RIVALS) == FALSE) {
 		applymovement (LOCALID_RIVAL1_DEWFORD, DewfordTown_Movement_Rival1BoardBoat)
 		applymovement (LOCALID_RIVAL2_DEWFORD, DewfordTown_Movement_Rival2BoardBoat)
 	}
 	waitmovement (0)
 	setobjectsubpriority (LOCALID_BOAT_DEWFORD, MAP_DEWFORD_TOWN, 0)
-	checkflag (FLAG_HIDE_OUTDOOR_DEWFORD_RIVALS)
-	if (var(VAR_RESULT) == FALSE) {
+	if (flag(FLAG_HIDE_OUTDOOR_DEWFORD_RIVALS) == FALSE) {
 	resetobjectsubpriority (LOCALID_RIVAL1_DEWFORD, MAP_DEWFORD_TOWN)
 	resetobjectsubpriority (LOCALID_RIVAL2_DEWFORD, MAP_DEWFORD_TOWN)
 	}
@@ -201,8 +198,7 @@ script DewfordTown_EventScript_SailToSlateport {
 	applymovement (OBJ_EVENT_ID_PLAYER, Common_Movement_Walk_Up)
 	waitmovement (0)
 	call (Common_EventScript_StopBrineysBoatMusic)
-	checkflag (FLAG_HIDE_OUTDOOR_DEWFORD_RIVALS)
-	if (var(VAR_RESULT) == FALSE) {
+	if (flag(FLAG_HIDE_OUTDOOR_DEWFORD_RIVALS) == FALSE) {
 		addobject (LOCALID_RIVAL1_R109)
 		hideobjectat (LOCALID_RIVAL1_R109, MAP_ROUTE109)
 		setobjectsubpriority (LOCALID_RIVAL1_R109, MAP_ROUTE109, 2)
@@ -231,8 +227,7 @@ script DewfordTown_EventScript_SailToSlateport {
 	resetobjectsubpriority (OBJ_EVENT_ID_PLAYER, MAP_DEWFORD_TOWN)
 	resetobjectsubpriority (LOCALID_BRINEY_R109, MAP_ROUTE109)
 	resetobjectsubpriority (LOCALID_BOAT_DEWFORD, MAP_DEWFORD_TOWN)
-	checkflag (FLAG_HIDE_OUTDOOR_DEWFORD_RIVALS)
-	if (var(VAR_RESULT) == FALSE) {
+	if (flag(FLAG_HIDE_OUTDOOR_DEWFORD_RIVALS) == FALSE) {
 		resetobjectsubpriority (LOCALID_RIVAL1_R109, MAP_ROUTE109)
 		resetobjectsubpriority (LOCALID_RIVAL2_R109, MAP_ROUTE109)
 		call (DewfordTown_EventScript_RivalsAfterSailToSlateport)
@@ -777,13 +772,16 @@ script DewfordTown_EventScript_Rival1 {
 	lock
 	applymovement (LOCALID_RIVAL1_DEWFORD, Common_Movement_FacePlayer)
 	waitmovement (0)
-	msgbox (DewfordTown_Text_StevenWasWellHidden, MSGBOX_DEFAULT)
-	checkflag (FLAG_BADGE02_GET)
-	if (var(VAR_RESULT) == FALSE) {
-		msgbox (DewfordTown_Text_WhyNotBeatTheGym, MSGBOX_DEFAULT)
-	}
-	else {
-		msgbox (DewfordTown_Text_CongratsBeatingBrawly, MSGBOX_DEFAULT)
+	if (var(VAR_TEMP_5) != 5) {
+		msgbox (DewfordTown_Text_StevenWasWellHidden, MSGBOX_DEFAULT)
+		if (flag(FLAG_BADGE02_GET) == FALSE) {
+			msgbox (DewfordTown_Text_WhyNotBeatTheGym, MSGBOX_DEFAULT)
+			setvar (VAR_TEMP_5, 5)
+		}
+		else {
+			msgbox (DewfordTown_Text_CongratsBeatingBrawly, MSGBOX_DEFAULT)
+			setvar (VAR_TEMP_5, 5)
+		}
 	}
 	msgbox (DewfordTown_Text_JustLetBrineyKnow, MSGBOX_DEFAULT)
 	applymovement (LOCALID_RIVAL1_DEWFORD, Common_Movement_FaceLeft)
@@ -817,11 +815,10 @@ script DewfordTown_EventScript_Rival2 {
 	lock
 	applymovement (LOCALID_RIVAL2_DEWFORD, Common_Movement_FacePlayer)
 	waitmovement (0)
-	checkflag (FLAG_BADGE02_GET)
-	if (var(VAR_RESULT) == FALSE) {
+	if (flag(FLAG_BADGE02_GET) == FALSE) {
 		msgbox (DewfordTown_Text_BadgeAsGoodAsYours, MSGBOX_DEFAULT)
 	}
-	if (var(VAR_RESULT) == TRUE) {
+	else {
 		msgbox (DewfordTown_Text_NiceBadge)
 	}
 	applymovement (LOCALID_RIVAL2_DEWFORD, Common_Movement_FaceRight)

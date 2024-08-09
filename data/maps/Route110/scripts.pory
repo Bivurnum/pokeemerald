@@ -507,8 +507,7 @@ script Route110_EventScript_RivalScene {
 
 script Route110_EventScript_Rival1 {
 	lock
-	checkflag (FLAG_HIDDEN_ITEM_ROUTE_110_REVIVE)
-	if (var(VAR_RESULT) == FALSE) {
+	if (flag(FLAG_HIDDEN_ITEM_ROUTE_110_REVIVE) == FALSE) {
 		playse (SE_ITEMFINDER)
 		waitse
 		playse (SE_ITEMFINDER)

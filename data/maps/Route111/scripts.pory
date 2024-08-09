@@ -663,8 +663,7 @@ script Route111_EventScript_SecretBaseEvent {
 	rival1talk (Route111_Text_SpencerTryingToCatchUp,
 				Route111_Text_BrenTryingToCatchUp,
 				Route111_Text_KyleTryingToCatchUp)
-	checkflag (FLAG_RECEIVED_BIKE)
-	if (var(VAR_RESULT) == FALSE) {
+	if (flag(FLAG_RECEIVED_BIKE) == FALSE) {
 		msgbox (Route111_Text_NoBike, MSGBOX_DEFAULT)
 	}
 	closemessage

@@ -131,8 +131,7 @@ script Route109_SeashoreHouse_EventScript_CheckTrainersCompletion {
 	goto_if_not_defeated (TRAINER_DWAYNE, Route109_SeashoreHouse_EventScript_TrainersNotCompleted)
 	goto_if_not_defeated (TRAINER_JOHANNA, Route109_SeashoreHouse_EventScript_TrainersNotCompleted)
 	goto_if_not_defeated (TRAINER_SIMON, Route109_SeashoreHouse_EventScript_TrainersNotCompleted)
-	checkflag (FLAG_HIDE_SEASHORE_HOUSE_RIVAL2)
-	if (var(VAR_RESULT) == FALSE) {
+	if (flag(FLAG_HIDE_SEASHORE_HOUSE_RIVAL2) == FALSE) {
 		checkfriendchoice
 		switch (var(VAR_RESULT)) {
 			case SPENCER:
