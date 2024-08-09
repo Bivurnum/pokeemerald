@@ -571,7 +571,7 @@ Route116_EventScript_Briney_4:
 
 Route116_EventScript_BrineyTrigger0::
 # 332 "data/maps/Route116/scripts.pory"
-	lock
+	lockall
 # 333 "data/maps/Route116/scripts.pory"
 	ballfollowingmon
 # 334 "data/maps/Route116/scripts.pory"
@@ -585,7 +585,7 @@ Route116_EventScript_BrineyTrigger0::
 
 Route116_EventScript_BrineyTrigger1::
 # 341 "data/maps/Route116/scripts.pory"
-	lock
+	lockall
 # 342 "data/maps/Route116/scripts.pory"
 	ballfollowingmon
 # 343 "data/maps/Route116/scripts.pory"
@@ -599,7 +599,7 @@ Route116_EventScript_BrineyTrigger1::
 
 Route116_EventScript_BrineyTrigger2::
 # 350 "data/maps/Route116/scripts.pory"
-	lock
+	lockall
 # 351 "data/maps/Route116/scripts.pory"
 	ballfollowingmon
 # 352 "data/maps/Route116/scripts.pory"
@@ -613,7 +613,7 @@ Route116_EventScript_BrineyTrigger2::
 
 Route116_EventScript_BrineyTrigger3::
 # 359 "data/maps/Route116/scripts.pory"
-	lock
+	lockall
 # 360 "data/maps/Route116/scripts.pory"
 	ballfollowingmon
 # 361 "data/maps/Route116/scripts.pory"
