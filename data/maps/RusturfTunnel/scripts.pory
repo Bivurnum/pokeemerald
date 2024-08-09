@@ -370,6 +370,7 @@ script RusturfTunnel_EventScript_Grunt {
 	msgbox (RusturfTunnel_Text_LetsGetOutOfTunnel, MSGBOX_DEFAULT)
 	closemessage
 	special (SpawnCameraObject)
+	delay (5)
 	applymovement (OBJ_EVENT_ID_PLAYER, RusturfTunnel_Movement_LeaveTunnel)
 	applymovement (LOCALID_RIVAL1, RusturfTunnel_Movement_LeaveTunnel)
 	fadescreenspeed (FADE_TO_BLACK, 8)
@@ -391,7 +392,7 @@ script RusturfTunnel_EventScript_Grunt {
 movement RusturfTunnel_Movement_RivalApproachPeeko1 {
 	delay_16 * 3
 	delay_8
-	walk_right * 4
+	walk_right * 5
 }
 
 movement RusturfTunnel_Movement_RivalWatchBrineyLeave {
@@ -403,7 +404,7 @@ movement RusturfTunnel_Movement_RivalWatchBrineyLeave {
 
 movement RusturfTunnel_Movement_RivalApproachPlayer {
 	delay_16
-	walk_right * 3
+	walk_right * 2
 }
 
 movement RusturfTunnel_Movement_LeaveTunnel {
