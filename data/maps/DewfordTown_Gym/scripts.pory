@@ -207,6 +207,7 @@ DewfordTown_Gym_EventScript_BrawlyDefeated::
 	delay 30
 	setflag FLAG_ENABLE_BRAWLY_MATCH_CALL
 	setvar VAR_ROXANNE_CALL_STEP_COUNTER, 0
+	setvar VAR_TEMP_3, 0
 	setflag FLAG_ENABLE_ROXANNE_FIRST_CALL
 	release
 	end

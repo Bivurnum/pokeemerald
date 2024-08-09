@@ -678,6 +678,7 @@ script RustboroCity_EventScript_EmployeeAskToGetGoods {
 script RustboroCity_EventScript_Rival1AfterAskToGetGoods {
 	closemessage
 	delay (30)
+	ballfollowingmon
 	playse (SE_PIN)
 	applymovement (OBJ_EVENT_ID_PLAYER, RustboroCity_Movement_NoticeRival1)
 	waitmovement (0)
@@ -1070,6 +1071,7 @@ movement RustboroCity_Movement_RivalMoveForReturnGoodsRight {
 
 script RustboroCity_EventScript_Rival2 {
 	lockall
+	ballfollowingmon
 	if (var(VAR_RUSTBORO_CITY_STATE) == 7) {
 		playbgm (MUS_ENCOUNTER_BRENDAN, TRUE)
 	}
@@ -1081,6 +1083,7 @@ script RustboroCity_EventScript_Rival2 {
 
 script RustboroCity_EventScript_RivalTrigger0 {
 	lockall
+	ballfollowingmon
 	setvar (VAR_TEMP_3, 0)
 	playbgm (MUS_ENCOUNTER_BRENDAN, TRUE)
 	applymovement (LOCALID_RIVAL2, Common_Movement_WalkInPlaceFasterDown)
@@ -1099,6 +1102,7 @@ script RustboroCity_EventScript_RivalTrigger0 {
 
 script RustboroCity_EventScript_RivalTrigger1 {
 	lockall
+	ballfollowingmon
 	setvar (VAR_TEMP_3, 0)
 	playbgm (MUS_ENCOUNTER_BRENDAN, TRUE)
 	applymovement (LOCALID_RIVAL2, Common_Movement_WalkInPlaceFasterDown)
@@ -1117,6 +1121,7 @@ script RustboroCity_EventScript_RivalTrigger1 {
 
 script RustboroCity_EventScript_RivalTrigger2 {
 	lockall
+	ballfollowingmon
 	setvar (VAR_TEMP_3, 0)
 	playbgm (MUS_ENCOUNTER_BRENDAN, TRUE)
 	applymovement (LOCALID_RIVAL2, Common_Movement_WalkInPlaceFasterDown)
@@ -1135,6 +1140,7 @@ script RustboroCity_EventScript_RivalTrigger2 {
 
 script RustboroCity_EventScript_RivalTrigger3 {
 	lockall
+	ballfollowingmon
 	setvar (VAR_TEMP_3, 0)
 	playbgm (MUS_ENCOUNTER_BRENDAN, TRUE)
 	applymovement (LOCALID_RIVAL2, Common_Movement_WalkInPlaceFasterDown)
@@ -1153,6 +1159,7 @@ script RustboroCity_EventScript_RivalTrigger3 {
 
 script RustboroCity_EventScript_RivalTrigger4 {
 	lockall
+	ballfollowingmon
 	setvar (VAR_TEMP_3, 0)
 	playbgm (MUS_ENCOUNTER_BRENDAN, TRUE)
 	applymovement (LOCALID_RIVAL2, Common_Movement_WalkInPlaceFasterDown)
@@ -1171,6 +1178,7 @@ script RustboroCity_EventScript_RivalTrigger4 {
 
 script RustboroCity_EventScript_RivalTrigger5 {
 	lockall
+	ballfollowingmon
 	setvar (VAR_TEMP_3, 0)
 	playbgm (MUS_ENCOUNTER_BRENDAN, TRUE)
 	applymovement (LOCALID_RIVAL2, Common_Movement_WalkInPlaceFasterDown)
@@ -1189,6 +1197,7 @@ script RustboroCity_EventScript_RivalTrigger5 {
 
 script RustboroCity_EventScript_RivalTrigger6 {
 	lockall
+	ballfollowingmon
 	setvar (VAR_TEMP_3, 0)
 	playbgm (MUS_ENCOUNTER_BRENDAN, TRUE)
 	applymovement (LOCALID_RIVAL2, Common_Movement_WalkInPlaceFasterDown)
@@ -1207,6 +1216,7 @@ script RustboroCity_EventScript_RivalTrigger6 {
 
 script RustboroCity_EventScript_RivalTrigger7 {
 	lockall
+	ballfollowingmon
 	setvar (VAR_TEMP_3, 7)
 	playbgm (MUS_ENCOUNTER_BRENDAN, TRUE)
 	applymovement (LOCALID_RIVAL2, Common_Movement_WalkInPlaceFasterDown)

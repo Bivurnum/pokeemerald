@@ -13,6 +13,7 @@ script PetalburgWoods_EventScript_DevonResearcherLeft {
 	addobject (LOCALID_RIVAL2)
 	msgbox (PetalburgWoods_Text_HoldUpPlayer, MSGBOX_DEFAULT)
 	closemessage
+	ballfollowingmon
 	turnobject (OBJ_EVENT_ID_PLAYER, DIR_SOUTH)
 	applymovement (LOCALID_RIVAL2, PetalburgWoods_Movement_Rival2ApproachBeforeDevonLeft)
 	waitmovement (0)
@@ -59,6 +60,7 @@ script PetalburgWoods_EventScript_DevonResearcherRight {
 	setobjectxy (LOCALID_GRUNT, 26, 17)
 	msgbox (PetalburgWoods_Text_HoldUpPlayer, MSGBOX_DEFAULT)
 	closemessage
+	ballfollowingmon
 	turnobject (OBJ_EVENT_ID_PLAYER, DIR_SOUTH)
 	applymovement (LOCALID_RIVAL2, PetalburgWoods_Movement_Rival2ApproachBeforeDevonRight)
 	waitmovement (0)
@@ -123,7 +125,6 @@ script PetalburgWoods_EventScript_DevonResearcherIntro {
 script PetalburgWoods_EventScript_PrepareForGruntBattle {
 	msgbox (PetalburgWoods_Text_TakeHimOnTogether, MSGBOX_DEFAULT)
 	closemessage
-	//savebgm (MUS_ENCOUNTER_AQUA)
 	special (SavePlayerParty)
 	fadescreen (FADE_TO_BLACK)
 	special (ChooseHalfPartyForBattle)

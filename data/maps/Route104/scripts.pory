@@ -113,7 +113,7 @@ script Route104_EventScript_RivalTrigger {
 	setvar (VAR_ROUTE104_STATE, 2)
 	applymovement (OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterUp)
 	waitmovement (0)
-	delay (10)
+	ballfollowingmon
 	addobject (LOCALID_RIVAL1)
 	applymovement (OBJ_EVENT_ID_PLAYER, Route104_Movement_PlayerBackUp)
 	waitmovement (0)
@@ -246,6 +246,7 @@ script Route104_EventScript_GoFindRivalTrigger1 {
 	applymovement (LOCALID_RIVAL2, Common_Movement_ExclamationMark)
 	waitmovement (0)
 	delay (20)
+	ballfollowingmon
 	applymovement (LOCALID_RIVAL2, Route104_Movement_Rival2ApproachPlayer1)
 	waitmovement (0)
 	goto (Route104_EventScript_Rival2ShowsUp)
@@ -262,6 +263,7 @@ script Route104_EventScript_GoFindRivalTrigger2 {
 	applymovement (LOCALID_RIVAL2, Common_Movement_ExclamationMark)
 	waitmovement (0)
 	delay (20)
+	ballfollowingmon
 	applymovement (OBJ_EVENT_ID_PLAYER, Route104_Movement_PlayerMoveForApproach2)
 	applymovement (LOCALID_RIVAL2, Route104_Movement_Rival2ApproachPlayer2)
 	waitmovement (0)
@@ -279,6 +281,7 @@ script Route104_EventScript_GoFindRivalTrigger3 {
 	applymovement (LOCALID_RIVAL2, Common_Movement_ExclamationMark)
 	waitmovement (0)
 	delay (20)
+	ballfollowingmon
 	applymovement (OBJ_EVENT_ID_PLAYER, Route104_Movement_PlayerMoveForApproach3)
 	applymovement (LOCALID_RIVAL2, Route104_Movement_Rival2ApproachPlayer3)
 	waitmovement (0)
@@ -287,6 +290,7 @@ script Route104_EventScript_GoFindRivalTrigger3 {
 
 script Route104_EventScript_BeachTriggerLeft {
 	lockall
+	ballfollowingmon
 	applymovement (OBJ_EVENT_ID_PLAYER, Common_Movement_FaceUp)
 	applymovement (LOCALID_RIVAL1, Route104_Movement_ApproachPlayerBeachLeft)
 	waitmovement (0)
@@ -294,10 +298,14 @@ script Route104_EventScript_BeachTriggerLeft {
 	closemessage
 	applymovement (OBJ_EVENT_ID_PLAYER, Common_Movement_Walk_Up)
 	applymovement (LOCALID_RIVAL1, Route104_Movement_Rival1ReturnFromBeachBlockLeft)
+	waitmovement (0)
+	releaseall
+	end
 }
 
 script Route104_EventScript_BeachTriggerRight {
 	lockall
+	ballfollowingmon
 	applymovement (OBJ_EVENT_ID_PLAYER, Common_Movement_FaceUp)
 	applymovement (LOCALID_RIVAL1, Route104_Movement_ApproachPlayerBeachRight)
 	waitmovement (0)
@@ -305,6 +313,9 @@ script Route104_EventScript_BeachTriggerRight {
 	closemessage
 	applymovement (OBJ_EVENT_ID_PLAYER, Common_Movement_Walk_Up)
 	applymovement (LOCALID_RIVAL1, Route104_Movement_Rival1ReturnFromBeachBlockRight)
+	waitmovement (0)
+	releaseall
+	end
 }
 
 movement Route104_Movement_ApproachPlayerBeachLeft {
@@ -735,7 +746,7 @@ text RustboroCity_Text_RegisteredRival2 {
 
 text RustboroCity_Text_AnchorsAweigh {
 	format ("MR. BRINEY: DEWFORD it is, then!\p"
-	"Anchors aweigh!")
+		"Anchors aweigh!")
 }
 
 text RustboroCity_Text_PeekoSettingSail {

@@ -48,6 +48,7 @@ OldaleTown_EventScript_MartEmployee::
 	msgbox OldaleTown_Text_IWorkAtPokemonMart, MSGBOX_DEFAULT
 	closemessage
 	switch VAR_FACING
+	ballfollowingmon
 	case DIR_SOUTH, OldaleTown_EventScript_GoToMartSouth
 	case DIR_NORTH, OldaleTown_EventScript_GoToMartNorth
 	case DIR_EAST, OldaleTown_EventScript_GoToMartEast
@@ -205,6 +206,7 @@ OldaleTown_EventScript_FootprintsMan::
 
 OldaleTown_EventScript_BlockedPath::
 	lockall
+	ballfollowingmon
 	applymovement OBJ_EVENT_ID_PLAYER, OldaleTown_Movement_PlayerStepBack
 	applymovement LOCALID_FOOTPRINTS_MAN, OldaleTown_Movement_BackUp
 	waitmovement 0
