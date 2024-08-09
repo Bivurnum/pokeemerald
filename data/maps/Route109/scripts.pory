@@ -7,6 +7,7 @@ Route109_MapScripts::
 
 Route109_EventScript_StartDepartForDewford::
 	call EventScript_BackupMrBrineyLocation
+	ballfollowingmon
 	setobjectsubpriority LOCALID_BRINEY_R109, MAP_ROUTE109, 0
 	setobjectsubpriority OBJ_EVENT_ID_PLAYER, MAP_ROUTE109, 0
 	applymovement LOCALID_BRINEY_R109, Route109_Movement_BrineyEnterBoat

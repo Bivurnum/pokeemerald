@@ -36,6 +36,7 @@ Route110_SeasideCyclingRoadSouthEntrance_EventScript_OnMachBike::
 Route110_SeasideCyclingRoadSouthEntrance_EventScript_NoBike::
 	msgbox Route110_SeasideCyclingRoadSouthEntrance_Text_TooDangerousToWalk, MSGBOX_DEFAULT
 	closemessage
+	ballfollowingmon
 	applymovement OBJ_EVENT_ID_PLAYER, Route110_SeasideCyclingRoadSouthEntrance_Movement_PushPlayerBackFromCounter
 	waitmovement 0
 	releaseall

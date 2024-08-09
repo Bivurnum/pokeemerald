@@ -135,6 +135,7 @@ DewfordTown_EventScript_FishingNotSoGood::
 
 DewfordTown_EventScript_SailToPetalburg::
 	call EventScript_BackupMrBrineyLocation
+	ballfollowingmon
 	setobjectsubpriority LOCALID_BRINEY_DEWFORD, MAP_DEWFORD_TOWN, 0
 	setobjectsubpriority OBJ_EVENT_ID_PLAYER, MAP_DEWFORD_TOWN, 0
 	applymovement LOCALID_BRINEY_DEWFORD, DewfordTown_Movement_BrineyBoardBoat
@@ -168,6 +169,7 @@ DewfordTown_EventScript_SailToPetalburg::
 
 script DewfordTown_EventScript_SailToSlateport {
 	call (EventScript_BackupMrBrineyLocation)
+	ballfollowingmon
 	if (flag(FLAG_HIDE_OUTDOOR_DEWFORD_RIVALS) == FALSE) {
 		applymovement (LOCALID_RIVAL1_DEWFORD, DewfordTown_Movement_RivalsJoinBoatToSlateport)
 		applymovement (LOCALID_RIVAL2_DEWFORD, DewfordTown_Movement_RivalsJoinBoatToSlateport)

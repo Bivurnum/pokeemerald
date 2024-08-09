@@ -398,6 +398,7 @@ script Route110_EventScript_RivalTrigger3 {
 script Route110_EventScript_RivalScene {
 	lockall
 	checkplayergender
+	ballfollowingmon
 	playbgm (MUS_ENCOUNTER_BRENDAN, FALSE)
 	applymovement (LOCALID_RIVAL2, Common_Movement_WalkInPlaceFasterDown)
 	waitmovement (0)
@@ -561,6 +562,7 @@ script Route110_EventScript_Rival2 {
 }
 
 script Route110_EventScript_EndRouteTrigger1 {
+	lockall
 	setobjectxyperm (LOCALID_RIVAL2, 4, 25)
 	setobjectxyperm (LOCALID_RIVAL1FINDER, 3, 25)
 	setvar (VAR_0x8008, 1)
@@ -568,6 +570,7 @@ script Route110_EventScript_EndRouteTrigger1 {
 }
 
 script Route110_EventScript_EndRouteTrigger2 {
+	lockall
 	setobjectxyperm (LOCALID_RIVAL2, 5, 25)
 	setobjectxyperm (LOCALID_RIVAL1FINDER, 4, 25)
 	setvar (VAR_0x8008, 2)
@@ -575,6 +578,7 @@ script Route110_EventScript_EndRouteTrigger2 {
 }
 
 script Route110_EventScript_EndRouteTrigger3 {
+	lockall
 	setobjectxyperm (LOCALID_RIVAL2, 4, 25)
 	setobjectxyperm (LOCALID_RIVAL1FINDER, 5, 25)
 	setvar (VAR_0x8008, 3)
@@ -582,7 +586,7 @@ script Route110_EventScript_EndRouteTrigger3 {
 }
 
 script Route110_EventScript_EndRoute {
-	lockall
+	ballfollowingmon
 	applymovement (OBJ_EVENT_ID_PLAYER, Common_Movement_FaceDown)
 	waitmovement (0)
 	addobject (LOCALID_RIVAL1FINDER)

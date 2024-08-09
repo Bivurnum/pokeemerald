@@ -51,6 +51,7 @@ text SlateportCity_OceanicMuseum_2F_KyleFoundStern {
 script SlateportCity_OceanicMuseum_2F_EventScript_CaptStern {
 	lock
 	faceplayer
+	ballfollowingmon
 	msgbox (SlateportCity_OceanicMuseum_2F_Text_ThankYouForTheParts, MSGBOX_DEFAULT)
 	closemessage
 	playbgm (MUS_ENCOUNTER_AQUA, TRUE)

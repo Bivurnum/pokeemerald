@@ -30,6 +30,7 @@ SlateportCity_OceanicMuseum_1F_EventScript_PayEntranceFee::
 	goto_if_eq VAR_RESULT, YES, SlateportCity_OceanicMuseum_1F_EventScript_CheckMoneyForFee
 	closemessage
 	hidemoneybox
+	ballfollowingmon
 	applymovement OBJ_EVENT_ID_PLAYER, SlateportCity_OceanicMuseum_1F_Movement_PushPlayerBackFromCounter
 	waitmovement 0
 	releaseall
@@ -52,6 +53,7 @@ SlateportCity_OceanicMuseum_1F_EventScript_NotEnoughMoney::
 	msgbox SlateportCity_OceanicMuseum_1F_Text_NotEnoughMoney, MSGBOX_DEFAULT
 	closemessage
 	hidemoneybox
+	ballfollowingmon
 	applymovement OBJ_EVENT_ID_PLAYER, SlateportCity_OceanicMuseum_1F_Movement_PushPlayerBackFromCounter
 	waitmovement 0
 	releaseall
@@ -147,7 +149,7 @@ SlateportCity_OceanicMuseum_1F_EventScript_MuseumPatron4::
 SlateportCity_OceanicMuseum_1F_EventScript_FamiliarGrunt::
 	lock
 	faceplayer
-	delay 8
+	ballfollowingmon
 	playse SE_PIN
 	applymovement LOCALID_FAMILIAR_GRUNT, Common_Movement_ExclamationMark
 	waitmovement 0

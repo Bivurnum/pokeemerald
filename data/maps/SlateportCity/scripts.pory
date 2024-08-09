@@ -960,6 +960,7 @@ SlateportCity_EventScript_ScottBattleTentScene::
 	lockall
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_FaceUp
 	waitmovement 0
+	ballfollowingmon
 	opendoor 10, 12
 	waitdooranim
 	addobject LOCALID_SCOTT

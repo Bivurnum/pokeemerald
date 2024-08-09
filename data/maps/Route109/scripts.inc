@@ -17,137 +17,137 @@ Route109_EventScript_StartDepartForDewford::
 # 9 "data/maps/Route109/scripts.pory"
 	call EventScript_BackupMrBrineyLocation
 # 10 "data/maps/Route109/scripts.pory"
-	setobjectsubpriority LOCALID_BRINEY_R109, MAP_ROUTE109, 0
+	ballfollowingmon
 # 11 "data/maps/Route109/scripts.pory"
-	setobjectsubpriority OBJ_EVENT_ID_PLAYER, MAP_ROUTE109, 0
+	setobjectsubpriority LOCALID_BRINEY_R109, MAP_ROUTE109, 0
 # 12 "data/maps/Route109/scripts.pory"
-	applymovement LOCALID_BRINEY_R109, Route109_Movement_BrineyEnterBoat
+	setobjectsubpriority OBJ_EVENT_ID_PLAYER, MAP_ROUTE109, 0
 # 13 "data/maps/Route109/scripts.pory"
-	waitmovement 0
+	applymovement LOCALID_BRINEY_R109, Route109_Movement_BrineyEnterBoat
 # 14 "data/maps/Route109/scripts.pory"
-	removeobject LOCALID_BRINEY_R109
+	waitmovement 0
 # 15 "data/maps/Route109/scripts.pory"
-	switch VAR_FACING
+	removeobject LOCALID_BRINEY_R109
 # 16 "data/maps/Route109/scripts.pory"
-	case DIR_SOUTH, Route109_EventScript_EnterBoatSouth
+	switch VAR_FACING
 # 17 "data/maps/Route109/scripts.pory"
-	case DIR_WEST, Route109_EventScript_EnterBoatWest
+	case DIR_SOUTH, Route109_EventScript_EnterBoatSouth
 # 18 "data/maps/Route109/scripts.pory"
-	case DIR_EAST, Route109_EventScript_EnterBoatEast
+	case DIR_WEST, Route109_EventScript_EnterBoatWest
 # 19 "data/maps/Route109/scripts.pory"
-	end
+	case DIR_EAST, Route109_EventScript_EnterBoatEast
 # 20 "data/maps/Route109/scripts.pory"
-
+	end
 # 21 "data/maps/Route109/scripts.pory"
-Route109_EventScript_EnterBoatSouth::
+
 # 22 "data/maps/Route109/scripts.pory"
-	applymovement OBJ_EVENT_ID_PLAYER, Route109_Movement_PlayerEnterBoatSouth
+Route109_EventScript_EnterBoatSouth::
 # 23 "data/maps/Route109/scripts.pory"
-	waitmovement 0
+	applymovement OBJ_EVENT_ID_PLAYER, Route109_Movement_PlayerEnterBoatSouth
 # 24 "data/maps/Route109/scripts.pory"
-	goto Route109_EventScript_DoSailToDewford
+	waitmovement 0
 # 25 "data/maps/Route109/scripts.pory"
-	end
+	goto Route109_EventScript_DoSailToDewford
 # 26 "data/maps/Route109/scripts.pory"
-
+	end
 # 27 "data/maps/Route109/scripts.pory"
-Route109_EventScript_EnterBoatEast::
+
 # 28 "data/maps/Route109/scripts.pory"
-	applymovement OBJ_EVENT_ID_PLAYER, Route109_Movement_PlayerEnterBoatEast
+Route109_EventScript_EnterBoatEast::
 # 29 "data/maps/Route109/scripts.pory"
-	waitmovement 0
+	applymovement OBJ_EVENT_ID_PLAYER, Route109_Movement_PlayerEnterBoatEast
 # 30 "data/maps/Route109/scripts.pory"
-	goto Route109_EventScript_DoSailToDewford
+	waitmovement 0
 # 31 "data/maps/Route109/scripts.pory"
-	end
-# 32 "data/maps/Route109/scripts.pory"
-
-# 33 "data/maps/Route109/scripts.pory"
-Route109_EventScript_EnterBoatWest::
-# 34 "data/maps/Route109/scripts.pory"
-	applymovement OBJ_EVENT_ID_PLAYER, Route109_Movement_PlayerEnterBoatWest
-# 35 "data/maps/Route109/scripts.pory"
-	waitmovement 0
-# 36 "data/maps/Route109/scripts.pory"
 	goto Route109_EventScript_DoSailToDewford
+# 32 "data/maps/Route109/scripts.pory"
+	end
+# 33 "data/maps/Route109/scripts.pory"
+
+# 34 "data/maps/Route109/scripts.pory"
+Route109_EventScript_EnterBoatWest::
+# 35 "data/maps/Route109/scripts.pory"
+	applymovement OBJ_EVENT_ID_PLAYER, Route109_Movement_PlayerEnterBoatWest
+# 36 "data/maps/Route109/scripts.pory"
+	waitmovement 0
 # 37 "data/maps/Route109/scripts.pory"
-	end
+	goto Route109_EventScript_DoSailToDewford
 # 38 "data/maps/Route109/scripts.pory"
-
-# 39 "data/maps/Route109/scripts.pory"
-Route109_EventScript_DoSailToDewford::
-# 40 "data/maps/Route109/scripts.pory"
-	hideobjectat OBJ_EVENT_ID_PLAYER, MAP_ROUTE109
-# 41 "data/maps/Route109/scripts.pory"
-	call Common_EventScript_PlayBrineysBoatMusic
-# 42 "data/maps/Route109/scripts.pory"
-	applymovement LOCALID_BOAT_R109, Route109_Movement_SailToDewford
-# 43 "data/maps/Route109/scripts.pory"
-	applymovement OBJ_EVENT_ID_PLAYER, Route109_Movement_SailToDewford
-# 44 "data/maps/Route109/scripts.pory"
-	waitmovement 0
-# 45 "data/maps/Route109/scripts.pory"
-	delay 50
-# 46 "data/maps/Route109/scripts.pory"
-	call Common_EventScript_StopBrineysBoatMusic
-# 47 "data/maps/Route109/scripts.pory"
-	showobjectat OBJ_EVENT_ID_PLAYER, MAP_DEWFORD_TOWN
-# 48 "data/maps/Route109/scripts.pory"
-	applymovement OBJ_EVENT_ID_PLAYER, Route109_Movement_PlayerExitBoat
-# 49 "data/maps/Route109/scripts.pory"
-	waitmovement 0
-# 50 "data/maps/Route109/scripts.pory"
-	addobject LOCALID_BOAT_DEWFORD
-# 51 "data/maps/Route109/scripts.pory"
-	clearflag FLAG_HIDE_MR_BRINEY_BOAT_DEWFORD_TOWN
-# 52 "data/maps/Route109/scripts.pory"
-	setobjectxyperm LOCALID_BRINEY_DEWFORD, 12, 8
-# 53 "data/maps/Route109/scripts.pory"
-	addobject LOCALID_BRINEY_DEWFORD
-# 54 "data/maps/Route109/scripts.pory"
-	setobjectsubpriority LOCALID_BRINEY_DEWFORD, MAP_DEWFORD_TOWN, 0
-# 55 "data/maps/Route109/scripts.pory"
-	applymovement LOCALID_BRINEY_DEWFORD, Route109_Movement_BrineyExitBoat
-# 56 "data/maps/Route109/scripts.pory"
-	waitmovement 0
-# 57 "data/maps/Route109/scripts.pory"
-	clearflag FLAG_HIDE_MR_BRINEY_DEWFORD_TOWN
-# 58 "data/maps/Route109/scripts.pory"
-	setflag FLAG_HIDE_ROUTE_109_MR_BRINEY_BOAT
-# 59 "data/maps/Route109/scripts.pory"
-	hideobjectat LOCALID_BOAT_R109, MAP_ROUTE109
-# 60 "data/maps/Route109/scripts.pory"
-	msgbox DewfordTown_Text_BrineyLandedInDewford, MSGBOX_DEFAULT
-# 61 "data/maps/Route109/scripts.pory"
-	closemessage
-# 62 "data/maps/Route109/scripts.pory"
-	copyvar VAR_BRINEY_LOCATION, VAR_0x8008
-# 63 "data/maps/Route109/scripts.pory"
-	resetobjectsubpriority OBJ_EVENT_ID_PLAYER, MAP_ROUTE109
-# 64 "data/maps/Route109/scripts.pory"
-	resetobjectsubpriority LOCALID_BRINEY_DEWFORD, MAP_DEWFORD_TOWN
-# 65 "data/maps/Route109/scripts.pory"
-	copyobjectxytoperm LOCALID_BRINEY_DEWFORD
-# 66 "data/maps/Route109/scripts.pory"
-	release
-# 67 "data/maps/Route109/scripts.pory"
 	end
-# 68 "data/maps/Route109/scripts.pory"
+# 39 "data/maps/Route109/scripts.pory"
 
+# 40 "data/maps/Route109/scripts.pory"
+Route109_EventScript_DoSailToDewford::
+# 41 "data/maps/Route109/scripts.pory"
+	hideobjectat OBJ_EVENT_ID_PLAYER, MAP_ROUTE109
+# 42 "data/maps/Route109/scripts.pory"
+	call Common_EventScript_PlayBrineysBoatMusic
+# 43 "data/maps/Route109/scripts.pory"
+	applymovement LOCALID_BOAT_R109, Route109_Movement_SailToDewford
+# 44 "data/maps/Route109/scripts.pory"
+	applymovement OBJ_EVENT_ID_PLAYER, Route109_Movement_SailToDewford
+# 45 "data/maps/Route109/scripts.pory"
+	waitmovement 0
+# 46 "data/maps/Route109/scripts.pory"
+	delay 50
+# 47 "data/maps/Route109/scripts.pory"
+	call Common_EventScript_StopBrineysBoatMusic
+# 48 "data/maps/Route109/scripts.pory"
+	showobjectat OBJ_EVENT_ID_PLAYER, MAP_DEWFORD_TOWN
+# 49 "data/maps/Route109/scripts.pory"
+	applymovement OBJ_EVENT_ID_PLAYER, Route109_Movement_PlayerExitBoat
+# 50 "data/maps/Route109/scripts.pory"
+	waitmovement 0
+# 51 "data/maps/Route109/scripts.pory"
+	addobject LOCALID_BOAT_DEWFORD
+# 52 "data/maps/Route109/scripts.pory"
+	clearflag FLAG_HIDE_MR_BRINEY_BOAT_DEWFORD_TOWN
+# 53 "data/maps/Route109/scripts.pory"
+	setobjectxyperm LOCALID_BRINEY_DEWFORD, 12, 8
+# 54 "data/maps/Route109/scripts.pory"
+	addobject LOCALID_BRINEY_DEWFORD
+# 55 "data/maps/Route109/scripts.pory"
+	setobjectsubpriority LOCALID_BRINEY_DEWFORD, MAP_DEWFORD_TOWN, 0
+# 56 "data/maps/Route109/scripts.pory"
+	applymovement LOCALID_BRINEY_DEWFORD, Route109_Movement_BrineyExitBoat
+# 57 "data/maps/Route109/scripts.pory"
+	waitmovement 0
+# 58 "data/maps/Route109/scripts.pory"
+	clearflag FLAG_HIDE_MR_BRINEY_DEWFORD_TOWN
+# 59 "data/maps/Route109/scripts.pory"
+	setflag FLAG_HIDE_ROUTE_109_MR_BRINEY_BOAT
+# 60 "data/maps/Route109/scripts.pory"
+	hideobjectat LOCALID_BOAT_R109, MAP_ROUTE109
+# 61 "data/maps/Route109/scripts.pory"
+	msgbox DewfordTown_Text_BrineyLandedInDewford, MSGBOX_DEFAULT
+# 62 "data/maps/Route109/scripts.pory"
+	closemessage
+# 63 "data/maps/Route109/scripts.pory"
+	copyvar VAR_BRINEY_LOCATION, VAR_0x8008
+# 64 "data/maps/Route109/scripts.pory"
+	resetobjectsubpriority OBJ_EVENT_ID_PLAYER, MAP_ROUTE109
+# 65 "data/maps/Route109/scripts.pory"
+	resetobjectsubpriority LOCALID_BRINEY_DEWFORD, MAP_DEWFORD_TOWN
+# 66 "data/maps/Route109/scripts.pory"
+	copyobjectxytoperm LOCALID_BRINEY_DEWFORD
+# 67 "data/maps/Route109/scripts.pory"
+	release
+# 68 "data/maps/Route109/scripts.pory"
+	end
 # 69 "data/maps/Route109/scripts.pory"
-Route109_Movement_SailToDewford:
+
 # 70 "data/maps/Route109/scripts.pory"
-	walk_in_place_faster_down
+Route109_Movement_SailToDewford:
 # 71 "data/maps/Route109/scripts.pory"
-	walk_down
+	walk_in_place_faster_down
 # 72 "data/maps/Route109/scripts.pory"
 	walk_down
 # 73 "data/maps/Route109/scripts.pory"
-	walk_fast_down
+	walk_down
 # 74 "data/maps/Route109/scripts.pory"
 	walk_fast_down
 # 75 "data/maps/Route109/scripts.pory"
-	walk_faster_down
+	walk_fast_down
 # 76 "data/maps/Route109/scripts.pory"
 	walk_faster_down
 # 77 "data/maps/Route109/scripts.pory"
@@ -179,15 +179,15 @@ Route109_Movement_SailToDewford:
 # 90 "data/maps/Route109/scripts.pory"
 	walk_faster_down
 # 91 "data/maps/Route109/scripts.pory"
-	walk_fast_down
+	walk_faster_down
 # 92 "data/maps/Route109/scripts.pory"
 	walk_fast_down
 # 93 "data/maps/Route109/scripts.pory"
-	walk_fast_left
+	walk_fast_down
 # 94 "data/maps/Route109/scripts.pory"
 	walk_fast_left
 # 95 "data/maps/Route109/scripts.pory"
-	walk_faster_left
+	walk_fast_left
 # 96 "data/maps/Route109/scripts.pory"
 	walk_faster_left
 # 97 "data/maps/Route109/scripts.pory"
@@ -459,7 +459,7 @@ Route109_Movement_SailToDewford:
 # 230 "data/maps/Route109/scripts.pory"
 	walk_faster_left
 # 231 "data/maps/Route109/scripts.pory"
-	walk_fast_left
+	walk_faster_left
 # 232 "data/maps/Route109/scripts.pory"
 	walk_fast_left
 # 233 "data/maps/Route109/scripts.pory"
@@ -477,654 +477,656 @@ Route109_Movement_SailToDewford:
 # 239 "data/maps/Route109/scripts.pory"
 	walk_fast_left
 # 240 "data/maps/Route109/scripts.pory"
-	walk_left
+	walk_fast_left
 # 241 "data/maps/Route109/scripts.pory"
 	walk_left
 # 242 "data/maps/Route109/scripts.pory"
-	walk_in_place_faster_down
+	walk_left
 # 243 "data/maps/Route109/scripts.pory"
-	step_end
+	walk_in_place_faster_down
 # 244 "data/maps/Route109/scripts.pory"
-
+	step_end
 # 245 "data/maps/Route109/scripts.pory"
-Route109_Movement_PlayerEnterBoatSouth:
+
 # 246 "data/maps/Route109/scripts.pory"
-	walk_down
+Route109_Movement_PlayerEnterBoatSouth:
 # 247 "data/maps/Route109/scripts.pory"
 	walk_down
 # 248 "data/maps/Route109/scripts.pory"
-	step_end
-# 249 "data/maps/Route109/scripts.pory"
-
-# 250 "data/maps/Route109/scripts.pory"
-Route109_Movement_PlayerExitBoat:
-# 251 "data/maps/Route109/scripts.pory"
 	walk_down
+# 249 "data/maps/Route109/scripts.pory"
+	step_end
+# 250 "data/maps/Route109/scripts.pory"
+
+# 251 "data/maps/Route109/scripts.pory"
+Route109_Movement_PlayerExitBoat:
 # 252 "data/maps/Route109/scripts.pory"
 	walk_down
 # 253 "data/maps/Route109/scripts.pory"
-	walk_left
+	walk_down
 # 254 "data/maps/Route109/scripts.pory"
-	walk_in_place_faster_right
-# 255 "data/maps/Route109/scripts.pory"
-	step_end
-# 256 "data/maps/Route109/scripts.pory"
-
-# 257 "data/maps/Route109/scripts.pory"
-Route109_Movement_PlayerEnterBoatEast:
-# 258 "data/maps/Route109/scripts.pory"
-	walk_right
-# 259 "data/maps/Route109/scripts.pory"
-	walk_down
-# 260 "data/maps/Route109/scripts.pory"
-	step_end
-# 261 "data/maps/Route109/scripts.pory"
-
-# 262 "data/maps/Route109/scripts.pory"
-Route109_Movement_PlayerEnterBoatWest:
-# 263 "data/maps/Route109/scripts.pory"
 	walk_left
+# 255 "data/maps/Route109/scripts.pory"
+	walk_in_place_faster_right
+# 256 "data/maps/Route109/scripts.pory"
+	step_end
+# 257 "data/maps/Route109/scripts.pory"
+
+# 258 "data/maps/Route109/scripts.pory"
+Route109_Movement_PlayerEnterBoatEast:
+# 259 "data/maps/Route109/scripts.pory"
+	walk_right
+# 260 "data/maps/Route109/scripts.pory"
+	walk_down
+# 261 "data/maps/Route109/scripts.pory"
+	step_end
+# 262 "data/maps/Route109/scripts.pory"
+
+# 263 "data/maps/Route109/scripts.pory"
+Route109_Movement_PlayerEnterBoatWest:
 # 264 "data/maps/Route109/scripts.pory"
-	walk_down
+	walk_left
 # 265 "data/maps/Route109/scripts.pory"
-	step_end
+	walk_down
 # 266 "data/maps/Route109/scripts.pory"
-
+	step_end
 # 267 "data/maps/Route109/scripts.pory"
-Route109_Movement_BrineyEnterBoat:
+
 # 268 "data/maps/Route109/scripts.pory"
-	walk_down
+Route109_Movement_BrineyEnterBoat:
 # 269 "data/maps/Route109/scripts.pory"
-	step_end
-# 270 "data/maps/Route109/scripts.pory"
-
-# 271 "data/maps/Route109/scripts.pory"
-Route109_Movement_BrineyExitBoat:
-# 272 "data/maps/Route109/scripts.pory"
 	walk_down
-# 273 "data/maps/Route109/scripts.pory"
-	walk_in_place_faster_left
-# 274 "data/maps/Route109/scripts.pory"
+# 270 "data/maps/Route109/scripts.pory"
 	step_end
+# 271 "data/maps/Route109/scripts.pory"
+
+# 272 "data/maps/Route109/scripts.pory"
+Route109_Movement_BrineyExitBoat:
+# 273 "data/maps/Route109/scripts.pory"
+	walk_down
+# 274 "data/maps/Route109/scripts.pory"
+	walk_in_place_faster_left
 # 275 "data/maps/Route109/scripts.pory"
-
+	step_end
 # 276 "data/maps/Route109/scripts.pory"
-Route109_EventScript_MrBriney::
+
 # 277 "data/maps/Route109/scripts.pory"
-	lock
+Route109_EventScript_MrBriney::
 # 278 "data/maps/Route109/scripts.pory"
-	faceplayer
+	lock
 # 279 "data/maps/Route109/scripts.pory"
-	goto_if_unset FLAG_DELIVERED_DEVON_GOODS, Route109_EventScript_HaveNotDeliveredDevonGood
+	faceplayer
 # 280 "data/maps/Route109/scripts.pory"
-	goto Route109_EventScript_DeliveredDevonGoods
+	goto_if_unset FLAG_DELIVERED_DEVON_GOODS, Route109_EventScript_HaveNotDeliveredDevonGood
 # 281 "data/maps/Route109/scripts.pory"
-	end
+	goto Route109_EventScript_DeliveredDevonGoods
 # 282 "data/maps/Route109/scripts.pory"
-
+	end
 # 283 "data/maps/Route109/scripts.pory"
-Route109_EventScript_HaveNotDeliveredDevonGood::
+
 # 284 "data/maps/Route109/scripts.pory"
-	message Route109_Text_BrineySailToDewfordQuestion
+Route109_EventScript_HaveNotDeliveredDevonGood::
 # 285 "data/maps/Route109/scripts.pory"
-	msgbox Route109_Text_BrineySailToDewfordQuestion, MSGBOX_YESNO
+	message Route109_Text_BrineySailToDewfordQuestion
 # 286 "data/maps/Route109/scripts.pory"
-	goto_if_eq VAR_RESULT, NO, Route109_EventScript_StayHere
+	msgbox Route109_Text_BrineySailToDewfordQuestion, MSGBOX_YESNO
 # 287 "data/maps/Route109/scripts.pory"
-	goto Route109_EventScript_SailToDewford
+	goto_if_eq VAR_RESULT, NO, Route109_EventScript_StayHere
 # 288 "data/maps/Route109/scripts.pory"
-	end
+	goto Route109_EventScript_SailToDewford
 # 289 "data/maps/Route109/scripts.pory"
-
+	end
 # 290 "data/maps/Route109/scripts.pory"
-Route109_EventScript_DeliveredDevonGoods::
+
 # 291 "data/maps/Route109/scripts.pory"
-	message Route109_Text_BrineyWhereAreWeBound
+Route109_EventScript_DeliveredDevonGoods::
 # 292 "data/maps/Route109/scripts.pory"
-	waitmessage
+	message Route109_Text_BrineyWhereAreWeBound
 # 293 "data/maps/Route109/scripts.pory"
-	multichoicedefault 21, 8, MULTI_BRINEY_OFF_DEWFORD, 1, FALSE
+	waitmessage
 # 294 "data/maps/Route109/scripts.pory"
-	switch VAR_RESULT
+	multichoicedefault 21, 8, MULTI_BRINEY_OFF_DEWFORD, 1, FALSE
 # 295 "data/maps/Route109/scripts.pory"
-	case 0, Route109_EventScript_SailToDewford
+	switch VAR_RESULT
 # 296 "data/maps/Route109/scripts.pory"
-	case 1, Route109_EventScript_ChoseNotToSail
+	case 0, Route109_EventScript_SailToDewford
 # 297 "data/maps/Route109/scripts.pory"
-	case MULTI_B_PRESSED, Route109_EventScript_ChoseNotToSail
+	case 1, Route109_EventScript_ChoseNotToSail
 # 298 "data/maps/Route109/scripts.pory"
-	end
+	case MULTI_B_PRESSED, Route109_EventScript_ChoseNotToSail
 # 299 "data/maps/Route109/scripts.pory"
-
+	end
 # 300 "data/maps/Route109/scripts.pory"
-Route109_EventScript_SailToDewford::
+
 # 301 "data/maps/Route109/scripts.pory"
-	msgbox Route109_Text_BrineyDewfordItIs, MSGBOX_DEFAULT
+Route109_EventScript_SailToDewford::
 # 302 "data/maps/Route109/scripts.pory"
-	closemessage
+	msgbox Route109_Text_BrineyDewfordItIs, MSGBOX_DEFAULT
 # 303 "data/maps/Route109/scripts.pory"
-	goto Route109_EventScript_StartDepartForDewford
+	closemessage
 # 304 "data/maps/Route109/scripts.pory"
-	end
+	goto Route109_EventScript_StartDepartForDewford
 # 305 "data/maps/Route109/scripts.pory"
-
+	end
 # 306 "data/maps/Route109/scripts.pory"
-Route109_EventScript_StayHere::
+
 # 307 "data/maps/Route109/scripts.pory"
-	msgbox Route109_Text_BrineyDeliverDevonGoods, MSGBOX_DEFAULT
+Route109_EventScript_StayHere::
 # 308 "data/maps/Route109/scripts.pory"
-	release
+	msgbox Route109_Text_BrineyDeliverDevonGoods, MSGBOX_DEFAULT
 # 309 "data/maps/Route109/scripts.pory"
-	end
+	release
 # 310 "data/maps/Route109/scripts.pory"
-
+	end
 # 311 "data/maps/Route109/scripts.pory"
-Route109_EventScript_ChoseNotToSail::
+
 # 312 "data/maps/Route109/scripts.pory"
-	msgbox Route109_Text_BrineyTellMeWhenYouNeedToSail, MSGBOX_DEFAULT
+Route109_EventScript_ChoseNotToSail::
 # 313 "data/maps/Route109/scripts.pory"
-	release
+	msgbox Route109_Text_BrineyTellMeWhenYouNeedToSail, MSGBOX_DEFAULT
 # 314 "data/maps/Route109/scripts.pory"
-	end
+	release
 # 315 "data/maps/Route109/scripts.pory"
-
+	end
 # 316 "data/maps/Route109/scripts.pory"
-Route109_EventScript_SeashoreHouseGirl::
+
 # 317 "data/maps/Route109/scripts.pory"
-	msgbox Route109_Text_ChillAtMyPapasSpot, MSGBOX_NPC
+Route109_EventScript_SeashoreHouseGirl::
 # 318 "data/maps/Route109/scripts.pory"
-	end
+	msgbox Route109_Text_ChillAtMyPapasSpot, MSGBOX_NPC
 # 319 "data/maps/Route109/scripts.pory"
-
+	end
 # 320 "data/maps/Route109/scripts.pory"
-Route109_EventScript_SandCastleBoy::
+
 # 321 "data/maps/Route109/scripts.pory"
-	lock
+Route109_EventScript_SandCastleBoy::
 # 322 "data/maps/Route109/scripts.pory"
-	faceplayer
+	lock
 # 323 "data/maps/Route109/scripts.pory"
-	msgbox Route109_Text_SandCastleTakingLongTime, MSGBOX_DEFAULT
+	faceplayer
 # 324 "data/maps/Route109/scripts.pory"
-	closemessage
+	msgbox Route109_Text_SandCastleTakingLongTime, MSGBOX_DEFAULT
 # 325 "data/maps/Route109/scripts.pory"
-	applymovement VAR_LAST_TALKED, Common_Movement_FaceOriginalDirection
-# 326 "data/maps/Route109/scripts.pory"
-	waitmovement 0
-# 327 "data/maps/Route109/scripts.pory"
-	release
-# 328 "data/maps/Route109/scripts.pory"
-	end
-# 329 "data/maps/Route109/scripts.pory"
-
-# 330 "data/maps/Route109/scripts.pory"
-Route109_EventScript_SoftSandGirl::
-# 331 "data/maps/Route109/scripts.pory"
-	lock
-# 332 "data/maps/Route109/scripts.pory"
-	faceplayer
-# 333 "data/maps/Route109/scripts.pory"
-	special GetPlayerBigGuyGirlString
-# 334 "data/maps/Route109/scripts.pory"
-	goto_if_set FLAG_RECEIVED_SOFT_SAND, Route109_EventScript_AlreadyReceivedSoftSand
-# 335 "data/maps/Route109/scripts.pory"
-	msgbox Route109_Text_YouCanHaveThis, MSGBOX_DEFAULT
-# 336 "data/maps/Route109/scripts.pory"
-	giveitem ITEM_SOFT_SAND
-# 337 "data/maps/Route109/scripts.pory"
-	goto_if_eq VAR_RESULT, 0, Common_EventScript_ShowBagIsFull
-# 338 "data/maps/Route109/scripts.pory"
 	closemessage
-# 339 "data/maps/Route109/scripts.pory"
+# 326 "data/maps/Route109/scripts.pory"
 	applymovement VAR_LAST_TALKED, Common_Movement_FaceOriginalDirection
-# 340 "data/maps/Route109/scripts.pory"
+# 327 "data/maps/Route109/scripts.pory"
 	waitmovement 0
-# 341 "data/maps/Route109/scripts.pory"
-	setflag FLAG_RECEIVED_SOFT_SAND
-# 342 "data/maps/Route109/scripts.pory"
+# 328 "data/maps/Route109/scripts.pory"
 	release
-# 343 "data/maps/Route109/scripts.pory"
+# 329 "data/maps/Route109/scripts.pory"
 	end
-# 344 "data/maps/Route109/scripts.pory"
+# 330 "data/maps/Route109/scripts.pory"
 
-# 345 "data/maps/Route109/scripts.pory"
-Route109_EventScript_AlreadyReceivedSoftSand::
-# 346 "data/maps/Route109/scripts.pory"
-	msgbox Route109_Text_WereGoingToMakeBigCastle, MSGBOX_DEFAULT
-# 347 "data/maps/Route109/scripts.pory"
-	applymovement VAR_LAST_TALKED, Common_Movement_FaceOriginalDirection
-# 348 "data/maps/Route109/scripts.pory"
-	waitmovement 0
-# 349 "data/maps/Route109/scripts.pory"
-	release
-# 350 "data/maps/Route109/scripts.pory"
-	end
-# 351 "data/maps/Route109/scripts.pory"
-
-# 352 "data/maps/Route109/scripts.pory"
-Route109_EventScript_Woman::
-# 353 "data/maps/Route109/scripts.pory"
-	msgbox Route109_Text_LittleKidsDartAround, MSGBOX_NPC
-# 354 "data/maps/Route109/scripts.pory"
-	end
-# 355 "data/maps/Route109/scripts.pory"
-
-# 356 "data/maps/Route109/scripts.pory"
-Route109_EventScript_OldMan::
-# 357 "data/maps/Route109/scripts.pory"
-	msgbox Route109_Text_ZigzagoonPicksUpLitter, MSGBOX_NPC
-# 358 "data/maps/Route109/scripts.pory"
-	end
-# 359 "data/maps/Route109/scripts.pory"
-
-# 360 "data/maps/Route109/scripts.pory"
-Route109_EventScript_Zigzagoon::
-# 361 "data/maps/Route109/scripts.pory"
+# 331 "data/maps/Route109/scripts.pory"
+Route109_EventScript_SoftSandGirl::
+# 332 "data/maps/Route109/scripts.pory"
 	lock
-# 362 "data/maps/Route109/scripts.pory"
+# 333 "data/maps/Route109/scripts.pory"
 	faceplayer
+# 334 "data/maps/Route109/scripts.pory"
+	special GetPlayerBigGuyGirlString
+# 335 "data/maps/Route109/scripts.pory"
+	goto_if_set FLAG_RECEIVED_SOFT_SAND, Route109_EventScript_AlreadyReceivedSoftSand
+# 336 "data/maps/Route109/scripts.pory"
+	msgbox Route109_Text_YouCanHaveThis, MSGBOX_DEFAULT
+# 337 "data/maps/Route109/scripts.pory"
+	giveitem ITEM_SOFT_SAND
+# 338 "data/maps/Route109/scripts.pory"
+	goto_if_eq VAR_RESULT, 0, Common_EventScript_ShowBagIsFull
+# 339 "data/maps/Route109/scripts.pory"
+	closemessage
+# 340 "data/maps/Route109/scripts.pory"
+	applymovement VAR_LAST_TALKED, Common_Movement_FaceOriginalDirection
+# 341 "data/maps/Route109/scripts.pory"
+	waitmovement 0
+# 342 "data/maps/Route109/scripts.pory"
+	setflag FLAG_RECEIVED_SOFT_SAND
+# 343 "data/maps/Route109/scripts.pory"
+	release
+# 344 "data/maps/Route109/scripts.pory"
+	end
+# 345 "data/maps/Route109/scripts.pory"
+
+# 346 "data/maps/Route109/scripts.pory"
+Route109_EventScript_AlreadyReceivedSoftSand::
+# 347 "data/maps/Route109/scripts.pory"
+	msgbox Route109_Text_WereGoingToMakeBigCastle, MSGBOX_DEFAULT
+# 348 "data/maps/Route109/scripts.pory"
+	applymovement VAR_LAST_TALKED, Common_Movement_FaceOriginalDirection
+# 349 "data/maps/Route109/scripts.pory"
+	waitmovement 0
+# 350 "data/maps/Route109/scripts.pory"
+	release
+# 351 "data/maps/Route109/scripts.pory"
+	end
+# 352 "data/maps/Route109/scripts.pory"
+
+# 353 "data/maps/Route109/scripts.pory"
+Route109_EventScript_Woman::
+# 354 "data/maps/Route109/scripts.pory"
+	msgbox Route109_Text_LittleKidsDartAround, MSGBOX_NPC
+# 355 "data/maps/Route109/scripts.pory"
+	end
+# 356 "data/maps/Route109/scripts.pory"
+
+# 357 "data/maps/Route109/scripts.pory"
+Route109_EventScript_OldMan::
+# 358 "data/maps/Route109/scripts.pory"
+	msgbox Route109_Text_ZigzagoonPicksUpLitter, MSGBOX_NPC
+# 359 "data/maps/Route109/scripts.pory"
+	end
+# 360 "data/maps/Route109/scripts.pory"
+
+# 361 "data/maps/Route109/scripts.pory"
+Route109_EventScript_Zigzagoon::
+# 362 "data/maps/Route109/scripts.pory"
+	lock
 # 363 "data/maps/Route109/scripts.pory"
-	waitse
+	faceplayer
 # 364 "data/maps/Route109/scripts.pory"
-	playmoncry SPECIES_ZIGZAGOON, CRY_MODE_NORMAL
+	waitse
 # 365 "data/maps/Route109/scripts.pory"
-	msgbox Route109_Text_ZigzagoonCry, MSGBOX_DEFAULT
+	playmoncry SPECIES_ZIGZAGOON, CRY_MODE_NORMAL
 # 366 "data/maps/Route109/scripts.pory"
-	waitmoncry
+	msgbox Route109_Text_ZigzagoonCry, MSGBOX_DEFAULT
 # 367 "data/maps/Route109/scripts.pory"
-	release
+	waitmoncry
 # 368 "data/maps/Route109/scripts.pory"
-	end
+	release
 # 369 "data/maps/Route109/scripts.pory"
-
+	end
 # 370 "data/maps/Route109/scripts.pory"
-Route109_EventScript_SeashoreHouseSign::
+
 # 371 "data/maps/Route109/scripts.pory"
-	msgbox Route109_Text_SeashoreHouseSign, MSGBOX_SIGN
+Route109_EventScript_SeashoreHouseSign::
 # 372 "data/maps/Route109/scripts.pory"
-	end
+	msgbox Route109_Text_SeashoreHouseSign, MSGBOX_SIGN
 # 373 "data/maps/Route109/scripts.pory"
-
+	end
 # 374 "data/maps/Route109/scripts.pory"
-Route109_EventScript_TrainerTipsSign::
+
 # 375 "data/maps/Route109/scripts.pory"
-	msgbox Route109_Text_TrainerTipsSign, MSGBOX_SIGN
+Route109_EventScript_TrainerTipsSign::
 # 376 "data/maps/Route109/scripts.pory"
-	end
+	msgbox Route109_Text_TrainerTipsSign, MSGBOX_SIGN
 # 377 "data/maps/Route109/scripts.pory"
-
+	end
 # 378 "data/maps/Route109/scripts.pory"
-Route109_EventScript_David::
+
 # 379 "data/maps/Route109/scripts.pory"
-	trainerbattle_single TRAINER_DAVID, Route109_Text_DavidIntro, Route109_Text_DavidDefeated
+Route109_EventScript_David::
 # 380 "data/maps/Route109/scripts.pory"
-	msgbox Route109_Text_DavidPostBattle, MSGBOX_AUTOCLOSE
+	trainerbattle_single TRAINER_DAVID, Route109_Text_DavidIntro, Route109_Text_DavidDefeated
 # 381 "data/maps/Route109/scripts.pory"
-	end
+	msgbox Route109_Text_DavidPostBattle, MSGBOX_AUTOCLOSE
 # 382 "data/maps/Route109/scripts.pory"
-
+	end
 # 383 "data/maps/Route109/scripts.pory"
-Route109_EventScript_Alice::
+
 # 384 "data/maps/Route109/scripts.pory"
-	trainerbattle_single TRAINER_ALICE, Route109_Text_AliceIntro, Route109_Text_AliceDefeated
+Route109_EventScript_Alice::
 # 385 "data/maps/Route109/scripts.pory"
-	msgbox Route109_Text_AlicePostBattle, MSGBOX_AUTOCLOSE
+	trainerbattle_single TRAINER_ALICE, Route109_Text_AliceIntro, Route109_Text_AliceDefeated
 # 386 "data/maps/Route109/scripts.pory"
-	end
+	msgbox Route109_Text_AlicePostBattle, MSGBOX_AUTOCLOSE
 # 387 "data/maps/Route109/scripts.pory"
-
+	end
 # 388 "data/maps/Route109/scripts.pory"
-Route109_EventScript_Huey::
+
 # 389 "data/maps/Route109/scripts.pory"
-	trainerbattle_single TRAINER_HUEY, Route109_Text_HueyIntro, Route109_Text_HueyDefeated
+Route109_EventScript_Huey::
 # 390 "data/maps/Route109/scripts.pory"
-	msgbox Route109_Text_HueyPostBattle, MSGBOX_AUTOCLOSE
+	trainerbattle_single TRAINER_HUEY, Route109_Text_HueyIntro, Route109_Text_HueyDefeated
 # 391 "data/maps/Route109/scripts.pory"
-	end
+	msgbox Route109_Text_HueyPostBattle, MSGBOX_AUTOCLOSE
 # 392 "data/maps/Route109/scripts.pory"
-
+	end
 # 393 "data/maps/Route109/scripts.pory"
-Route109_EventScript_Edmond::
+
 # 394 "data/maps/Route109/scripts.pory"
-	trainerbattle_single TRAINER_EDMOND, Route109_Text_EdmondIntro, Route109_Text_EdmondDefeated
+Route109_EventScript_Edmond::
 # 395 "data/maps/Route109/scripts.pory"
-	msgbox Route109_Text_EdmondPostBattle, MSGBOX_AUTOCLOSE
+	trainerbattle_single TRAINER_EDMOND, Route109_Text_EdmondIntro, Route109_Text_EdmondDefeated
 # 396 "data/maps/Route109/scripts.pory"
-	end
+	msgbox Route109_Text_EdmondPostBattle, MSGBOX_AUTOCLOSE
 # 397 "data/maps/Route109/scripts.pory"
-
+	end
 # 398 "data/maps/Route109/scripts.pory"
-Route109_EventScript_Ricky::
+
 # 399 "data/maps/Route109/scripts.pory"
-	trainerbattle_single TRAINER_RICKY_1, Route109_Text_RickyIntro, Route109_Text_RickyDefeated, Route109_EventScript_RickyRegisterMatchCallAfterBattle
+Route109_EventScript_Ricky::
 # 400 "data/maps/Route109/scripts.pory"
-	specialvar VAR_RESULT, ShouldTryRematchBattle
+	trainerbattle_single TRAINER_RICKY_1, Route109_Text_RickyIntro, Route109_Text_RickyDefeated, Route109_EventScript_RickyRegisterMatchCallAfterBattle
 # 401 "data/maps/Route109/scripts.pory"
-	goto_if_eq VAR_RESULT, TRUE, Route109_EventScript_RickyRematch
-# 402 "data/maps/Route109/scripts.pory"
-	msgbox Route109_Text_RickyPostBattle, MSGBOX_DEFAULT
-# 403 "data/maps/Route109/scripts.pory"
-	release
-# 404 "data/maps/Route109/scripts.pory"
-	end
-# 405 "data/maps/Route109/scripts.pory"
-
-# 406 "data/maps/Route109/scripts.pory"
-Route109_EventScript_RickyRegisterMatchCallAfterBattle::
-# 407 "data/maps/Route109/scripts.pory"
-	special PlayerFaceTrainerAfterBattle
-# 408 "data/maps/Route109/scripts.pory"
-	waitmovement 0
-# 409 "data/maps/Route109/scripts.pory"
-	msgbox Route109_Text_RickyRegister, MSGBOX_DEFAULT
-# 410 "data/maps/Route109/scripts.pory"
-	register_matchcall TRAINER_RICKY_1
-# 411 "data/maps/Route109/scripts.pory"
-	release
-# 412 "data/maps/Route109/scripts.pory"
-	end
-# 413 "data/maps/Route109/scripts.pory"
-
-# 414 "data/maps/Route109/scripts.pory"
-Route109_EventScript_RickyRematch::
-# 415 "data/maps/Route109/scripts.pory"
-	trainerbattle_rematch TRAINER_RICKY_1, Route109_Text_RickyRematchIntro, Route109_Text_RickyRematchDefeated
-# 416 "data/maps/Route109/scripts.pory"
-	msgbox Route109_Text_RickyRematchPostBattle, MSGBOX_AUTOCLOSE
-# 417 "data/maps/Route109/scripts.pory"
-	end
-# 418 "data/maps/Route109/scripts.pory"
-
-# 419 "data/maps/Route109/scripts.pory"
-Route109_EventScript_Lola::
-# 420 "data/maps/Route109/scripts.pory"
-	trainerbattle_single TRAINER_LOLA_1, Route109_Text_LolaIntro, Route109_Text_LolaDefeated, Route109_EventScript_LolaRegisterMatchCallAfterBattle
-# 421 "data/maps/Route109/scripts.pory"
 	specialvar VAR_RESULT, ShouldTryRematchBattle
-# 422 "data/maps/Route109/scripts.pory"
-	goto_if_eq VAR_RESULT, TRUE, Route109_EventScript_LolaRematch
-# 423 "data/maps/Route109/scripts.pory"
-	msgbox Route109_Text_LolaPostBattle, MSGBOX_DEFAULT
-# 424 "data/maps/Route109/scripts.pory"
+# 402 "data/maps/Route109/scripts.pory"
+	goto_if_eq VAR_RESULT, TRUE, Route109_EventScript_RickyRematch
+# 403 "data/maps/Route109/scripts.pory"
+	msgbox Route109_Text_RickyPostBattle, MSGBOX_DEFAULT
+# 404 "data/maps/Route109/scripts.pory"
 	release
-# 425 "data/maps/Route109/scripts.pory"
+# 405 "data/maps/Route109/scripts.pory"
 	end
-# 426 "data/maps/Route109/scripts.pory"
+# 406 "data/maps/Route109/scripts.pory"
 
-# 427 "data/maps/Route109/scripts.pory"
-Route109_EventScript_LolaRegisterMatchCallAfterBattle::
-# 428 "data/maps/Route109/scripts.pory"
+# 407 "data/maps/Route109/scripts.pory"
+Route109_EventScript_RickyRegisterMatchCallAfterBattle::
+# 408 "data/maps/Route109/scripts.pory"
 	special PlayerFaceTrainerAfterBattle
-# 429 "data/maps/Route109/scripts.pory"
+# 409 "data/maps/Route109/scripts.pory"
 	waitmovement 0
-# 430 "data/maps/Route109/scripts.pory"
-	msgbox Route109_Text_LolaRegister, MSGBOX_DEFAULT
-# 431 "data/maps/Route109/scripts.pory"
-	register_matchcall TRAINER_LOLA_1
-# 432 "data/maps/Route109/scripts.pory"
+# 410 "data/maps/Route109/scripts.pory"
+	msgbox Route109_Text_RickyRegister, MSGBOX_DEFAULT
+# 411 "data/maps/Route109/scripts.pory"
+	register_matchcall TRAINER_RICKY_1
+# 412 "data/maps/Route109/scripts.pory"
 	release
+# 413 "data/maps/Route109/scripts.pory"
+	end
+# 414 "data/maps/Route109/scripts.pory"
+
+# 415 "data/maps/Route109/scripts.pory"
+Route109_EventScript_RickyRematch::
+# 416 "data/maps/Route109/scripts.pory"
+	trainerbattle_rematch TRAINER_RICKY_1, Route109_Text_RickyRematchIntro, Route109_Text_RickyRematchDefeated
+# 417 "data/maps/Route109/scripts.pory"
+	msgbox Route109_Text_RickyRematchPostBattle, MSGBOX_AUTOCLOSE
+# 418 "data/maps/Route109/scripts.pory"
+	end
+# 419 "data/maps/Route109/scripts.pory"
+
+# 420 "data/maps/Route109/scripts.pory"
+Route109_EventScript_Lola::
+# 421 "data/maps/Route109/scripts.pory"
+	trainerbattle_single TRAINER_LOLA_1, Route109_Text_LolaIntro, Route109_Text_LolaDefeated, Route109_EventScript_LolaRegisterMatchCallAfterBattle
+# 422 "data/maps/Route109/scripts.pory"
+	specialvar VAR_RESULT, ShouldTryRematchBattle
+# 423 "data/maps/Route109/scripts.pory"
+	goto_if_eq VAR_RESULT, TRUE, Route109_EventScript_LolaRematch
+# 424 "data/maps/Route109/scripts.pory"
+	msgbox Route109_Text_LolaPostBattle, MSGBOX_DEFAULT
+# 425 "data/maps/Route109/scripts.pory"
+	release
+# 426 "data/maps/Route109/scripts.pory"
+	end
+# 427 "data/maps/Route109/scripts.pory"
+
+# 428 "data/maps/Route109/scripts.pory"
+Route109_EventScript_LolaRegisterMatchCallAfterBattle::
+# 429 "data/maps/Route109/scripts.pory"
+	special PlayerFaceTrainerAfterBattle
+# 430 "data/maps/Route109/scripts.pory"
+	waitmovement 0
+# 431 "data/maps/Route109/scripts.pory"
+	msgbox Route109_Text_LolaRegister, MSGBOX_DEFAULT
+# 432 "data/maps/Route109/scripts.pory"
+	register_matchcall TRAINER_LOLA_1
 # 433 "data/maps/Route109/scripts.pory"
-	end
+	release
 # 434 "data/maps/Route109/scripts.pory"
-
+	end
 # 435 "data/maps/Route109/scripts.pory"
-Route109_EventScript_LolaRematch::
+
 # 436 "data/maps/Route109/scripts.pory"
-	trainerbattle_rematch TRAINER_LOLA_1, Route109_Text_LolaRematchIntro, Route109_Text_LolaRematchDefeated
+Route109_EventScript_LolaRematch::
 # 437 "data/maps/Route109/scripts.pory"
-	msgbox Route109_Text_LolaRematchPostBattle, MSGBOX_AUTOCLOSE
+	trainerbattle_rematch TRAINER_LOLA_1, Route109_Text_LolaRematchIntro, Route109_Text_LolaRematchDefeated
 # 438 "data/maps/Route109/scripts.pory"
-	end
+	msgbox Route109_Text_LolaRematchPostBattle, MSGBOX_AUTOCLOSE
 # 439 "data/maps/Route109/scripts.pory"
-
+	end
 # 440 "data/maps/Route109/scripts.pory"
-Route109_EventScript_Austina::
+
 # 441 "data/maps/Route109/scripts.pory"
-	trainerbattle_single TRAINER_AUSTINA, Route109_Text_AustinaIntro, Route109_Text_AustinaDefeated
+Route109_EventScript_Austina::
 # 442 "data/maps/Route109/scripts.pory"
-	msgbox Route109_Text_AustinaPostBattle, MSGBOX_AUTOCLOSE
+	trainerbattle_single TRAINER_AUSTINA, Route109_Text_AustinaIntro, Route109_Text_AustinaDefeated
 # 443 "data/maps/Route109/scripts.pory"
-	end
+	msgbox Route109_Text_AustinaPostBattle, MSGBOX_AUTOCLOSE
 # 444 "data/maps/Route109/scripts.pory"
-
+	end
 # 445 "data/maps/Route109/scripts.pory"
-Route109_EventScript_Gwen::
+
 # 446 "data/maps/Route109/scripts.pory"
-	trainerbattle_single TRAINER_GWEN, Route109_Text_GwenIntro, Route109_Text_GwenDefeated
+Route109_EventScript_Gwen::
 # 447 "data/maps/Route109/scripts.pory"
-	msgbox Route109_Text_GwenPostBattle, MSGBOX_AUTOCLOSE
+	trainerbattle_single TRAINER_GWEN, Route109_Text_GwenIntro, Route109_Text_GwenDefeated
 # 448 "data/maps/Route109/scripts.pory"
-	end
+	msgbox Route109_Text_GwenPostBattle, MSGBOX_AUTOCLOSE
 # 449 "data/maps/Route109/scripts.pory"
-
+	end
 # 450 "data/maps/Route109/scripts.pory"
-Route109_EventScript_Carter::
+
 # 451 "data/maps/Route109/scripts.pory"
-	trainerbattle_single TRAINER_CARTER, Route109_Text_CarterIntro, Route109_Text_CarterDefeated
+Route109_EventScript_Carter::
 # 452 "data/maps/Route109/scripts.pory"
-	msgbox Route109_Text_CarterPostBattle, MSGBOX_AUTOCLOSE
+	trainerbattle_single TRAINER_CARTER, Route109_Text_CarterIntro, Route109_Text_CarterDefeated
 # 453 "data/maps/Route109/scripts.pory"
-	end
+	msgbox Route109_Text_CarterPostBattle, MSGBOX_AUTOCLOSE
 # 454 "data/maps/Route109/scripts.pory"
-
+	end
 # 455 "data/maps/Route109/scripts.pory"
-Route109_EventScript_Paul::
+
 # 456 "data/maps/Route109/scripts.pory"
-	trainerbattle_double TRAINER_MEL_AND_PAUL, Route109_Text_PaulIntro, Route109_Text_PaulDefeated, Route109_Text_PaulNotEnoughPokemon
+Route109_EventScript_Paul::
 # 457 "data/maps/Route109/scripts.pory"
-	msgbox Route109_Text_PaulPostBattle, MSGBOX_AUTOCLOSE
+	trainerbattle_double TRAINER_MEL_AND_PAUL, Route109_Text_PaulIntro, Route109_Text_PaulDefeated, Route109_Text_PaulNotEnoughPokemon
 # 458 "data/maps/Route109/scripts.pory"
-	end
+	msgbox Route109_Text_PaulPostBattle, MSGBOX_AUTOCLOSE
 # 459 "data/maps/Route109/scripts.pory"
-
+	end
 # 460 "data/maps/Route109/scripts.pory"
-Route109_EventScript_Mel::
+
 # 461 "data/maps/Route109/scripts.pory"
-	trainerbattle_double TRAINER_MEL_AND_PAUL, Route109_Text_MelIntro, Route109_Text_MelDefeated, Route109_Text_MelNotEnoughPokemon
+Route109_EventScript_Mel::
 # 462 "data/maps/Route109/scripts.pory"
-	msgbox Route109_Text_MelPostBattle, MSGBOX_AUTOCLOSE
+	trainerbattle_double TRAINER_MEL_AND_PAUL, Route109_Text_MelIntro, Route109_Text_MelDefeated, Route109_Text_MelNotEnoughPokemon
 # 463 "data/maps/Route109/scripts.pory"
-	end
+	msgbox Route109_Text_MelPostBattle, MSGBOX_AUTOCLOSE
 # 464 "data/maps/Route109/scripts.pory"
-
+	end
 # 465 "data/maps/Route109/scripts.pory"
-Route109_EventScript_Chandler::
+
 # 466 "data/maps/Route109/scripts.pory"
-	trainerbattle_single TRAINER_CHANDLER, Route109_Text_ChandlerIntro, Route109_Text_ChandlerDefeated
+Route109_EventScript_Chandler::
 # 467 "data/maps/Route109/scripts.pory"
-	msgbox Route109_Text_ChandlerPostBattle, MSGBOX_AUTOCLOSE
+	trainerbattle_single TRAINER_CHANDLER, Route109_Text_ChandlerIntro, Route109_Text_ChandlerDefeated
 # 468 "data/maps/Route109/scripts.pory"
-	end
+	msgbox Route109_Text_ChandlerPostBattle, MSGBOX_AUTOCLOSE
 # 469 "data/maps/Route109/scripts.pory"
-
+	end
 # 470 "data/maps/Route109/scripts.pory"
-Route109_EventScript_Hailey::
+
 # 471 "data/maps/Route109/scripts.pory"
-	trainerbattle_single TRAINER_HAILEY, Route109_Text_HaileyIntro, Route109_Text_HaileyDefeated
+Route109_EventScript_Hailey::
 # 472 "data/maps/Route109/scripts.pory"
-	msgbox Route109_Text_HaileyPostBattle, MSGBOX_AUTOCLOSE
+	trainerbattle_single TRAINER_HAILEY, Route109_Text_HaileyIntro, Route109_Text_HaileyDefeated
 # 473 "data/maps/Route109/scripts.pory"
-	end
+	msgbox Route109_Text_HaileyPostBattle, MSGBOX_AUTOCLOSE
 # 474 "data/maps/Route109/scripts.pory"
-
-# 475 "data/maps/Route109/scripts.pory"
-Route109_EventScript_Elijah::
-# 476 "data/maps/Route109/scripts.pory"
-	trainerbattle_single TRAINER_ELIJAH, Route109_Text_ElijahIntro, Route109_Text_ElijahDefeated
-# 477 "data/maps/Route109/scripts.pory"
-	msgbox Route109_Text_ElijahPostBattle, MSGBOX_AUTOCLOSE
-# 478 "data/maps/Route109/scripts.pory"
 	end
+# 475 "data/maps/Route109/scripts.pory"
+
+# 476 "data/maps/Route109/scripts.pory"
+Route109_EventScript_Elijah::
+# 477 "data/maps/Route109/scripts.pory"
+	trainerbattle_single TRAINER_ELIJAH, Route109_Text_ElijahIntro, Route109_Text_ElijahDefeated
+# 478 "data/maps/Route109/scripts.pory"
+	msgbox Route109_Text_ElijahPostBattle, MSGBOX_AUTOCLOSE
 # 479 "data/maps/Route109/scripts.pory"
-
+	end
 # 480 "data/maps/Route109/scripts.pory"
-DewfordTown_Text_BrineyLandedInSlateportDeliverGoods:
+
 # 481 "data/maps/Route109/scripts.pory"
-	.string "MR. BRINEY: Ahoy!\n"
+DewfordTown_Text_BrineyLandedInSlateportDeliverGoods:
 # 482 "data/maps/Route109/scripts.pory"
-	.string "We've made land in SLATEPORT!\p"
-# 483 "data/maps/Route109/scripts.pory"
-	.string "I suppose you're going to visit CAPT.\n"
-# 484 "data/maps/Route109/scripts.pory"
-	.string "STERN and deliver the DEVON GOODS?$"
-# 485 "data/maps/Route109/scripts.pory"
-
-# 486 "data/maps/Route109/scripts.pory"
-Route109_Text_BrineySailToDewfordQuestion:
-# 487 "data/maps/Route109/scripts.pory"
-	.string "MR. BRINEY: I thought you're supposed\n"
-# 488 "data/maps/Route109/scripts.pory"
-	.string "to deliver the DEVON GOODS.\p"
-# 489 "data/maps/Route109/scripts.pory"
-	.string "Would you like to sail back to\n"
-# 490 "data/maps/Route109/scripts.pory"
-	.string "DEWFORD, then?$"
-# 491 "data/maps/Route109/scripts.pory"
-
-# 492 "data/maps/Route109/scripts.pory"
-Route109_Text_BrineyDewfordItIs:
-# 493 "data/maps/Route109/scripts.pory"
-	.string "MR. BRINEY: DEWFORD it is, then!\p"
-# 494 "data/maps/Route109/scripts.pory"
-	.string "Anchors aweigh!\n"
-# 495 "data/maps/Route109/scripts.pory"
-	.string "PEEKO, we're setting sail, my darling!$"
-# 496 "data/maps/Route109/scripts.pory"
-
-# 497 "data/maps/Route109/scripts.pory"
-Route109_Text_BrineyDeliverDevonGoods:
-# 498 "data/maps/Route109/scripts.pory"
-	.string "MR. BRINEY: Then you go on and deliver\n"
-# 499 "data/maps/Route109/scripts.pory"
-	.string "the DEVON GOODS. I'll be waiting.$"
-# 500 "data/maps/Route109/scripts.pory"
-
-# 501 "data/maps/Route109/scripts.pory"
-DewfordTown_Text_BrineyLandedInSlateport:
-# 502 "data/maps/Route109/scripts.pory"
-	.string "MR. BRINEY: Ahoy! We've made land in\n"
-# 503 "data/maps/Route109/scripts.pory"
-	.string "SLATEPORT!\p"
-# 504 "data/maps/Route109/scripts.pory"
-	.string "You just go on and tell me whenever\n"
-# 505 "data/maps/Route109/scripts.pory"
-	.string "you want to set sail again!$"
-# 506 "data/maps/Route109/scripts.pory"
-
-# 507 "data/maps/Route109/scripts.pory"
-Route109_Text_BrineyWhereAreWeBound:
-# 508 "data/maps/Route109/scripts.pory"
 	.string "MR. BRINEY: Ahoy!\n"
+# 483 "data/maps/Route109/scripts.pory"
+	.string "We've made land in SLATEPORT!\p"
+# 484 "data/maps/Route109/scripts.pory"
+	.string "I suppose you're going to visit CAPT.\n"
+# 485 "data/maps/Route109/scripts.pory"
+	.string "STERN and deliver the DEVON GOODS?$"
+# 486 "data/maps/Route109/scripts.pory"
+
+# 487 "data/maps/Route109/scripts.pory"
+Route109_Text_BrineySailToDewfordQuestion:
+# 488 "data/maps/Route109/scripts.pory"
+	.string "MR. BRINEY: I thought you're supposed\n"
+# 489 "data/maps/Route109/scripts.pory"
+	.string "to deliver the DEVON GOODS.\p"
+# 490 "data/maps/Route109/scripts.pory"
+	.string "Would you like to sail back to\n"
+# 491 "data/maps/Route109/scripts.pory"
+	.string "DEWFORD, then?$"
+# 492 "data/maps/Route109/scripts.pory"
+
+# 493 "data/maps/Route109/scripts.pory"
+Route109_Text_BrineyDewfordItIs:
+# 494 "data/maps/Route109/scripts.pory"
+	.string "MR. BRINEY: DEWFORD it is, then!\p"
+# 495 "data/maps/Route109/scripts.pory"
+	.string "Anchors aweigh!\n"
+# 496 "data/maps/Route109/scripts.pory"
+	.string "PEEKO, we're setting sail, my darling!$"
+# 497 "data/maps/Route109/scripts.pory"
+
+# 498 "data/maps/Route109/scripts.pory"
+Route109_Text_BrineyDeliverDevonGoods:
+# 499 "data/maps/Route109/scripts.pory"
+	.string "MR. BRINEY: Then you go on and deliver\n"
+# 500 "data/maps/Route109/scripts.pory"
+	.string "the DEVON GOODS. I'll be waiting.$"
+# 501 "data/maps/Route109/scripts.pory"
+
+# 502 "data/maps/Route109/scripts.pory"
+DewfordTown_Text_BrineyLandedInSlateport:
+# 503 "data/maps/Route109/scripts.pory"
+	.string "MR. BRINEY: Ahoy! We've made land in\n"
+# 504 "data/maps/Route109/scripts.pory"
+	.string "SLATEPORT!\p"
+# 505 "data/maps/Route109/scripts.pory"
+	.string "You just go on and tell me whenever\n"
+# 506 "data/maps/Route109/scripts.pory"
+	.string "you want to set sail again!$"
+# 507 "data/maps/Route109/scripts.pory"
+
+# 508 "data/maps/Route109/scripts.pory"
+Route109_Text_BrineyWhereAreWeBound:
 # 509 "data/maps/Route109/scripts.pory"
-	.string "For you, I'll go out to sea anytime!\p"
+	.string "MR. BRINEY: Ahoy!\n"
 # 510 "data/maps/Route109/scripts.pory"
-	.string "Now, my friend, where are we bound?$"
+	.string "For you, I'll go out to sea anytime!\p"
 # 511 "data/maps/Route109/scripts.pory"
-
+	.string "Now, my friend, where are we bound?$"
 # 512 "data/maps/Route109/scripts.pory"
-Route109_Text_BrineyTellMeWhenYouNeedToSail:
+
 # 513 "data/maps/Route109/scripts.pory"
-	.string "MR. BRINEY: You just tell me whenever\n"
+Route109_Text_BrineyTellMeWhenYouNeedToSail:
 # 514 "data/maps/Route109/scripts.pory"
-	.string "you need to set sail again!$"
+	.string "MR. BRINEY: You just tell me whenever\n"
 # 515 "data/maps/Route109/scripts.pory"
-
+	.string "you need to set sail again!$"
 # 516 "data/maps/Route109/scripts.pory"
-Route109_Text_ChillAtMyPapasSpot:
+
 # 517 "data/maps/Route109/scripts.pory"
-	.string "Yo, TRAINERS!\n"
+Route109_Text_ChillAtMyPapasSpot:
 # 518 "data/maps/Route109/scripts.pory"
-	.string "Whether you're hot to trot,\l"
+	.string "Yo, TRAINERS!\n"
 # 519 "data/maps/Route109/scripts.pory"
-	.string "or cool cat not,\l"
+	.string "Whether you're hot to trot,\l"
 # 520 "data/maps/Route109/scripts.pory"
-	.string "chill at my papa's spot!$"
+	.string "or cool cat not,\l"
 # 521 "data/maps/Route109/scripts.pory"
-
+	.string "chill at my papa's spot!$"
 # 522 "data/maps/Route109/scripts.pory"
-Route109_Text_LittleKidsDartAround:
+
 # 523 "data/maps/Route109/scripts.pory"
-	.string "Little kids can dart around so quickly…\p"
+Route109_Text_LittleKidsDartAround:
 # 524 "data/maps/Route109/scripts.pory"
-	.string "You don't dare take your eyes off them\n"
+	.string "Little kids can dart around so quickly…\p"
 # 525 "data/maps/Route109/scripts.pory"
-	.string "for an instant. It's very taxing.\p"
+	.string "You don't dare take your eyes off them\n"
 # 526 "data/maps/Route109/scripts.pory"
-	.string "Mine are with my POKéMON, so they\n"
+	.string "for an instant. It's very taxing.\p"
 # 527 "data/maps/Route109/scripts.pory"
-	.string "should be okay, but…$"
+	.string "Mine are with my POKéMON, so they\n"
 # 528 "data/maps/Route109/scripts.pory"
-
+	.string "should be okay, but…$"
 # 529 "data/maps/Route109/scripts.pory"
-Route109_Text_SandCastleTakingLongTime:
+
 # 530 "data/maps/Route109/scripts.pory"
-	.string "Our sand castle's taking a long time\n"
+Route109_Text_SandCastleTakingLongTime:
 # 531 "data/maps/Route109/scripts.pory"
-	.string "to make.$"
+	.string "Our sand castle's taking a long time\n"
 # 532 "data/maps/Route109/scripts.pory"
-
+	.string "to make.$"
 # 533 "data/maps/Route109/scripts.pory"
-Route109_Text_YouCanHaveThis:
+
 # 534 "data/maps/Route109/scripts.pory"
-	.string "You can have this!$"
+Route109_Text_YouCanHaveThis:
 # 535 "data/maps/Route109/scripts.pory"
-
+	.string "You can have this!$"
 # 536 "data/maps/Route109/scripts.pory"
-Route109_Text_WereGoingToMakeBigCastle:
+
 # 537 "data/maps/Route109/scripts.pory"
-	.string "We're going to get all the sand from\n"
+Route109_Text_WereGoingToMakeBigCastle:
 # 538 "data/maps/Route109/scripts.pory"
-	.string "the beach and make a big castle!\p"
+	.string "We're going to get all the sand from\n"
 # 539 "data/maps/Route109/scripts.pory"
-	.string "And then we're going to be a king and\n"
+	.string "the beach and make a big castle!\p"
 # 540 "data/maps/Route109/scripts.pory"
-	.string "queen.\p"
+	.string "And then we're going to be a king and\n"
 # 541 "data/maps/Route109/scripts.pory"
-	.string "We'll let you be a servant.$"
+	.string "queen.\p"
 # 542 "data/maps/Route109/scripts.pory"
-
+	.string "We'll let you be a servant.$"
 # 543 "data/maps/Route109/scripts.pory"
-Route109_Text_ZigzagoonPicksUpLitter:
+
 # 544 "data/maps/Route109/scripts.pory"
-	.string "The water around these parts is clean.\p"
+Route109_Text_ZigzagoonPicksUpLitter:
 # 545 "data/maps/Route109/scripts.pory"
-	.string "But, I get my ZIGZAGOON to pick up\n"
+	.string "The water around these parts is clean.\p"
 # 546 "data/maps/Route109/scripts.pory"
-	.string "litter from the shoreline at times.\p"
+	.string "But, I get my ZIGZAGOON to pick up\n"
 # 547 "data/maps/Route109/scripts.pory"
-	.string "Dirty water becomes rain and joins our\n"
+	.string "litter from the shoreline at times.\p"
 # 548 "data/maps/Route109/scripts.pory"
-	.string "rivers, which we drink from…\p"
+	.string "Dirty water becomes rain and joins our\n"
 # 549 "data/maps/Route109/scripts.pory"
-	.string "If we pollute the sea, it all comes\n"
+	.string "rivers, which we drink from…\p"
 # 550 "data/maps/Route109/scripts.pory"
-	.string "back to haunt us eventually.$"
+	.string "If we pollute the sea, it all comes\n"
 # 551 "data/maps/Route109/scripts.pory"
-
+	.string "back to haunt us eventually.$"
 # 552 "data/maps/Route109/scripts.pory"
-Route109_Text_ZigzagoonCry:
+
 # 553 "data/maps/Route109/scripts.pory"
-	.string "ZIGZAGOON: Guguu?$"
+Route109_Text_ZigzagoonCry:
 # 554 "data/maps/Route109/scripts.pory"
-
+	.string "ZIGZAGOON: Guguu?$"
 # 555 "data/maps/Route109/scripts.pory"
-Route109_Text_SeashoreHouseSign:
-# 556 "data/maps/Route109/scripts.pory"
-	.string "SEASHORE HOUSE\p"
-# 557 "data/maps/Route109/scripts.pory"
-	.string "“May hot battles rage on hot sands!\n"
-# 558 "data/maps/Route109/scripts.pory"
-	.string "The place for hot TRAINERS!”$"
-# 559 "data/maps/Route109/scripts.pory"
 
+# 556 "data/maps/Route109/scripts.pory"
+Route109_Text_SeashoreHouseSign:
+# 557 "data/maps/Route109/scripts.pory"
+	.string "SEASHORE HOUSE\p"
+# 558 "data/maps/Route109/scripts.pory"
+	.string "“May hot battles rage on hot sands!\n"
+# 559 "data/maps/Route109/scripts.pory"
+	.string "The place for hot TRAINERS!”$"
 # 560 "data/maps/Route109/scripts.pory"
-Route109_Text_TrainerTipsSign:
+
 # 561 "data/maps/Route109/scripts.pory"
-	.string "TRAINER TIPS\p"
+Route109_Text_TrainerTipsSign:
 # 562 "data/maps/Route109/scripts.pory"
-	.string "POKéMON at the same level may not\n"
+	.string "TRAINER TIPS\p"
 # 563 "data/maps/Route109/scripts.pory"
-	.string "always have identical stats.\p"
+	.string "POKéMON at the same level may not\n"
 # 564 "data/maps/Route109/scripts.pory"
-	.string "POKéMON raised by TRAINERS are said\n"
+	.string "always have identical stats.\p"
 # 565 "data/maps/Route109/scripts.pory"
+	.string "POKéMON raised by TRAINERS are said\n"
+# 566 "data/maps/Route109/scripts.pory"
 	.string "to grow stronger than wild POKéMON.$"
