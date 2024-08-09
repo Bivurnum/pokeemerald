@@ -1912,10 +1912,15 @@
 	.endm
 
 	@ sets an NPC up to follow the player
-    .macro createfollower localId:req, flags:req
+    .macro setfollower localId:req, flags:req, script
+	ballfollowingmon
+	.ifnb \script
+		loadword 0, \script
+	.endif
     .byte 0xe9
     .byte \localId
     .2byte \flags
+	updatefollowingmon
     .endm
     
     @ remove the following NPC (assumes there will only ever be one)
@@ -1944,18 +1949,7 @@
 	delay 16
 	.endm
 
-
 @ Supplementary
-
-	@ Creates a follower from an NPC and destroys Pokemon follower
-	.macro setfollower localId:req, flags:req, script
-	.ifnb \script
-		loadword 0, \script
-	.endif
-	ballfollowingmon
-	createfollower \localId, \flags
-	updatefollowingmon
-	.endm
 
 	.macro goto_if_unset flag:req, dest:req
 	checkflag \flag

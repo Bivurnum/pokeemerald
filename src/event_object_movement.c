@@ -18,6 +18,7 @@
 #include "field_player_avatar.h"
 #include "field_weather.h"
 #include "fieldmap.h"
+#include "follow_me.h"
 #include "follower_helper.h"
 #include "gpu_regs.h"
 #include "graphics.h"
@@ -46,6 +47,7 @@
 #include "constants/items.h"
 #include "constants/map_types.h"
 #include "constants/mauville_old_man.h"
+#include "constants/metatile_behaviors.h"
 #include "constants/rgb.h"
 #include "constants/region_map_sections.h"
 #include "constants/songs.h"
@@ -6051,7 +6053,7 @@ static bool8 DoesObjectCollideWithObjectAt(struct ObjectEvent *objectEvent, s16 
     for (i = 0; i < OBJECT_EVENTS_COUNT; i++)
     {
         curObject = &gObjectEvents[i];
-        if (curObject->active && (curObject->movementType != MOVEMENT_TYPE_FOLLOW_PLAYER || objectEvent != &gObjectEvents[gPlayerAvatar.objectEventId]) && curObject != objectEvent)
+        if (curObject->active && (curObject->movementType != MOVEMENT_TYPE_FOLLOW_PLAYER || objectEvent != &gObjectEvents[gPlayerAvatar.objectEventId]) && curObject != objectEvent && !FollowMe_IsCollisionExempt(curObject, objectEvent))
         {
             if ((curObject->currentCoords.x == x && curObject->currentCoords.y == y) || (curObject->previousCoords.x == x && curObject->previousCoords.y == y))
             {
@@ -6199,6 +6201,7 @@ bool8 ObjectEventSetHeldMovement(struct ObjectEvent *objectEvent, u8 movementAct
     objectEvent->heldMovementActive = TRUE;
     objectEvent->heldMovementFinished = FALSE;
     gSprites[objectEvent->spriteId].sActionFuncId = 0;
+    FollowMe(objectEvent, movementActionId, FALSE);
     return FALSE;
 }
 
