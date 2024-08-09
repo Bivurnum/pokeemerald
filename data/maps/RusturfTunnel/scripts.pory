@@ -332,6 +332,7 @@ script RusturfTunnel_EventScript_Grunt {
 	msgbox (RusturfTunnel_Text_GruntTakePackage, MSGBOX_DEFAULT)
 	giveitem (ITEM_DEVON_PARTS)
 	closemessage
+	ballfollowingmon
 	applymovement (OBJ_EVENT_ID_PLAYER, RusturfTunnel_Movement_PushPlayerAsideForGrunt)
 	applymovement (LOCALID_GRUNT, RusturfTunnel_Movement_GruntEscape)
 	waitmovement (0)
