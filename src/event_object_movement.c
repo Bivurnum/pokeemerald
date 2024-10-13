@@ -9338,6 +9338,18 @@ static bool8 AreElevationsCompatible(u8 a, u8 b)
     return TRUE;
 }
 
+static const u8 sTallGrassEffectType [][1][3] =
+{
+    [MAP_ROUTE102] = {
+        {FLDEFF_TALL_GRASS,
+        FLDEFF_TALL_GRASS,
+        FLDEFF_TALL_GRASS}
+    },
+    /*[MAP_FORBIDDEN_FOREST_START] = {
+        [MAP_FORBIDDEN_FOREST_START] = {FLDEFF_TALL_GRASS_FF1, FLDEFF_TALL_GRASS_FF2, FLDEFF_TALL_GRASS_FF3},
+    },*/
+};
+
 void GroundEffect_SpawnOnTallGrass(struct ObjectEvent *objEvent, struct Sprite *sprite)
 {
     gFieldEffectArguments[0] = objEvent->currentCoords.x;
@@ -9348,7 +9360,7 @@ void GroundEffect_SpawnOnTallGrass(struct ObjectEvent *objEvent, struct Sprite *
     gFieldEffectArguments[5] = objEvent->mapGroup;
     gFieldEffectArguments[6] = (u8)gSaveBlock1Ptr->location.mapNum << 8 | (u8)gSaveBlock1Ptr->location.mapGroup;
     gFieldEffectArguments[7] = TRUE; // skip to end of anim
-    FieldEffectStart(FLDEFF_TALL_GRASS);
+    FieldEffectStart(sTallGrassEffectType[gSaveBlock1Ptr->location.mapGroup][gSaveBlock1Ptr->location.mapNum][VarGet(VAR_TEMP_A)]);
 }
 
 void GroundEffect_StepOnTallGrass(struct ObjectEvent *objEvent, struct Sprite *sprite)
@@ -9361,8 +9373,15 @@ void GroundEffect_StepOnTallGrass(struct ObjectEvent *objEvent, struct Sprite *s
     gFieldEffectArguments[5] = objEvent->mapGroup;
     gFieldEffectArguments[6] = (u8)gSaveBlock1Ptr->location.mapNum << 8 | (u8)gSaveBlock1Ptr->location.mapGroup;
     gFieldEffectArguments[7] = FALSE; // don't skip to end of anim
-    FieldEffectStart(FLDEFF_TALL_GRASS);
+    FieldEffectStart(sTallGrassEffectType[gSaveBlock1Ptr->location.mapGroup][gSaveBlock1Ptr->location.mapNum][VarGet(VAR_TEMP_A)]);
 }
+/*
+static const u8 sLongGrassEffectType [][1][3] =
+{
+    [MAP_ROUTE101] = {
+        [MAP_ROUTE101] = {FLDEFF_LONG_GRASS, FLDEFF_LONG_GRASS, FLDEFF_LONG_GRASS},
+    },
+};*/
 
 void GroundEffect_SpawnOnLongGrass(struct ObjectEvent *objEvent, struct Sprite *sprite)
 {

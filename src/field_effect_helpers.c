@@ -15,6 +15,7 @@
 #include "constants/field_effects.h"
 #include "constants/rgb.h"
 #include "constants/songs.h"
+#include "event_data.h"
 
 #define OBJ_EVENT_PAL_TAG_NONE 0x11FF // duplicate of define in event_object_movement.c
 #define PAL_TAG_REFLECTION_OFFSET 0x2000 // reflection tag value is paletteTag + 0x2000
@@ -408,13 +409,37 @@ void UpdateShadowFieldEffect(struct Sprite *sprite)
 #define sCurrentMap  data[5]
 #define sObjectMoved data[7]
 
+static const u8 sTallGrassEffectObject [][1][3] =
+{
+    [MAP_ROUTE102] = {
+        {FLDEFFOBJ_TALL_GRASS,
+        FLDEFFOBJ_TALL_GRASS,
+        FLDEFFOBJ_TALL_GRASS}
+    },
+    /*[MAP_FORBIDDEN_FOREST_START] = {
+        [MAP_FORBIDDEN_FOREST_START] = {FLDEFFOBJ_TALL_GRASS_FF1, FLDEFFOBJ_TALL_GRASS_FF2, FLDEFFOBJ_TALL_GRASS_FF3},
+    },*/
+};
+
+static const u8 sTallGrassEffectType [][1][3] =
+{
+    [MAP_ROUTE102] = {
+        {FLDEFF_TALL_GRASS,
+        FLDEFF_TALL_GRASS,
+        FLDEFF_TALL_GRASS}
+    },
+    /*[MAP_FORBIDDEN_FOREST_START] = {
+        [MAP_FORBIDDEN_FOREST_START] = {FLDEFF_TALL_GRASS_FF1, FLDEFF_TALL_GRASS_FF2, FLDEFF_TALL_GRASS_FF3},
+    },*/
+};
+
 u32 FldEff_TallGrass(void)
 {
     u8 spriteId;
     s16 x = gFieldEffectArguments[0];
     s16 y = gFieldEffectArguments[1];
     SetSpritePosToOffsetMapCoords(&x, &y, 8, 8);
-    spriteId = CreateSpriteAtEnd(gFieldEffectObjectTemplatePointers[FLDEFFOBJ_TALL_GRASS], x, y, 0);
+    spriteId = CreateSpriteAtEnd(gFieldEffectObjectTemplatePointers[sTallGrassEffectObject[gSaveBlock1Ptr->location.mapGroup][gSaveBlock1Ptr->location.mapNum][VarGet(VAR_TEMP_A)]], x, y, 0);
     if (spriteId != MAX_SPRITES)
     {
         struct Sprite *sprite = &gSprites[spriteId];
@@ -456,7 +481,7 @@ void UpdateTallGrassFieldEffect(struct Sprite *sprite)
      || !MetatileBehavior_IsTallGrass(metatileBehavior)
      || (sprite->sObjectMoved && sprite->animEnded))
     {
-        FieldEffectStop(sprite, FLDEFF_TALL_GRASS);
+        FieldEffectStop(sprite, sTallGrassEffectType[gSaveBlock1Ptr->location.mapGroup][gSaveBlock1Ptr->location.mapNum][VarGet(VAR_TEMP_A)]);
     }
     else
     {
@@ -511,7 +536,21 @@ u8 FindTallGrassFieldEffectSpriteId(u8 localId, u8 mapNum, u8 mapGroup, s16 x, s
     }
     return MAX_SPRITES;
 }
+/*
+static const u8 sLongGrassEffectObject [][1][3] =
+{
+    [MAP_ROUTE101] = {
+        [MAP_ROUTE101] = {FLDEFFOBJ_LONG_GRASS, FLDEFFOBJ_LONG_GRASS, FLDEFFOBJ_LONG_GRASS},
+    },
+};
 
+static const u8 sLongGrassEffectType [][1][3] =
+{
+    [MAP_ROUTE101] = {
+        [MAP_ROUTE101] = {FLDEFF_LONG_GRASS, FLDEFF_LONG_GRASS, FLDEFF_LONG_GRASS},
+    },
+};
+*/
 u32 FldEff_LongGrass(void)
 {
     u8 spriteId;
