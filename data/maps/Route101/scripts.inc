@@ -19,6 +19,17 @@ Route101_EventScript_HideMapNamePopup::
 	setvar VAR_ROUTE101_STATE, 1
 	end
 
+Route101_EventScript_SayMapVar::
+	lock
+	buffernumberstring STR_VAR_1, VAR_CURRENT_MAP
+	msgbox Text_CurrentMap
+	closemessage
+	release
+	end
+
+Text_CurrentMap::
+	.string "{STR_VAR_1}$"
+
 Route101_EventScript_StartBirchRescue::
 	lockall
 	playbgm MUS_HELP, TRUE

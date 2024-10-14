@@ -487,6 +487,7 @@ string generate_map_constants_text(string groups_filepath, Json groups_data) {
             text << "#define " << map_id << string((max_length - map_id.length() + 1), ' ')
                  << "(" << map_id_num++ << " | (" << group_num << " << 8))\n";
         }
+        text << "#define MAP_GROUP_" << group_num << "_COUNT    " << map_count << "\n";
         text << "\n";
 
         group_num++;
@@ -494,6 +495,32 @@ string generate_map_constants_text(string groups_filepath, Json groups_data) {
     }
 
     text << "#define MAP_GROUPS_COUNT " << group_num << "\n\n";
+    int i;
+    text << "enum CurrentMap\n{\n";
+    for (auto &group : groups_data["group_order"].array_items()) {
+        string groupName = json_to_string(group);
+        vector<string> map_ids;
+        size_t max_length = 0;
+        for (auto &map_name : groups_data[groupName].array_items()) {
+            string map_filepath = file_dir + json_to_string(map_name) + dir_separator + "map.json";
+            string err_str;
+            Json map_data = Json::parse(read_text_file(map_filepath), err_str);
+            if (map_data == Json())
+                FATAL_ERROR("%s: %s\n", map_filepath.c_str(), err_str.c_str());
+            string id = json_to_string(map_data, "id", true);
+            map_ids.push_back(id);
+            if (id.length() > max_length)
+                max_length = id.length();
+        }
+        for (string map_id : map_ids) {
+            text << "    CM_" << map_id << ",\n";
+        }
+    }
+    text << "};\n\n";
+    for (i = group_num; i < 52; i++) {
+        text << "#define MAP_GROUP_" << i << "_COUNT    0\n";
+    }
+    text << "\n\n";
     text << "#endif // GUARD_CONSTANTS_MAP_GROUPS_H\n";
 
     char s = file_dir.back();

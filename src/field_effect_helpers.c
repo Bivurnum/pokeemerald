@@ -409,12 +409,12 @@ void UpdateShadowFieldEffect(struct Sprite *sprite)
 #define sCurrentMap  data[5]
 #define sObjectMoved data[7]
 
-static const u8 sTallGrassEffectObject [][1][3] =
+static const u8 sTallGrassEffectObject [][3] =
 {
     [MAP_ROUTE102] = {
-        {FLDEFFOBJ_TALL_GRASS,
         FLDEFFOBJ_TALL_GRASS,
-        FLDEFFOBJ_TALL_GRASS}
+        FLDEFFOBJ_TALL_GRASS,
+        FLDEFFOBJ_TALL_GRASS
     },
     /*[MAP_FORBIDDEN_FOREST_START] = {
         [MAP_FORBIDDEN_FOREST_START] = {FLDEFFOBJ_TALL_GRASS_FF1, FLDEFFOBJ_TALL_GRASS_FF2, FLDEFFOBJ_TALL_GRASS_FF3},
@@ -439,7 +439,7 @@ u32 FldEff_TallGrass(void)
     s16 x = gFieldEffectArguments[0];
     s16 y = gFieldEffectArguments[1];
     SetSpritePosToOffsetMapCoords(&x, &y, 8, 8);
-    spriteId = CreateSpriteAtEnd(gFieldEffectObjectTemplatePointers[sTallGrassEffectObject[gSaveBlock1Ptr->location.mapGroup][gSaveBlock1Ptr->location.mapNum][VarGet(VAR_TEMP_A)]], x, y, 0);
+    spriteId = CreateSpriteAtEnd(gFieldEffectObjectTemplatePointers[sTallGrassEffectObject[gSpecialVar_CurrentMap][VarGet(VAR_TEMP_A)]], x, y, 0);
     if (spriteId != MAX_SPRITES)
     {
         struct Sprite *sprite = &gSprites[spriteId];

@@ -564,12 +564,80 @@ const struct MapLayout *GetMapLayout(u16 mapLayoutId)
     return gMapLayouts[mapLayoutId - 1];
 }
 
+static const u8 sMapGroupCounts[] = {
+    0,
+    MAP_GROUP_0_COUNT,
+    MAP_GROUP_1_COUNT,
+    MAP_GROUP_2_COUNT,
+    MAP_GROUP_3_COUNT,
+    MAP_GROUP_4_COUNT,
+    MAP_GROUP_5_COUNT,
+    MAP_GROUP_6_COUNT,
+    MAP_GROUP_7_COUNT,
+    MAP_GROUP_8_COUNT,
+    MAP_GROUP_9_COUNT,
+    MAP_GROUP_10_COUNT,
+    MAP_GROUP_11_COUNT,
+    MAP_GROUP_12_COUNT,
+    MAP_GROUP_13_COUNT,
+    MAP_GROUP_14_COUNT,
+    MAP_GROUP_15_COUNT,
+    MAP_GROUP_16_COUNT,
+    MAP_GROUP_17_COUNT,
+    MAP_GROUP_18_COUNT,
+    MAP_GROUP_19_COUNT,
+    MAP_GROUP_20_COUNT,
+    MAP_GROUP_21_COUNT,
+    MAP_GROUP_22_COUNT,
+    MAP_GROUP_23_COUNT,
+    MAP_GROUP_24_COUNT,
+    MAP_GROUP_25_COUNT,
+    MAP_GROUP_26_COUNT,
+    MAP_GROUP_27_COUNT,
+    MAP_GROUP_28_COUNT,
+    MAP_GROUP_29_COUNT,
+    MAP_GROUP_30_COUNT,
+    MAP_GROUP_31_COUNT,
+    MAP_GROUP_32_COUNT,
+    MAP_GROUP_33_COUNT,
+    MAP_GROUP_34_COUNT,
+    MAP_GROUP_35_COUNT,
+    MAP_GROUP_36_COUNT,
+    MAP_GROUP_37_COUNT,
+    MAP_GROUP_38_COUNT,
+    MAP_GROUP_39_COUNT,
+    MAP_GROUP_40_COUNT,
+    MAP_GROUP_41_COUNT,
+    MAP_GROUP_42_COUNT,
+    MAP_GROUP_43_COUNT,
+    MAP_GROUP_44_COUNT,
+    MAP_GROUP_45_COUNT,
+    MAP_GROUP_46_COUNT,
+    MAP_GROUP_47_COUNT,
+    MAP_GROUP_48_COUNT,
+    MAP_GROUP_49_COUNT,
+    MAP_GROUP_50_COUNT,
+    MAP_GROUP_51_COUNT
+};
+
+static void SetCurrentMapNumToVar(void)
+{
+    u8 num;
+    gSpecialVar_CurrentMap = gSaveBlock1Ptr->location.mapNum;
+
+    for (num = 0; num <= gSaveBlock1Ptr->location.mapGroup; num++)
+    {
+        gSpecialVar_CurrentMap += sMapGroupCounts[num];
+    }
+}
+
 void ApplyCurrentWarp(void)
 {
     gLastUsedWarp = gSaveBlock1Ptr->location;
     gSaveBlock1Ptr->location = sWarpDestination;
     sFixedDiveWarp = sDummyWarpData;
     sFixedHoleWarp = sDummyWarpData;
+    SetCurrentMapNumToVar();
 }
 
 static void ClearDiveAndHoleWarps(void)
