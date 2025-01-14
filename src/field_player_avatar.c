@@ -7,10 +7,13 @@
 #include "field_effect.h"
 #include "field_effect_helpers.h"
 #include "field_player_avatar.h"
+#include "field_weather.h"
 #include "fieldmap.h"
+#include "fishing_game.h"
 #include "menu.h"
 #include "metatile_behavior.h"
 #include "overworld.h"
+#include "palette.h"
 #include "party_menu.h"
 #include "random.h"
 #include "rotating_gate.h"
@@ -27,6 +30,7 @@
 #include "constants/field_effects.h"
 #include "constants/items.h"
 #include "constants/moves.h"
+#include "constants/rgb.h"
 #include "constants/songs.h"
 #include "constants/trainer_types.h"
 
@@ -130,9 +134,9 @@ static u8 Fishing_ShowDots(struct Task *);
 static u8 Fishing_CheckForBite(struct Task *);
 static u8 Fishing_GotBite(struct Task *);
 static u8 Fishing_WaitForA(struct Task *);
-static u8 Fishing_CheckMoreDots(struct Task *);
 static u8 Fishing_MonOnHook(struct Task *);
-static u8 Fishing_StartEncounter(struct Task *);
+static u8 Fishing_SetUpPokemon(struct Task *);
+static u8 Fishing_StartMinigame(struct Task *);
 static u8 Fishing_NotEvenNibble(struct Task *);
 static u8 Fishing_GotAway(struct Task *);
 static u8 Fishing_NoMon(struct Task *);
@@ -1683,7 +1687,7 @@ static void Task_WaitStopSurfing(u8 taskId)
 // Some states are jumped to directly, labeled below
 #define FISHING_START_ROUND 3
 #define FISHING_GOT_BITE 6
-#define FISHING_ON_HOOK 9
+#define FISHING_ON_HOOK 8
 #define FISHING_NO_BITE 11
 #define FISHING_GOT_AWAY 12
 #define FISHING_SHOW_RESULT 13
@@ -1698,9 +1702,9 @@ static bool8 (*const sFishingStateFuncs[])(struct Task *) =
     Fishing_CheckForBite,
     Fishing_GotBite,        // FISHING_GOT_BITE
     Fishing_WaitForA,
-    Fishing_CheckMoreDots,
     Fishing_MonOnHook,      // FISHING_ON_HOOK
-    Fishing_StartEncounter,
+    Fishing_SetUpPokemon,
+    Fishing_StartMinigame,
     Fishing_NotEvenNibble,  // FISHING_NO_BITE
     Fishing_GotAway,        // FISHING_GOT_AWAY
     Fishing_NoMon,          // FISHING_SHOW_RESULT
@@ -1771,7 +1775,7 @@ static bool8 Fishing_InitDots(struct Task *task)
     u32 randVal;
 
     LoadMessageBoxAndFrameGfx(0, TRUE);
-    task->tStep++;
+    task->tStep = 5;
     task->tFrameCounter = 0;
     task->tNumDots = 0;
     randVal = Random();
@@ -1845,9 +1849,9 @@ static bool8 Fishing_CheckForBite(struct Task *task)
 
         if (!bite)
         {
-            if (Random() & 1)
-                task->tStep = FISHING_NO_BITE;
-            else
+            //if (Random() & 1)
+            //    task->tStep = FISHING_NO_BITE;
+            //else
                 bite = TRUE;
         }
 
@@ -1878,12 +1882,14 @@ static bool8 Fishing_WaitForA(struct Task *task)
     AlignFishingAnimationFrames();
     task->tFrameCounter++;
     if (task->tFrameCounter >= reelTimeouts[task->tFishingRod])
-        task->tStep = FISHING_GOT_AWAY;
+        task->tStep = FISHING_ON_HOOK;
+        //task->tStep = FISHING_GOT_AWAY;
     else if (JOY_NEW(A_BUTTON))
-        task->tStep++;
+        task->tStep = FISHING_ON_HOOK;
     return FALSE;
 }
 
+/*
 // Determine if we're going to play the dot game again
 static bool8 Fishing_CheckMoreDots(struct Task *task)
 {
@@ -1910,6 +1916,7 @@ static bool8 Fishing_CheckMoreDots(struct Task *task)
     }
     return FALSE;
 }
+*/
 
 static bool8 Fishing_MonOnHook(struct Task *task)
 {
@@ -1921,7 +1928,7 @@ static bool8 Fishing_MonOnHook(struct Task *task)
     return FALSE;
 }
 
-static bool8 Fishing_StartEncounter(struct Task *task)
+static bool8 Fishing_SetUpPokemon(struct Task *task)
 {
     if (task->tFrameCounter == 0)
         AlignFishingAnimationFrames();
@@ -1932,14 +1939,6 @@ static bool8 Fishing_StartEncounter(struct Task *task)
     {
         if (!IsTextPrinterActive(0))
         {
-            struct ObjectEvent *playerObjEvent = &gObjectEvents[gPlayerAvatar.objectEventId];
-
-            ObjectEventSetGraphicsId(playerObjEvent, task->tPlayerGfxId);
-            ObjectEventTurn(playerObjEvent, playerObjEvent->movementDirection);
-            if (gPlayerAvatar.flags & PLAYER_AVATAR_FLAG_SURFING)
-                SetSurfBlob_PlayerOffset(gObjectEvents[gPlayerAvatar.objectEventId].fieldEffectSpriteId, FALSE, 0);
-            gSprites[gPlayerAvatar.spriteId].x2 = 0;
-            gSprites[gPlayerAvatar.spriteId].y2 = 0;
             ClearDialogWindowAndFrame(0, TRUE);
             task->tFrameCounter++;
             return FALSE;
@@ -1948,11 +1947,29 @@ static bool8 Fishing_StartEncounter(struct Task *task)
 
     if (task->tFrameCounter != 0)
     {
-        gPlayerAvatar.preventStep = FALSE;
-        UnlockPlayerFieldControls();
         FishingWildEncounter(task->tFishingRod);
-        RecordFishingAttemptForTV(TRUE);
+        FadeScreen(FADE_TO_BLACK, 0);
+        task->tStep++;
+    }
+    return FALSE;
+}
+
+static bool8 Fishing_StartMinigame(struct Task *task)
+{
+    if (!gPaletteFade.active)
+    {
+        struct ObjectEvent *playerObjEvent = &gObjectEvents[gPlayerAvatar.objectEventId];
+
+        ObjectEventSetGraphicsId(playerObjEvent, task->tPlayerGfxId);
+        ObjectEventTurn(playerObjEvent, playerObjEvent->movementDirection);
+        if (gPlayerAvatar.flags & PLAYER_AVATAR_FLAG_SURFING)
+            SetSurfBlob_PlayerOffset(gObjectEvents[gPlayerAvatar.objectEventId].fieldEffectSpriteId, FALSE, 0);
+        gSprites[gPlayerAvatar.spriteId].x2 = 0;
+        gSprites[gPlayerAvatar.spriteId].y2 = 0;
+
         DestroyTask(FindTaskIdByFunc(Task_Fishing));
+        SetMainCallback2(CB2_InitFishingGame);
+        gMain.savedCallback = CB2_ReturnToField;
     }
     return FALSE;
 }

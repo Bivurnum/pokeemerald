@@ -3026,4 +3026,8 @@ extern const u8 gText_BoxName[];
 extern const u8 gText_PkmnsNickname[];
 extern const u8 gText_TellHimTheWords[];
 
+// Fishing Minigame
+extern const u8 gText_ReelItIn[];
+extern const u8 gText_FishingWantToQuit[];
+
 #endif // GUARD_STRINGS_H
