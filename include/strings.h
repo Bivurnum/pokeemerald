@@ -3029,5 +3029,7 @@ extern const u8 gText_TellHimTheWords[];
 // Fishing Minigame
 extern const u8 gText_ReelItIn[];
 extern const u8 gText_FishingWantToQuit[];
+extern const u8 gText_ReeledInAPokemon[];
+extern const u8 gText_PokemonGotAway[];
 
 #endif // GUARD_STRINGS_H
