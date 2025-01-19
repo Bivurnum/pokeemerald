@@ -1775,6 +1775,12 @@ static bool8 Fishing_InitDots(struct Task *task)
     u32 randVal;
 
     LoadMessageBoxAndFrameGfx(0, TRUE);
+    if (DO_DOTS_GAME_BEFORE_MAIN_GAME == FALSE)
+    {
+        StartSpriteAnim(&gSprites[gPlayerAvatar.spriteId], GetFishingBiteDirectionAnimNum(GetPlayerFacingDirection()));
+        task->tStep = FISHING_ON_HOOK;
+        return TRUE;
+    }
     task->tStep++;
     task->tFrameCounter = 0;
     task->tNumDots = 0;
@@ -1794,7 +1800,7 @@ static bool8 Fishing_ShowDots(struct Task *task)
 
     AlignFishingAnimationFrames();
     task->tFrameCounter++;
-    if (JOY_NEW(A_BUTTON))
+    if (JOY_NEW(B_BUTTON))
     {
         task->tStep = FISHING_NO_BITE;
         if (task->tRoundsPlayed != 0)
@@ -1828,36 +1834,15 @@ static bool8 Fishing_CheckForBite(struct Task *task)
     bool8 bite;
 
     AlignFishingAnimationFrames();
-    task->tStep++;
-    bite = FALSE;
+    task->tStep = FISHING_GOT_BITE;
 
     if (!DoesCurrentMapHaveFishingMons())
     {
         task->tStep = FISHING_NO_BITE;
     }
-    else
-    {
-        if (!GetMonData(&gPlayerParty[0], MON_DATA_SANITY_IS_EGG))
-        {
-            u8 ability = GetMonAbility(&gPlayerParty[0]);
-            if (ability == ABILITY_SUCTION_CUPS || ability  == ABILITY_STICKY_HOLD)
-            {
-                if (Random() % 100 > 14)
-                    bite = TRUE;
-            }
-        }
+    
+    StartSpriteAnim(&gSprites[gPlayerAvatar.spriteId], GetFishingBiteDirectionAnimNum(GetPlayerFacingDirection()));
 
-        if (!bite)
-        {
-            //if (Random() & 1)
-            //    task->tStep = FISHING_NO_BITE;
-            //else
-                bite = TRUE;
-        }
-
-        if (bite == TRUE)
-            StartSpriteAnim(&gSprites[gPlayerAvatar.spriteId], GetFishingBiteDirectionAnimNum(GetPlayerFacingDirection()));
-    }
     return TRUE;
 }
 
@@ -1881,14 +1866,13 @@ static bool8 Fishing_WaitForA(struct Task *task)
 
     AlignFishingAnimationFrames();
     task->tFrameCounter++;
-    if (task->tFrameCounter >= reelTimeouts[task->tFishingRod])
+    if (task->tFrameCounter >= reelTimeouts[task->tFishingRod] && ALLOW_FAILURE_IN_DOTS_GAME == TRUE && DO_DOTS_GAME_BEFORE_MAIN_GAME == TRUE)
         task->tStep = FISHING_GOT_AWAY;
     else if (JOY_NEW(A_BUTTON))
         task->tStep = FISHING_ON_HOOK;
     return FALSE;
 }
 
-/*
 // Determine if we're going to play the dot game again
 static bool8 Fishing_CheckMoreDots(struct Task *task)
 {
@@ -1915,7 +1899,6 @@ static bool8 Fishing_CheckMoreDots(struct Task *task)
     }
     return FALSE;
 }
-*/
 
 static bool8 Fishing_MonOnHook(struct Task *task)
 {
