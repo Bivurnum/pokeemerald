@@ -3,7 +3,7 @@
 
 // Configs
 #define DO_DOTS_GAME_BEFORE_MAIN_GAME   TRUE    // If FALSE, the fish will be hooked instantly.
-#define ALLOW_FAILURE_IN_DOTS_GAME      FALSE
+#define ALLOW_FAILURE_IN_DOTS_GAME      FALSE   // If FALSE, the dots game cannot be failed.
 
 #define FISHING_BAR_WIDTH               40   // The width of the fishing bar in number of pixels. Cannot be below 33 or above 64.
 #define FISHING_BAR_MAX_SPEED           50   // The greater the number, the faster the bar is allowed to go.
