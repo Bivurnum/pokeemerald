@@ -408,7 +408,7 @@ static void VblankCB_FishingGame(void)
 #define tScoreDirection     data[9]
 #define tFishIsMoving       data[10]
 #define tPerfectCatch       data[11]
-#define tVagueFish       data[12]
+#define tVagueFish          data[12]
 #define tPaused             data[15]
 
 // Data for all sprites
