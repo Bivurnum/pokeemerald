@@ -1156,6 +1156,19 @@ void LoadMonIconPalette(u16 species)
         LoadSpritePalette(&gMonIconPaletteTable[palIndex]);
 }
 
+u8 LoadMonIconPaletteGetIndex(u16 species)
+{
+    u8 palIndex = gMonIconPaletteIndices[species];
+    u8 slotIndex;
+    if (IndexOfSpritePaletteTag(gMonIconPaletteTable[palIndex].tag) == 0xFF)
+    {
+        slotIndex = LoadSpritePalette(&gMonIconPaletteTable[palIndex]);
+        palIndex = slotIndex;
+    }
+
+    return palIndex;
+}
+
 void FreeMonIconPalettes(void)
 {
     u8 i;
