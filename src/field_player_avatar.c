@@ -1691,6 +1691,7 @@ static void Task_WaitStopSurfing(u8 taskId)
 #define FISHING_NO_BITE 11
 #define FISHING_GOT_AWAY 12
 #define FISHING_SHOW_RESULT 13
+#define FISHING_OW_MINIGAME 50
 
 static bool8 (*const sFishingStateFuncs[])(struct Task *) =
 {
@@ -1722,6 +1723,12 @@ void StartFishing(u8 rod)
 
 static void Task_Fishing(u8 taskId)
 {
+    /*if (gTasks[taskId].tStep == FISHING_OW_MINIGAME)
+    {
+        memset(gTasks[taskId].data, 0, sizeof(gTasks[taskId].data));
+        gTasks[taskId].func = Task_InitOWMinigame;
+        return;
+    }*/
     while (sFishingStateFuncs[gTasks[taskId].tStep](&gTasks[taskId]))
         ;
 }
@@ -1930,7 +1937,8 @@ static bool8 Fishing_SetUpPokemon(struct Task *task)
     if (task->tFrameCounter != 0)
     {
         FishingWildEncounter(task->tFishingRod);
-        BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, RGB_BLACK);
+        if (MINIGAME_SEPARATE_SCREEN == TRUE)
+            BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, RGB_BLACK);
         task->tStep++;
         task->tFrameCounter = 0;
     }
@@ -1939,7 +1947,7 @@ static bool8 Fishing_SetUpPokemon(struct Task *task)
 
 static bool8 Fishing_StartMinigame(struct Task *task)
 {
-    if (!gPaletteFade.active)
+    if (MINIGAME_SEPARATE_SCREEN == TRUE && !gPaletteFade.active)
     {
         if (task->tFrameCounter == 0)
         {
@@ -1961,6 +1969,10 @@ static bool8 Fishing_StartMinigame(struct Task *task)
             gMain.savedCallback = CB2_ReturnToField;
             DestroyTask(FindTaskIdByFunc(Task_Fishing));
         }
+    }
+    else if (MINIGAME_SEPARATE_SCREEN == FALSE)
+    {
+        task->tStep = FISHING_OW_MINIGAME;
     }
     return FALSE;
 }
