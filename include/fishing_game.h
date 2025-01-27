@@ -68,7 +68,23 @@
 #define OW_PAUSE_BEFORE_START           20 // Number of frames before the minigame starts.
 
 
+// Fish species with custom behavior.
 enum {
+    FISH_OLD_ROD_DEFAULT,
+    FISH_GOOD_ROD_DEFAULT,
+    FISH_SUPER_ROD_DEFAULT,
+    FISH_SPECIES_TENTACOOL,
+    FISH_SPECIES_GOLDEEN,
+    FISH_SPECIES_MAGIKARP,
+    FISH_SPECIES_GYARADOS,
+    FISH_SPECIES_WAILMER,
+    FISH_SPECIES_CORPHISH,
+    FISH_SPECIES_COUNT
+};
+
+// Behavior values.
+enum {
+    FISH_SPECIES,
     FISH_SPEED,
     FISH_SPEED_VARIABILITY,
     FISH_MOVE_DELAY,
@@ -78,6 +94,7 @@ enum {
     FISH_IDLE_MOVEMENT
 };
 
+// Sprite sheet numbers.
 enum {
     FISHING_BAR,
     FISHING_BAR_RIGHT,
@@ -88,6 +105,7 @@ enum {
     SCORE_METER_BACKING
 };
 
+// Fishing bar palette values.
 enum {
     INSIDE_1,
     INSIDE_2,
@@ -103,6 +121,8 @@ enum {
 #define SCORE_RIGHT     0
 #define SCORE_MIDDLE    1
 #define SCORE_LEFT      2
+
+#define NUM_DEFAULT_BEHAVIORS   3
 
 void CB2_InitFishingGame(void);
 void Task_InitOWMinigame(u8 taskId);
