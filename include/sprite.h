@@ -322,6 +322,5 @@ void CopyFromSprites(u8 *dest);
 u8 SpriteTileAllocBitmapOp(u16 bit, u8 op);
 void ClearSpriteCopyRequests(void);
 void ResetAffineAnimData(void);
-void DoLoadSpritePalette(const u16 *src, u16 paletteOffset);
 
 #endif //GUARD_SPRITE_H
