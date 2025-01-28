@@ -42,9 +42,10 @@
 #define TAG_QUESTION_MARK       0x1004
 #define TAG_UNKNOWN_FISH        0x1005
 #define TAG_SCORE_BACKING       0x1006
+#define TAG_MON_ICON            0x1007
 
 static void LoadFishingSpritesheets(void);
-static void CreateMinigameSprites(u8 taskId, u8 iconPalSlot);
+static void CreateMinigameSprites(u8 taskId);
 static void SetFishingSpeciesBehavior(u8 spriteId, u16 species);
 static void CB2_FishingGame(void);
 static void Task_FishingGame(u8 taskId);
@@ -387,6 +388,10 @@ static const struct SpritePalette sSpritePalettes_FishingGame[] =
         .data = sFishingBar_Pal,
         .tag = TAG_FISHING_BAR
     },
+    {
+        .data = sFishingBar_Pal,
+        .tag = TAG_MON_ICON
+    },
     {NULL},
 };
 
@@ -459,7 +464,7 @@ static const struct SpriteTemplate sSpriteTemplate_VagueFish =
 static const struct SpriteTemplate sSpriteTemplate_ScoreMeterBacking =
 {
     .tileTag = TAG_SCORE_BACKING,
-    .paletteTag = TAG_FISHING_BAR,
+    .paletteTag = TAG_MON_ICON,
     .oam = &sOam_ScoreMeter,
     .anims = gDummySpriteAnimTable,
     .images = NULL,
@@ -525,7 +530,6 @@ static void VblankCB_FishingGame(void)
 void CB2_InitFishingGame(void)
 {
     u8 taskId;
-    u8 iconPalSlot;
 
     SetVBlankCallback(NULL);
 
@@ -562,7 +566,6 @@ void CB2_InitFishingGame(void)
     LoadUserWindowBorderGfx(0, 0x2A8, BG_PLTT_ID(13));
     LoadFishingSpritesheets();
     LoadSpritePalettes(sSpritePalettes_FishingGame);
-    iconPalSlot = LoadMonIconPaletteGetIndex(GetMonData(&gEnemyParty[0], MON_DATA_SPECIES));
     BeginNormalPaletteFade(PALETTES_ALL, 0, 0x10, 0, RGB_BLACK);
 
     EnableInterrupts(DISPSTAT_VBLANK);
@@ -577,14 +580,13 @@ void CB2_InitFishingGame(void)
     
     taskId = CreateTask(Task_FishingGame, 0);
 
-    CreateMinigameSprites(taskId, iconPalSlot);
+    CreateMinigameSprites(taskId);
 }
 
 #define taskData    gTasks[taskId]
 
 void Task_InitOWMinigame(u8 taskId)
 {
-    u8 iconPalSlot;
     void *tilemapBuffer;
     
     tilemapBuffer = AllocZeroed(GetDecompressedDataSize(gFishingGameOWBG_Gfx));
@@ -596,9 +598,8 @@ void Task_InitOWMinigame(u8 taskId)
     LoadMessageBoxAndFrameGfx(0, TRUE);
     LoadFishingSpritesheets();
     LoadSpritePalettes(sSpritePalettes_FishingGame);
-    iconPalSlot = LoadMonIconPaletteGetIndex(GetMonData(&gEnemyParty[0], MON_DATA_SPECIES));
 
-    CreateMinigameSprites(taskId, iconPalSlot);
+    CreateMinigameSprites(taskId);
 
     taskData.func = Task_FishingGame;
 }
@@ -614,12 +615,13 @@ static void LoadFishingSpritesheets(void)
 
 #define spriteData  gSprites[spriteId]
 
-static void CreateMinigameSprites(u8 taskId, u8 iconPalSlot)
+static void CreateMinigameSprites(u8 taskId)
 {
     u8 spriteId;
     u8 y;
     u8 i;
     u8 sections = NUM_SCORE_SECTIONS;
+    u8 iconPalIndex = IndexOfSpritePaletteTag(TAG_MON_ICON);
     u16 species = GetMonData(&gEnemyParty[0], MON_DATA_SPECIES);
 
     taskData.tPaused = TRUE; // Pause the sprite animations/movements until the game starts.
@@ -670,10 +672,11 @@ static void CreateMinigameSprites(u8 taskId, u8 iconPalSlot)
     else
         y = OW_FISH_ICON_Y;
     taskData.tQMarkSpriteId = 200;
+    LoadMonIconPaletteFishing(species, iconPalIndex);
     if ((OBSCURE_UNDISCOVERED_MONS == TRUE && !GetSetPokedexFlag(SpeciesToNationalPokedexNum(species), FLAG_GET_SEEN))
-        || OBSCURE_ALL_FISH == TRUE || iconPalSlot == 255)
+        || OBSCURE_ALL_FISH == TRUE || iconPalIndex == 0xFF)
     {
-        if (VAGUE_FISH_FOR_OBSCURED == TRUE || iconPalSlot == 255)
+        if (VAGUE_FISH_FOR_OBSCURED == TRUE || iconPalIndex == 0xFF)
         {
             LoadCompressedSpriteSheet(&sSpriteSheets_FishingGame[VAGUE_FISH]);
             spriteId = CreateSprite(&sSpriteTemplate_VagueFish, FISH_ICON_START_X, y, 0);
@@ -685,18 +688,18 @@ static void CreateMinigameSprites(u8 taskId, u8 iconPalSlot)
         else
         {
             LoadCompressedSpriteSheet(&sSpriteSheets_FishingGame[QUESTION_MARK]);
-            FillPalette(RGB_BLACK, OBJ_PLTT_ID(iconPalSlot), PLTT_SIZE_4BPP);
+            FillPalette(RGB_BLACK, OBJ_PLTT_ID(iconPalIndex), PLTT_SIZE_4BPP);
             spriteId = CreateSprite(&sSpriteTemplate_QuestionMark, FISH_ICON_START_X, y, 0);
             taskData.tQMarkSpriteId = spriteId;
             if (MINIGAME_ON_SEPARATE_SCREEN == FALSE)
                 spriteData.oam.priority--;
             spriteData.sTaskId = taskId;
-            spriteId = CreateMonIcon(species, SpriteCB_FishingMonIcon, FISH_ICON_START_X, y, 1, GetMonData(&gEnemyParty[0], MON_DATA_PERSONALITY), FALSE);
+            spriteId = CreateMonIconFishing(species, SpriteCB_FishingMonIcon, FISH_ICON_START_X, y, 1, FALSE, iconPalIndex);
         }
     }
     else
     {
-        spriteId = CreateMonIcon(species, SpriteCB_FishingMonIcon, FISH_ICON_START_X, y, 1, GetMonData(&gEnemyParty[0], MON_DATA_PERSONALITY), FALSE);
+        spriteId = CreateMonIconFishing(species, SpriteCB_FishingMonIcon, FISH_ICON_START_X, y, 1, FALSE, iconPalIndex);
     }
     spriteData.sTaskId = taskId;
     spriteData.oam.priority = 1;

@@ -14,7 +14,6 @@ u16 GetIconSpecies(u16 species, u32 personality);
 u16 GetUnownLetterByPersonality(u32 personality);
 u16 GetIconSpeciesNoPersonality(u16 speciesId);
 void LoadMonIconPalettes(void);
-u8 LoadMonIconPaletteGetIndex(u16 species);
 void LoadMonIconPalette(u16 species);
 void FreeMonIconPalettes(void);
 u8 CreateMonIconNoPersonality(u16 species, void (*callback)(struct Sprite *), s16 x, s16 y, u8 subpriority, bool32 handleDeoxys);
@@ -26,5 +25,7 @@ void LoadMonIconPalette(u16 species);
 void SpriteCB_MonIcon(struct Sprite *sprite);
 void SetPartyHPBarSprite(struct Sprite *sprite, u8 animNum);
 u8 GetMonIconPaletteIndexFromSpecies(u16 species);
+void LoadMonIconPaletteFishing(u16 species, u8 index);
+u8 CreateMonIconFishing(u16 species, void (*callback)(struct Sprite *), s16 x, s16 y, u8 subpriority, bool32 handleDeoxys, u8 index);
 
 #endif // GUARD_POKEMON_ICON_H

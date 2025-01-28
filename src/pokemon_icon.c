@@ -1069,6 +1069,27 @@ u8 CreateMonIconNoPersonality(u16 species, void (*callback)(struct Sprite *), s1
     return spriteId;
 }
 
+u8 CreateMonIconFishing(u16 species, void (*callback)(struct Sprite *), s16 x, s16 y, u8 subpriority, bool32 handleDeoxys, u8 index)
+{
+    u8 spriteId;
+    struct MonIconSpriteTemplate iconTemplate =
+    {
+        .oam = &sMonIconOamData,
+        .image = NULL,
+        .anims = sMonIconAnims,
+        .affineAnims = sMonIconAffineAnims,
+        .callback = callback,
+        .paletteTag = index,
+    };
+
+    iconTemplate.image = GetMonIconTiles(species, handleDeoxys);
+    spriteId = CreateMonIconSprite(&iconTemplate, x, y, subpriority);
+
+    UpdateMonIconFrame(&gSprites[spriteId]);
+
+    return spriteId;
+}
+
 u16 GetIconSpecies(u16 species, u32 personality)
 {
     u16 result;
@@ -1156,15 +1177,10 @@ void LoadMonIconPalette(u16 species)
         LoadSpritePalette(&gMonIconPaletteTable[palIndex]);
 }
 
-u8 LoadMonIconPaletteGetIndex(u16 species)
+void LoadMonIconPaletteFishing(u16 species, u8 index)
 {
-    u8 palIndex = gMonIconPaletteIndices[species];
-    u8 palSlot = IndexOfSpritePaletteTag(gMonIconPaletteTable[palIndex].tag);
-    
-    if (palSlot == 0xFF)
-        palSlot = LoadSpritePalette(&gMonIconPaletteTable[palIndex]);
-
-    return palSlot;
+    if (index != 0xFF)
+        DoLoadSpritePalette(gMonIconPaletteTable[gMonIconPaletteIndices[species]].data, PLTT_ID(index));
 }
 
 void FreeMonIconPalettes(void)
