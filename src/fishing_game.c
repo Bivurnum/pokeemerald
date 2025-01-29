@@ -1229,7 +1229,6 @@ static void SetMonIconPosition(u8 taskId)
 
         if (taskData.tFrameCounter == sFishIconData.sTimeToNextMove) // Begin new movement.
         {
-            u8 i;
             u16 variablility;
 
             taskData.tFishIsMoving = TRUE;
