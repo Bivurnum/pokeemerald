@@ -1246,6 +1246,7 @@ static void SetMonIconPosition(u8 taskId)
                 sFishIconData.sFishSpeed -= variablility;
             else
                 sFishIconData.sFishSpeed += variablility;
+            sFishIconData.sFishSpeed = ((sFishIconData.sFishSpeed * FISH_SPEED_MULTIPLIER) / 100);
             if (sFishIconData.sFishSpeed < 1)
                 sFishIconData.sFishSpeed = 1;
             taskData.tInitialFishSpeed = sFishIconData.sFishSpeed;
