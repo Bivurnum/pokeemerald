@@ -591,9 +591,12 @@ static void VblankCB_FishingGame(void)
 #define sPerfectFrameCount  data[1]
 #define sPerfectMoveFrames  data[2]
 
+#define taskData            gTasks[taskId]
+
 void CB2_InitFishingMinigame(void)
 {
     u8 taskId;
+    u8 oldTaskId;
 
     SetVBlankCallback(NULL);
 
@@ -619,7 +622,6 @@ void CB2_InitFishingMinigame(void)
     DeactivateAllTextPrinters();
     ClearScheduledBgCopiesToVram();
     ScanlineEffect_Stop();
-    ResetTasks();
     ResetSpriteData();
     ResetPaletteFade();
     FreeAllSpritePalettes();
@@ -652,8 +654,6 @@ void CB2_InitFishingMinigame(void)
 
     CreateMinigameSprites(taskId);
 }
-
-#define taskData    gTasks[taskId]
 
 void Task_InitOWFishingMinigame(u8 taskId)
 {
@@ -849,6 +849,7 @@ static void CreateMinigameSprites(u8 taskId)
         for (i = 1; i <= (sections); i++)
         {
             spriteId = CreateSprite(&sSpriteTemplate_ScoreMeterBacking, ((SCORE_SECTION_WIDTH * i) - SCORE_BAR_OFFSET), y, 1);
+            spriteData.oam.priority--;
             spriteData.sTaskId = taskId;
         }
     }
@@ -1203,7 +1204,7 @@ static void SetFishingBarPosition(u8 taskId)
         else if (barData.sBarDirection == FISH_DIR_RIGHT) // If the bar is traveling to right.
         {
             if (barData.sBarSpeed < FISHING_BAR_MAX_SPEED) // If the bar speed isn't at max.
-                    barData.sBarSpeed++; // Increase the bar speed.
+                barData.sBarSpeed++; // Increase the bar speed.
 
             increment = (barData.sBarSpeed / BAR_SPEED_MODIFIER);
 
