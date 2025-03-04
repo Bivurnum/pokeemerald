@@ -2010,11 +2010,12 @@ static bool8 Fishing_StartMinigame(struct Task *task)
             task->tFrameCounter++;
         }
 
-        if (task->tFrameCounter != 0)
+        if (task->tFrameCounter == 1)
         {
             PlayBGM(MUS_TRICK_HOUSE);
             SetMainCallback2(CB2_InitFishingMinigame);
             gMain.savedCallback = CB2_ReturnToField;
+            task->tFrameCounter++;
         }
     }
     else if (MINIGAME_ON_SEPARATE_SCREEN == FALSE)
