@@ -2015,7 +2015,6 @@ static bool8 Fishing_StartMinigame(struct Task *task)
             PlayBGM(MUS_TRICK_HOUSE);
             SetMainCallback2(CB2_InitFishingMinigame);
             gMain.savedCallback = CB2_ReturnToField;
-            DestroyTask(FindTaskIdByFunc(Task_Fishing));
         }
     }
     else if (MINIGAME_ON_SEPARATE_SCREEN == FALSE)
