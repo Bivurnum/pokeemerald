@@ -1867,7 +1867,7 @@ static bool8 Fishing_WaitForA(struct Task *task)
 
     AlignFishingAnimationFrames();
     task->tFrameCounter++;
-    if (task->tFrameCounter >= reelTimeouts[task->tFishingRod] && ALLOW_FAILURE_IN_DOTS_GAME == TRUE && DO_DOTS_GAME_BEFORE_MAIN_GAME == TRUE)
+    if (task->tFrameCounter >= reelTimeouts[task->tFishingRod] && DO_DOTS_GAME_BEFORE_MAIN_GAME == TRUE && PREVENT_FAILURE_IN_DOTS_GAME == FALSE)
         task->tStep = FISHING_GOT_AWAY;
     else if (JOY_NEW(A_BUTTON))
         task->tStep = FISHING_ON_HOOK;
