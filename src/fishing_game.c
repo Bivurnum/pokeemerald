@@ -589,7 +589,7 @@ static void VblankCB_FishingGame(void)
 #define sPerfectFrameCount  data[1]
 #define sPerfectMoveFrames  data[2]
 
-void CB2_InitFishingGame(void)
+void CB2_InitFishingMinigame(void)
 {
     u8 taskId;
 
@@ -647,7 +647,7 @@ void CB2_InitFishingGame(void)
 
 #define taskData    gTasks[taskId]
 
-void Task_InitOWMinigame(u8 taskId)
+void Task_InitOWFishingMinigame(u8 taskId)
 {
     void *tilemapBuffer;
     
