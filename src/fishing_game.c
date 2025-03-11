@@ -35,14 +35,6 @@
 #include "constants/rgb.h"
 #include "constants/songs.h"
 
-#define TAG_FISHING_BAR         0x1000
-#define TAG_FISHING_BAR_RIGHT   0x1001
-#define TAG_SCORE_METER         0x1002
-#define TAG_PERFECT             0x1003
-#define TAG_QUESTION_MARK       0x1004
-#define TAG_VAGUE_FISH          0x1005
-#define TAG_SCORE_BACKING       0x1006
-
 static void LoadFishingSpritesheets(void);
 static void CreateMinigameSprites(u8 taskId);
 static void SetFishingSpeciesBehavior(u8 spriteId, u16 species);
@@ -88,21 +80,6 @@ const u16 gFishingGameOWBG_Pal[] = INCBIN_U16("graphics/fishing_game/fishing_bg_
 const u32 gFishingGameOWBG_Tilemap[] = INCBIN_U32("graphics/fishing_game/fishing_bg_ow_tiles.bin.lz");
 const u32 gFishingGameOWBGEnd_Tilemap[] = INCBIN_U32("graphics/fishing_game/fishing_bg_ow_end.bin.lz");
 const u32 gScoreMeterOWBehind_Gfx[] = INCBIN_U32("graphics/fishing_game/score_meter_ow_behind.4bpp.lz");
-
-struct FishValues
-{
-    u8 min;
-    u8 max;
-};
-
-struct FishBehaviorData
-{
-    u16 species;
-    struct FishValues speed;
-    struct FishValues distance;
-    struct FishValues delay;
-    u8 idleMovement;
-};
 
 // Behavior data for individual species.
 // If a species is not present in this table it will use the default behavior for the current rod type.
