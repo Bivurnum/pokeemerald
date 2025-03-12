@@ -997,7 +997,7 @@ static void Task_QuitFishing(u8 taskId)
         if (MINIGAME_ON_SEPARATE_SCREEN == FALSE)
         {
             taskData.data[8] = TRUE; // Don't show any more text boxes.
-            taskData.data[0] = 12; // Set Task_Fishing to run Fishing_GotAway.
+            taskData.data[0] = 13; // Set Task_Fishing to run Fishing_GotAway.
             CopyToBgTilemapBuffer(0, gFishingGameOWBGEnd_Tilemap, 0, 0);
             CopyBgTilemapBufferToVram(0);
             taskData.tPaused = 3;

@@ -5,6 +5,7 @@
 #include "fieldmap.h"
 #include "random.h"
 #include "field_player_avatar.h"
+#include "fishing_game.h"
 #include "event_data.h"
 #include "safari_zone.h"
 #include "overworld.h"
@@ -793,6 +794,11 @@ void FishingWildEncounter(u8 rod)
         species = GenerateFishingWildMon(gWildMonHeaders[GetCurrentMapWildMonHeaderId()].fishingMonsInfo, rod);
     }
     SetPokemonAnglerSpecies(species);
+    if (FISH_MINIGAME_ENABLED == FALSE)
+    {
+        IncrementGameStat(GAME_STAT_FISHING_ENCOUNTERS);
+        BattleSetup_StartWildBattle();
+    }
 }
 
 u16 GetLocalWildMon(bool8 *isWaterMon)

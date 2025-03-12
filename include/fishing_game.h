@@ -2,6 +2,8 @@
 #define GUARD_FISHING_GAME_H
 
 // Configs
+#define FISH_MINIGAME_ENABLED           TRUE    // If set to FALSE, this fishing minigame will be completely disabled.
+
 #define MINIGAME_ON_SEPARATE_SCREEN     FALSE   // Play the minigame on its own dedicated screen instead of in the overworld.
 #define DO_DOTS_GAME_BEFORE_MAIN_GAME   TRUE    // If FALSE, the fish will be hooked instantly, instead of doing the dots game.
 #define PREVENT_FAILURE_IN_DOTS_GAME    TRUE    // If TRUE, the dots game cannot be failed.
