@@ -1908,6 +1908,7 @@ static void SpriteCB_Treasure(struct Sprite *sprite)
                 SetTreasureLocation(sprite, sprite->sTaskId);
                 StartSpriteAffineAnim(sprite, ANIM_TREASURE_GROW);
                 sprite->invisible = FALSE;
+                sprite->sTreasureCounter = 0;
                 sprite->sTreasureState = TREASURE_GROWING;
             }
             break;
@@ -1943,7 +1944,10 @@ static void SpriteCB_Treasure(struct Sprite *sprite)
 
             if (sprite->sTreasureScore >= TREASURE_TIME_GOAL) // If the treasure score goal has been achieved.
             {
-                sprite->sTreasureState = TREASURE_GOT;
+                sprite->sTreasureCounter++;
+
+                if (sprite->sTreasureCounter >= 10)
+                    sprite->sTreasureState = TREASURE_GOT;
                 break;
             }
             else if (treasureHBLeftEdge <= barRightEdge && treasureHBRightEdge >= barLeftEdge) // If the treasure hitbox is within the fishing bar.
@@ -1966,7 +1970,7 @@ static void SpriteCB_Treasure(struct Sprite *sprite)
             }
             break;
         case TREASURE_GOT:
-            // Shrink and destroy treasure score meter.
+            DestroySpriteAndFreeResources(&gSprites[sprite->sTreasScoreSpriteId]);
             // Animate chest opening.
             // Play SE.
             // Shrink and destroy treasure chest.
