@@ -73,11 +73,15 @@
 #define TREASURE_TIME_GOAL              135  // Number of frames inside the fishing bar required to claim the treasure. Must be divisible by TREASURE_INCREMENT.
 #define TREASURE_INCREMENT              15   // Height of full treasure score meter in pixels.
 #define TREASURE_ICON_WIDTH             16
-#define TREASURE_SCORE_TILE_SIZE        2
 #define TREASURE_ICON_HITBOX_WIDTH      6
 #define TREASURE_SPAWN_MIN              100  // Minimum number of frames before treasure can spawn.
 #define TREASURE_SPAWN_MAX              200  // Maximum number of frames before treasure can spawn.
 #define TREASURE_Y                      105
+
+// Treasure Score Icon Constants
+#define TREASURE_SCORE_TILE_SIZE        2
+#define TREASURE_SCORE_COLOR_INTERVAL   (TREASURE_TIME_GOAL / NUM_COLOR_INTERVALS)
+#define TREASURE_SCORE_COLOR_NUM        10   // The color position in the palette that the treasure score meter uses.
 
 // OW Constants
 #define OW_FISHING_BAR_Y                22
@@ -112,16 +116,13 @@ enum {
     OUTSIDE_3
 };
 
-enum {
-    FISH_TREASURE_SCORE,
-    FISH_TREASURE_SCORE_COVERING
-};
-
+// Affine anims for treasure sprites.
 enum {
     ANIM_TREASURE_GROW,
     ANIM_TREASURE_SHRINK
 };
 
+// Treasure state values.
 enum {
     TREASURE_NOT_SPAWNED,
     TREASURE_GROWING,

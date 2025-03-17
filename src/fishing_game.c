@@ -49,7 +49,7 @@ static void Task_ReeledInFish(u8 taskId);
 static void Task_FishGotAway(u8 taskId);
 static void Task_QuitFishing(u8 taskId);
 static u8 CalculateInitialScoreMeterInterval(void);
-static void CalculateScoreMeterPalette(struct Sprite *sprite);
+static void ChangeScoreMeterColor(u8 interval, u8 pal);
 static void UpdateHelpfulTextHigher(u8 taskId);
 static void UpdateHelpfulTextLower(u8 taskId);
 static void HandleScore(u8 taskId);
@@ -841,6 +841,9 @@ static void VblankCB_FishingGame(void)
 #define sTreasureStartTime  data[6]
 #define sTreasScoreFrame    data[7]
 
+// Data for Treasure Score sprite
+#define sTreasColorInterval data[1]
+
 #define taskData            gTasks[taskId]
 
 void CB2_InitFishingMinigame(void)
@@ -1345,25 +1348,25 @@ static u8 CalculateInitialScoreMeterInterval(void)
     return startColorInterval;
 }
 
-static void CalculateScoreMeterPalette(struct Sprite *sprite)
+static void ChangeScoreMeterColor(u8 interval, u8 pal)
 {
     u8 r = 31;
     u8 g = 0;
 
-    if (sprite->sCurrColorInterval > NUM_COLOR_INTERVALS) // Cannot exceed the maximum color interval.
-        sprite->sCurrColorInterval = NUM_COLOR_INTERVALS;
+    if (interval > NUM_COLOR_INTERVALS) // Cannot exceed the maximum color interval.
+        interval = NUM_COLOR_INTERVALS;
 
-    if (sprite->sCurrColorInterval <= (NUM_COLOR_INTERVALS / 2)) // If the score meter is less than half full.
+    if (interval <= (NUM_COLOR_INTERVALS / 2)) // If the score meter is less than half full.
     {
-        g = (sprite->sCurrColorInterval - 1); // Set the green level to match the interval.
+        g = (interval - 1); // Set the green level to match the interval.
     }
     else
     {
         g = 31; // Max out the green level.
-        r -= ((sprite->sCurrColorInterval - 1) - (NUM_COLOR_INTERVALS / 2)); // Set the red level to match the interval.
+        r -= ((interval - 1) - (NUM_COLOR_INTERVALS / 2)); // Set the red level to match the interval.
     }
 
-    FillPalette(RGB(r, g, 0), (palStart + SCORE_COLOR_NUM), PLTT_SIZEOF(1)); // Set the score meter palette to the new color value.
+    FillPalette(RGB(r, g, 0), (palStart + pal), PLTT_SIZEOF(1)); // Set the score meter palette to the new color value.
 }
 
 #define scoreMeterData  gSprites[taskData.tScoreMeterSpriteId]
@@ -1811,12 +1814,12 @@ static void SpriteCB_ScoreMeter(struct Sprite *sprite)
     if (sprite->sScorePosition > ((sprite->sCurrColorInterval * SCORE_COLOR_INTERVAL) - 1)) // If the score meter has gone above the current color interval.
     {
         sprite->sCurrColorInterval++; // Increase the color interval by 1.
-        CalculateScoreMeterPalette(sprite); // Change the score meter palette to reflect the change in color interval.
+        ChangeScoreMeterColor(sprite->sCurrColorInterval, SCORE_COLOR_NUM); // Change the score meter palette to reflect the change in color interval.
     }
     else if (sprite->sScorePosition < ((sprite->sCurrColorInterval - 1) * SCORE_COLOR_INTERVAL)) // If the score meter has gone below the current color interval.
     {
         sprite->sCurrColorInterval--; // Decrease the color interval by 1.
-        CalculateScoreMeterPalette(sprite); // Change the score meter palette to reflect the change in color interval.
+        ChangeScoreMeterColor(sprite->sCurrColorInterval, SCORE_COLOR_NUM); // Change the score meter palette to reflect the change in color interval.
     }
 
     if (sprite->sScorePosition >= ((sprite->sScoreThird + 1) * SCORE_THIRD_SIZE)) // If the score position has gone above the current score third.
@@ -1927,12 +1930,23 @@ static void SpriteCB_Treasure(struct Sprite *sprite)
             }
             break;
         case TREASURE_SPAWNED:
+            if (sprite->sTreasureScore > ((gSprites[sprite->sTreasScoreSpriteId].sTreasColorInterval * TREASURE_SCORE_COLOR_INTERVAL) - 1)) // If the score meter has gone above the current color interval.
+            {
+                gSprites[sprite->sTreasScoreSpriteId].sTreasColorInterval++; // Increase the color interval by 1.
+                ChangeScoreMeterColor(gSprites[sprite->sTreasScoreSpriteId].sTreasColorInterval, TREASURE_SCORE_COLOR_NUM); // Change the score meter color to reflect the change in color interval.
+            }
+            else if (sprite->sTreasureScore < ((gSprites[sprite->sTreasScoreSpriteId].sTreasColorInterval - 1) * TREASURE_SCORE_COLOR_INTERVAL)) // If the score meter has gone below the current color interval.
+            {
+                gSprites[sprite->sTreasScoreSpriteId].sTreasColorInterval--; // Decrease the color interval by 1.
+                ChangeScoreMeterColor(gSprites[sprite->sTreasScoreSpriteId].sTreasColorInterval, TREASURE_SCORE_COLOR_NUM); // Change the score meter color to reflect the change in color interval.
+            }
+
             if (sprite->sTreasureScore >= TREASURE_TIME_GOAL) // If the treasure score goal has been achieved.
             {
                 sprite->sTreasureState = TREASURE_GOT;
                 break;
             }
-            else if (treasureHBLeftEdge <= barRightEdge && treasureHBRightEdge) // If the treasure hitbox is within the fishing bar.
+            else if (treasureHBLeftEdge <= barRightEdge && treasureHBRightEdge >= barLeftEdge) // If the treasure hitbox is within the fishing bar.
             {
                 sprite->sTreasureScore++; // Increase the treasure score.
                 if (sprite->sTreasureScore % (TREASURE_TIME_GOAL / TREASURE_INCREMENT) == 1)
