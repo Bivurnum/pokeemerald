@@ -1109,7 +1109,6 @@ static void CreateMinigameSprites(u8 taskId)
     if ((Random() % 100) <= (RANDOM_TREASURE_CHANCE - 1))
     {
         LoadCompressedSpriteSheet(&sSpriteSheets_FishingGame[TREASURE]);
-        //LoadCompressedSpriteSheet(&sSpriteSheets_FishingGame[TREASURE_SCORE]);
         spriteId = CreateSprite(&sSpriteTemplate_TreasureBox, FISH_ICON_START_X, y, 2);
         spriteData.invisible = TRUE;
         spriteData.sTaskId = taskId;
@@ -1178,7 +1177,7 @@ static void Task_HandleFishingGameInput(u8 taskId)
     RunTextPrinters();
     HandleScore(taskId);
     SetFishingBarPosition(taskId);
-    // SetMonIconPosition(taskId);
+    SetMonIconPosition(taskId);
 
     if (JOY_NEW(B_BUTTON)) // If the B Button is pressed.
     {
@@ -1673,7 +1672,7 @@ static void SetMonIconPosition(u8 taskId)
 static void SetTreasureLocation(struct Sprite *sprite, u8 taskId)
 {
     u8 monSpriteX = gSprites[gTasks[taskId].tFishIconSpriteId].x; // Fish's current X position.
-    u8 interval = ((FISHING_AREA_WIDTH - ((FISH_ICON_WIDTH / 2) + 4)) - FISH_ICON_MIN_X) / 3; // A third of the area the fish is allowed to go.
+    u8 interval = (FISHING_AREA_WIDTH - ((TREASURE_ICON_WIDTH / 2) + (TREASURE_ICON_HITBOX_WIDTH / 2))) / 3; // A third of the area the fish is allowed to go.
     u8 i;
     u8 random;
 
@@ -1704,6 +1703,7 @@ static void SetTreasureLocation(struct Sprite *sprite, u8 taskId)
     }
     
     sprite->x = sprite->sTreasurePosition;
+    sprite->sTreasurePosition = (sprite->sTreasurePosition - FISH_ICON_MIN_X) * POSITION_ADJUSTMENT;
 }
 
 #define sBarMax ((FISHING_AREA_WIDTH - sprite->sBarWidth) * POSITION_ADJUSTMENT)
@@ -1876,7 +1876,7 @@ static void SpriteCB_Perfect(struct Sprite *sprite)
     sprite->sPerfectMoveFrames++;
 }
 
-#define treasureCenter      (sprite->sTreasurePosition + ((TREASURE_ICON_WIDTH / 4) * POSITION_ADJUSTMENT))
+#define treasureCenter      (sprite->sTreasurePosition + ((TREASURE_ICON_WIDTH / 2) * POSITION_ADJUSTMENT))
 #define treasureHBLeftEdge  (treasureCenter - ((TREASURE_ICON_HITBOX_WIDTH / 2) * POSITION_ADJUSTMENT))
 #define treasureHBRightEdge (treasureCenter + ((TREASURE_ICON_HITBOX_WIDTH / 2) * POSITION_ADJUSTMENT))
 
@@ -1932,7 +1932,7 @@ static void SpriteCB_Treasure(struct Sprite *sprite)
                 sprite->sTreasureState = TREASURE_GOT;
                 break;
             }
-            else if (treasureHBLeftEdge <= barRightEdge && fishHBRightEdge >= barLeftEdge) // If the treasure hitbox is within the fishing bar.
+            else if (treasureHBLeftEdge <= barRightEdge && treasureHBRightEdge) // If the treasure hitbox is within the fishing bar.
             {
                 sprite->sTreasureScore++; // Increase the treasure score.
                 if (sprite->sTreasureScore % (TREASURE_TIME_GOAL / TREASURE_INCREMENT) == 1)

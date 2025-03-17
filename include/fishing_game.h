@@ -72,9 +72,9 @@
 // Treasure Icon Constants
 #define TREASURE_TIME_GOAL              135  // Number of frames inside the fishing bar required to claim the treasure. Must be divisible by TREASURE_INCREMENT.
 #define TREASURE_INCREMENT              15   // Height of full treasure score meter in pixels.
-#define TREASURE_ICON_WIDTH             32
-#define TREASURE_SCORE_SIZE             2
-#define TREASURE_ICON_HITBOX_WIDTH      12
+#define TREASURE_ICON_WIDTH             16
+#define TREASURE_SCORE_TILE_SIZE        2
+#define TREASURE_ICON_HITBOX_WIDTH      6
 #define TREASURE_SPAWN_MIN              100  // Minimum number of frames before treasure can spawn.
 #define TREASURE_SPAWN_MAX              200  // Maximum number of frames before treasure can spawn.
 #define TREASURE_Y                      105
@@ -166,7 +166,7 @@ struct FishBehaviorData
     u8 idleMovement;
 };
 
-#define treasure_score_frame(ptr, frame) {.data = (u8 *)ptr + (TREASURE_SCORE_SIZE * TREASURE_SCORE_SIZE * frame * 64)/2, .size = (TREASURE_SCORE_SIZE * TREASURE_SCORE_SIZE * 64)/2}
+#define treasure_score_frame(ptr, frame) {.data = (u8 *)ptr + (TREASURE_SCORE_TILE_SIZE * TREASURE_SCORE_TILE_SIZE * frame * 64)/2, .size = (TREASURE_SCORE_TILE_SIZE * TREASURE_SCORE_TILE_SIZE * 64)/2}
 
 void CB2_InitFishingMinigame(void);
 void Task_InitOWFishingMinigame(u8 taskId);
