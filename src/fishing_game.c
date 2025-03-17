@@ -61,26 +61,29 @@ static void SpriteCB_FishingMonIcon(struct Sprite *sprite);
 static void SpriteCB_ScoreMeter(struct Sprite *sprite);
 static void SpriteCB_ScoreMeterAdditional(struct Sprite *sprite);
 static void SpriteCB_Perfect(struct Sprite *sprite);
+static void SpriteCB_Treasure(struct Sprite *sprite);
 static void SpriteCB_Other(struct Sprite *sprite);
 static void CB2_FishingBattleTransition(void);
 static void CB2_FishingBattleStart(void);
 
-const u16 gFishingGameBG_Pal[] = INCBIN_U16("graphics/fishing_game/fishing_bg_tiles.gbapal");
-const u32 gFishingGameBG_Tilemap[] = INCBIN_U32("graphics/fishing_game/fishing_bg_tiles.bin.lz");
-const u32 gScoreBG_Tilemap[] = INCBIN_U32("graphics/fishing_game/score_bg_tilemap.bin.lz");
-const u32 gFishingGameBG_Gfx[] = INCBIN_U32("graphics/fishing_game/fishing_bg_tiles.4bpp.lz");
-const u32 gFishingBar_Gfx[] = INCBIN_U32("graphics/fishing_game/fishing_bar.4bpp.lz");
-const u32 gFishingBarRight_Gfx[] = INCBIN_U32("graphics/fishing_game/fishing_bar_right.4bpp.lz");
+static const u16 gFishingGameBG_Pal[] = INCBIN_U16("graphics/fishing_game/fishing_bg_tiles.gbapal");
+static const u32 gFishingGameBG_Tilemap[] = INCBIN_U32("graphics/fishing_game/fishing_bg_tiles.bin.lz");
+static const u32 gScoreBG_Tilemap[] = INCBIN_U32("graphics/fishing_game/score_bg_tilemap.bin.lz");
+static const u32 gFishingGameBG_Gfx[] = INCBIN_U32("graphics/fishing_game/fishing_bg_tiles.4bpp.lz");
+static const u32 gFishingBar_Gfx[] = INCBIN_U32("graphics/fishing_game/fishing_bar.4bpp.lz");
+static const u32 gFishingBarRight_Gfx[] = INCBIN_U32("graphics/fishing_game/fishing_bar_right.4bpp.lz");
 static const u16 sFishingBar_Pal[] = INCBIN_U16("graphics/fishing_game/fishing_bar.gbapal");
-const u32 gScoreMeter_Gfx[] = INCBIN_U32("graphics/fishing_game/score_meter.4bpp.lz");
-const u32 gPerfect_Gfx[] = INCBIN_U32("graphics/fishing_game/perfect.4bpp.lz");
-const u32 gQuestionMark_Gfx[] = INCBIN_U32("graphics/fishing_game/question_mark.4bpp.lz");
-const u32 gVagueFish_Gfx[] = INCBIN_U32("graphics/fishing_game/vague_fish.4bpp.lz");
-const u32 gFishingGameOWBG_Gfx[] = INCBIN_U32("graphics/fishing_game/fishing_bg_ow_tiles.4bpp.lz");
-const u16 gFishingGameOWBG_Pal[] = INCBIN_U16("graphics/fishing_game/fishing_bg_ow_tiles.gbapal");
-const u32 gFishingGameOWBG_Tilemap[] = INCBIN_U32("graphics/fishing_game/fishing_bg_ow_tiles.bin.lz");
-const u32 gFishingGameOWBGEnd_Tilemap[] = INCBIN_U32("graphics/fishing_game/fishing_bg_ow_end.bin.lz");
-const u32 gScoreMeterOWBehind_Gfx[] = INCBIN_U32("graphics/fishing_game/score_meter_ow_behind.4bpp.lz");
+static const u32 gScoreMeter_Gfx[] = INCBIN_U32("graphics/fishing_game/score_meter.4bpp.lz");
+static const u32 gPerfect_Gfx[] = INCBIN_U32("graphics/fishing_game/perfect.4bpp.lz");
+static const u32 gQuestionMark_Gfx[] = INCBIN_U32("graphics/fishing_game/question_mark.4bpp.lz");
+static const u32 gVagueFish_Gfx[] = INCBIN_U32("graphics/fishing_game/vague_fish.4bpp.lz");
+static const u32 gTreasureBox_Gfx[] = INCBIN_U32("graphics/fishing_game/treasure.4bpp.lz");
+static const u32 gTreasureScore_Gfx[] = INCBIN_U32("graphics/fishing_game/treasure_score.4bpp");
+static const u32 gFishingGameOWBG_Gfx[] = INCBIN_U32("graphics/fishing_game/fishing_bg_ow_tiles.4bpp.lz");
+static const u16 gFishingGameOWBG_Pal[] = INCBIN_U16("graphics/fishing_game/fishing_bg_ow_tiles.gbapal");
+static const u32 gFishingGameOWBG_Tilemap[] = INCBIN_U32("graphics/fishing_game/fishing_bg_ow_tiles.bin.lz");
+static const u32 gFishingGameOWBGEnd_Tilemap[] = INCBIN_U32("graphics/fishing_game/fishing_bg_ow_end.bin.lz");
+static const u32 gScoreMeterOWBehind_Gfx[] = INCBIN_U32("graphics/fishing_game/score_meter_ow_behind.4bpp.lz");
 
 // Behavior data for individual species.
 // If a species is not present in this table it will use the default behavior for the current rod type.
@@ -330,6 +333,193 @@ static const struct BgTemplate sOWBgTemplates[1] =
     },
 };
 
+static const union AnimCmd sAnim_VagueFish[] =
+{
+    ANIMCMD_FRAME(0, 10),
+    ANIMCMD_FRAME(16, 10),
+    ANIMCMD_JUMP(0),
+};
+
+static const union AnimCmd * const sAnims_VagueFish[] =
+{
+    sAnim_VagueFish,
+};
+
+static const struct SpriteFrameImage sPicTable_TreasureScore[] =
+{
+    treasure_score_frame(gTreasureScore_Gfx, 0),
+    treasure_score_frame(gTreasureScore_Gfx, 1),
+    treasure_score_frame(gTreasureScore_Gfx, 2),
+    treasure_score_frame(gTreasureScore_Gfx, 3),
+    treasure_score_frame(gTreasureScore_Gfx, 4),
+    treasure_score_frame(gTreasureScore_Gfx, 5),
+    treasure_score_frame(gTreasureScore_Gfx, 6),
+    treasure_score_frame(gTreasureScore_Gfx, 7),
+    treasure_score_frame(gTreasureScore_Gfx, 8),
+    treasure_score_frame(gTreasureScore_Gfx, 9),
+    treasure_score_frame(gTreasureScore_Gfx, 10),
+    treasure_score_frame(gTreasureScore_Gfx, 11),
+    treasure_score_frame(gTreasureScore_Gfx, 12),
+    treasure_score_frame(gTreasureScore_Gfx, 13),
+    treasure_score_frame(gTreasureScore_Gfx, 14),
+    treasure_score_frame(gTreasureScore_Gfx, 15),
+};
+
+static const union AnimCmd sAnim_TreasureClosed[] =
+{
+    ANIMCMD_FRAME(0, 0),
+    ANIMCMD_END,
+};
+
+static const union AnimCmd sAnim_TreasureOpen[] =
+{
+    ANIMCMD_FRAME(16, 20),
+    ANIMCMD_FRAME(32, 512),
+    ANIMCMD_END,
+};
+
+static const union AnimCmd * const sAnims_TreasureBox[] =
+{
+    sAnim_TreasureClosed,
+    sAnim_TreasureOpen,
+};
+
+static const union AnimCmd sAnim_TreasureScore0[] =
+{
+    ANIMCMD_FRAME(.imageValue = 0, .duration = 1),
+    ANIMCMD_JUMP(0)
+};
+
+static const union AnimCmd sAnim_TreasureScore1[] =
+{
+    ANIMCMD_FRAME(.imageValue = 1, .duration = 1),
+    ANIMCMD_JUMP(0)
+};
+
+static const union AnimCmd sAnim_TreasureScore2[] =
+{
+    ANIMCMD_FRAME(.imageValue = 2, .duration = 1),
+    ANIMCMD_JUMP(0)
+};
+
+static const union AnimCmd sAnim_TreasureScore3[] =
+{
+    ANIMCMD_FRAME(.imageValue = 3, .duration = 1),
+    ANIMCMD_JUMP(0)
+};
+
+static const union AnimCmd sAnim_TreasureScore4[] =
+{
+    ANIMCMD_FRAME(.imageValue = 4, .duration = 1),
+    ANIMCMD_JUMP(0)
+};
+
+static const union AnimCmd sAnim_TreasureScore5[] =
+{
+    ANIMCMD_FRAME(.imageValue = 5, .duration = 1),
+    ANIMCMD_JUMP(0)
+};
+
+static const union AnimCmd sAnim_TreasureScore6[] =
+{
+    ANIMCMD_FRAME(.imageValue = 6, .duration = 1),
+    ANIMCMD_JUMP(0)
+};
+
+static const union AnimCmd sAnim_TreasureScore7[] =
+{
+    ANIMCMD_FRAME(.imageValue = 7, .duration = 1),
+    ANIMCMD_JUMP(0)
+};
+
+static const union AnimCmd sAnim_TreasureScore8[] =
+{
+    ANIMCMD_FRAME(.imageValue = 8, .duration = 1),
+    ANIMCMD_JUMP(0)
+};
+
+static const union AnimCmd sAnim_TreasureScore9[] =
+{
+    ANIMCMD_FRAME(.imageValue = 9, .duration = 1),
+    ANIMCMD_JUMP(0)
+};
+
+static const union AnimCmd sAnim_TreasureScore10[] =
+{
+    ANIMCMD_FRAME(.imageValue = 10, .duration = 1),
+    ANIMCMD_JUMP(0)
+};
+
+static const union AnimCmd sAnim_TreasureScore11[] =
+{
+    ANIMCMD_FRAME(.imageValue = 11, .duration = 1),
+    ANIMCMD_JUMP(0)
+};
+
+static const union AnimCmd sAnim_TreasureScore12[] =
+{
+    ANIMCMD_FRAME(.imageValue = 12, .duration = 1),
+    ANIMCMD_JUMP(0)
+};
+
+static const union AnimCmd sAnim_TreasureScore13[] =
+{
+    ANIMCMD_FRAME(.imageValue = 13, .duration = 1),
+    ANIMCMD_JUMP(0)
+};
+
+static const union AnimCmd sAnim_TreasureScore14[] =
+{
+    ANIMCMD_FRAME(.imageValue = 14, .duration = 1),
+    ANIMCMD_JUMP(0)
+};
+
+static const union AnimCmd sAnim_TreasureScore15[] =
+{
+    ANIMCMD_FRAME(.imageValue = 15, .duration = 1),
+    ANIMCMD_JUMP(0)
+};
+
+static const union AnimCmd * const sAnims_TreasureScore[] =
+{
+    sAnim_TreasureScore0,
+    sAnim_TreasureScore1,
+    sAnim_TreasureScore2,
+    sAnim_TreasureScore3,
+    sAnim_TreasureScore4,
+    sAnim_TreasureScore5,
+    sAnim_TreasureScore6,
+    sAnim_TreasureScore7,
+    sAnim_TreasureScore8,
+    sAnim_TreasureScore9,
+    sAnim_TreasureScore10,
+    sAnim_TreasureScore11,
+    sAnim_TreasureScore12,
+    sAnim_TreasureScore13,
+    sAnim_TreasureScore14,
+    sAnim_TreasureScore15,
+};
+
+static const union AffineAnimCmd sAffineAnim_Grow[] =
+{
+    AFFINEANIMCMD_FRAME(0, 0, 0, 0),
+    AFFINEANIMCMD_FRAME(16, 16, 0, 16),
+    AFFINEANIMCMD_END,
+};
+
+static const union AffineAnimCmd sAffineAnim_Shrink[] =
+{
+    AFFINEANIMCMD_FRAME(128, 128, 0, 0),
+    AFFINEANIMCMD_FRAME(-8, -8, 1, 50),
+    AFFINEANIMCMD_END,
+};
+
+static const union AffineAnimCmd * const sAffineAnims_Treasure[] =
+{
+    [ANIM_TREASURE_GROW] = sAffineAnim_Grow,
+    [ANIM_TREASURE_SHRINK] = sAffineAnim_Shrink,
+};
+
 static const struct OamData sOam_FishingBar =
 {
     .y = DISPLAY_HEIGHT,
@@ -398,6 +588,37 @@ static const struct OamData sOam_UnknownFish =
     .affineParam = 0,
 };
 
+static const struct OamData sOam_TreasureBox =
+{
+    .y = DISPLAY_HEIGHT,
+    .affineMode = ST_OAM_AFFINE_NORMAL,
+    .objMode = ST_OAM_OBJ_NORMAL,
+    .mosaic = FALSE,
+    .bpp = ST_OAM_4BPP,
+    .shape = SPRITE_SHAPE(16x16),
+    .x = 0,
+    .matrixNum = 0,
+    .size = SPRITE_SIZE(16x16),
+    .tileNum = 0,
+    .priority = 0,
+    .paletteNum = 0,
+    .affineParam = 0,
+};
+
+static const struct OamData sOam_TreasureScore =
+{
+    .y = DISPLAY_HEIGHT,
+    .affineMode = ST_OAM_AFFINE_OFF,
+    .objMode = ST_OAM_OBJ_NORMAL,
+    .bpp = ST_OAM_4BPP,
+    .shape = SPRITE_SHAPE(16x16),
+    .x = 0,
+    .size = SPRITE_SIZE(16x16),
+    .tileNum = 0,
+    .priority = 0,
+    .paletteNum = 0,
+};
+
 static const struct CompressedSpriteSheet sSpriteSheets_FishingGame[] =
 {
     [FISHING_BAR] = {
@@ -434,7 +655,17 @@ static const struct CompressedSpriteSheet sSpriteSheets_FishingGame[] =
         .data = gScoreMeterOWBehind_Gfx,
         .size = 1024,
         .tag = TAG_SCORE_BACKING
-    }
+    },
+    [TREASURE] = {
+        .data = gTreasureBox_Gfx,
+        .size = 128,
+        .tag = TAG_TREASURE
+    },
+    /*[TREASURE_SCORE] = {
+        .data = gTreasureScore_Gfx,
+        .size = 2048,
+        .tag = TAG_TREASURE_SCORE
+    },*/
 };
 
 static const struct SpritePalette sSpritePalettes_FishingGame[] =
@@ -444,18 +675,6 @@ static const struct SpritePalette sSpritePalettes_FishingGame[] =
         .tag = TAG_FISHING_BAR
     },
     {NULL},
-};
-
-static const union AnimCmd sAnim_VagueFish[] =
-{
-    ANIMCMD_FRAME(0, 10),
-    ANIMCMD_FRAME(16, 10),
-    ANIMCMD_JUMP(0),
-};
-
-static const union AnimCmd * const sAnims_VagueFish[] =
-{
-    sAnim_VagueFish,
 };
 
 static const struct SpriteTemplate sSpriteTemplate_FishingBar =
@@ -535,6 +754,28 @@ static const struct SpriteTemplate sSpriteTemplate_ScoreMeterBacking =
     .callback = SpriteCB_Other
 };
 
+static const struct SpriteTemplate sSpriteTemplate_TreasureBox =
+{
+    .tileTag = TAG_TREASURE,
+    .paletteTag = TAG_FISHING_BAR,
+    .oam = &sOam_TreasureBox,
+    .anims = sAnims_TreasureBox,
+    .images = NULL,
+    .affineAnims = sAffineAnims_Treasure,
+    .callback = SpriteCB_Treasure
+};
+
+static const struct SpriteTemplate sSpriteTemplate_TreasureScore =
+{
+    .tileTag = TAG_NONE,
+    .paletteTag = TAG_FISHING_BAR,
+    .oam = &sOam_TreasureScore,
+    .anims = sAnims_TreasureScore,
+    .images = sPicTable_TreasureScore,
+    .affineAnims = gDummySpriteAffineAnimTable,
+    .callback = SpriteCB_Other
+};
+
 static void VblankCB_FishingGame(void)
 {
     RunTextPrinters();
@@ -590,6 +831,15 @@ static void VblankCB_FishingGame(void)
 // Data for Perfect sprite
 #define sPerfectFrameCount  data[1]
 #define sPerfectMoveFrames  data[2]
+
+// Data for Treasure sprite
+#define sTreasureState      data[1]
+#define sTreasurePosition   data[2]
+#define sTreasureScore      data[3]
+#define sTreasureCounter    data[4]
+#define sTreasScoreSpriteId data[5]
+#define sTreasureStartTime  data[6]
+#define sTreasScoreFrame    data[7]
 
 #define taskData            gTasks[taskId]
 
@@ -734,11 +984,10 @@ static void CreateMinigameSprites(u8 taskId)
         y = FISHING_BAR_Y;
     else
         y = OW_FISHING_BAR_Y;
-    spriteId = CreateSprite(&sSpriteTemplate_FishingBar, FISHING_BAR_START_X, y, 0);
+    spriteId = CreateSprite(&sSpriteTemplate_FishingBar, FISHING_BAR_START_X, y, 4);
     spriteData.sTaskId = taskId;
     if (!taskData.tSeparateScreen)
         spriteData.oam.priority--;
-    spriteData.subpriority = 2;
     spriteData.sBarDirection = FISH_DIR_RIGHT;
     spriteData.sBarWidth = OLD_ROD_BAR_WIDTH;
     taskData.tBarLeftSpriteId = spriteId;
@@ -761,11 +1010,10 @@ static void CreateMinigameSprites(u8 taskId)
     else if (spriteData.sBarWidth < FISHING_BAR_WIDTH_MIN)
         spriteData.sBarWidth = FISHING_BAR_WIDTH_MIN;
     
-    spriteId = CreateSprite(&sSpriteTemplate_FishingBarRight, (FISHING_BAR_START_X + (spriteData.sBarWidth - FISHING_BAR_SEGMENT_WIDTH)), y, 0);
+    spriteId = CreateSprite(&sSpriteTemplate_FishingBarRight, (FISHING_BAR_START_X + (spriteData.sBarWidth - FISHING_BAR_SEGMENT_WIDTH)), y, 4);
     spriteData.sTaskId = taskId;
     if (!taskData.tSeparateScreen)
         spriteData.oam.priority--;
-    spriteData.subpriority = 2;
 
     // Create mon icon sprite.
     if (taskData.tSeparateScreen)
@@ -853,6 +1101,22 @@ static void CreateMinigameSprites(u8 taskId)
             spriteData.sTaskId = taskId;
         }
     }
+
+    if (taskData.tSeparateScreen)
+        y = TREASURE_Y;
+    else
+        y = OW_TREASURE_Y;
+    if ((Random() % 100) <= (RANDOM_TREASURE_CHANCE - 1))
+    {
+        LoadCompressedSpriteSheet(&sSpriteSheets_FishingGame[TREASURE]);
+        //LoadCompressedSpriteSheet(&sSpriteSheets_FishingGame[TREASURE_SCORE]);
+        spriteId = CreateSprite(&sSpriteTemplate_TreasureBox, FISH_ICON_START_X, y, 2);
+        spriteData.invisible = TRUE;
+        spriteData.sTaskId = taskId;
+        spriteData.sTreasScoreFrame = 0;
+        spriteData.sTreasureState = TREASURE_NOT_SPAWNED;
+        spriteData.sTreasureStartTime = (TREASURE_SPAWN_MIN + (Random() % ((TREASURE_SPAWN_MAX - TREASURE_SPAWN_MIN) + 1)));
+    }
 }
 
 static void SetFishingSpeciesBehavior(u8 spriteId, u16 species)
@@ -914,7 +1178,7 @@ static void Task_HandleFishingGameInput(u8 taskId)
     RunTextPrinters();
     HandleScore(taskId);
     SetFishingBarPosition(taskId);
-    SetMonIconPosition(taskId);
+    // SetMonIconPosition(taskId);
 
     if (JOY_NEW(B_BUTTON)) // If the B Button is pressed.
     {
@@ -1040,7 +1304,7 @@ static void Task_QuitFishing(u8 taskId)
             taskData.data[0] = 13; // Set Task_Fishing to run Fishing_GotAway.
             CopyToBgTilemapBuffer(0, gFishingGameOWBGEnd_Tilemap, 0, 0);
             CopyBgTilemapBufferToVram(0);
-            taskData.tPaused = 3;
+            taskData.tPaused = GAME_ENDED;
             taskData.func = Task_Fishing;
         }
         else
@@ -1406,11 +1670,47 @@ static void SetMonIconPosition(u8 taskId)
     }
 }
 
+static void SetTreasureLocation(struct Sprite *sprite, u8 taskId)
+{
+    u8 monSpriteX = gSprites[gTasks[taskId].tFishIconSpriteId].x; // Fish's current X position.
+    u8 interval = ((FISHING_AREA_WIDTH - ((FISH_ICON_WIDTH / 2) + 4)) - FISH_ICON_MIN_X) / 3; // A third of the area the fish is allowed to go.
+    u8 i;
+    u8 random;
+
+    for (i = 1; i <= 3; i++) // Determine the fish's current interval.
+    {
+        if (monSpriteX < (FISH_ICON_MIN_X + (i * interval)))
+        {
+            break;
+        }
+    }
+
+    random = (Random() % (interval * 2)) + 1;
+
+    switch (i)
+    {
+        case 1: // Fish is in the left third.
+            sprite->sTreasurePosition = FISH_ICON_MIN_X + interval + random;
+            break;
+        case 2: // Fish is in the middle third.
+            if (random <= interval)
+                sprite->sTreasurePosition = FISH_ICON_MIN_X + random;
+            else
+                sprite->sTreasurePosition = FISH_ICON_MIN_X + interval + random;
+            break;
+        case 3: // Fish is in the right third.
+            sprite->sTreasurePosition = FISH_ICON_MIN_X + random;
+            break;
+    }
+    
+    sprite->x = sprite->sTreasurePosition;
+}
+
 #define sBarMax ((FISHING_AREA_WIDTH - sprite->sBarWidth) * POSITION_ADJUSTMENT)
 
 static void SpriteCB_FishingBar(struct Sprite *sprite)
 {
-    if (gTasks[sprite->sTaskId].tPaused == 3)
+    if (gTasks[sprite->sTaskId].tPaused == GAME_ENDED)
     {
         DestroySpriteAndFreeResources(sprite);
         return;
@@ -1439,7 +1739,7 @@ static void SpriteCB_FishingBar(struct Sprite *sprite)
 
 static void SpriteCB_FishingBarRight(struct Sprite *sprite)
 {
-    if (gTasks[sprite->sTaskId].tPaused == 3)
+    if (gTasks[sprite->sTaskId].tPaused == GAME_ENDED)
     {
         DestroySpriteAndFreeResources(sprite);
         return;
@@ -1449,7 +1749,7 @@ static void SpriteCB_FishingBarRight(struct Sprite *sprite)
 
 static void SpriteCB_FishingMonIcon(struct Sprite *sprite)
 {
-    if (gTasks[sprite->sTaskId].tPaused == 3)
+    if (gTasks[sprite->sTaskId].tPaused == GAME_ENDED)
     {
         if (gTasks[sprite->sTaskId].tVagueFish)
         {
@@ -1483,7 +1783,7 @@ static void SpriteCB_FishingMonIcon(struct Sprite *sprite)
 
 static void SpriteCB_ScoreMeter(struct Sprite *sprite)
 {
-    if (gTasks[sprite->sTaskId].tPaused == 3)
+    if (gTasks[sprite->sTaskId].tPaused == GAME_ENDED)
     {
         DestroySpriteAndFreeResources(sprite);
         return;
@@ -1545,7 +1845,7 @@ static void SpriteCB_ScoreMeter(struct Sprite *sprite)
 
 static void SpriteCB_ScoreMeterAdditional(struct Sprite *sprite)
 {
-    if (gTasks[sprite->sTaskId].tPaused == 3)
+    if (gTasks[sprite->sTaskId].tPaused == GAME_ENDED)
     {
         DestroySpriteAndFreeResources(sprite);
         return;
@@ -1558,7 +1858,7 @@ static void SpriteCB_ScoreMeterAdditional(struct Sprite *sprite)
 
 static void SpriteCB_Perfect(struct Sprite *sprite)
 {
-    if (gTasks[sprite->sTaskId].tPaused == 3)
+    if (gTasks[sprite->sTaskId].tPaused == GAME_ENDED)
     {
         DestroySpriteAndFreeResources(sprite);
         return;
@@ -1576,9 +1876,94 @@ static void SpriteCB_Perfect(struct Sprite *sprite)
     sprite->sPerfectMoveFrames++;
 }
 
+#define treasureCenter      (sprite->sTreasurePosition + ((TREASURE_ICON_WIDTH / 4) * POSITION_ADJUSTMENT))
+#define treasureHBLeftEdge  (treasureCenter - ((TREASURE_ICON_HITBOX_WIDTH / 2) * POSITION_ADJUSTMENT))
+#define treasureHBRightEdge (treasureCenter + ((TREASURE_ICON_HITBOX_WIDTH / 2) * POSITION_ADJUSTMENT))
+
+static void SpriteCB_Treasure(struct Sprite *sprite)
+{
+    u8 taskId = sprite->sTaskId;
+
+    if (gTasks[sprite->sTaskId].tPaused == GAME_ENDED)
+    {
+        DestroySpriteAndFreeResources(sprite);
+        return;
+    }
+
+    if (gTasks[sprite->sTaskId].tPaused == TRUE) // Don't do anything else if paused.
+        return;
+
+    switch (sprite->sTreasureState)
+    {
+        case TREASURE_NOT_SPAWNED:
+            if (sprite->sTreasureCounter < sprite->sTreasureStartTime)
+            {
+                sprite->sTreasureCounter++;
+            }
+            else
+            {
+                SetTreasureLocation(sprite, sprite->sTaskId);
+                StartSpriteAffineAnim(sprite, ANIM_TREASURE_GROW);
+                sprite->invisible = FALSE;
+                sprite->sTreasureState = TREASURE_GROWING;
+            }
+            break;
+        case TREASURE_GROWING:
+            if (sprite->affineAnimEnded)
+            {
+                u8 spriteId;
+                u8 y;
+
+                if (taskData.tSeparateScreen)
+                    y = TREASURE_Y;
+                else
+                    y = OW_TREASURE_Y;
+
+                spriteId = CreateSprite(&sSpriteTemplate_TreasureScore, sprite->x, y, 4);
+                spriteData.sTaskId = taskId;
+                sprite->sTreasScoreSpriteId = spriteId;
+                StartSpriteAnim(&gSprites[sprite->sTreasScoreSpriteId], 0);
+                sprite->sTreasureState = TREASURE_SPAWNED;
+            }
+            break;
+        case TREASURE_SPAWNED:
+            if (sprite->sTreasureScore >= TREASURE_TIME_GOAL) // If the treasure score goal has been achieved.
+            {
+                sprite->sTreasureState = TREASURE_GOT;
+                break;
+            }
+            else if (treasureHBLeftEdge <= barRightEdge && fishHBRightEdge >= barLeftEdge) // If the treasure hitbox is within the fishing bar.
+            {
+                sprite->sTreasureScore++; // Increase the treasure score.
+                if (sprite->sTreasureScore % (TREASURE_TIME_GOAL / TREASURE_INCREMENT) == 1)
+                {
+                    sprite->sTreasScoreFrame++;
+                    StartSpriteAnim(&gSprites[sprite->sTreasScoreSpriteId], sprite->sTreasScoreFrame);
+                }
+            }
+            else if (sprite->sTreasureScore > 0) // If the treasure hitbox is outside the fishing bar and the treasure score is greater than 0.
+            {
+                sprite->sTreasureScore--; // Decrease the treasure score.
+                if (sprite->sTreasureScore == 0 || sprite->sTreasureScore % (TREASURE_TIME_GOAL / TREASURE_INCREMENT) == 0)
+                {
+                    sprite->sTreasScoreFrame--;
+                    StartSpriteAnim(&gSprites[sprite->sTreasScoreSpriteId], sprite->sTreasScoreFrame);
+                }
+            }
+            break;
+        case TREASURE_GOT:
+            // Shrink and destroy treasure score meter.
+            // Animate chest opening.
+            // Play SE.
+            // Shrink and destroy treasure chest.
+            break;
+    }
+
+}
+
 static void SpriteCB_Other(struct Sprite *sprite)
 {
-    if (gTasks[sprite->sTaskId].tPaused == 3)
+    if (gTasks[sprite->sTaskId].tPaused == GAME_ENDED)
     {
         DestroySpriteAndFreeResources(sprite);
         return;
@@ -1600,7 +1985,7 @@ static void CB2_FishingBattleStart(void)
 
     if (IsBattleTransitionDone() == TRUE) // If the battle transition has fully completed.
     {
-        gTasks[FindTaskIdByFunc(Task_ReeledInFish)].tPaused = 3;
+        gTasks[FindTaskIdByFunc(Task_ReeledInFish)].tPaused = GAME_ENDED;
         if (gTasks[FindTaskIdByFunc(Task_ReeledInFish)].tSeparateScreen == FALSE)
             ResetPlayerAvatar(gTasks[FindTaskIdByFunc(Task_ReeledInFish)].tPlayerGFXId);
         gMain.savedCallback = CB2_ReturnToField;
