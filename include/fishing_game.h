@@ -76,7 +76,7 @@
 #define TREASURE_ICON_HITBOX_WIDTH      6
 #define TREASURE_SPAWN_MIN              100  // Minimum number of frames before treasure can spawn.
 #define TREASURE_SPAWN_MAX              200  // Maximum number of frames before treasure can spawn.
-#define TREASURE_Y                      105
+#define TREASURE_Y                      102
 
 // Treasure Score Icon Constants
 #define TREASURE_SCORE_TILE_SIZE        2
@@ -88,7 +88,7 @@
 #define OW_SCORE_SECTION_Y              0
 #define OW_FISH_ICON_Y                  19
 #define OW_PERFECT_Y                    (OW_SCORE_SECTION_Y + 38)
-#define OW_TREASURE_Y                   25
+#define OW_TREASURE_Y                   22
 #define OW_PAUSE_BEFORE_START           20   // Number of frames before the minigame starts.
 // TODO: Consolidate OW Y constants into one global value (80).
 
@@ -127,6 +127,7 @@ enum {
     TREASURE_NOT_SPAWNED,
     TREASURE_GROWING,
     TREASURE_SPAWNED,
+    TREASURE_OPEN,
     TREASURE_GOT
 };
 

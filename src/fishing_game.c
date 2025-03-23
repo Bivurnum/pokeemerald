@@ -373,8 +373,8 @@ static const union AnimCmd sAnim_TreasureClosed[] =
 
 static const union AnimCmd sAnim_TreasureOpen[] =
 {
-    ANIMCMD_FRAME(16, 20),
-    ANIMCMD_FRAME(32, 512),
+    ANIMCMD_FRAME(4, 10),
+    ANIMCMD_FRAME(8, 1),
     ANIMCMD_END,
 };
 
@@ -658,14 +658,9 @@ static const struct CompressedSpriteSheet sSpriteSheets_FishingGame[] =
     },
     [TREASURE] = {
         .data = gTreasureBox_Gfx,
-        .size = 128,
+        .size = 384,
         .tag = TAG_TREASURE
     },
-    /*[TREASURE_SCORE] = {
-        .data = gTreasureScore_Gfx,
-        .size = 2048,
-        .tag = TAG_TREASURE_SCORE
-    },*/
 };
 
 static const struct SpritePalette sSpritePalettes_FishingGame[] =
@@ -1178,7 +1173,7 @@ static void Task_FishingPauseUntilFadeIn(u8 taskId)
 static void Task_HandleFishingGameInput(u8 taskId)
 {
     RunTextPrinters();
-    HandleScore(taskId);
+    HandleScore(taskId); //
     SetFishingBarPosition(taskId);
     SetMonIconPosition(taskId);
 
@@ -1923,6 +1918,8 @@ static void SpriteCB_Treasure(struct Sprite *sprite)
                 else
                     y = OW_TREASURE_Y;
 
+                y += 3;
+
                 spriteId = CreateSprite(&sSpriteTemplate_TreasureScore, sprite->x, y, 4);
                 spriteData.sTaskId = taskId;
                 sprite->sTreasScoreSpriteId = spriteId;
@@ -1931,6 +1928,19 @@ static void SpriteCB_Treasure(struct Sprite *sprite)
             }
             break;
         case TREASURE_SPAWNED:
+            if (sprite->sTreasureScore >= TREASURE_TIME_GOAL) // If the treasure score goal has been achieved.
+            {
+                sprite->sTreasureCounter++;
+
+                if (sprite->sTreasureCounter >= 10)
+                {
+                    StartSpriteAnim(sprite, 1);
+                    PlaySE(SE_CLICK);
+                    sprite->sTreasureState = TREASURE_OPEN;
+                }
+                break;
+            }
+            
             if (sprite->sTreasureScore > ((gSprites[sprite->sTreasScoreSpriteId].sTreasColorInterval * TREASURE_SCORE_COLOR_INTERVAL) - 1)) // If the score meter has gone above the current color interval.
             {
                 gSprites[sprite->sTreasScoreSpriteId].sTreasColorInterval++; // Increase the color interval by 1.
@@ -1942,15 +1952,7 @@ static void SpriteCB_Treasure(struct Sprite *sprite)
                 ChangeScoreMeterColor(gSprites[sprite->sTreasScoreSpriteId].sTreasColorInterval, TREASURE_SCORE_COLOR_NUM); // Change the score meter color to reflect the change in color interval.
             }
 
-            if (sprite->sTreasureScore >= TREASURE_TIME_GOAL) // If the treasure score goal has been achieved.
-            {
-                sprite->sTreasureCounter++;
-
-                if (sprite->sTreasureCounter >= 10)
-                    sprite->sTreasureState = TREASURE_GOT;
-                break;
-            }
-            else if (treasureHBLeftEdge <= barRightEdge && treasureHBRightEdge >= barLeftEdge) // If the treasure hitbox is within the fishing bar.
+            if (treasureHBLeftEdge <= barRightEdge && treasureHBRightEdge >= barLeftEdge) // If the treasure hitbox is within the fishing bar.
             {
                 sprite->sTreasureScore++; // Increase the treasure score.
                 if (sprite->sTreasureScore % (TREASURE_TIME_GOAL / TREASURE_INCREMENT) == 1)
@@ -1969,10 +1971,11 @@ static void SpriteCB_Treasure(struct Sprite *sprite)
                 }
             }
             break;
+        case TREASURE_OPEN:
+            DestroySprite(&gSprites[sprite->sTreasScoreSpriteId]);
+            sprite->sTreasureState = TREASURE_GOT;
+            break;
         case TREASURE_GOT:
-            DestroySpriteAndFreeResources(&gSprites[sprite->sTreasScoreSpriteId]);
-            // Animate chest opening.
-            // Play SE.
             // Shrink and destroy treasure chest.
             break;
     }
