@@ -77,8 +77,7 @@ static const u32 gScoreMeter_Gfx[] = INCBIN_U32("graphics/fishing_game/score_met
 static const u32 gPerfect_Gfx[] = INCBIN_U32("graphics/fishing_game/perfect.4bpp.lz");
 static const u32 gQuestionMark_Gfx[] = INCBIN_U32("graphics/fishing_game/question_mark.4bpp.lz");
 static const u32 gVagueFish_Gfx[] = INCBIN_U32("graphics/fishing_game/vague_fish.4bpp.lz");
-static const u32 gTreasureBox_Gfx[] = INCBIN_U32("graphics/fishing_game/treasure.4bpp.lz");
-static const u32 gTreasureScore_Gfx[] = INCBIN_U32("graphics/fishing_game/treasure_score.4bpp");
+static const u32 gTreasure_Gfx[] = INCBIN_U32("graphics/fishing_game/treasure.4bpp");
 static const u32 gFishingGameOWBG_Gfx[] = INCBIN_U32("graphics/fishing_game/fishing_bg_ow_tiles.4bpp.lz");
 static const u16 gFishingGameOWBG_Pal[] = INCBIN_U16("graphics/fishing_game/fishing_bg_ow_tiles.gbapal");
 static const u32 gFishingGameOWBG_Tilemap[] = INCBIN_U32("graphics/fishing_game/fishing_bg_ow_tiles.bin.lz");
@@ -345,165 +344,156 @@ static const union AnimCmd * const sAnims_VagueFish[] =
     sAnim_VagueFish,
 };
 
-static const struct SpriteFrameImage sPicTable_TreasureScore[] =
+static const struct SpriteFrameImage sPicTable_Treasure[] =
 {
-    treasure_score_frame(gTreasureScore_Gfx, 0),
-    treasure_score_frame(gTreasureScore_Gfx, 1),
-    treasure_score_frame(gTreasureScore_Gfx, 2),
-    treasure_score_frame(gTreasureScore_Gfx, 3),
-    treasure_score_frame(gTreasureScore_Gfx, 4),
-    treasure_score_frame(gTreasureScore_Gfx, 5),
-    treasure_score_frame(gTreasureScore_Gfx, 6),
-    treasure_score_frame(gTreasureScore_Gfx, 7),
-    treasure_score_frame(gTreasureScore_Gfx, 8),
-    treasure_score_frame(gTreasureScore_Gfx, 9),
-    treasure_score_frame(gTreasureScore_Gfx, 10),
-    treasure_score_frame(gTreasureScore_Gfx, 11),
-    treasure_score_frame(gTreasureScore_Gfx, 12),
-    treasure_score_frame(gTreasureScore_Gfx, 13),
-    treasure_score_frame(gTreasureScore_Gfx, 14),
-    treasure_score_frame(gTreasureScore_Gfx, 15),
+    treasure_score_frame(gTreasure_Gfx, 0),
+    treasure_score_frame(gTreasure_Gfx, 1),
+    treasure_score_frame(gTreasure_Gfx, 2),
+    treasure_score_frame(gTreasure_Gfx, 3),
+    treasure_score_frame(gTreasure_Gfx, 4),
+    treasure_score_frame(gTreasure_Gfx, 5),
+    treasure_score_frame(gTreasure_Gfx, 6),
+    treasure_score_frame(gTreasure_Gfx, 7),
+    treasure_score_frame(gTreasure_Gfx, 8),
+    treasure_score_frame(gTreasure_Gfx, 9),
+    treasure_score_frame(gTreasure_Gfx, 10),
+    treasure_score_frame(gTreasure_Gfx, 11),
+    treasure_score_frame(gTreasure_Gfx, 12),
+    treasure_score_frame(gTreasure_Gfx, 13),
+    treasure_score_frame(gTreasure_Gfx, 14),
+    treasure_score_frame(gTreasure_Gfx, 15),
+    treasure_score_frame(gTreasure_Gfx, 16),
+    treasure_score_frame(gTreasure_Gfx, 17),
 };
 
-static const union AnimCmd sAnim_TreasureClosed[] =
-{
-    ANIMCMD_FRAME(0, 0),
-    ANIMCMD_END,
-};
-
-static const union AnimCmd sAnim_TreasureOpen[] =
-{
-    ANIMCMD_FRAME(4, 10),
-    ANIMCMD_FRAME(8, 1),
-    ANIMCMD_END,
-};
-
-static const union AnimCmd * const sAnims_TreasureBox[] =
-{
-    sAnim_TreasureClosed,
-    sAnim_TreasureOpen,
-};
-
-static const union AnimCmd sAnim_TreasureScore0[] =
+static const union AnimCmd sAnim_Treasure0[] =
 {
     ANIMCMD_FRAME(.imageValue = 0, .duration = 1),
     ANIMCMD_JUMP(0)
 };
 
-static const union AnimCmd sAnim_TreasureScore1[] =
+static const union AnimCmd sAnim_Treasure1[] =
 {
     ANIMCMD_FRAME(.imageValue = 1, .duration = 1),
     ANIMCMD_JUMP(0)
 };
 
-static const union AnimCmd sAnim_TreasureScore2[] =
+static const union AnimCmd sAnim_Treasure2[] =
 {
     ANIMCMD_FRAME(.imageValue = 2, .duration = 1),
     ANIMCMD_JUMP(0)
 };
 
-static const union AnimCmd sAnim_TreasureScore3[] =
+static const union AnimCmd sAnim_Treasure3[] =
 {
     ANIMCMD_FRAME(.imageValue = 3, .duration = 1),
     ANIMCMD_JUMP(0)
 };
 
-static const union AnimCmd sAnim_TreasureScore4[] =
+static const union AnimCmd sAnim_Treasure4[] =
 {
     ANIMCMD_FRAME(.imageValue = 4, .duration = 1),
     ANIMCMD_JUMP(0)
 };
 
-static const union AnimCmd sAnim_TreasureScore5[] =
+static const union AnimCmd sAnim_Treasure5[] =
 {
     ANIMCMD_FRAME(.imageValue = 5, .duration = 1),
     ANIMCMD_JUMP(0)
 };
 
-static const union AnimCmd sAnim_TreasureScore6[] =
+static const union AnimCmd sAnim_Treasure6[] =
 {
     ANIMCMD_FRAME(.imageValue = 6, .duration = 1),
     ANIMCMD_JUMP(0)
 };
 
-static const union AnimCmd sAnim_TreasureScore7[] =
+static const union AnimCmd sAnim_Treasure7[] =
 {
     ANIMCMD_FRAME(.imageValue = 7, .duration = 1),
     ANIMCMD_JUMP(0)
 };
 
-static const union AnimCmd sAnim_TreasureScore8[] =
+static const union AnimCmd sAnim_Treasure8[] =
 {
     ANIMCMD_FRAME(.imageValue = 8, .duration = 1),
     ANIMCMD_JUMP(0)
 };
 
-static const union AnimCmd sAnim_TreasureScore9[] =
+static const union AnimCmd sAnim_Treasure9[] =
 {
     ANIMCMD_FRAME(.imageValue = 9, .duration = 1),
     ANIMCMD_JUMP(0)
 };
 
-static const union AnimCmd sAnim_TreasureScore10[] =
+static const union AnimCmd sAnim_Treasure10[] =
 {
     ANIMCMD_FRAME(.imageValue = 10, .duration = 1),
     ANIMCMD_JUMP(0)
 };
 
-static const union AnimCmd sAnim_TreasureScore11[] =
+static const union AnimCmd sAnim_Treasure11[] =
 {
     ANIMCMD_FRAME(.imageValue = 11, .duration = 1),
     ANIMCMD_JUMP(0)
 };
 
-static const union AnimCmd sAnim_TreasureScore12[] =
+static const union AnimCmd sAnim_Treasure12[] =
 {
     ANIMCMD_FRAME(.imageValue = 12, .duration = 1),
     ANIMCMD_JUMP(0)
 };
 
-static const union AnimCmd sAnim_TreasureScore13[] =
+static const union AnimCmd sAnim_Treasure13[] =
 {
     ANIMCMD_FRAME(.imageValue = 13, .duration = 1),
     ANIMCMD_JUMP(0)
 };
 
-static const union AnimCmd sAnim_TreasureScore14[] =
+static const union AnimCmd sAnim_Treasure14[] =
 {
     ANIMCMD_FRAME(.imageValue = 14, .duration = 1),
     ANIMCMD_JUMP(0)
 };
 
-static const union AnimCmd sAnim_TreasureScore15[] =
+static const union AnimCmd sAnim_Treasure15[] =
 {
     ANIMCMD_FRAME(.imageValue = 15, .duration = 1),
     ANIMCMD_JUMP(0)
 };
 
-static const union AnimCmd * const sAnims_TreasureScore[] =
+static const union AnimCmd sAnim_TreasureOpen[] =
 {
-    sAnim_TreasureScore0,
-    sAnim_TreasureScore1,
-    sAnim_TreasureScore2,
-    sAnim_TreasureScore3,
-    sAnim_TreasureScore4,
-    sAnim_TreasureScore5,
-    sAnim_TreasureScore6,
-    sAnim_TreasureScore7,
-    sAnim_TreasureScore8,
-    sAnim_TreasureScore9,
-    sAnim_TreasureScore10,
-    sAnim_TreasureScore11,
-    sAnim_TreasureScore12,
-    sAnim_TreasureScore13,
-    sAnim_TreasureScore14,
-    sAnim_TreasureScore15,
+    ANIMCMD_FRAME(.imageValue = 16, .duration = 10),
+    ANIMCMD_FRAME(.imageValue = 17, .duration = 16),
+    ANIMCMD_END
+};
+
+static const union AnimCmd * const sAnims_Treasure[] =
+{
+    sAnim_Treasure0,
+    sAnim_Treasure1,
+    sAnim_Treasure2,
+    sAnim_Treasure3,
+    sAnim_Treasure4,
+    sAnim_Treasure5,
+    sAnim_Treasure6,
+    sAnim_Treasure7,
+    sAnim_Treasure8,
+    sAnim_Treasure9,
+    sAnim_Treasure10,
+    sAnim_Treasure11,
+    sAnim_Treasure12,
+    sAnim_Treasure13,
+    sAnim_Treasure14,
+    sAnim_Treasure15,
+    sAnim_TreasureOpen,
 };
 
 static const union AffineAnimCmd sAffineAnim_Grow[] =
 {
-    AFFINEANIMCMD_FRAME(0, 0, 0, 0),
-    AFFINEANIMCMD_FRAME(16, 16, 0, 16),
+    AFFINEANIMCMD_FRAME(16, 16, 0, 0),
+    AFFINEANIMCMD_FRAME(16, 16, 0, 15),
     AFFINEANIMCMD_END,
 };
 
@@ -588,35 +578,21 @@ static const struct OamData sOam_UnknownFish =
     .affineParam = 0,
 };
 
-static const struct OamData sOam_TreasureBox =
+static const struct OamData sOam_Treasure =
 {
     .y = DISPLAY_HEIGHT,
     .affineMode = ST_OAM_AFFINE_NORMAL,
     .objMode = ST_OAM_OBJ_NORMAL,
     .mosaic = FALSE,
     .bpp = ST_OAM_4BPP,
-    .shape = SPRITE_SHAPE(16x16),
+    .shape = SPRITE_SHAPE(32x32),
     .x = 0,
     .matrixNum = 0,
-    .size = SPRITE_SIZE(16x16),
+    .size = SPRITE_SIZE(32x32),
     .tileNum = 0,
     .priority = 0,
     .paletteNum = 0,
     .affineParam = 0,
-};
-
-static const struct OamData sOam_TreasureScore =
-{
-    .y = DISPLAY_HEIGHT,
-    .affineMode = ST_OAM_AFFINE_OFF,
-    .objMode = ST_OAM_OBJ_NORMAL,
-    .bpp = ST_OAM_4BPP,
-    .shape = SPRITE_SHAPE(16x16),
-    .x = 0,
-    .size = SPRITE_SIZE(16x16),
-    .tileNum = 0,
-    .priority = 0,
-    .paletteNum = 0,
 };
 
 static const struct CompressedSpriteSheet sSpriteSheets_FishingGame[] =
@@ -655,11 +631,6 @@ static const struct CompressedSpriteSheet sSpriteSheets_FishingGame[] =
         .data = gScoreMeterOWBehind_Gfx,
         .size = 1024,
         .tag = TAG_SCORE_BACKING
-    },
-    [TREASURE] = {
-        .data = gTreasureBox_Gfx,
-        .size = 384,
-        .tag = TAG_TREASURE
     },
 };
 
@@ -749,26 +720,15 @@ static const struct SpriteTemplate sSpriteTemplate_ScoreMeterBacking =
     .callback = SpriteCB_Other
 };
 
-static const struct SpriteTemplate sSpriteTemplate_TreasureBox =
-{
-    .tileTag = TAG_TREASURE,
-    .paletteTag = TAG_FISHING_BAR,
-    .oam = &sOam_TreasureBox,
-    .anims = sAnims_TreasureBox,
-    .images = NULL,
-    .affineAnims = sAffineAnims_Treasure,
-    .callback = SpriteCB_Treasure
-};
-
-static const struct SpriteTemplate sSpriteTemplate_TreasureScore =
+static const struct SpriteTemplate sSpriteTemplate_Treasure =
 {
     .tileTag = TAG_NONE,
     .paletteTag = TAG_FISHING_BAR,
-    .oam = &sOam_TreasureScore,
-    .anims = sAnims_TreasureScore,
-    .images = sPicTable_TreasureScore,
-    .affineAnims = gDummySpriteAffineAnimTable,
-    .callback = SpriteCB_Other
+    .oam = &sOam_Treasure,
+    .anims = sAnims_Treasure,
+    .images = sPicTable_Treasure,
+    .affineAnims = sAffineAnims_Treasure,
+    .callback = SpriteCB_Treasure
 };
 
 static void VblankCB_FishingGame(void)
@@ -832,12 +792,11 @@ static void VblankCB_FishingGame(void)
 #define sTreasurePosition   data[2]
 #define sTreasureScore      data[3]
 #define sTreasureCounter    data[4]
-#define sTreasScoreSpriteId data[5]
+#define sTreasColorInterval data[5]
 #define sTreasureStartTime  data[6]
 #define sTreasScoreFrame    data[7]
 
 // Data for Treasure Score sprite
-#define sTreasColorInterval data[1]
 
 #define taskData            gTasks[taskId]
 
@@ -1100,14 +1059,13 @@ static void CreateMinigameSprites(u8 taskId)
         }
     }
 
-    if (taskData.tSeparateScreen)
-        y = TREASURE_Y;
-    else
-        y = OW_TREASURE_Y;
     if ((Random() % 100) <= (RANDOM_TREASURE_CHANCE - 1))
     {
-        LoadCompressedSpriteSheet(&sSpriteSheets_FishingGame[TREASURE]);
-        spriteId = CreateSprite(&sSpriteTemplate_TreasureBox, FISH_ICON_START_X, y, 2);
+        if (taskData.tSeparateScreen)
+            y = FISH_ICON_Y;
+        else
+            y = OW_FISH_ICON_Y;
+        spriteId = CreateSprite(&sSpriteTemplate_Treasure, FISH_ICON_START_X, y, 2);
         spriteData.invisible = TRUE;
         spriteData.sTaskId = taskId;
         spriteData.sTreasScoreFrame = 0;
@@ -1909,23 +1867,7 @@ static void SpriteCB_Treasure(struct Sprite *sprite)
             break;
         case TREASURE_GROWING:
             if (sprite->affineAnimEnded)
-            {
-                u8 spriteId;
-                u8 y;
-
-                if (taskData.tSeparateScreen)
-                    y = TREASURE_Y;
-                else
-                    y = OW_TREASURE_Y;
-
-                y += 3;
-
-                spriteId = CreateSprite(&sSpriteTemplate_TreasureScore, sprite->x, y, 4);
-                spriteData.sTaskId = taskId;
-                sprite->sTreasScoreSpriteId = spriteId;
-                StartSpriteAnim(&gSprites[sprite->sTreasScoreSpriteId], 0);
                 sprite->sTreasureState = TREASURE_SPAWNED;
-            }
             break;
         case TREASURE_SPAWNED:
             if (sprite->sTreasureScore >= TREASURE_TIME_GOAL) // If the treasure score goal has been achieved.
@@ -1934,22 +1876,22 @@ static void SpriteCB_Treasure(struct Sprite *sprite)
 
                 if (sprite->sTreasureCounter >= 10)
                 {
-                    StartSpriteAnim(sprite, 1);
+                    StartSpriteAnim(sprite, ANIM_TREASURE_OPEN);
                     PlaySE(SE_CLICK);
                     sprite->sTreasureState = TREASURE_OPEN;
                 }
                 break;
             }
             
-            if (sprite->sTreasureScore > ((gSprites[sprite->sTreasScoreSpriteId].sTreasColorInterval * TREASURE_SCORE_COLOR_INTERVAL) - 1)) // If the score meter has gone above the current color interval.
+            if (sprite->sTreasureScore > ((sprite->sTreasColorInterval * TREASURE_SCORE_COLOR_INTERVAL) - 1)) // If the score meter has gone above the current color interval.
             {
-                gSprites[sprite->sTreasScoreSpriteId].sTreasColorInterval++; // Increase the color interval by 1.
-                ChangeScoreMeterColor(gSprites[sprite->sTreasScoreSpriteId].sTreasColorInterval, TREASURE_SCORE_COLOR_NUM); // Change the score meter color to reflect the change in color interval.
+                sprite->sTreasColorInterval++; // Increase the color interval by 1.
+                ChangeScoreMeterColor(sprite->sTreasColorInterval, TREASURE_SCORE_COLOR_NUM); // Change the score meter color to reflect the change in color interval.
             }
-            else if (sprite->sTreasureScore < ((gSprites[sprite->sTreasScoreSpriteId].sTreasColorInterval - 1) * TREASURE_SCORE_COLOR_INTERVAL)) // If the score meter has gone below the current color interval.
+            else if (sprite->sTreasureScore < ((sprite->sTreasColorInterval - 1) * TREASURE_SCORE_COLOR_INTERVAL)) // If the score meter has gone below the current color interval.
             {
-                gSprites[sprite->sTreasScoreSpriteId].sTreasColorInterval--; // Decrease the color interval by 1.
-                ChangeScoreMeterColor(gSprites[sprite->sTreasScoreSpriteId].sTreasColorInterval, TREASURE_SCORE_COLOR_NUM); // Change the score meter color to reflect the change in color interval.
+                sprite->sTreasColorInterval--; // Decrease the color interval by 1.
+                ChangeScoreMeterColor(sprite->sTreasColorInterval, TREASURE_SCORE_COLOR_NUM); // Change the score meter color to reflect the change in color interval.
             }
 
             if (treasureHBLeftEdge <= barRightEdge && treasureHBRightEdge >= barLeftEdge) // If the treasure hitbox is within the fishing bar.
@@ -1958,7 +1900,7 @@ static void SpriteCB_Treasure(struct Sprite *sprite)
                 if (sprite->sTreasureScore % (TREASURE_TIME_GOAL / TREASURE_INCREMENT) == 1)
                 {
                     sprite->sTreasScoreFrame++;
-                    StartSpriteAnim(&gSprites[sprite->sTreasScoreSpriteId], sprite->sTreasScoreFrame);
+                    StartSpriteAnim(sprite, sprite->sTreasScoreFrame);
                 }
             }
             else if (sprite->sTreasureScore > 0) // If the treasure hitbox is outside the fishing bar and the treasure score is greater than 0.
@@ -1967,13 +1909,19 @@ static void SpriteCB_Treasure(struct Sprite *sprite)
                 if (sprite->sTreasureScore == 0 || sprite->sTreasureScore % (TREASURE_TIME_GOAL / TREASURE_INCREMENT) == 0)
                 {
                     sprite->sTreasScoreFrame--;
-                    StartSpriteAnim(&gSprites[sprite->sTreasScoreSpriteId], sprite->sTreasScoreFrame);
+                    StartSpriteAnim(sprite, sprite->sTreasScoreFrame);
                 }
             }
             break;
-        case TREASURE_OPEN:
-            DestroySprite(&gSprites[sprite->sTreasScoreSpriteId]);
-            sprite->sTreasureState = TREASURE_GOT;
+        case TREASURE_ITEM:
+            /*if (sprite->animEnded)
+            {
+                u8 spriteId;
+
+                spriteId = AddCustomItemIconSprite()
+                if (spriteId == MAX_SPRITES)
+                sprite->sTreasureState = TREASURE_GOT;
+            }*/
             break;
         case TREASURE_GOT:
             // Shrink and destroy treasure chest.

@@ -28,7 +28,7 @@
 #define FISH_ICON_HITBOX_WIDTH          12   // Width of the fish's hitbox in number of pixels.
 #define FISH_SPEED_MULTIPLIER           100  // Global fish speed multiplier. It is a percent, so 50 would be half speed and 200 would be double speed.
 
-#define RANDOM_TREASURE_CHANCE          90   // Percent chance a random treasure will spawn.
+#define RANDOM_TREASURE_CHANCE          100   // Percent chance a random treasure will spawn.
 
 
 // Fishing Bar Constants
@@ -72,14 +72,14 @@
 // Treasure Icon Constants
 #define TREASURE_TIME_GOAL              135  // Number of frames inside the fishing bar required to claim the treasure. Must be divisible by TREASURE_INCREMENT.
 #define TREASURE_INCREMENT              15   // Height of full treasure score meter in pixels.
-#define TREASURE_ICON_WIDTH             16
+#define TREASURE_ICON_WIDTH             32
 #define TREASURE_ICON_HITBOX_WIDTH      6
 #define TREASURE_SPAWN_MIN              100  // Minimum number of frames before treasure can spawn.
 #define TREASURE_SPAWN_MAX              200  // Maximum number of frames before treasure can spawn.
 #define TREASURE_Y                      102
 
 // Treasure Score Icon Constants
-#define TREASURE_SCORE_TILE_SIZE        2
+#define TREASURE_SCORE_TILE_SIZE        4
 #define TREASURE_SCORE_COLOR_INTERVAL   (TREASURE_TIME_GOAL / NUM_COLOR_INTERVALS)
 #define TREASURE_SCORE_COLOR_NUM        10   // The color position in the palette that the treasure score meter uses.
 
@@ -128,6 +128,7 @@ enum {
     TREASURE_GROWING,
     TREASURE_SPAWNED,
     TREASURE_OPEN,
+    TREASURE_ITEM,
     TREASURE_GOT
 };
 
@@ -141,6 +142,8 @@ enum {
 #define GAME_ENDED      3
 
 #define NUM_DEFAULT_BEHAVIORS   3 // Each rod type has a default behavior.
+
+#define ANIM_TREASURE_OPEN      16
 
 #define TAG_FISHING_BAR         0x1000
 #define TAG_FISHING_BAR_RIGHT   0x1001
