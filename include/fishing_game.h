@@ -28,7 +28,12 @@
 #define FISH_ICON_HITBOX_WIDTH          12   // Width of the fish's hitbox in number of pixels.
 #define FISH_SPEED_MULTIPLIER           100  // Global fish speed multiplier. It is a percent, so 50 would be half speed and 200 would be double speed.
 
-#define RANDOM_TREASURE_CHANCE          100   // Percent chance a random treasure will spawn.
+#define RANDOM_TREASURE_CHANCE          90   // Percent chance a random treasure will spawn.
+#define TREASURE_ITEM_POOL_SIZE         15   // Number of different items allowed in each minigame's treasure pool.
+#define FISH_VAR_ITEM_RARITY            0    // Replace 0 with an unused Var to use it to change the rarity of the treasure item pool via scripts.
+                                             // Otherwise, the rarity will be determined by the type of rod used.
+                                             // This is an offset value for the table in fishing_game_treasures.h.
+                                             // Eg: If the Var is set to 2, the item pool will start AFTER the second item in the table.
 
 
 // Fishing Bar Constants
@@ -152,9 +157,6 @@ enum {
 #define TAG_QUESTION_MARK       0x1004
 #define TAG_VAGUE_FISH          0x1005
 #define TAG_SCORE_BACKING       0x1006
-#define TAG_TREASURE            0x1007
-#define TAG_TREASURE_SCORE      0x1008
-#define TAG_TREASURE_SCORE_COV  0x1009
 
 struct FishValues
 {

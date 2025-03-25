@@ -10,8 +10,10 @@
 #include "field_player_avatar.h"
 #include "fishing_game.h"
 #include "fishing_game_species_behavior.h"
+#include "fishing_game_treasures.h"
 #include "gpu_regs.h"
 #include "international_string_util.h"
+#include "item.h"
 #include "main.h"
 #include "malloc.h"
 #include "menu.h"
@@ -39,6 +41,7 @@
 static void Task_UnableToUseOW(u8 taskId);
 static void LoadFishingSpritesheets(void);
 static void CreateMinigameSprites(u8 taskId);
+static u16 SetFishingTreasureItem(u8 rod);
 static void SetFishingSpeciesBehavior(u8 spriteId, u16 species);
 static void CB2_FishingGame(void);
 static void Task_FishingGame(u8 taskId);
@@ -609,6 +612,7 @@ static void VblankCB_FishingGame(void)
 #define sBarSpeed           data[2]
 #define sBarDirection       data[3]
 #define sBarWidth           data[4]
+#define sTreasureItemId     data[5]
 
 // Data for Mon Icon sprite
 #define sFishPosition       data[1]
@@ -790,6 +794,7 @@ static void CreateMinigameSprites(u8 taskId)
     spriteData.sBarDirection = FISH_DIR_RIGHT;
     spriteData.sBarWidth = OLD_ROD_BAR_WIDTH;
     taskData.tBarLeftSpriteId = spriteId;
+    spriteData.sTreasureItemId = SetFishingTreasureItem((u8)taskData.tRodType);
 
     // Set width of fishing bar.
     if (BAR_WIDTH_FROM_ROD_TYPE == TRUE)
@@ -914,6 +919,35 @@ static void CreateMinigameSprites(u8 taskId)
         spriteData.sTreasureState = TREASURE_NOT_SPAWNED;
         spriteData.sTreasureStartTime = (TREASURE_SPAWN_MIN + (Random() % ((TREASURE_SPAWN_MAX - TREASURE_SPAWN_MIN) + 1)));
     }
+}
+
+static u16 SetFishingTreasureItem(u8 rod)
+{
+    u8 offset = 0;
+    u8 arrayCount = (u8)ARRAY_COUNT(sTreasureItems);
+    u8 random = Random() % TREASURE_ITEM_POOL_SIZE;
+
+    if (FISH_VAR_ITEM_RARITY == 0)
+    {
+        offset = VarGet(FISH_VAR_ITEM_RARITY);
+    }
+    else
+    {
+        switch (rod)
+        {
+            case GOOD_ROD:
+                offset = TREASURE_ITEM_POOL_SIZE / 2;
+                break;
+            case SUPER_ROD:
+                offset = TREASURE_ITEM_POOL_SIZE;
+                break;
+        }
+    }
+
+    if ((random + offset) >= arrayCount)
+        return sTreasureItems[arrayCount - 1];
+    else
+        return sTreasureItems[random + offset];
 }
 
 static void SetFishingSpeciesBehavior(u8 spriteId, u16 species)
