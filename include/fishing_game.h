@@ -34,6 +34,8 @@
                                              // Otherwise, the rarity will be determined by the type of rod used.
                                              // This is an offset value for the table in fishing_game_treasures.h.
                                              // Eg: If the Var is set to 2, the item pool will start AFTER the second item in the table.
+                                             // The value of this Var should always be less than the number of items in the table (or the item will always be Tiny Mushroom).
+#define TREASURE_ITEM_COMMON_WEIGHT     50   // The percent chance the treasure item will pull from the more common half of the current pool.
 
 
 // Fishing Bar Constants
