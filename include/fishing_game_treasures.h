@@ -10,10 +10,10 @@ static const u16 sTreasureItems[] =
     ITEM_POTION,
     ITEM_POKE_BALL,
     ITEM_ANTIDOTE,
-    ITEM_REPEL,
-    ITEM_ESCAPE_ROPE,
     ITEM_X_ATTACK,
     ITEM_X_DEFEND,
+    ITEM_REPEL,
+    ITEM_ESCAPE_ROPE,
     ITEM_POKE_DOLL,
     ITEM_FULL_HEAL,
     ITEM_STARDUST,
@@ -28,7 +28,7 @@ static const u16 sTreasureItems[] =
     ITEM_HP_UP,
     ITEM_MAX_ELIXIR,
     ITEM_NUGGET,
-    ITEM_PP_UP,
+    ITEM_HEART_SCALE,
 
     // Rare
     ITEM_HYPER_POTION,

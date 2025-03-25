@@ -930,24 +930,32 @@ static u16 SetFishingTreasureItem(u8 rod)
     if (FISH_VAR_ITEM_RARITY == 0)
     {
         offset = VarGet(FISH_VAR_ITEM_RARITY);
+
+        if (offset >= arrayCount)
+            return ITEM_TINY_MUSHROOM;
     }
     else
     {
         switch (rod)
         {
             case GOOD_ROD:
-                offset = TREASURE_ITEM_POOL_SIZE / 2;
+                offset = (arrayCount / 2) - (TREASURE_ITEM_POOL_SIZE / 2);
                 break;
             case SUPER_ROD:
-                offset = TREASURE_ITEM_POOL_SIZE;
+                offset = arrayCount - TREASURE_ITEM_POOL_SIZE;
                 break;
         }
     }
 
+    if (random > (TREASURE_ITEM_POOL_SIZE / 2) && (Random() % 100) < TREASURE_ITEM_COMMON_WEIGHT)
+        random /= 2;
+
     if ((random + offset) >= arrayCount)
-        return sTreasureItems[arrayCount - 1];
-    else
-        return sTreasureItems[random + offset];
+    {
+        random = Random() % (arrayCount - offset);
+    }
+
+    return sTreasureItems[random + offset];
 }
 
 static void SetFishingSpeciesBehavior(u8 spriteId, u16 species)
