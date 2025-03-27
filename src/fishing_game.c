@@ -387,7 +387,8 @@ static const union AffineAnimCmd * const sAffineAnims_Treasure[] =
 
 static const union AffineAnimCmd * const sAffineAnims_Item[] =
 {
-    0
+    sAffineAnim_Grow,
+    [ANIM_TREASURE_SHRINK] = sAffineAnim_Shrink,
 };
 
 static const struct OamData sOam_FishingBar =
@@ -487,7 +488,7 @@ static const struct OamData sOam_Item =
     .matrixNum = 0,
     .size = SPRITE_SIZE(32x32),
     .tileNum = 0,
-    .priority = 1,
+    .priority = 0,
     .paletteNum = 0,
     .affineParam = 0,
 };
@@ -1935,8 +1936,10 @@ static void CB2_FishingBattleStart(void)
 
 // Task data
 #define TaskState           taskData.data[1]
-#define TreasureSpriteId   taskData.data[2]
+#define TreasureSpriteId    taskData.data[2]
+#define ItemSpriteId        taskData.data[3]
 #define TreasureSprite      gSprites[TreasureSpriteId]
+#define ItemSprite          gSprites[ItemSpriteId]
 
 void Task_DoReturnToFieldFishTreasure(u8 taskId)
 {
@@ -1948,7 +1951,7 @@ void Task_DoReturnToFieldFishTreasure(u8 taskId)
                 LoadMessageBoxAndBorderGfx();
                 DrawDialogueFrame(0, TRUE);
                 StringCopy(gStringVar2, ItemId_GetName(gSpecialVar_ItemId));
-                StringExpandPlaceholders(gStringVar4, gText_FoundATreasureItem);
+                StringExpandPlaceholders(gStringVar4, gText_ReeledInTreasure);
                 AddTextPrinterParameterized(0, FONT_NORMAL, gStringVar4, 0, 1, 1, NULL);
 
                 TaskState++;
@@ -1976,12 +1979,14 @@ void Task_DoReturnToFieldFishTreasure(u8 taskId)
                 }
                 else
                 {
-                    spriteId = CreateSprite(&sSpriteTemplate_Treasure, TREASURE_POST_GAME_X, TREASURE_POST_GAME_Y, 0);
+                    spriteId = CreateSprite(&sSpriteTemplate_Treasure, TREASURE_POST_GAME_X, TREASURE_POST_GAME_Y, 1);
                     spriteData.callback = SpriteCallbackDummy;
                     spriteData.sTaskId = taskId;
                     TreasureSpriteId = spriteId;
+                    taskData.tFrameCounter = 1;
 
                     TaskState++;
+                    break;
                 }
             }
             taskData.tFrameCounter++;
@@ -2001,15 +2006,117 @@ void Task_DoReturnToFieldFishTreasure(u8 taskId)
         case 4:
             if (TreasureSprite.animEnded)
             {
-                StringCopy(gStringVar2, ItemId_GetName(gSpecialVar_ItemId));
+                PlayFanfare(FANFARE_OBTAIN_ITEM);
                 spriteId = AddCustomItemIconSprite(&sSpriteTemplate_Item, TAG_ITEM, TAG_ITEM, gSpecialVar_ItemId);
-                //if (spriteId == MAX_SPRITES)
+                spriteData.sTaskId = taskId;
+                ItemSpriteId = spriteId;
+                ItemSprite.x = TREASURE_POST_GAME_X;
+                ItemSprite.y = TREASURE_POST_GAME_Y;
+                StringCopy(gStringVar2, ItemId_GetName(gSpecialVar_ItemId));
+                StringExpandPlaceholders(gStringVar4, gText_FoundATreasureItem);
+                FillWindowPixelBuffer(0, PIXEL_FILL(1));
+                AddTextPrinterParameterized(0, FONT_NORMAL, gStringVar4, 0, 1, 1, NULL);
+                
                 
                 TaskState++;
             }
             break;
         case 5:
-            DestroySpriteAndFreeResources(&TreasureSprite);
+            RunTextPrinters();
+
+            if (ItemSprite.affineAnimEnded)
+            {
+                taskData.tFrameCounter = 1;
+                TaskState++;
+                break;
+            }
+            if (taskData.tFrameCounter % 4 == 0)
+            {
+                ItemSprite.x++;
+            }
+            if (taskData.tFrameCounter % 2 == 0 || taskData.tFrameCounter > 6)
+            {
+                ItemSprite.y--;
+            }
+            taskData.tFrameCounter++;
+            break;
+        case 6:
+            RunTextPrinters();
+
+            if (IsFanfareTaskInactive())
+                TaskState++;
+            break;
+        case 7:
+            if (JOY_NEW(A_BUTTON) || JOY_NEW(B_BUTTON))
+            {
+                u8 pocket;
+                u8 direction;
+
+                if (!AddBagItem(gSpecialVar_ItemId, 1))
+                {
+                    FillWindowPixelBuffer(0, PIXEL_FILL(1));
+                    AddTextPrinterParameterized(0, FONT_NORMAL, gText_NoRoomForTreasure, 0, 1, 1, NULL);
+                }
+
+                switch (GetPocketByItemId(gSpecialVar_ItemId))
+                {
+                    case POCKET_ITEMS:
+                        StringCopy(gStringVar3, gText_Items);
+                        break;
+                    case POCKET_POKE_BALLS:
+                        StringCopy(gStringVar3, gText_Poke_Balls);
+                        break;
+                    case POCKET_TM_HM:
+                        StringCopy(gStringVar3, gText_TMs_Hms);
+                        break;
+                    case POCKET_BERRIES:
+                        StringCopy(gStringVar3, gText_Berries2);
+                        break;
+                    case POCKET_KEY_ITEMS:
+                        StringCopy(gStringVar3, gText_Key_Items);
+                        break;
+                }
+                
+                PlaySE(SE_SELECT);
+                DestroySpriteAndFreeResources(&TreasureSprite);
+                ObjectEventSetGraphicsId(&gObjectEvents[gPlayerAvatar.objectEventId], taskData.tPlayerGFXId);
+                StartSpriteAnim(&gSprites[gPlayerAvatar.spriteId], GetFaceDirectionAnimNum(DIR_SOUTH));
+                StringExpandPlaceholders(gStringVar4, gText_PutTreasureInPocket);
+                FillWindowPixelBuffer(0, PIXEL_FILL(1));
+                AddTextPrinterParameterized(0, FONT_NORMAL, gStringVar4, 0, 1, 1, NULL);
+                StartSpriteAffineAnim(&ItemSprite, ANIM_TREASURE_SHRINK);
+                
+                TaskState++;
+            }
+            break;
+        case 8:
+            RunTextPrinters();
+
+            if (ItemSprite.affineAnimEnded)
+            {
+                ItemSprite.invisible = TRUE;
+                taskData.tFrameCounter = 1;
+                TaskState++;
+                break;
+            }
+            if (taskData.tFrameCounter % 2 == 0)
+            {
+                ItemSprite.x++;
+            }
+            ItemSprite.y += 2;
+            taskData.tFrameCounter++;
+            break;
+        case 9:
+            RunTextPrinters();
+            if (JOY_NEW(A_BUTTON) || JOY_NEW(B_BUTTON))
+            {
+                PlaySE(SE_SELECT);
+                TaskState++;
+            }
+            break;
+        case 10:
+            DestroySpriteAndFreeResources(&ItemSprite);
+            EraseFieldMessageBox(TRUE);
             ResetPlayerAvatar(taskData.tPlayerGFXId);
             UnlockPlayerFieldControls();
             DestroyTask(taskId);

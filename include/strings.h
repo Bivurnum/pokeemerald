@@ -3039,5 +3039,7 @@ extern const u8 gText_ReeledInAPokemon[];
 extern const u8 gText_PokemonGotAway[];
 extern const u8 gText_ReeledInTreasure[];
 extern const u8 gText_FoundATreasureItem[];
+extern const u8 gText_PutTreasureInPocket[];
+extern const u8 gText_NoRoomForTreasure[];
 
 #endif // GUARD_STRINGS_H
