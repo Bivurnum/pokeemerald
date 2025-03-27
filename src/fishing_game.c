@@ -5,15 +5,19 @@
 #include "bg.h"
 #include "decompress.h"
 #include "event_data.h"
+#include "event_object_lock.h"
+#include "event_object_movement.h"
 #include "field_camera.h"
 #include "field_control_avatar.h"
 #include "field_player_avatar.h"
+#include "field_screen_effect.h"
 #include "fishing_game.h"
 #include "fishing_game_species_behavior.h"
 #include "fishing_game_treasures.h"
 #include "gpu_regs.h"
 #include "international_string_util.h"
 #include "item.h"
+#include "item_icon.h"
 #include "main.h"
 #include "malloc.h"
 #include "menu.h"
@@ -23,6 +27,7 @@
 #include "pokemon_icon.h"
 #include "random.h"
 #include "scanline_effect.h"
+#include "script.h"
 #include "sound.h"
 #include "sprite.h"
 #include "strings.h"
@@ -337,6 +342,12 @@ static const union AnimCmd * const sAnims_Treasure[] =
     sAnim_TreasureOpen,
 };
 
+static const union AffineAnimCmd sAffineAnim_None[] =
+{
+    AFFINEANIMCMD_FRAME(256, 256, 0, 0),
+    AFFINEANIMCMD_END,
+};
+
 static const union AffineAnimCmd sAffineAnim_Grow[] =
 {
     AFFINEANIMCMD_FRAME(16, 16, 0, 0),
@@ -346,15 +357,35 @@ static const union AffineAnimCmd sAffineAnim_Grow[] =
 
 static const union AffineAnimCmd sAffineAnim_Shrink[] =
 {
-    AFFINEANIMCMD_FRAME(128, 128, 0, 0),
-    AFFINEANIMCMD_FRAME(-8, -8, 1, 50),
+    AFFINEANIMCMD_FRAME(-16, -16, 1, 15),
+    AFFINEANIMCMD_END,
+};
+
+static const union AffineAnimCmd sAffineAnim_GrowFast[] =
+{
+    AFFINEANIMCMD_FRAME(32, 32, 0, 0),
+    AFFINEANIMCMD_FRAME(32, 32, 0, 7),
+    AFFINEANIMCMD_END,
+};
+
+static const union AffineAnimCmd sAffineAnim_ShrinkFast[] =
+{
+    AFFINEANIMCMD_FRAME(-32, -32, 1, 7),
     AFFINEANIMCMD_END,
 };
 
 static const union AffineAnimCmd * const sAffineAnims_Treasure[] =
 {
+    [ANIM_TREASURE_NONE] = sAffineAnim_None,
     [ANIM_TREASURE_GROW] = sAffineAnim_Grow,
     [ANIM_TREASURE_SHRINK] = sAffineAnim_Shrink,
+    [ANIM_TREASURE_GROW_FAST] = sAffineAnim_GrowFast,
+    [ANIM_TREASURE_SHRINK_FAST] = sAffineAnim_ShrinkFast,
+};
+
+static const union AffineAnimCmd * const sAffineAnims_Item[] =
+{
+    0
 };
 
 static const struct OamData sOam_FishingBar =
@@ -438,6 +469,23 @@ static const struct OamData sOam_Treasure =
     .size = SPRITE_SIZE(32x32),
     .tileNum = 0,
     .priority = 0,
+    .paletteNum = 0,
+    .affineParam = 0,
+};
+
+static const struct OamData sOam_Item =
+{
+    .y = DISPLAY_HEIGHT,
+    .affineMode = ST_OAM_AFFINE_DOUBLE,
+    .objMode = ST_OAM_OBJ_NORMAL,
+    .mosaic = FALSE,
+    .bpp = ST_OAM_4BPP,
+    .shape = SPRITE_SHAPE(32x32),
+    .x = 0,
+    .matrixNum = 0,
+    .size = SPRITE_SIZE(32x32),
+    .tileNum = 0,
+    .priority = 1,
     .paletteNum = 0,
     .affineParam = 0,
 };
@@ -576,6 +624,17 @@ static const struct SpriteTemplate sSpriteTemplate_Treasure =
     .images = sPicTable_Treasure,
     .affineAnims = sAffineAnims_Treasure,
     .callback = SpriteCB_Treasure
+};
+
+static const struct SpriteTemplate sSpriteTemplate_Item =
+{
+    .tileTag = TAG_ITEM,
+    .paletteTag = TAG_ITEM,
+    .oam = &sOam_Item,
+    .anims = gDummySpriteAnimTable,
+    .images = NULL,
+    .affineAnims = sAffineAnims_Item,
+    .callback = SpriteCallbackDummy
 };
 
 static void VblankCB_FishingGame(void)
@@ -906,6 +965,7 @@ static void CreateMinigameSprites(u8 taskId)
         }
     }
 
+    // Create treasure sprite.
     if ((Random() % 100) <= (RANDOM_TREASURE_CHANCE - 1))
     {
         if (taskData.tSeparateScreen)
@@ -1015,7 +1075,7 @@ static void Task_FishingPauseUntilFadeIn(u8 taskId)
 static void Task_HandleFishingGameInput(u8 taskId)
 {
     RunTextPrinters();
-    HandleScore(taskId); //
+    HandleScore(taskId);
     SetFishingBarPosition(taskId);
     SetMonIconPosition(taskId);
 
@@ -1512,7 +1572,7 @@ static void SetMonIconPosition(u8 taskId)
 static void SetTreasureLocation(struct Sprite *sprite, u8 taskId)
 {
     u8 monSpriteX = gSprites[gTasks[taskId].tFishIconSpriteId].x; // Fish's current X position.
-    u8 interval = (FISHING_AREA_WIDTH - ((TREASURE_ICON_WIDTH / 2) + (TREASURE_ICON_HITBOX_WIDTH / 2))) / 3; // A third of the area the fish is allowed to go.
+    u8 interval = (FISHING_AREA_WIDTH - ((TREASURE_ICON_WIDTH / 4) + (TREASURE_ICON_HITBOX_WIDTH / 2))) / 3; // A third of the area the fish is allowed to go.
     u8 i;
     u8 random;
 
@@ -1716,7 +1776,7 @@ static void SpriteCB_Perfect(struct Sprite *sprite)
     sprite->sPerfectMoveFrames++;
 }
 
-#define treasureCenter      (sprite->sTreasurePosition + ((TREASURE_ICON_WIDTH / 2) * POSITION_ADJUSTMENT))
+#define treasureCenter      (sprite->sTreasurePosition + ((TREASURE_ICON_WIDTH / 4) * POSITION_ADJUSTMENT))
 #define treasureHBLeftEdge  (treasureCenter - ((TREASURE_ICON_HITBOX_WIDTH / 2) * POSITION_ADJUSTMENT))
 #define treasureHBRightEdge (treasureCenter + ((TREASURE_ICON_HITBOX_WIDTH / 2) * POSITION_ADJUSTMENT))
 
@@ -1758,11 +1818,12 @@ static void SpriteCB_Treasure(struct Sprite *sprite)
             {
                 sprite->sTreasureCounter++;
 
-                if (sprite->sTreasureCounter >= 10)
+                if (sprite->sTreasureCounter >= 2)
                 {
-                    StartSpriteAnim(sprite, ANIM_TREASURE_OPEN);
-                    PlaySE(SE_CLICK);
-                    sprite->sTreasureState = TREASURE_OPEN;
+                    PlaySE(SE_SUCCESS);
+                    StartSpriteAnim(sprite, ANIM_TREASURE_CLOSED);
+                    StartSpriteAffineAnim(sprite, ANIM_TREASURE_SHRINK_FAST);
+                    sprite->sTreasureState = TREASURE_GOT;
                 }
                 break;
             }
@@ -1797,18 +1858,30 @@ static void SpriteCB_Treasure(struct Sprite *sprite)
                 }
             }
             break;
-        case TREASURE_ITEM:
-            /*if (sprite->animEnded)
-            {
-                u8 spriteId;
-
-                spriteId = AddCustomItemIconSprite()
-                if (spriteId == MAX_SPRITES)
-                sprite->sTreasureState = TREASURE_GOT;
-            }*/
-            break;
         case TREASURE_GOT:
+            if (sprite->affineAnimEnded)
+            {
+                sprite->invisible = TRUE;
+                sprite->y = TREASURE_DEST_Y;
+                sprite->x = TREASURE_DEST_X;
+                sprite->invisible = FALSE;
+                StartSpriteAffineAnim(sprite, ANIM_TREASURE_GROW_FAST);
+                sprite->sTreasureState = TREASURE_OPEN;
+            }
+            break;
+        case TREASURE_OPEN:
+            if (sprite->affineAnimEnded)
+            {
+                //StartSpriteAnim(sprite, ANIM_TREASURE_OPEN);
+                sprite->sTreasureState = TREASURE_ITEM;
+            }
+            break;
+        case TREASURE_ITEM:
             // Shrink and destroy treasure chest.
+                /*u8 spriteId;
+
+                spriteId = AddCustomItemIconSprite(sSpriteTemplate_Item, TAG_ITEM, TAG_ITEM, treasureItem);
+                if (spriteId == MAX_SPRITES)*/
             break;
     }
 
@@ -1842,6 +1915,7 @@ static void CB2_FishingBattleStart(void)
         if (gTasks[FindTaskIdByFunc(Task_ReeledInFish)].tSeparateScreen == FALSE)
             ResetPlayerAvatar(gTasks[FindTaskIdByFunc(Task_ReeledInFish)].tPlayerGFXId);
         gMain.savedCallback = CB2_ReturnToField;
+        gFieldCallback2 = FieldCB_ReturnToFieldFishTreasure;
         FreeAllWindowBuffers();
         ResetTasks();
         SetMainCallback2(CB2_InitBattle); // Start the battle.
@@ -1852,5 +1926,84 @@ static void CB2_FishingBattleStart(void)
         IncrementDailyWildBattles();
         if (GetGameStat(GAME_STAT_WILD_BATTLES) % 60 == 0)
             UpdateGymLeaderRematch();
+    }
+}
+
+// Task data
+#define TaskState           taskData.data[1]
+#define TreasureSpriteId   taskData.data[2]
+#define TreasureSprite      gSprites[TreasureSpriteId]
+
+void Task_DoReturnToFieldFishTreasure(u8 taskId)
+{
+    u8 spriteId;
+
+    switch (TaskState)
+    {
+        case 0:
+                LoadMessageBoxAndBorderGfx();
+                DrawDialogueFrame(0, TRUE);
+                AddTextPrinterParameterized(0, FONT_NORMAL, gText_ReeledInTreasure, 0, 1, 1, NULL);
+
+                TaskState++;
+            break;
+        case 1:
+            RunTextPrinters();
+
+            if (!IsTextPrinterActive(0))
+            {
+                taskData.tPlayerGFXId = gObjectEvents[gPlayerAvatar.objectEventId].graphicsId;
+                SetPlayerAvatarFieldMove();
+                StartSpriteAnim(&gSprites[gPlayerAvatar.spriteId], ANIM_FIELD_MOVE);
+                ObjectEventSetHeldMovement(&gObjectEvents[gPlayerAvatar.objectEventId], MOVEMENT_ACTION_START_ANIM_IN_DIRECTION);
+
+                TaskState++;
+            }
+            break;
+        case 2:
+            if (taskData.tFrameCounter == 16)
+            {
+                LoadSpritePalettes(sSpritePalettes_FishingGame);
+                if (IndexOfSpritePaletteTag(TAG_FISHING_BAR) == 0xFF)
+                {
+                    TaskState = 50;
+                }
+                else
+                {
+                    spriteId = CreateSprite(&sSpriteTemplate_Treasure, TREASURE_POST_GAME_X, TREASURE_POST_GAME_Y, 0);
+                    spriteData.callback = SpriteCallbackDummy;
+                    spriteData.sTaskId = taskId;
+                    TreasureSpriteId = spriteId;
+
+                    TaskState++;
+                }
+            }
+            taskData.tFrameCounter++;
+            break;
+        case 3:
+            RunTextPrinters();
+
+            if (JOY_NEW(A_BUTTON) || JOY_NEW(B_BUTTON)) // If a button was pressed.
+            {
+                PlaySE(SE_CLICK);
+                StartSpriteAnim(&TreasureSprite, ANIM_TREASURE_OPEN);
+
+                TaskState++;
+            }
+            break;
+        case 4:
+            if (TreasureSprite.animEnded)
+            {
+                
+                TaskState++;
+            }
+            break;
+        case 5:
+            DestroySpriteAndFreeResources(&TreasureSprite);
+            ResetPlayerAvatar(taskData.tPlayerGFXId);
+            UnlockPlayerFieldControls();
+            DestroyTask(taskId);
+            ScriptUnfreezeObjectEvents();
+            break;
     }
 }

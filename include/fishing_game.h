@@ -19,7 +19,7 @@
 #define FISHING_BAR_BOUNCINESS          1.3  // The greater the number, the less the bar will bounce when it hits the left side. (Decimals are encouraged, as a little goes a long way.)
 #define BAR_SPEED_SLOWING               2.0  // The greater the value, the slower the bar changes speed. (Decimals are encouraged, as a little goes a long way.) (Can affect the max speed.)
 
-#define STARTING_SCORE                  300  // The number of points you already have when the game starts.
+#define STARTING_SCORE                  1900  // The number of points you already have when the game starts.
 #define SCORE_INCREASE                  3    // The score increases by this many point every frame while the fish is within the bar.
 #define SCORE_DECREASE                  5    // The score decreases by this many point every frame while the fish is outside the bar.
 #define SCORE_MAX                       1920 // The number of points required to win. Must be divisible by SCORE_AREA_WIDTH.
@@ -35,7 +35,7 @@
                                              // This is an offset value for the table in fishing_game_treasures.h.
                                              // Eg: If the Var is set to 2, the item pool will start AFTER the second item in the table.
                                              // The value of this Var should always be less than the number of items in the table (or the item will always be Tiny Mushroom).
-#define TREASURE_ITEM_COMMON_WEIGHT     50   // The percent chance the treasure item will pull from the more common half of the current pool.
+#define TREASURE_ITEM_COMMON_WEIGHT     50   // The percent chance the treasure item will be restricted to the lower(more common) half of the current pool.
 
 
 // Fishing Bar Constants
@@ -84,11 +84,13 @@
 #define TREASURE_SPAWN_MIN              100  // Minimum number of frames before treasure can spawn.
 #define TREASURE_SPAWN_MAX              200  // Maximum number of frames before treasure can spawn.
 #define TREASURE_Y                      102
-
-// Treasure Score Icon Constants
-#define TREASURE_SCORE_TILE_SIZE        4
+#define TREASURE_DEST_X                 230  // X position of the treasure icon after it is acquired.
+#define TREASURE_DEST_Y                 4    // Y position of the treasure icon after it is acquired.
+#define TREASURE_TILE_SIZE              4
 #define TREASURE_SCORE_COLOR_INTERVAL   (TREASURE_TIME_GOAL / NUM_COLOR_INTERVALS)
 #define TREASURE_SCORE_COLOR_NUM        10   // The color position in the palette that the treasure score meter uses.
+#define TREASURE_POST_GAME_X            109  // X position of the treasure icon to be inside the text box after battle.
+#define TREASURE_POST_GAME_Y            68  // Y position of the treasure icon to be inside the text box after battle.
 
 // OW Constants
 #define OW_FISHING_BAR_Y                22
@@ -125,8 +127,11 @@ enum {
 
 // Affine anims for treasure sprites.
 enum {
+    ANIM_TREASURE_NONE,
     ANIM_TREASURE_GROW,
-    ANIM_TREASURE_SHRINK
+    ANIM_TREASURE_SHRINK,
+    ANIM_TREASURE_GROW_FAST,
+    ANIM_TREASURE_SHRINK_FAST
 };
 
 // Treasure state values.
@@ -134,9 +139,9 @@ enum {
     TREASURE_NOT_SPAWNED,
     TREASURE_GROWING,
     TREASURE_SPAWNED,
+    TREASURE_GOT,
     TREASURE_OPEN,
     TREASURE_ITEM,
-    TREASURE_GOT
 };
 
 #define FISH_DIR_LEFT   0
@@ -150,6 +155,7 @@ enum {
 
 #define NUM_DEFAULT_BEHAVIORS   3 // Each rod type has a default behavior.
 
+#define ANIM_TREASURE_CLOSED    0
 #define ANIM_TREASURE_OPEN      16
 
 #define TAG_FISHING_BAR         0x1000
@@ -159,6 +165,7 @@ enum {
 #define TAG_QUESTION_MARK       0x1004
 #define TAG_VAGUE_FISH          0x1005
 #define TAG_SCORE_BACKING       0x1006
+#define TAG_ITEM                0x1009
 
 struct FishValues
 {
@@ -175,9 +182,10 @@ struct FishBehaviorData
     u8 idleMovement;
 };
 
-#define treasure_score_frame(ptr, frame) {.data = (u8 *)ptr + (TREASURE_SCORE_TILE_SIZE * TREASURE_SCORE_TILE_SIZE * frame * 64)/2, .size = (TREASURE_SCORE_TILE_SIZE * TREASURE_SCORE_TILE_SIZE * 64)/2}
+#define treasure_score_frame(ptr, frame) {.data = (u8 *)ptr + (TREASURE_TILE_SIZE * TREASURE_TILE_SIZE * frame * 64)/2, .size = (TREASURE_TILE_SIZE * TREASURE_TILE_SIZE * 64)/2}
 
 void CB2_InitFishingMinigame(void);
 void Task_InitOWFishingMinigame(u8 taskId);
+void Task_DoReturnToFieldFishTreasure(u8 taskId);
 
 #endif // GUARD_FISHING_GAME_H
