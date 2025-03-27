@@ -264,7 +264,7 @@ const u8 gText_FishingWantToQuit[] = _("Do you want to let this one go?");
 const u8 gText_ReeledInAPokemon[] = _("{PLAYER} reeled in a POKéMON!{PAUSE_UNTIL_PRESS}");
 const u8 gText_PokemonGotAway[] = _("Oh, no!\nThe POKéMON got away…{PAUSE_UNTIL_PRESS}");
 const u8 gText_ReeledInTreasure[] = _("{PLAYER} reeled in a TREASURE!");
-const u8 gText_FoundATreasureItem[] = _("{PLAYER} found a\n{STR_VAR_2}!");
+const u8 gText_FoundATreasureItem[] = _("{PLAYER} found one\n{STR_VAR_2}!");
 
 const u8 *const gBagMenu_ReturnToStrings[] =
 {

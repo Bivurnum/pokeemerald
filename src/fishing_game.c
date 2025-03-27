@@ -18,6 +18,7 @@
 #include "international_string_util.h"
 #include "item.h"
 #include "item_icon.h"
+#include "item_menu.h"
 #include "main.h"
 #include "malloc.h"
 #include "menu.h"
@@ -30,6 +31,7 @@
 #include "script.h"
 #include "sound.h"
 #include "sprite.h"
+#include "string_util.h"
 #include "strings.h"
 #include "task.h"
 #include "text.h"
@@ -46,7 +48,7 @@
 static void Task_UnableToUseOW(u8 taskId);
 static void LoadFishingSpritesheets(void);
 static void CreateMinigameSprites(u8 taskId);
-static u16 SetFishingTreasureItem(u8 rod);
+static void SetFishingTreasureItem(u8 rod);
 static void SetFishingSpeciesBehavior(u8 spriteId, u16 species);
 static void CB2_FishingGame(void);
 static void Task_FishingGame(u8 taskId);
@@ -853,7 +855,6 @@ static void CreateMinigameSprites(u8 taskId)
     spriteData.sBarDirection = FISH_DIR_RIGHT;
     spriteData.sBarWidth = OLD_ROD_BAR_WIDTH;
     taskData.tBarLeftSpriteId = spriteId;
-    spriteData.sTreasureItemId = SetFishingTreasureItem((u8)taskData.tRodType);
 
     // Set width of fishing bar.
     if (BAR_WIDTH_FROM_ROD_TYPE == TRUE)
@@ -978,21 +979,25 @@ static void CreateMinigameSprites(u8 taskId)
         spriteData.sTreasScoreFrame = 0;
         spriteData.sTreasureState = TREASURE_NOT_SPAWNED;
         spriteData.sTreasureStartTime = (TREASURE_SPAWN_MIN + (Random() % ((TREASURE_SPAWN_MAX - TREASURE_SPAWN_MIN) + 1)));
+        SetFishingTreasureItem((u8)taskData.tRodType);
     }
 }
 
-static u16 SetFishingTreasureItem(u8 rod)
+static void SetFishingTreasureItem(u8 rod)
 {
     u8 offset = 0;
     u8 arrayCount = (u8)ARRAY_COUNT(sTreasureItems);
     u8 random = Random() % TREASURE_ITEM_POOL_SIZE;
 
-    if (FISH_VAR_ITEM_RARITY == 0)
+    if (FISH_VAR_ITEM_RARITY != 0)
     {
         offset = VarGet(FISH_VAR_ITEM_RARITY);
 
         if (offset >= arrayCount)
-            return ITEM_TINY_MUSHROOM;
+        {
+            gSpecialVar_ItemId = ITEM_TINY_MUSHROOM;
+            return;
+        }
     }
     else
     {
@@ -1015,7 +1020,7 @@ static u16 SetFishingTreasureItem(u8 rod)
         random = Random() % (arrayCount - offset);
     }
 
-    return sTreasureItems[random + offset];
+    gSpecialVar_ItemId = sTreasureItems[random + offset];
 }
 
 static void SetFishingSpeciesBehavior(u8 spriteId, u16 species)
@@ -1151,7 +1156,8 @@ static void Task_ReeledInFish(u8 taskId)
         }
 
         FillWindowPixelBuffer(0, PIXEL_FILL(1));
-        AddTextPrinterParameterized2(0, FONT_NORMAL, gText_ReeledInAPokemon, 1, 0, TEXT_COLOR_DARK_GRAY, TEXT_COLOR_WHITE, TEXT_COLOR_LIGHT_GRAY); // Congratulations text.
+        StringExpandPlaceholders(gStringVar4, gText_ReeledInAPokemon);
+        AddTextPrinterParameterized2(0, FONT_NORMAL, gStringVar4, 1, 0, TEXT_COLOR_DARK_GRAY, TEXT_COLOR_WHITE, TEXT_COLOR_LIGHT_GRAY); // Congratulations text.
         taskData.tFrameCounter++;
     }
 
@@ -1878,10 +1884,8 @@ static void SpriteCB_Treasure(struct Sprite *sprite)
             break;
         case TREASURE_ITEM:
             // Shrink and destroy treasure chest.
-                /*u8 spriteId;
 
-                spriteId = AddCustomItemIconSprite(sSpriteTemplate_Item, TAG_ITEM, TAG_ITEM, treasureItem);
-                if (spriteId == MAX_SPRITES)*/
+                
             break;
     }
 
@@ -1943,7 +1947,9 @@ void Task_DoReturnToFieldFishTreasure(u8 taskId)
         case 0:
                 LoadMessageBoxAndBorderGfx();
                 DrawDialogueFrame(0, TRUE);
-                AddTextPrinterParameterized(0, FONT_NORMAL, gText_ReeledInTreasure, 0, 1, 1, NULL);
+                StringCopy(gStringVar2, ItemId_GetName(gSpecialVar_ItemId));
+                StringExpandPlaceholders(gStringVar4, gText_FoundATreasureItem);
+                AddTextPrinterParameterized(0, FONT_NORMAL, gStringVar4, 0, 1, 1, NULL);
 
                 TaskState++;
             break;
@@ -1986,7 +1992,8 @@ void Task_DoReturnToFieldFishTreasure(u8 taskId)
             if (JOY_NEW(A_BUTTON) || JOY_NEW(B_BUTTON)) // If a button was pressed.
             {
                 PlaySE(SE_CLICK);
-                StartSpriteAnim(&TreasureSprite, ANIM_TREASURE_OPEN);
+                if (TreasureSpriteId != MAX_SPRITES)
+                    StartSpriteAnim(&TreasureSprite, ANIM_TREASURE_OPEN);
 
                 TaskState++;
             }
@@ -1994,6 +2001,9 @@ void Task_DoReturnToFieldFishTreasure(u8 taskId)
         case 4:
             if (TreasureSprite.animEnded)
             {
+                StringCopy(gStringVar2, ItemId_GetName(gSpecialVar_ItemId));
+                spriteId = AddCustomItemIconSprite(&sSpriteTemplate_Item, TAG_ITEM, TAG_ITEM, gSpecialVar_ItemId);
+                //if (spriteId == MAX_SPRITES)
                 
                 TaskState++;
             }
