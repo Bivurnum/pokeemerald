@@ -43,7 +43,7 @@
 // Fishing Bar Constants
 #define BAR_SPEED_MODIFIER              (FISHING_BAR_MAX_SPEED / (FISHING_BAR_MAX_SPEED / BAR_SPEED_SLOWING))
 #define FISHING_AREA_WIDTH              202  // The width of the total fishing bar area in number of pixels.
-#define FISHING_BAR_Y                   102
+#define FISHING_BAR_Y                   22
 #define FISHING_BAR_START_X             35
 #define FISHING_BAR_SEGMENT_WIDTH       32
 #define FISHING_BAR_WIDTH_MIN           33
@@ -57,7 +57,7 @@
 #define SCORE_BAR_OFFSET                ((SCORE_SECTION_WIDTH / 2) - SCORE_AREA_OFFSET) // Sets the score position in relation to SCORE_AREA_OFFSET.
 #define SCORE_INTERVAL                  (SCORE_MAX / SCORE_AREA_WIDTH)
 #define SCORE_SECTION_INIT_X            ((STARTING_SCORE / SCORE_INTERVAL) - SCORE_BAR_OFFSET)
-#define SCORE_SECTION_Y                 80
+#define SCORE_SECTION_Y                 0
 #define SCORE_SECTION_WIDTH             64   // The width of one score meter section sprite in number of pixels.
 #define NUM_SCORE_SECTIONS              (SCORE_AREA_WIDTH / SCORE_SECTION_WIDTH)
 #define NUM_COLOR_INTERVALS             64
@@ -67,7 +67,7 @@
 
 // Pokemon Icon Constants
 #define FISH_ICON_WIDTH                 32
-#define FISH_ICON_Y                     99
+#define FISH_ICON_Y                     19
 #define FISH_ICON_START_X               36
 #define FISH_ICON_MIN_X                 26
 #define FISH_ICON_MAX_X                 ((FISHING_AREA_WIDTH - ((FISH_ICON_WIDTH / 2) + 4)) * POSITION_ADJUSTMENT)
@@ -76,7 +76,7 @@
 // Perfect Icon Constants
 #define PERFECT_SPRITE_WIDTH            32
 #define PERFECT_X                       ((FISHING_BAR_START_X + FISHING_AREA_WIDTH) - PERFECT_SPRITE_WIDTH)
-#define PERFECT_Y                       SCORE_SECTION_Y
+#define PERFECT_Y                       38
 
 // Treasure Icon Constants
 #define TREASURE_TIME_GOAL              135  // Number of frames inside the fishing bar required to claim the treasure. Must be divisible by TREASURE_INCREMENT.
@@ -85,7 +85,6 @@
 #define TREASURE_ICON_HITBOX_WIDTH      6
 #define TREASURE_SPAWN_MIN              100  // Minimum number of frames before treasure can spawn.
 #define TREASURE_SPAWN_MAX              200  // Maximum number of frames before treasure can spawn.
-#define TREASURE_Y                      102
 #define TREASURE_DEST_X                 230  // X position of the treasure icon after it is acquired.
 #define TREASURE_DEST_Y                 4    // Y position of the treasure icon after it is acquired.
 #define TREASURE_TILE_SIZE              4
@@ -94,14 +93,9 @@
 #define TREASURE_POST_GAME_X            109  // X position of the treasure icon to be inside the text box after battle.
 #define TREASURE_POST_GAME_Y            68  // Y position of the treasure icon to be inside the text box after battle.
 
-// OW Constants
-#define OW_FISHING_BAR_Y                22
-#define OW_SCORE_SECTION_Y              0
-#define OW_FISH_ICON_Y                  19
-#define OW_PERFECT_Y                    (OW_SCORE_SECTION_Y + 38)
-#define OW_TREASURE_Y                   22
-#define OW_PAUSE_BEFORE_START           20   // Number of frames before the minigame starts.
-// TODO: Consolidate OW Y constants into one global value (80).
+// Other Constants
+#define OW_PAUSE_BEFORE_START           20   // Number of frames before the minigame starts in the overworld.
+#define SEPARATE_SCREEN_MODIFIER        80
 
 
 // Sprite sheet numbers.

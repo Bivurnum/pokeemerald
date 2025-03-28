@@ -846,10 +846,10 @@ static void CreateMinigameSprites(u8 taskId)
     taskData.tScoreDirection = FISH_DIR_RIGHT;
 
     // Create fishing bar sprites.
+    y = FISHING_BAR_Y;
     if (taskData.tSeparateScreen)
-        y = FISHING_BAR_Y;
-    else
-        y = OW_FISHING_BAR_Y;
+        y += SEPARATE_SCREEN_MODIFIER;
+
     spriteId = CreateSprite(&sSpriteTemplate_FishingBar, FISHING_BAR_START_X, y, 4);
     spriteData.sTaskId = taskId;
     if (!taskData.tSeparateScreen)
@@ -882,10 +882,10 @@ static void CreateMinigameSprites(u8 taskId)
         spriteData.oam.priority--;
 
     // Create mon icon sprite.
+    y = FISH_ICON_Y;
     if (taskData.tSeparateScreen)
-        y = FISH_ICON_Y;
-    else
-        y = OW_FISH_ICON_Y;
+        y += SEPARATE_SCREEN_MODIFIER;
+
     taskData.tQMarkSpriteId = 200;
     if (OBSCURE_ALL_FISH == TRUE || iconPalSlot == 255
         || (OBSCURE_UNDISCOVERED_MONS == TRUE && !GetSetPokedexFlag(SpeciesToNationalPokedexNum(species), FLAG_GET_SEEN)))
@@ -927,10 +927,10 @@ static void CreateMinigameSprites(u8 taskId)
     taskData.tFishIconSpriteId = spriteId;
 
     // Create score meter sprite.
+    y = SCORE_SECTION_Y;
     if (taskData.tSeparateScreen)
-        y = SCORE_SECTION_Y;
-    else
-        y = OW_SCORE_SECTION_Y;
+        y += SEPARATE_SCREEN_MODIFIER;
+
     spriteId = CreateSprite(&sSpriteTemplate_ScoreMeter, SCORE_SECTION_INIT_X, y, 0);
     spriteData.sTaskId = taskId;
     if (!taskData.tSeparateScreen)
@@ -987,10 +987,10 @@ static void CreateTreasureSprite(u8 taskId)
     u8 spriteId;
     u8 y;
 
+    y = FISH_ICON_Y;
     if (taskData.tSeparateScreen)
-        y = FISH_ICON_Y;
-    else
-        y = OW_FISH_ICON_Y;
+        y += SEPARATE_SCREEN_MODIFIER;
+        
     spriteId = CreateSprite(&sSpriteTemplate_Treasure, FISH_ICON_START_X, y, 2);
     spriteData.invisible = TRUE;
     spriteData.sTaskId = taskId;
@@ -1163,8 +1163,8 @@ static void Task_ReeledInFish(u8 taskId)
 
             PlaySE(SE_RG_POKE_JUMP_SUCCESS);
             LoadCompressedSpriteSheet(&sSpriteSheets_FishingGame[PERFECT]);
-            if (!taskData.tSeparateScreen)
-                spriteId = CreateSprite(&sSpriteTemplate_Perfect, PERFECT_X, OW_PERFECT_Y, 0);
+            if (taskData.tSeparateScreen)
+                spriteId = CreateSprite(&sSpriteTemplate_Perfect, PERFECT_X, SEPARATE_SCREEN_MODIFIER, 0);
             else
                 spriteId = CreateSprite(&sSpriteTemplate_Perfect, PERFECT_X, PERFECT_Y, 0);
             spriteData.sTaskId = taskId;
@@ -1891,6 +1891,8 @@ static void SpriteCB_Treasure(struct Sprite *sprite)
             {
                 sprite->invisible = TRUE;
                 sprite->y = TREASURE_DEST_Y;
+                if (gTasks[sprite->sTaskId].tSeparateScreen)
+                    sprite->y += SEPARATE_SCREEN_MODIFIER;
                 sprite->x = TREASURE_DEST_X;
                 sprite->invisible = FALSE;
                 StartSpriteAffineAnim(sprite, ANIM_TREASURE_GROW_FAST);
