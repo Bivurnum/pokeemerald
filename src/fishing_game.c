@@ -48,6 +48,7 @@
 static void Task_UnableToUseOW(u8 taskId);
 static void LoadFishingSpritesheets(void);
 static void CreateMinigameSprites(u8 taskId);
+static void CreateTreasureSprite(u8 taskId);
 static void SetFishingTreasureItem(u8 rod);
 static void SetFishingSpeciesBehavior(u8 spriteId, u16 species);
 static void CB2_FishingGame(void);
@@ -968,20 +969,35 @@ static void CreateMinigameSprites(u8 taskId)
     }
 
     // Create treasure sprite.
-    if ((Random() % 100) < RANDOM_TREASURE_CHANCE)
+    if (FISH_VAR_TREASURE_CHANCE != 0)
     {
-        if (taskData.tSeparateScreen)
-            y = FISH_ICON_Y;
-        else
-            y = OW_FISH_ICON_Y;
-        spriteId = CreateSprite(&sSpriteTemplate_Treasure, FISH_ICON_START_X, y, 2);
-        spriteData.invisible = TRUE;
-        spriteData.sTaskId = taskId;
-        spriteData.sTreasScoreFrame = 0;
-        spriteData.sTreasureState = TREASURE_NOT_SPAWNED;
-        spriteData.sTreasureStartTime = (TREASURE_SPAWN_MIN + (Random() % ((TREASURE_SPAWN_MAX - TREASURE_SPAWN_MIN) + 1)));
-        SetFishingTreasureItem((u8)taskData.tRodType);
+        if ((Random() % 100) < VarGet(FISH_VAR_TREASURE_CHANCE))
+        {
+            CreateTreasureSprite(taskId);
+        }
     }
+    else if ((Random() % 100) < DEFAULT_TREASURE_CHANCE)
+    {
+        CreateTreasureSprite(taskId);
+    }
+}
+
+static void CreateTreasureSprite(u8 taskId)
+{
+    u8 spriteId;
+    u8 y;
+
+    if (taskData.tSeparateScreen)
+        y = FISH_ICON_Y;
+    else
+        y = OW_FISH_ICON_Y;
+    spriteId = CreateSprite(&sSpriteTemplate_Treasure, FISH_ICON_START_X, y, 2);
+    spriteData.invisible = TRUE;
+    spriteData.sTaskId = taskId;
+    spriteData.sTreasScoreFrame = 0;
+    spriteData.sTreasureState = TREASURE_NOT_SPAWNED;
+    spriteData.sTreasureStartTime = (TREASURE_SPAWN_MIN + (Random() % ((TREASURE_SPAWN_MAX - TREASURE_SPAWN_MIN) + 1)));
+    SetFishingTreasureItem((u8)taskData.tRodType);
 }
 
 static void SetFishingTreasureItem(u8 rod)
