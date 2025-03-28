@@ -968,7 +968,7 @@ static void CreateMinigameSprites(u8 taskId)
     }
 
     // Create treasure sprite.
-    if ((Random() % 100) <= (RANDOM_TREASURE_CHANCE - 1))
+    if ((Random() % 100) < RANDOM_TREASURE_CHANCE)
     {
         if (taskData.tSeparateScreen)
             y = FISH_ICON_Y;
@@ -989,6 +989,7 @@ static void SetFishingTreasureItem(u8 rod)
     u8 offset = 0;
     u8 arrayCount = (u8)ARRAY_COUNT(sTreasureItems);
     u8 random = Random() % TREASURE_ITEM_POOL_SIZE;
+    u8 item;
 
     if (FISH_VAR_ITEM_RARITY != 0)
     {
@@ -1013,15 +1014,16 @@ static void SetFishingTreasureItem(u8 rod)
         }
     }
 
-    if (random > (TREASURE_ITEM_POOL_SIZE / 2) && (Random() % 100) < TREASURE_ITEM_COMMON_WEIGHT)
-        random /= 2;
+    if (random > (TREASURE_ITEM_POOL_SIZE / 2) && ((Random() % 100) + 1) < (TREASURE_ITEM_COMMON_WEIGHT + 1))
+        random -= (TREASURE_ITEM_POOL_SIZE / 2);
 
     if ((random + offset) >= arrayCount)
     {
-        random = Random() % (arrayCount - offset);
+        random = Random() % (arrayCount - offset - 2);
     }
 
-    gSpecialVar_ItemId = sTreasureItems[random + offset];
+    item = random + offset;
+    gSpecialVar_ItemId = sTreasureItems[item];
 }
 
 static void SetFishingSpeciesBehavior(u8 spriteId, u16 species)
@@ -1204,6 +1206,7 @@ static void Task_QuitFishing(u8 taskId)
     RunTextPrinters();
     if (!gPaletteFade.active) // If the screen has fully faded to black.
     {
+        gFieldCallback2 = NULL;
         if (!taskData.tSeparateScreen)
         {
             taskData.data[8] = TRUE; // Don't show any more text boxes.
@@ -1823,6 +1826,8 @@ static void SpriteCB_Treasure(struct Sprite *sprite)
         case TREASURE_SPAWNED:
             if (sprite->sTreasureScore >= TREASURE_TIME_GOAL) // If the treasure score goal has been achieved.
             {
+                if (sprite->sTreasureCounter == 0)
+                    gFieldCallback2 = FieldCB_ReturnToFieldFishTreasure;
                 sprite->sTreasureCounter++;
 
                 if (sprite->sTreasureCounter >= 2)
@@ -1920,7 +1925,6 @@ static void CB2_FishingBattleStart(void)
         if (gTasks[FindTaskIdByFunc(Task_ReeledInFish)].tSeparateScreen == FALSE)
             ResetPlayerAvatar(gTasks[FindTaskIdByFunc(Task_ReeledInFish)].tPlayerGFXId);
         gMain.savedCallback = CB2_ReturnToField;
-        gFieldCallback2 = FieldCB_ReturnToFieldFishTreasure;
         FreeAllWindowBuffers();
         ResetTasks();
         SetMainCallback2(CB2_InitBattle); // Start the battle.
@@ -1988,7 +1992,7 @@ void Task_DoReturnToFieldFishTreasure(u8 taskId)
                     TreasureSpriteId = spriteId;
                     taskData.tFrameCounter = 1;
 
-                    TaskState++;
+                    TaskState = FISHTASK_OPEN_TREASURE_CHEST;
                     break;
                 }
             }
@@ -2003,7 +2007,7 @@ void Task_DoReturnToFieldFishTreasure(u8 taskId)
                 if (TreasureSpriteId != MAX_SPRITES)
                     StartSpriteAnim(&TreasureSprite, ANIM_TREASURE_OPEN);
 
-                TaskState++;
+                TaskState = FISHTASK_CREATE_ITEM_SPRITE;
             }
             break;
         case FISHTASK_CREATE_ITEM_SPRITE:
@@ -2021,7 +2025,7 @@ void Task_DoReturnToFieldFishTreasure(u8 taskId)
                 AddTextPrinterParameterized(0, FONT_NORMAL, gStringVar4, 0, 1, 1, NULL);
                 
                 
-                TaskState++;
+                TaskState = FISHTASK_ITEM_GROW;
             }
             break;
         case FISHTASK_ITEM_GROW:
@@ -2030,7 +2034,7 @@ void Task_DoReturnToFieldFishTreasure(u8 taskId)
             if (ItemSprite.affineAnimEnded)
             {
                 taskData.tFrameCounter = 1;
-                TaskState++;
+                TaskState = FISHTASK_WAIT_FANFARE;
                 break;
             }
             if (taskData.tFrameCounter % 4 == 0)
@@ -2047,7 +2051,7 @@ void Task_DoReturnToFieldFishTreasure(u8 taskId)
             RunTextPrinters();
 
             if (IsFanfareTaskInactive())
-                TaskState++;
+                TaskState = FISHTASK_OBTAIN_ITEM;
             break;
         case FISHTASK_OBTAIN_ITEM:
             if (JOY_NEW(A_BUTTON) || JOY_NEW(B_BUTTON))
@@ -2082,14 +2086,14 @@ void Task_DoReturnToFieldFishTreasure(u8 taskId)
                         break;
                 }
                 
-                TaskState++;
+                TaskState = FISHTASK_DESTROY_TREASURE_SPRITE;
             }
             break;
         case FISHTASK_DESTROY_TREASURE_SPRITE:
             if (TreasureSpriteId != MAX_SPRITES)
                 DestroySpriteAndFreeResources(&TreasureSprite);
                 
-            TaskState++;
+            TaskState = FISHTASK_STOP_FIELD_MOVE_ANIM;
             break;
         case FISHTASK_STOP_FIELD_MOVE_ANIM:
                 ObjectEventSetGraphicsId(&gObjectEvents[gPlayerAvatar.objectEventId], taskData.tPlayerGFXId);
@@ -2102,7 +2106,7 @@ void Task_DoReturnToFieldFishTreasure(u8 taskId)
                 AddTextPrinterParameterized(0, FONT_NORMAL, gStringVar4, 0, 1, 1, NULL);
                 StartSpriteAffineAnim(&ItemSprite, ANIM_TREASURE_SHRINK);
                 
-                TaskState++;
+                TaskState = FISHTASK_ITEM_SHRINK;
             break;
         case FISHTASK_ITEM_SHRINK:
             RunTextPrinters();
@@ -2111,7 +2115,7 @@ void Task_DoReturnToFieldFishTreasure(u8 taskId)
             {
                 DestroySpriteAndFreeResources(&ItemSprite);
                 taskData.tFrameCounter = 1;
-                TaskState++;
+                TaskState = FISHTASK_WAIT_FINAL_INPUT;
                 break;
             }
             if (taskData.tFrameCounter % 2 == 0)
@@ -2119,6 +2123,7 @@ void Task_DoReturnToFieldFishTreasure(u8 taskId)
                 ItemSprite.x++;
             }
             ItemSprite.y += 2;
+
             taskData.tFrameCounter++;
             break;
         case FISHTASK_WAIT_FINAL_INPUT:
@@ -2126,7 +2131,7 @@ void Task_DoReturnToFieldFishTreasure(u8 taskId)
             if (JOY_NEW(A_BUTTON) || JOY_NEW(B_BUTTON))
             {
                 PlaySE(SE_SELECT);
-                TaskState++;
+                TaskState = FISHTASK_END_TASK;
             }
             break;
         case FISHTASK_END_TASK:

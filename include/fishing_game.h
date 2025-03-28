@@ -19,7 +19,7 @@
 #define FISHING_BAR_BOUNCINESS          1.3  // The greater the number, the less the bar will bounce when it hits the left side. (Decimals are encouraged, as a little goes a long way.)
 #define BAR_SPEED_SLOWING               2.0  // The greater the value, the slower the bar changes speed. (Decimals are encouraged, as a little goes a long way.) (Can affect the max speed.)
 
-#define STARTING_SCORE                  1900  // The number of points you already have when the game starts.
+#define STARTING_SCORE                  300  // The number of points you already have when the game starts.
 #define SCORE_INCREASE                  3    // The score increases by this many point every frame while the fish is within the bar.
 #define SCORE_DECREASE                  5    // The score decreases by this many point every frame while the fish is outside the bar.
 #define SCORE_MAX                       1920 // The number of points required to win. Must be divisible by SCORE_AREA_WIDTH.
@@ -28,13 +28,14 @@
 #define FISH_ICON_HITBOX_WIDTH          12   // Width of the fish's hitbox in number of pixels.
 #define FISH_SPEED_MULTIPLIER           100  // Global fish speed multiplier. It is a percent, so 50 would be half speed and 200 would be double speed.
 
-#define RANDOM_TREASURE_CHANCE          90   // Percent chance a random treasure will spawn.
-#define TREASURE_ITEM_POOL_SIZE         14   // Number of different items allowed in each minigame's treasure pool.
+#define RANDOM_TREASURE_CHANCE          30   // Percent chance a random treasure will spawn.
+#define TREASURE_ITEM_POOL_SIZE         14   // Number of different items allowed in the treasure pool.
 #define FISH_VAR_ITEM_RARITY            0    // Replace 0 with an unused Var to use it to change the rarity of the treasure item pool via scripts.
                                              // Otherwise, the rarity will be determined by the type of rod used.
                                              // This is an offset value for the table in fishing_game_treasures.h.
                                              // Eg: If the Var is set to 2, the item pool will start AFTER the second item in the table.
                                              // The value of this Var should always be less than the number of items in the table (or the item will always be Tiny Mushroom).
+
 #define TREASURE_ITEM_COMMON_WEIGHT     50   // The percent chance the treasure item will be restricted to the lower(more common) half of the current pool.
 
 
