@@ -136,8 +136,7 @@ enum {
     TREASURE_GROWING,
     TREASURE_SPAWNED,
     TREASURE_GOT,
-    TREASURE_OPEN,
-    TREASURE_ITEM,
+    TREASURE_END
 };
 
 // Post-battle treasure task states

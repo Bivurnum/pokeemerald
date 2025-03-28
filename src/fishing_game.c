@@ -994,6 +994,8 @@ static void CreateTreasureSprite(u8 taskId)
     spriteId = CreateSprite(&sSpriteTemplate_Treasure, FISH_ICON_START_X, y, 2);
     spriteData.invisible = TRUE;
     spriteData.sTaskId = taskId;
+    if (taskData.tSeparateScreen)
+        spriteData.oam.priority = 1;
     spriteData.sTreasScoreFrame = 0;
     spriteData.sTreasureState = TREASURE_NOT_SPAWNED;
     spriteData.sTreasureStartTime = (TREASURE_SPAWN_MIN + (Random() % ((TREASURE_SPAWN_MAX - TREASURE_SPAWN_MIN) + 1)));
@@ -1896,20 +1898,12 @@ static void SpriteCB_Treasure(struct Sprite *sprite)
                 sprite->x = TREASURE_DEST_X;
                 sprite->invisible = FALSE;
                 StartSpriteAffineAnim(sprite, ANIM_TREASURE_GROW_FAST);
-                sprite->sTreasureState = TREASURE_OPEN;
+                sprite->sTreasureState = TREASURE_END;
             }
             break;
-        case TREASURE_OPEN:
+        case TREASURE_END:
             if (sprite->affineAnimEnded)
-            {
-                //StartSpriteAnim(sprite, ANIM_TREASURE_OPEN);
-                sprite->sTreasureState = TREASURE_ITEM;
-            }
-            break;
-        case TREASURE_ITEM:
-            // Shrink and destroy treasure chest.
-
-                
+                sprite->callback = SpriteCB_Other;
             break;
     }
 
