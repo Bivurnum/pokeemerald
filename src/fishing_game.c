@@ -694,6 +694,7 @@ static void VblankCB_FishingGame(void)
 #define sScoreThird         data[4]
 #define sTextCooldown       data[5]
 #define sPerfectCatch       data[6]
+#define sTreasurePause      data[7]
 
 // Data for Perfect sprite
 #define sPerfectFrameCount  data[1]
@@ -1345,7 +1346,9 @@ static void HandleScore(u8 taskId)
     }
     else // If the fish hitbox is outside the fishing bar.
     {
-        taskData.tScore -= SCORE_DECREASE; // Decrease the score.
+        if (gSprites[taskData.tScoreMeterSpriteId].sTreasurePause == FALSE)
+            taskData.tScore -= SCORE_DECREASE; // Decrease the score.
+
         gSprites[taskData.tScoreMeterSpriteId].sPerfectCatch = FALSE; // Can no longer achieve a perfect catch.
 
         if (taskData.tScoreDirection == FISH_DIR_RIGHT) // Only on the frame when the fish exits the fishing bar area.
@@ -1851,6 +1854,7 @@ static void SpriteCB_Treasure(struct Sprite *sprite)
             {
                 if (sprite->sTreasureCounter == 0)
                     gFieldCallback2 = FieldCB_ReturnToFieldFishTreasure;
+                gSprites[gTasks[sprite->sTaskId].tScoreMeterSpriteId].sTreasurePause = FALSE;
                 sprite->sTreasureCounter++;
 
                 if (sprite->sTreasureCounter >= 2)
@@ -1876,6 +1880,9 @@ static void SpriteCB_Treasure(struct Sprite *sprite)
 
             if (treasureHBLeftEdge <= barRightEdge && treasureHBRightEdge >= barLeftEdge) // If the treasure hitbox is within the fishing bar.
             {
+                if (DEFAULT_TREASURE_SCORE_PAUSE || (FG_FLAG_TREASURE_SCORE_PAUSE && FlagGet(FG_FLAG_TREASURE_SCORE_PAUSE)))
+                    gSprites[gTasks[sprite->sTaskId].tScoreMeterSpriteId].sTreasurePause = TRUE;
+
                 sprite->sTreasureScore++; // Increase the treasure score.
                 if (sprite->sTreasureScore % (TREASURE_TIME_GOAL / TREASURE_INCREMENT) == 1)
                 {
@@ -1883,13 +1890,17 @@ static void SpriteCB_Treasure(struct Sprite *sprite)
                     StartSpriteAnim(sprite, sprite->sTreasScoreFrame);
                 }
             }
-            else if (sprite->sTreasureScore > 0) // If the treasure hitbox is outside the fishing bar and the treasure score is greater than 0.
+            else // If the treasure hitbox is outside the fishing bar.
             {
-                sprite->sTreasureScore--; // Decrease the treasure score.
-                if (sprite->sTreasureScore == 0 || sprite->sTreasureScore % (TREASURE_TIME_GOAL / TREASURE_INCREMENT) == 0)
+                gSprites[gTasks[sprite->sTaskId].tScoreMeterSpriteId].sTreasurePause = FALSE;
+                if (sprite->sTreasureScore > 0) // If the treasure score is greater than 0.
                 {
-                    sprite->sTreasScoreFrame--;
-                    StartSpriteAnim(sprite, sprite->sTreasScoreFrame);
+                    sprite->sTreasureScore--; // Decrease the treasure score.
+                    if (sprite->sTreasureScore == 0 || sprite->sTreasureScore % (TREASURE_TIME_GOAL / TREASURE_INCREMENT) == 0)
+                    {
+                        sprite->sTreasScoreFrame--;
+                        StartSpriteAnim(sprite, sprite->sTreasScoreFrame);
+                    }
                 }
             }
             break;
