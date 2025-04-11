@@ -25,6 +25,7 @@
 #include "task.h"
 #include "tv.h"
 #include "wild_encounter.h"
+#include "config/fishing_game.h"
 #include "constants/abilities.h"
 #include "constants/event_objects.h"
 #include "constants/event_object_movement.h"
@@ -1778,7 +1779,7 @@ static bool8 Fishing_InitDots(struct Task *task)
     u32 randVal;
 
     LoadMessageBoxAndFrameGfx(0, TRUE);
-    if (FISH_MINIGAME_ENABLED && DO_DOTS_GAME_BEFORE_MAIN_GAME == FALSE)
+    if (FG_FISH_MINIGAME_ENABLED && FG_DO_DOTS_GAME_BEFORE_MAIN_GAME == FALSE)
     {
         StartSpriteAnim(&gSprites[gPlayerAvatar.spriteId], GetFishingBiteDirectionAnimNum(GetPlayerFacingDirection()));
         task->tStep = FISHING_ON_HOOK;
@@ -1864,7 +1865,7 @@ static bool8 Fishing_CheckForBite(struct Task *task)
                 bite = TRUE;
         }
 
-        if (FISH_MINIGAME_ENABLED)
+        if (FG_FISH_MINIGAME_ENABLED)
         {
             bite = TRUE;
             task->tStep = FISHING_GOT_BITE;
@@ -1898,7 +1899,7 @@ static bool8 Fishing_WaitForA(struct Task *task)
     task->tFrameCounter++;
     if (task->tFrameCounter >= reelTimeouts[task->tFishingRod])
     {
-        if (FISH_MINIGAME_ENABLED && PREVENT_FAILURE_IN_DOTS_GAME)
+        if (FG_FISH_MINIGAME_ENABLED && FG_PREVENT_FAILURE_IN_DOTS_GAME)
             task->tStep = FISHING_ON_HOOK;
         else
             task->tStep = FISHING_GOT_AWAY;
@@ -1906,7 +1907,7 @@ static bool8 Fishing_WaitForA(struct Task *task)
     else if (JOY_NEW(A_BUTTON))
     {
         task->tStep++;
-        if (FISH_MINIGAME_ENABLED && PREVENT_FAILURE_IN_DOTS_GAME)
+        if (FG_FISH_MINIGAME_ENABLED && FG_PREVENT_FAILURE_IN_DOTS_GAME)
             task->tStep = FISHING_ON_HOOK;
     }
     return FALSE;
@@ -1960,11 +1961,11 @@ static bool8 Fishing_StartEncounter(struct Task *task)
     {
         if (!IsTextPrinterActive(0))
         {
-            if (FISH_MINIGAME_ENABLED && MINIGAME_ON_SEPARATE_SCREEN)
+            if (FG_FISH_MINIGAME_ENABLED && FG_MINIGAME_ON_SEPARATE_SCREEN)
             {
                 ClearDialogWindowAndFrame(0, TRUE);
             }
-            else if (FISH_MINIGAME_ENABLED == FALSE)
+            else if (FG_FISH_MINIGAME_ENABLED == FALSE)
             {
                 struct ObjectEvent *playerObjEvent = &gObjectEvents[gPlayerAvatar.objectEventId];
 
@@ -1984,9 +1985,9 @@ static bool8 Fishing_StartEncounter(struct Task *task)
     if (task->tFrameCounter != 0)
     {
         FishingWildEncounter(task->tFishingRod);
-        if (FISH_MINIGAME_ENABLED && MINIGAME_ON_SEPARATE_SCREEN)
+        if (FG_FISH_MINIGAME_ENABLED && FG_MINIGAME_ON_SEPARATE_SCREEN)
             BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, RGB_BLACK);
-        else if (FISH_MINIGAME_ENABLED == FALSE)
+        else if (FG_FISH_MINIGAME_ENABLED == FALSE)
         {
             gPlayerAvatar.preventStep = FALSE;
             UnlockPlayerFieldControls();
@@ -2002,7 +2003,7 @@ static bool8 Fishing_StartEncounter(struct Task *task)
 
 static bool8 Fishing_StartMinigame(struct Task *task)
 {
-    if (MINIGAME_ON_SEPARATE_SCREEN && !gPaletteFade.active)
+    if (FG_MINIGAME_ON_SEPARATE_SCREEN && !gPaletteFade.active)
     {
         if (task->tFrameCounter == 0)
         {
@@ -2018,7 +2019,7 @@ static bool8 Fishing_StartMinigame(struct Task *task)
             task->tFrameCounter++;
         }
     }
-    else if (MINIGAME_ON_SEPARATE_SCREEN == FALSE)
+    else if (FG_MINIGAME_ON_SEPARATE_SCREEN == FALSE)
     {
         task->data[0] = 0;
         task->data[1] = 0;
