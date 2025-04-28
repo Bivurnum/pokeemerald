@@ -26,28 +26,36 @@ EventScript_BufferPocketNameAndTryFanfare::
 
 EventScript_BufferItemsPocket::
 	bufferstdstring STR_VAR_3, STDSTRING_ITEMS
-	call_if_eq VAR_0x8007, TRUE, EventScript_PlayFanfareObtainedItem
+	call_if_eq VAR_0x8007, TRUE, EventScript_TryItemFanfare
 	return
 
 EventScript_BufferKeyItemsPocket::
 	bufferstdstring STR_VAR_3, STDSTRING_KEYITEMS
-	call_if_eq VAR_0x8007, TRUE, EventScript_PlayFanfareObtainedItem
+	call_if_eq VAR_0x8007, TRUE, EventScript_TryItemFanfare
 	return
 
 EventScript_BufferPokeballsPocket::
 	bufferstdstring STR_VAR_3, STDSTRING_POKEBALLS
-	call_if_eq VAR_0x8007, TRUE, EventScript_PlayFanfareObtainedItem
+	call_if_eq VAR_0x8007, TRUE, EventScript_TryItemFanfare
 	return
 
 EventScript_BufferTMHMsPocket::
 	bufferstdstring STR_VAR_3, STDSTRING_TMHMS
-	call_if_eq VAR_0x8007, TRUE, EventScript_PlayFanfareObtainedTMHM
+	call_if_eq VAR_0x8007, TRUE, EventScript_TryTMHMFanfare
 	return
 
 EventScript_BufferBerriesPocket::
 	bufferstdstring STR_VAR_3, STDSTRING_BERRIES
-	call_if_eq VAR_0x8007, TRUE, EventScript_PlayFanfareObtainedItem
+	call_if_eq VAR_0x8007, TRUE, EventScript_TryItemFanfare
 	return
+
+EventScript_TryItemFanfare::
+    call_if_eq VAR_0x8001, FALSE, EventScript_PlayFanfareObtainedItem
+    return
+
+EventScript_TryTMHMFanfare::
+    call_if_eq VAR_0x8001, FALSE, EventScript_PlayFanfareObtainedTMHM
+    return
 
 EventScript_ObtainedItem::
 	message gText_ObtainedTheItem
@@ -101,6 +109,8 @@ Std_FindItem::
 	checkitemspace ITEMID, AMOUNT
 	copyvar VAR_0x8007, VAR_RESULT
 	bufferitemnameplural STR_VAR_2, ITEMID, AMOUNT
+	checkitemballanim
+	copyvar VAR_0x8001, VAR_RESULT
 	checkitemtype ITEMID
 	call EventScript_BufferPocketNameAndTryFanfare
 	call_if_eq VAR_0x8007, TRUE, EventScript_PickUpItem
@@ -108,15 +118,20 @@ Std_FindItem::
 	release
 	return
 
+EventScript_DelayFanfareForBallAnim::
+	return
+
 EventScript_PickUpItem::
 	removeobject VAR_LAST_TALKED
 	additem VAR_0x8004, VAR_0x8005
 	specialvar VAR_RESULT, BufferTMHMMoveName
 	copyvar VAR_0x8008, VAR_RESULT
+    call_if_eq VAR_0x8001, TRUE, EventScript_StartItemBallAnim
 	call_if_eq VAR_0x8008, TRUE, EventScript_FoundTMHM
 	call_if_eq VAR_0x8008, FALSE, EventScript_FoundItem
 	waitfanfare
 	waitmessage
+    call_if_eq VAR_0x8001, TRUE, EventScript_ResumeItemBallAnim
 	bufferitemnameplural STR_VAR_2, VAR_0x8004, VAR_0x8005
 	pyramid_inchallenge
 	goto_if_eq VAR_RESULT, TRUE, EventScript_PutBattlePyramidItemInBag
@@ -129,11 +144,29 @@ EventScript_PutBattlePyramidItemInBag::
 
 EventScript_FoundTMHM::
 	bufferitemnameplural STR_VAR_1, VAR_0x8004, VAR_0x8005
-	message gText_PlayerFoundOneTMHM
+    call_if_eq VAR_0x8001, FALSE, EventScript_FoundTMHMMessage
+    call_if_eq VAR_0x8001, TRUE, EventScript_FoundTMHMMsgbox
 	return
+    
+EventScript_FoundTMHMMessage::
+	message gText_PlayerFoundOneTMHM
+    return
+    
+EventScript_FoundTMHMMsgbox::
+	msgbox gText_PlayerFoundOneTMHM, MSGBOX_DEFAULT
+    return
 
 EventScript_FoundItem::
+    call_if_eq VAR_0x8001, FALSE, EventScript_FoundItemMessage
+    call_if_eq VAR_0x8001, TRUE, EventScript_FoundItemMsgbox
+	return
+
+EventScript_FoundItemMessage::
 	message gText_PlayerFoundOneItem
+	return
+
+EventScript_FoundItemMsgbox::
+	msgbox gText_PlayerFoundOneItem, MSGBOX_DEFAULT
 	return
 
 EventScript_NoRoomToPickUpItem::
@@ -141,6 +174,14 @@ EventScript_NoRoomToPickUpItem::
 	msgbox gText_TooBadBagIsFull, MSGBOX_DEFAULT
 	setvar VAR_RESULT, FALSE
 	return
+
+EventScript_StartItemBallAnim::
+    startitemballanim
+    return
+
+EventScript_ResumeItemBallAnim::
+    resumeitemballanim
+    return
 
 EventScript_HiddenItemScript::
 	lockall

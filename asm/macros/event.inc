@@ -1912,6 +1912,23 @@
 	setorcopyvar VAR_0x8001, \amount
 	callstd STD_FIND_ITEM
 	.endm
+    
+    @ Checks if should use animation for item ball.
+    .macro checkitemballanim
+    callnative CheckItemBallAnim
+    .endm
+
+    @ Starts the animation task for the item ball.
+    .macro startitemballanim
+    callnative DoItemBallAnim
+    waitstate
+    .endm
+
+    @ Resumes the current item ball anim task.
+    .macro resumeitemballanim
+    callnative ResumeItemBallAnim
+    waitstate
+    .endm
 
 	@ Equivalent to giveitem but for a single decoration.
 	.macro givedecoration decoration:req
