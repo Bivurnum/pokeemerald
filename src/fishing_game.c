@@ -857,8 +857,6 @@ static void CreateMinigameSprites(u8 taskId)
     u8 iconPalSlot = LoadMonIconPaletteGetIndex(species);
 
     taskData.tGameStateBits |= FG_PAUSED; // Pause the sprite animations/movements until the game starts.
-    taskData.tScore = STARTING_SCORE; // Set the starting score.
-    taskData.tScoreDirection = FISH_DIR_RIGHT;
 
     // Create fishing bar sprites.
     y = FISHING_BAR_Y;
@@ -945,6 +943,8 @@ static void CreateMinigameSprites(u8 taskId)
     taskData.tFishIconSpriteId = spriteId;
 
     // Create score meter sprite.
+    taskData.tScore = ApplyAbilityEffect(STARTING_SCORE, FG_EFFECT_SCORE_START, taskId); // Set the starting score.
+    taskData.tScoreDirection = FISH_DIR_RIGHT;
     y = SCORE_SECTION_Y;
     if (taskData.tGameStateBits & FG_SEPARATE_SCREEN)
         y += SEPARATE_SCREEN_MODIFIER;
@@ -953,7 +953,7 @@ static void CreateMinigameSprites(u8 taskId)
     spriteData.sTaskId = taskId;
     if (!(taskData.tGameStateBits & FG_SEPARATE_SCREEN))
         spriteData.oam.priority--;
-    spriteData.sScorePosition = (STARTING_SCORE / SCORE_INTERVAL);
+    spriteData.sScorePosition = (taskData.tScore / SCORE_INTERVAL);
     spriteData.sScoreThird = (spriteData.sScorePosition / SCORE_THIRD_SIZE);
     spriteData.sCurrColorInterval = CalculateInitialScoreMeterInterval();
     spriteData.sPerfectCatch = TRUE; // Allow a perfect catch.
@@ -1027,11 +1027,7 @@ static void SetAbilityEffectData(u16 ability, u8 spriteId)
     u32 i;
     u32 effectsCount = 0;
 
-    spriteData.sEffect1 = 0;
-    spriteData.sEffect2 = 0;
-    spriteData.sEffect3 = 0;
-
-    for (i = 0; i < ARRAY_COUNT(sAbilityEffects); i++)
+    for (i = 1; i < ARRAY_COUNT(sAbilityEffects); i++)
     {
         if (effectsCount >= 3)
             return;
@@ -1368,6 +1364,8 @@ static void UpdateHelpfulTextLower(u8 taskId)
         scoreMeterData.sTextCooldown = 60; // Reset the text cooldown counter.
 }
 
+static u16 ApplyAbilityEffect(u16 value, u16 effectType, u8 taskId)
+{
     u32 i;
     u32 doEffect = FALSE;
     u32 newValue = value;
@@ -1383,7 +1381,6 @@ static void UpdateHelpfulTextLower(u8 taskId)
         switch (sAbilityEffects[effectArrayNum].happensWhen)
         {
         case FG_HAPPENS_ALWAYS:
-        case FG_HAPPENS_ON_START:
             doEffect = TRUE;
             break;
         case FG_HAPPENS_WHEN_FISH_INSIDE_BAR:
@@ -1451,7 +1448,7 @@ static void HandleScore(u8 taskId)
 {
     if (FishIsInsideBar(taskId)) // If the fish hitbox is within the fishing bar.
     {
-        taskData.tScore += SCORE_INCREASE; // Increase the score.
+        taskData.tScore += ApplyAbilityEffect(SCORE_INCREASE, FG_EFFECT_SCORE_INCREASE, taskId); // Increase the score.
 
         if (taskData.tScoreDirection == FISH_DIR_LEFT) // Only on the frame when the fish enters the fishing bar area.
         {
@@ -1469,7 +1466,7 @@ static void HandleScore(u8 taskId)
     else // If the fish hitbox is outside the fishing bar.
     {
         if (gSprites[taskData.tScoreMeterSpriteId].sTreasurePause == FALSE)
-            taskData.tScore -= SCORE_DECREASE; // Decrease the score.
+            taskData.tScore -= ApplyAbilityEffect(SCORE_DECREASE, FG_EFFECT_SCORE_DECREASE, taskId); // Decrease the score.
 
         gSprites[taskData.tScoreMeterSpriteId].sPerfectCatch = FALSE; // Can no longer achieve a perfect catch.
 
@@ -1675,6 +1672,7 @@ static void SetMonIconPosition(u8 taskId)
             // Set time until next movement.
             rand = (Random() % ((sBehavior.delay.max - sBehavior.delay.min) + 1));
             sFishIconData.sTimeToNextMove = sBehavior.delay.min + rand;
+            sFishIconData.sTimeToNextMove = ApplyAbilityEffect(sFishIconData.sTimeToNextMove, FG_EFFECT_FISH_MOVE_DELAY, taskId);
             if (sFishIconData.sTimeToNextMove < 1)
                 sFishIconData.sTimeToNextMove = 1;
 
@@ -1692,6 +1690,7 @@ static void SetMonIconPosition(u8 taskId)
             if (distance < 1)
                 distance = 1;
             distance *= POSITION_ADJUSTMENT;
+            distance = ApplyAbilityEffect(distance, FG_EFFECT_FISH_MOVE_DISTANCE, taskId);
             if (sFishIconData.sFishStateBits & FG_DIR_RIGHT)
             {
                 sFishIconData.sFishDestination = (sFishIconData.sFishPosition + distance);
